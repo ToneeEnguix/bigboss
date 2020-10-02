@@ -3,7 +3,73 @@
   padding:0;
   box-sizing: border-box;
   background-color: rgb(37 37 37);
-  color:rgb(255 255 255)
+  color:rgb(255 255 255);
+  font-family: 'Montserrat', sans-serif;
   
   }
+
+  a{
+
+    text-decoration:none
+  }
+
+  h1{
+
+    font-size:1.5rem;
+    font-weight:600;
+    background-color:transparent;
+    letter-spacing:0.5rem
+
+  }
+
+  h3{
+
+    font-size:1rem;
+    font-weight:600;
+    letter-spacing:0.3rem;
+    background-color:transparent;
+  }
+
+
+  h4{
+
+    font-size:0.7rem;
+    font-weight:600;
+    background-color:transparent;
+  }
+
+p{
+
+  font-size:0.8rem;
+  font-weight:600;
+  letter-spacing:0.1rem;
+  background-color:transparent;
+
+}
+
+
+.button01{
+
+  background-color:#252525;
+  color:#FFFFFF;
+  border:none;
+  padding:1rem 4rem;
+  font-weight:600;
+ box-shadow: 10px 10px 5px 0px rgba(0,0,0,16%);
+
+
+}
+
+.button02{
+
+  background-color:#00C6D6;
+  color:rgb(37,37,37);
+  border:none;
+  padding:1rem 4rem;
+  font-weight:600;
+ box-shadow: 10px 10px 5px 0px rgba(0,0,0,16%);
+ cursor:pointer;
+
+
+}
   

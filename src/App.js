@@ -23,6 +23,10 @@ import UserDashboard from "./views/UserDashboard";
 import Winners from "./views/Winners.js";
 
 import NavBar from "./components/NavBar";
+import NextDraw from "./components/NextDraw";
+
+import FooterAds from "./components/FooterAds";
+import FooterLinks from "./components/FooterLinks";
 
 import './App.css';
 
@@ -35,7 +39,7 @@ class App extends React.Component {
 
     const abort = new AbortController();
     const signal = abort.signal
-    this.state = { user: {} }
+    this.state = { user: {id:undefined, usename:undefined,cart:[]} }
   }
 
   render() {
@@ -45,7 +49,11 @@ class App extends React.Component {
       <UserContext.Provider value={this.state}>
         <Router>
           <ScrollToTop />
+          <header>
+            <NextDraw/>
           <NavBar/>
+          </header>
+          <section>
           <Switch>
             <PublicRoute restricted={false} component={Home} path="/home" />
             <PublicRoute restricted={false} component={Competitions} path="/competitions" />
@@ -63,6 +71,11 @@ class App extends React.Component {
               <Redirect to="/home" />
             </Route>
           </Switch>
+          </section>
+          <footer>
+            <FooterLinks/>
+            <FooterAds/>
+          </footer>
         </Router>
       </UserContext.Provider>
     );
