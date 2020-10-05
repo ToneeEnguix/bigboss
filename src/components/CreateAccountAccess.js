@@ -68,7 +68,7 @@ function CreateAccountAccess() {
 
         <div css={{ display: "inline-block" }}>
           <p css={{ display: "inline-block" }}>ACCEPT &nbsp;</p>
-          <Link css={terms}>TERMS AND CONDITIONS</Link>
+          <Link to="/terms" css={terms}>TERMS AND CONDITIONS</Link>
         </div>
         <input onClick={() => { setRadio(!radio) }} type="checkbox" checked={radio} />
 

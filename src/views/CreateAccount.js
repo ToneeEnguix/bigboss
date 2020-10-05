@@ -1,12 +1,19 @@
 import React from 'react';
+import CreateAccountForm from "../components/CreateAccountForm";
+/** @jsx jsx */
+import { jsx } from '@emotion/core';
 
 
+const createAccountWrapper={
+  display:"flex",
+  justifyContent:"center"
+}
 function CreateAccount() {
   return (
-    <React.Fragment>
-    CreateAccount
+    <div css={createAccountWrapper}>
+    <CreateAccountForm/>
 
-    </React.Fragment>
+    </div>
   );
 }
 

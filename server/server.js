@@ -9,7 +9,7 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: true}));
 
 
-mongoose.connect('mongodb://127.0.0.1/bigboss',{ useUnifiedTopology: true,useNewUrlParser: true, } ,() => {
+mongoose.connect('mongodb://127.0.0.1/bigBoss',{ useUnifiedTopology: true,useNewUrlParser: true, } ,() => {
     console.log('connected to mongodb');
 })
 mongoose.set('useFindAndModify', false);

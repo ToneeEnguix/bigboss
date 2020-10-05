@@ -21,6 +21,8 @@ import Home from "./views/Home";
 import Log from "./views/Log";
 import UserDashboard from "./views/UserDashboard";
 import Winners from "./views/Winners.js";
+import Terms from "./views/Terms.js";
+import ErrorPage from "./views/Error.js"
 
 import NavBar from "./components/NavBar";
 import NextDraw from "./components/NextDraw";
@@ -63,6 +65,8 @@ class App extends React.Component {
             <PublicRoute restricted={false} component={Log} path="/log" />
             <PublicRoute restricted={false} component={CreateAccount} path="/createaccount" />
             <PublicRoute restricted={false} component={Draws} path="/draws" />
+            <PublicRoute restricted={false} component={Terms} path="/terms" />
+            <PublicRoute restricted={false} component={ErrorPage} path="/error" />
             <PublicRoute restricted={false} component={Entries} path="/entries" />
             <PublicRoute restricted={false} component={Basket} path="/basket" />
             <PublicRoute restricted={false} component={UserDashboard} path="/userdashboard" />

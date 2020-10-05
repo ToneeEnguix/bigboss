@@ -8,6 +8,15 @@
   
   }
 
+  body{
+
+    max-width:1800px;
+    margin-left:auto;
+    margin-right:auto;
+  }
+
+
+
   a{
 
     text-decoration:none
@@ -54,7 +63,9 @@ p{
   color:#FFFFFF;
   border:none;
   padding:1rem 4rem;
+  outline:none;
   font-weight:600;
+  cursor:pointer;
  box-shadow: 10px 10px 5px 0px rgba(0,0,0,16%);
 
 
@@ -65,11 +76,61 @@ p{
   background-color:#00C6D6;
   color:rgb(37,37,37);
   border:none;
+  outline:none;
   padding:1rem 4rem;
   font-weight:600;
  box-shadow: 10px 10px 5px 0px rgba(0,0,0,16%);
  cursor:pointer;
 
+}
+
+.roundButton{
+  border-radius:50%;
+   background-color:#252525; 
+  color:#FFFFFF;
+  border:none;
+  width:4rem;
+  height:4rem;
+  margin:1rem;
+  outline:none;
+  font-weight:600;
+  cursor:pointer;
+  font-size:1.6rem;
+
+ box-shadow: 10px 10px 5px 0px rgba(0,0,0,16%);
+}
+
+.roundButtonBlue{
+  border-radius:50%;
+  background-color:#00C6D6;
+  color:#252525;
+  border:none;
+width:4rem;
+height:4rem;
+  margin:1rem;
+  outline:none;
+  font-weight:600;
+  cursor:pointer;
+  font-size:1.6rem;
+
+ box-shadow: 10px 10px 5px 0px rgba(0,0,0,16%);
+}
+
+.inputAmount{
+  width:4rem;
+  height:4rem;
+  background-color:#252525; 
+  color:#FFFFFF;
+text-align: center;
+  border:none;
+  margin:1rem;
+  outline:none;
+  font-weight:600;
+  cursor:pointer;
+  font-size:1.6rem;
+  letter-spacing:0.3rem;
+
 
 }
+  
   

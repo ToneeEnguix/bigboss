@@ -35,7 +35,7 @@ export default class StyledInput extends React.Component {
                     color: "#999",
                     fontSize: "0.8rem",
                     padding: "0",
-                    width:"3rem",
+                    width:"fit-content",
                     zIndex: "1",
                     transition: "all 0.3s ease-out",
                     outline:"none",

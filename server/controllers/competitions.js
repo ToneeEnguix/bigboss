@@ -4,10 +4,7 @@ const competitions = require("../schemas/competitions.js");
 class CompetitionController {
 
 
-    async create (req, res) {
-
-       
-    
+    async create(req, res) {
 
         try {
 
@@ -22,10 +19,10 @@ class CompetitionController {
 
     }
 
-    async randomPicks (req, res) {
+    async randomPicks(req, res) {
 
-       
-    
+
+
 
         try {
 
@@ -40,10 +37,10 @@ class CompetitionController {
 
     }
 
-    async read (req, res) {
+    async read(req, res) {
 
-       
-    
+
+
 
         try {
 
@@ -58,10 +55,10 @@ class CompetitionController {
 
     }
 
-    async update (req, res) {
+    async update(req, res) {
 
-       
-    
+
+
 
         try {
 
@@ -76,10 +73,10 @@ class CompetitionController {
 
     }
 
-    async delete (req, res) {
+    async delete(req, res) {
 
-       
-    
+
+
 
         try {
 
@@ -94,19 +91,19 @@ class CompetitionController {
 
     }
 
-    async all (req, res) {
+    async all(req, res) {
 
-       
-    
 
         try {
+            const allCompetitions = await competitions.find({"dateFinishes": {"$gte": Date.now()}})
+          
 
-            res.status(200).send();
+            res.status(200).send(allCompetitions);
         }
 
         catch (error) {
 
-
+            console.log(error)
             res.status(500).send(error);
         }
 

@@ -10,9 +10,9 @@ const competitionSchema = new Schema({
     dateCreated: { type: Date, default: Date.now() },
     dateFinishes: { type: Date, required: true },
     maxTickets: { type: Number },
-    picture01: { type: String, required: true },
-    picture02: { type: String, required: true },
-    picture03: { type: String, required: true },
+    ticketsSold:{type:Number, default:0},
+    description:[{type:String}],
+    pictures: [{ type: String, required: true }],
 
 });
 

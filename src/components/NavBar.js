@@ -2,10 +2,10 @@
 import { jsx } from '@emotion/core';
 
 
-import React, { useContext } from 'react'
+import React, { useContext } from 'react';
 import { ReactComponent as BigBossLogo } from "../resources/BigBossLogo.svg";
 
-import UserContext from "../context/UserContext"
+import UserContext from "../context/UserContext";
 import { NavLink } from "react-router-dom";
 
 const flexContainer = {

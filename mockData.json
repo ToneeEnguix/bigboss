@@ -1,0 +1,86 @@
+[
+    {
+        "title": "MOCKI MOCK",
+        "ticketPrice": 20,
+        "dateFinishes": "2020-11-12T18:00:00",
+        "maxTickets": 1000,
+        "ticketsSold": 24,
+        "prize": "Car",
+        "description": [
+            "line01",
+            "line02",
+            "line03",
+            "line04",
+            "line05"
+        ],
+        "pictures": [
+            "https://picsum.photos/1200/800",
+            "https://picsum.photos/1200/800",
+            "https://picsum.photos/1200/800",
+            "https://picsum.photos/1200/800"
+        ]
+    },
+    {
+        "title": "MOCKI MOCK",
+        "ticketPrice": 20,
+        "dateFinishes": "2020-11-12T18:00:00",
+        "maxTickets": 1000,
+        "ticketsSold": 24,
+        "prize": "Car",
+        "description": [
+            "line01",
+            "line02",
+            "line03",
+            "line04",
+            "line05"
+        ],
+        "pictures": [
+            "https://picsum.photos/1200/800",
+            "https://picsum.photos/1200/800",
+            "https://picsum.photos/1200/800",
+            "https://picsum.photos/1200/800"
+        ]
+    },
+    {
+        "title": "MOCKI MOCK",
+        "ticketPrice": 20,
+        "dateFinishes": "2020-11-12T18:00:00",
+        "maxTickets": 1000,
+        "ticketsSold": 24,
+        "prize": "Car",
+        "description": [
+            "line01",
+            "line02",
+            "line03",
+            "line04",
+            "line05"
+        ],
+        "pictures": [
+            "https://picsum.photos/1200/800",
+            "https://picsum.photos/1200/800",
+            "https://picsum.photos/1200/800",
+            "https://picsum.photos/1200/800"
+        ]
+    },
+    {
+        "title": "MOCKI MOCK",
+        "ticketPrice": 20,
+        "dateFinishes": "2020-11-12T18:00:00",
+        "maxTickets": 1000,
+        "ticketsSold": 24,
+        "prize": "Car",
+        "description": [
+            "line01",
+            "line02",
+            "line03",
+            "line04",
+            "line05"
+        ],
+        "pictures": [
+            "https://picsum.photos/1200/800",
+            "https://picsum.photos/1200/800",
+            "https://picsum.photos/1200/800",
+            "https://picsum.photos/1200/800"
+        ]
+    }
+]
