@@ -55,7 +55,7 @@ export default class UserDashboardNav extends React.Component {
     render() {
 
         return (
-            <div  css={{borderRight:"1px solid #868686", width:"20%"}}>  
+            <div  css={{borderRight:"1px solid #868686", width:"20%", height:"50vh"}}>  
                 <nav css={style}>
                     <ul>
                         <li>

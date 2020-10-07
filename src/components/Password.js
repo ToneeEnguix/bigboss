@@ -48,26 +48,26 @@ const Password = () => {
   }
   return (
     <form onSubmit={submit}
-      css={{ marginLeft: "3rem", marginTop: "1rem", width: "25rem", display: "flex", flexDirection: "column" }}>
+      css={{ height:"50vh",marginLeft: "3rem", marginTop: "1rem", width: "25rem", display: "flex", flexDirection: "column" }}>
       <StyledInput
         innerName={"currentPass"}
         type={"password"}
         eye={true}
-        css={{ margin: "1rem 0" }}
+        css={{ margin: "0.75rem 0" }}
         width={"100%"}
         name={"CURRENT PASSWORD"} />
       <StyledInput
         innerName={"newPass"}
         type={"password"}
         eye={true}
-        css={{ margin: "1rem 0" }}
+        css={{ margin: "0.75rem 0" }}
         width={"100%"}
         name={"NEW PASSWORD"} />
       <StyledInput
         innerName={"confirmNewPass"}
         type={"password"}
         eye={true}
-        css={{ margin: "1rem 0" }}
+        css={{ margin: "0.75rem 0" }}
         width={"100%"}
         name={"CONFIRM PASSWORD"} />
       <button className="button01">SAVE NEW PASSWORD</button>

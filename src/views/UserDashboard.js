@@ -32,7 +32,7 @@ const UserDashboard = ({ match }) => {
         <div css={{ marginTop: "4rem" }}>
             <div css={{ marginLeft: "4rem" }}>
                 <h1 >ACCOUNT</h1>
-                <div css={{ display: "flex", marginTop:"2rem" }}>
+                <div css={{ display: "flex", marginTop:"1rem" }}>
                     <UserDashboardNav />
                     <Route path={`${match.path}/details`} component={Account} />
                     <Route path={`${match.path}/orders`} component={Orders} />
