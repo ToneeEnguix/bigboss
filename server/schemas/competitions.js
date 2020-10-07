@@ -13,6 +13,10 @@ const competitionSchema = new Schema({
     ticketsSold:{type:Number, default:0},
     description:[{type:String}],
     pictures: [{ type: String, required: true }],
+    winner:{type: Schema.Types.ObjectId, ref: 'user',default:null},
+    winnerPic:{type:String, default:undefined},
+    entriesURL:{type:String,default:undefined},
+    entriesDate:{type:Date, default:Date.now()}
 
 });
 

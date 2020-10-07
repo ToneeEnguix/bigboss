@@ -40,8 +40,18 @@ class App extends React.Component {
     super(props);
 
     const abort = new AbortController();
-    const signal = abort.signal
-    this.state = { user: {id:undefined, usename:undefined,cart:[]} }
+    const signal = abort.signal;
+    this.state = { 
+      user: {_id:true, fullName:"PEPE",cart:[]},
+      
+      activateUser: (user) => {
+
+        this.setState({ user: user })
+
+      },
+  
+  
+  }
   }
 
   render() {
@@ -69,11 +79,11 @@ class App extends React.Component {
             <PublicRoute restricted={false} component={ErrorPage} path="/error" />
             <PublicRoute restricted={false} component={Entries} path="/entries" />
             <PublicRoute restricted={false} component={Basket} path="/basket" />
-            <PublicRoute restricted={false} component={UserDashboard} path="/userdashboard" />
+            <PrivateRoute restricted={false} component={UserDashboard} path="/userdashboard/" />
             <PrivateRoute restricted={false} component={AdminDashboard} path="/admindashboard" />
             <Route path="/">
-              <Redirect to="/home" />
-            </Route>
+                <Redirect to="/home" />
+              </Route>
           </Switch>
           </section>
           <footer>

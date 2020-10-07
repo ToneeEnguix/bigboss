@@ -1,10 +1,10 @@
 export const logout = () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem("@auth_token");
 }
 
 export const isLogin = () => {
 
-    if (localStorage.getItem("token")) {
+    if (localStorage.getItem("@auth_token")) {
         return true;
     }
 

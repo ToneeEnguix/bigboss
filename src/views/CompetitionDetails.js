@@ -13,7 +13,7 @@ const imageColumn = {
 
 
   marginLeft: "3rem",
-  maxWidth:"800px",
+  minWidth:"600px",
 
 }
 
@@ -54,7 +54,7 @@ function CompetitionDetails(props) {
       setData(props.location.state.competition);
 
     }
-  })
+  },[])
 
   if (error) {
     return (
@@ -145,7 +145,7 @@ function CompetitionDetails(props) {
 
               return (
 
-                <p css={{padding:"0.5rem 0",textTransform:"uppercase"}}>{line}</p>
+                <p key={line} css={{padding:"0.5rem 0",textTransform:"uppercase"}}>{line}</p>
               )
             })}
              <h4 css={{marginTop:"2rem",

@@ -2,10 +2,11 @@
     {
         "title": "MOCKI MOCK",
         "ticketPrice": 20,
-        "dateFinishes": "2020-11-12T18:00:00",
+        "dateFinishes": "2020-5-5T18:00:00",
         "maxTickets": 1000,
         "ticketsSold": 24,
         "prize": "Car",
+        "winner":"5f7c33b5b33f471334d79bf4",
         "description": [
             "line01",
             "line02",
@@ -23,10 +24,11 @@
     {
         "title": "MOCKI MOCK",
         "ticketPrice": 20,
-        "dateFinishes": "2020-11-12T18:00:00",
+        "dateFinishes": "2020-5-5T18:00:00",
         "maxTickets": 1000,
         "ticketsSold": 24,
         "prize": "Car",
+        "winner":"5f7c33b5b33f471334d79bf4",
         "description": [
             "line01",
             "line02",
@@ -44,10 +46,11 @@
     {
         "title": "MOCKI MOCK",
         "ticketPrice": 20,
-        "dateFinishes": "2020-11-12T18:00:00",
+        "dateFinishes": "2020-5-5T18:00:00",
         "maxTickets": 1000,
         "ticketsSold": 24,
         "prize": "Car",
+        "winner":"5f7c33b5b33f471334d79bf4",
         "description": [
             "line01",
             "line02",
@@ -65,10 +68,11 @@
     {
         "title": "MOCKI MOCK",
         "ticketPrice": 20,
-        "dateFinishes": "2020-11-12T18:00:00",
+        "dateFinishes": "2020-5-5T18:00:00",
         "maxTickets": 1000,
         "ticketsSold": 24,
         "prize": "Car",
+        "winner":"5f7c33b5b33f471334d79bf4",
         "description": [
             "line01",
             "line02",

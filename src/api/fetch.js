@@ -2,26 +2,31 @@ import { API_URL } from "./API_URL"
 import { getToken } from './token';
 
 const getHeaders = async () => {
+
+    
     const token = await getToken();
-    const headers = {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-    };
+    let headers = new Headers();
+    headers.append("Content-Type", "application/x-www-form-urlencoded");
 
     if (token) {
-        headers.Authorization = `Bearer ${token}`;
+        headers.append("access-token",token)
     }
 
     return headers;
 };
 
 export const post = async (destination, body) => {
+
     const headers = await getHeaders();
+
+    const urlencoded = new URLSearchParams();
+    urlencoded.append("data", JSON.stringify(body));
 
     const result = await fetch(`${API_URL}${destination}`, {
         method: 'POST',
         headers,
-        body: JSON.stringify(body),
+        body: urlencoded,
+        redirect: 'follow'
     });
 
     const formattedResult = await formatResult(result);
@@ -41,6 +46,7 @@ export const get = async (destination) => {
 };
 
 const formatResult = async (result) => {
+
     const formatted = {
         status: result.status,
         ok: result.ok,

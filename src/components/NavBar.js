@@ -2,11 +2,11 @@
 import { jsx } from '@emotion/core';
 
 
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { ReactComponent as BigBossLogo } from "../resources/BigBossLogo.svg";
 
 import UserContext from "../context/UserContext";
-import { NavLink } from "react-router-dom";
+import { NavLink,Link } from "react-router-dom";
 
 const flexContainer = {
   display: "flex",
@@ -14,7 +14,7 @@ const flexContainer = {
   justifyContent: "space-between",
   width: "100%",
   boxShadow: "10px 10px 5px 0px rgba(0,0,0,16%)",
-  marginBottom:"1.3rem",
+  marginBottom: "1.3rem",
 
   padding: "0.5rem",
 
@@ -49,7 +49,7 @@ const menu = {
     display: "block",
     content: '""',
     position: "relative",
-    top: "2rem",
+    top: "1.7rem",
     borderBottom: "solid 3px #00C6D6",
     transform: "scaleX(0)",
     transition: "transform 100ms ease-in-out"
@@ -64,7 +64,7 @@ const menu = {
     display: "block",
     content: '""',
     position: "relative",
-    top: "2rem",
+    top: "1.7rem",
     borderBottom: "solid 3px #00C6D6",
     transform: "scaleX(1)",
     transition: "transform 100ms ease-in-out"
@@ -73,12 +73,10 @@ const menu = {
 
 }
 
-
-
 const icons = {
 
   display: "flex",
-  marginRight:"1rem",
+  marginRight: "1rem",
 
 
 
@@ -97,7 +95,7 @@ const icons = {
     display: "block",
     content: '""',
     position: "relative",
-    top: "2rem",
+    top: "1.7rem",
     borderBottom: "solid 3px #00C6D6",
     transform: "scaleX(0)",
     transition: "transform 100ms ease-in-out"
@@ -112,7 +110,7 @@ const icons = {
     display: "block",
     content: '""',
     position: "relative",
-    top: "2rem",
+    top: "1.7rem",
     borderBottom: "solid 3px #00C6D6",
     transform: "scaleX(1)",
     transition: "transform 100ms ease-in-out"
@@ -123,11 +121,24 @@ const icons = {
 
 function NavBar() {
 
-  const context = useContext(UserContext)
+  const [userMenu, setUserMenu] = useState(false)
+  const context = useContext(UserContext);
+
+
+  const extendMenu = () => {
+
+    setUserMenu(true)
+
+  }
+
+  const hideMenu = () => {
+
+    setUserMenu(false)
+  }
 
   return (
     <div css={flexContainer}>
-      <BigBossLogo css={{marginLeft:"1rem"}}height={"65px"} width={"65px"}/>
+      <BigBossLogo css={{ marginLeft: "1rem" }} height={"65px"} width={"65px"} />
 
       <ul css={menu}>
         <li>
@@ -163,22 +174,26 @@ function NavBar() {
       </ul>
       <div css={icons}>
 
-        {context.user.id === undefined ?
+        {context.user._id === undefined ?
           <NavLink className={"icon"}
             activeClassName={"active"}
             to="/log">
             <div css={{ display: "flex", alignItems: "center", "i": { marginRight: "0.5rem" } }}>
-            <i className="material-icons-outlined">person</i>
-            <span>LOG IN</span>
+              <i className="material-icons-outlined">person</i>
+              <span>LOG IN</span>
             </div>
           </NavLink>
           :
-          <div>
-            <i className="material-icons-outlined">person</i>
-            <span>{context.user.userName}</span>
-          </div>
+          <div onMouseEnter={extendMenu} onMouseLeave={hideMenu} css={{position:"relative"}} className={"icon"}>
+            <div  css={{ display: "flex", alignItems: "center", "i": { marginRight: "0.5rem" } }}>
+              <i className="material-icons-outlined">person</i>
+              <span css={{ textTransform: "upperCase" }}>{context.user.fullName}</span>
+            </div>    
+            {userMenu? <UserMenu/>:null}    
+          </div>      
         }
-        <div css={{display:"hidden", width:"2rem"}}></div>
+        
+        <div css={{ display: "hidden", width: "2rem" }}></div>
         <div className={"icon"}>
           <div css={{ display: "flex", alignItems: "center", "i": { marginRight: "0.5rem" } }}>
             <i className="material-icons-outlined">shopping_cart</i>
@@ -191,3 +206,30 @@ function NavBar() {
 }
 
 export default NavBar;
+
+const dropdown = {
+
+  position: "absolute",
+  backgroundColor: "transparent",
+  minWidth: "160px",
+  zIndex: "1",
+  paddingTop:"3rem"
+}
+const UserMenu = () => {
+
+
+  return (
+    <div css={dropdown}>
+      <ul css={{ display: "flex", flexDirection: "column" }}>
+        <li css={{}}>
+          <Link to="/userdashboard/details">
+          ACCOUNT
+          </Link>
+      </li>
+      <li css={{}}>
+        LOG OUT
+      </li>
+      </ul>
+    </div >
+  )
+}

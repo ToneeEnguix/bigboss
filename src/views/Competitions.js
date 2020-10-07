@@ -45,7 +45,7 @@ function Competitions() {
 
     getAllCompetitions();
 
-  })
+  },[])
 
   if (error) {
     return (

@@ -127,7 +127,7 @@ return(
 
             if (index !== selected) {
                 return (
-                    <div onClick={() => {logAnswer(element, index) }} key={number} css={number}>
+                    <div onClick={() => {logAnswer(element, index) }} key={index} css={number}>
                         <strong>
                             {element}
                         </strong>
@@ -135,7 +135,7 @@ return(
             }
             else{
                 return (
-                    <div onClick={() => { props.logAnswer(element, index) }} key={number} css={selectedNumber}>
+                    <div onClick={() => { props.logAnswer(element, index) }} key={index} css={selectedNumber}>
                         <strong>
                             {element}
                         </strong>

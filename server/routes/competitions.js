@@ -13,6 +13,10 @@ router.post("/update",controller.update);
 
 router.post("/delete",controller.delete);
 
-router.get("/all", controller.all)  
+router.get("/all", controller.all);
+
+router.get("/winners",controller.finished);
+
+router.get("/entries",controller.withEntries)
 
 module.exports = router;

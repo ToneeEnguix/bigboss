@@ -30,8 +30,10 @@ class UserController {
 
     async signIn(req, res) {
 
-        const receivedPassword = req.body.password;
-        const receivedEmail = req.body.email;
+        const userToLog = JSON.parse(req.body.data);
+
+        const receivedPassword = userToLog.password;
+        const receivedEmail = userToLog.email;
 
         try {
             const activeUser = await users.findOne({ email: receivedEmail })
@@ -72,9 +74,11 @@ class UserController {
 
     async signUp(req, res) {
 
-        const receivedPassword = req.body.password;
-        const receivedEmail = req.body.email;
-        const receivedName = req.body.name;
+        const userToSave = JSON.parse(req.body.data);
+      
+        const receivedPassword = userToSave.password;
+        const receivedEmail = userToSave.email;
+        const receivedName = userToSave.fullName;
 
         try {
             const activeUser = await users.findOne({ email: receivedEmail });
@@ -84,10 +88,10 @@ class UserController {
             }
 
             const hashedPassword = await bcrypt.hash(receivedPassword, saltRounds)
-            const newUser = await users.create({ name: receivedName, email: receivedEmail, password: hashedPassword });
+            const newUser = await users.create({ fullName: receivedName, email: receivedEmail, password: hashedPassword });
             const payload = {
                 check: true,
-                _id: activeUser._id
+                _id: newUser._id
             };
             const token = jwt.sign(payload, app.get('key'), {
                 expiresIn: Math.floor(Date.now() / 1000) + (60 * 60)
@@ -101,7 +105,7 @@ class UserController {
 
         }
         catch (error) {
-
+            
             res.status(500).send(error);
         }
     }

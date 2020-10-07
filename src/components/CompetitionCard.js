@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { Link } from "react-router-dom";
@@ -11,7 +11,11 @@ const card = {
     display: "flex",
     margin: "1.5rem 0",
     boxShadow: "15px 10px 30px 0px rgba(0,0,0,16%)",
-    justifyContent: "center"
+    justifyContent: "center",
+    flexDirection:"column",
+    borderRadius: "4%",
+    overflow:"hidden",
+    width:"45%"
 
 }
 
@@ -31,18 +35,13 @@ const textWrapper = {
 
 }
 
-const imageWrapper = {
 
-    width: "200px"
-
-
-
-}
 function CompetitionCard({ competition }) {
 
     return (
         <div css={card}>
-
+                <img css={{ maxWidth: "100%" }} src={competition.pictures[0]} />
+     
             <div css={textWrapper}>
                 <h4 css={{ letterSpacing: "0.2rem", color: "#00C6D6", margin: "0.5rem 0", fontSize: "0.8rem" }}> {competition.title} ENTRY</h4>
                 <h4 css={{ letterSpacing: "0.2rem", margin: "0.5rem 0", fontSize: "0.8rem" }}>£{competition.ticketPrice} PER ENTRY</h4>
@@ -57,9 +56,7 @@ function CompetitionCard({ competition }) {
                 </Link>
             </div>
 
-            <div css={imageWrapper}>
-                <img css={{ maxWidth: "100%" }} src={competition.pictures[0]} />
-            </div>
+          
 
         </div>
     );
