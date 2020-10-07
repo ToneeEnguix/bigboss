@@ -79,7 +79,7 @@ class App extends React.Component {
             <PublicRoute restricted={false} component={ErrorPage} path="/error" />
             <PublicRoute restricted={false} component={Entries} path="/entries" />
             <PublicRoute restricted={false} component={Basket} path="/basket" />
-            <PrivateRoute restricted={false} component={UserDashboard} path="/userdashboard/" />
+            <PrivateRoute restricted={false} component={UserDashboard} path="/userdashboard" />
             <PrivateRoute restricted={false} component={AdminDashboard} path="/admindashboard" />
             <Route path="/">
                 <Redirect to="/home" />

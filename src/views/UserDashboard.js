@@ -32,11 +32,12 @@ const UserDashboard = ({ match }) => {
         <div css={{ marginTop: "4rem" }}>
             <div css={{ marginLeft: "4rem" }}>
                 <h1 >ACCOUNT</h1>
-                <div css={{ display: "flex" }}>
+                <div css={{ display: "flex", marginTop:"2rem" }}>
                     <UserDashboardNav />
                     <Route path={`${match.path}/details`} component={Account} />
                     <Route path={`${match.path}/orders`} component={Orders} />
                     <Route path={`${match.path}/password`} component={Password} />
+
                     <Route path={match.path} exact>
                         <Redirect to="/home" />
                     </Route>
@@ -49,5 +50,6 @@ const UserDashboard = ({ match }) => {
 
 
 }
+
 
 export default UserDashboard;

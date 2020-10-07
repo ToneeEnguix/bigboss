@@ -112,8 +112,11 @@ class UserController {
 
     async newPassword(req, res) {
 
-        const receivedOldPassword = req.body.oldPassword;
-        const receivedNewPassword= req.body.newPassword
+        const user = JSON.parse(req.body.data);
+
+
+        const receivedOldPassword = user.oldpassword;
+        const receivedNewPassword= user.newpassword
         const _id = req.decoded._id
 
         try {
@@ -134,8 +137,8 @@ class UserController {
             }
         }
         catch (error) {
+            
             console.log(error)
-
             res.status(500).send(error);
         }
     }
