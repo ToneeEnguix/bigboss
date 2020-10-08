@@ -5,6 +5,7 @@ import { Redirect } from "react-router-dom"
 import UserContext from "../context/UserContext";
 import BasketCard from "../components/BasketCard";
 import { ReactComponent as BigBossLogo } from "../resources/BigBossLogo.svg";
+import { get } from "../api/fetch";
 
 const contentWrapper = {
 
@@ -20,7 +21,7 @@ const contentWrapper = {
 
 const compsColumn = {
 
-  width: "45%",
+  width:"30rem",
   display: "flex",
   flexDirection: "column"
 }
@@ -29,7 +30,8 @@ const dataColumn = {
 
 
   display: "flex",
-  flexDirection: "column"
+  flexDirection: "column",
+
 }
 
 const summary = {
@@ -38,22 +40,23 @@ const summary = {
 
 }
 
-const invisible={
+const invisible = {
 
-  width:"8rem",
-  padding:"0.5rem 1rem",
-  border:"none",
-  boxShadow:"none",
-  outline:"none",
-  "::placeholder":{
+  width: "8rem",
+  padding: "0.5rem 1rem",
+  border: "none",
+  boxShadow: "none",
+  outline: "none",
+  "::placeholder": {
 
-    color:"#FFFFFF"
-}}
+    color: "#FFFFFF"
+  }
+}
 const inputButton = {
 
-  display:"flex",
-  justifyContent:"center",
-  width:"100%",
+  display: "flex",
+  justifyContent: "center",
+  width: "100%",
   backgroundColor: "#252525",
   color: "white",
   border: "none",
@@ -62,11 +65,11 @@ const inputButton = {
   outline: "none",
   fontWeight: "600",
   boxShadow: "-1px 4px 22px 0px rgba(0,0,0,16%)",
-  margin:"0.5rem 0",
+  margin: "0.5rem 0",
 
-  "::placeholder":{
+  "::placeholder": {
 
-    color:"#FFFFFF"
+    color: "#FFFFFF"
   }
 
 
@@ -83,7 +86,12 @@ const logo = {
 function Basket() {
 
   const context = useContext(UserContext);
-  const [redirect, setRedirect] = useState(false)
+  const [redirect, setRedirect] = useState(false);
+  const [couponValue, setCouponValue] = useState("");
+  const [discountAmount, setDiscountAmount] = useState(0);
+  const [partialAmount, setPartialAmount] = useState(0);
+
+  const [message, setMessage] = useState({ visible: "hidden", message: "hidden" })
 
   useEffect(() => {
 
@@ -91,7 +99,54 @@ function Basket() {
 
       setRedirect(true);
     }
-  }, [])
+    else {
+
+      calculatePartialAmount();
+    }
+
+  })
+
+  const calculatePartialAmount = () => {
+    let total = 0;
+    let cart = context.user.cart;
+
+    cart.forEach(item => {
+
+      total = total + ((item.competition.ticketPrice) * item.amount);
+    })
+
+    setPartialAmount(total.toFixed(2));
+  }
+
+  const handleCoupon = (e) => {
+
+    setCouponValue(e.target.value);
+
+  }
+
+  const redeem = async () => {
+
+    const result = await get(`/coupons/read/${couponValue}`);
+
+    if (result.ok) {
+      console.log(result)
+      calculateDiscount(result.data[0].discount)
+
+    }
+    else {
+      setMessage({ visibility: "visible", message: "COUPON NOT VALID" });
+      setTimeout(() => { setMessage({ visible: "hidden", message: "hidden" }) }, 2000);
+    }
+  }
+
+  const calculateDiscount = (discount) => {
+
+    const discountAmount = (partialAmount * discount) / 100;
+
+    setDiscountAmount(discountAmount.toFixed(2))
+  }
+
+
 
   if (redirect) {
 
@@ -100,20 +155,19 @@ function Basket() {
     )
   }
 
+
   return (
 
     <React.Fragment>
       <div css={contentWrapper}>
         <h1>BASKET</h1>
-        <div css={{ display: "flex", justifyContent: "space-evenly" }}>
+        <div css={{ display: "flex", justifyContent: "space-evenly", marginTop:"3.5rem" }}>
           <div css={compsColumn}>
             {
               context.user.cart.map((competition, index) => {
                 return (<BasketCard key={index} competition={competition} />)
               })
             }
-            <BasketCard />
-            <BasketCard />
           </div>
           <div css={dataColumn}>
             <div css={summary}>
@@ -121,26 +175,32 @@ function Basket() {
                 padding: "2rem 6rem", display: "flex",
                 flexDirection: "column",
 
-                ">*":{
-                  margin:"0.5rem 0"
+                ">*": {
+                  margin: "0.5rem 0"
                 }
               }}>
-                <p css={{color:"#00C6D6", fontWeight:"600", fontSize:"0.7rem"}}>ORDER SUMMARY</p>
-                <p css={{fontWeight:"600", fontSize:"0.7rem"}}>DO YOU HAVE A PROMOTIONAL CODE?</p>
+                <p css={{ color: "#00C6D6", fontWeight: "600", fontSize: "0.7rem" }}>ORDER SUMMARY</p>
+                <p css={{ fontWeight: "600", fontSize: "0.7rem" }}>DO YOU HAVE A PROMOTIONAL CODE?</p>
                 <div css={inputButton}>
-                <input css={invisible} placeHolder="ENTER HERE"  />
+                  <input value={couponValue} name={"coupon"} onChange={handleCoupon} css={invisible} placeholder="ENTER HERE" />
                 </div>
-                <button css={{color:"white"}}className="button02">REDEEM PROMO CODE</button>
-                <div css={{display:"flex",justifyContent:"space-between"}}>
-                <p css={{fontWeight:"600", fontSize:"0.7rem"}}>SUBTOTAL</p>
-                <CalculateTotal/>
+
+                <button onClick={redeem} css={{ color: "white" }} className="button02">REDEEM PROMO CODE</button>
+                <div css={{ visibility: message.visible, width: "100%", textAlign: "center" }}>
+                  <p css={{ fontSize: "0.5rem" }}>{message.message}</p>
                 </div>
-                <div>
-                <p css={{fontWeight:"600", fontSize:"0.7rem"}}>PROMO DISCOUNT</p>
+                <div css={{ display: "flex", justifyContent: "space-between" }}>
+                  <p css={{ fontWeight: "600", fontSize: "0.7rem" }}>SUBTOTAL</p>
+                  <p css={{fontWeight:"500"}}>£{partialAmount}</p>
+                </div>
+                <div css={{ display: "flex", justifyContent: "space-between" }}>
+                  <p css={{ fontWeight: "600", fontSize: "0.7rem" }}>PROMO DISCOUNT</p>
+                  {discountAmount > 0 ? <p css={{fontWeight:"500"}}>-£{discountAmount}</p> : null}
                 </div>
                 <hr />
-                <div>
-                <h5 css={{fontWeight:"600", fontSize:"0.7rem"}}>TOTAL</h5>
+                <div css={{ display: "flex", justifyContent: "space-between" }}>
+                  <h5 css={{ fontWeight: "600", fontSize: "0.7rem" }}>TOTAL</h5>
+                  <p css={{fontWeight:"500"}}>£{(partialAmount-discountAmount).toFixed(2)}</p>
                 </div>
                 <button className="button03">PAY NOW</button>
               </div>
@@ -160,12 +220,5 @@ function Basket() {
 
 export default Basket;
 
-const CalculateTotal=()=>{
-
-  const context = useContext(UserContext);
-  let total=0
-
-return(<p>£{total}</p>)
 
 
-}

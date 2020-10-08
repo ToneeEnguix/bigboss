@@ -43,12 +43,19 @@ class App extends React.Component {
     const abort = new AbortController();
     const signal = abort.signal;
     this.state = {
-      user: { _id: true, fullName: "PEPE", cart: [{ competition: {price:20}, amount: 3 }] },
+      user: {
+        _id: true, fullName: "PEPE", cart: [{ competition: { _id: "5f7b351559537043a887b888", title: "MOCKI MOCK", ticketPrice: 20, dateFinishes: "2020-10-07T17:00:00.000Z", maxTickets: 1000, ticketsAvailable: 24, prize: "Car", description: ["line01", "line02", "line03", "line04", "line05"], pictures: ["https://picsum.photos/1200/800", "https://picsum.photos/1200/800", "https://picsum.photos/1200/800", "https://picsum.photos/1200/800"] }, amount: 3 }]
+      },
 
       activateUser: (user) => {
 
         this.setState({ user: user })
 
+      },
+
+      logout: () => {
+
+        this.setState({ user: { _id: undefined, fulName: undefined, cart: [] } })
       },
 
       buyTickets: (amount, competition) => {
@@ -73,7 +80,33 @@ class App extends React.Component {
 
         this.setState({ user: { ...this.state.user, cart: cartCopy } });
 
-      }
+      },
+
+      updateCart: (competition, newAmount) => {
+
+        const onCartIndex = this.state.user.cart.findIndex(cartItem =>
+          cartItem.competition._id === competition._id)
+
+        let cartCopy = [...this.state.user.cart]
+
+
+        cartCopy[onCartIndex] = { ...cartCopy[onCartIndex], amount: parseInt(newAmount) };
+
+        this.setState({ user: { ...this.state.user, cart: cartCopy } });
+
+      },
+
+      remove: (competition) => {
+
+        const toRemove = this.state.user.cart.findIndex(cartItem =>
+          cartItem.competition._id === competition._id
+        )
+
+        let cartCopy = [...this.state.user.cart];
+        cartCopy.splice(toRemove, 1);
+        this.setState({ user: { ...this.state.user, cart: cartCopy } });
+
+      },
     }
 
   }
@@ -107,7 +140,7 @@ class App extends React.Component {
               <PublicRoute restricted={false} component={Basket} path="/basket" />
               <PrivateRoute restricted={false} component={UserDashboard} path="/userdashboard" />
               <PrivateRoute restricted={false} component={AdminDashboard} path="/admindashboard" />
-              <Route  path="/">
+              <Route path="/">
                 <Redirect to="/home" />
               </Route>
             </Switch>

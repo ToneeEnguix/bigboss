@@ -1,20 +1,23 @@
-import React from 'react';
+import { React, useState, useContext } from 'react';
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { Link } from "react-router-dom";
 import Counter from "../utils/Counter";
+import UserContext from "../context/UserContext";
 
 const card = {
 
 
+    padding: "2rem 2rem 2rem 2rem",
+    width: "100%",
     display: "flex",
-    margin: "1.5rem 0",
+    margin: "0rem 1.5rem 1.5rem 0",
     boxShadow: "-1px 4px 22px 0px black",
     justifyContent: "center",
-    flexDirection:"column",
+    flexDirection: "column",
     borderRadius: "4%",
-    overflow:"hidden",
-    width:"100%"
+    overflow: "hidden",
+    width: "100%"
 
 }
 
@@ -35,16 +38,68 @@ const textWrapper = {
 }
 
 
-function BasketCard({ competition }) {
+function BasketCard(props) {
 
+    const [amount, setAmount] = useState(props.competition.amount);
+    const [message,setMessage]=useState({visible:"hidden",message:"hidden"});
+    const context = useContext(UserContext)
+
+    const setValue = (amount) => {
+        let value = String(amount);
+        while (value.length < 2) {
+            value = '0' + value;
+        }
+        return value;
+
+    }
+
+    const add = () => {
+
+        const newValue = setValue(Number(amount) + 1);
+        setAmount(newValue);
+    }
+
+    const substract = () => {
+
+        if (amount !== "01") {
+            const newValue = setValue(Number(amount) - 1);
+            setAmount(newValue);
+        }
+    }
+
+
+    const saveUpdate = () => {
+
+        context.updateCart(props.competition.competition, amount);
+        setMessage({visible:"visible",message:"SAVED!"});
+        setTimeout(()=>setMessage({visible:"hidden",message:"hidden"}),2000)
+    }
+
+    const remove=()=>{
+
+        context.remove(props.competition.competition);
+    }
     return (
         <div css={card}>
-             HOLA
+
+            <div css={textWrapper}>
+                <h4 css={{ letterSpacing: "0.1rem", margin: "0.5rem 0", fontSize: "0.7rem" }}> {props.competition.competition.title} ENTRY</h4>
+                <h4 css={{ color: "#00C6D6", letterSpacing: "0.1rem", margin: "0.5rem 0", fontSize: "0.7rem" }}>£{props.competition.competition.ticketPrice.toFixed(2)} PER TICKET</h4>
+                <h4 onClick={remove} css={{ cursor: "pointer", textDecoration: "underline", color: "grey", letterSpacing: "0.1rem", margin: "0.5rem 0", fontSize: "0.7rem" }}>REMOVE</h4>
+                <h4 css={{ marginTop: "2rem !important ", letterSpacing: "0.1rem", margin: "0.5rem 0", fontSize: "0.7rem" }}>QUANTITY OF TICKETS</h4>
+                <div css={{ width: "100%", display: "flex", justifyContent: "space-around", alignItems: "center" }}>
+                    <p css={{ fontWeight: "500" }}>LESS</p>
+                    <button onClick={substract} className="roundButtonSmall">-</button>
+                    <p css={{ fontWeight: "500" }}>MORE</p>
+                    <button onClick={add} className="roundButtonSmall">+</button>
+                    <input value={amount} className="inputAmountSmall" />
+                </div>
+                <button onClick={saveUpdate} css={{ marginTop: "2rem" }} className="button02">SAVE YOUR UPDATE</button>
+                <p css={{marginTop:"0.3rem", fotWeight:"500",textAlign:"center",visibility:message.visible}}>{message.message}</p>
             </div>
 
-          
 
-    
+        </div>
     );
 }
 

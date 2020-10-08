@@ -122,7 +122,7 @@ const icons = {
 function NavBar() {
 
   const [userMenu, setUserMenu] = useState(false);
-  const [emptyCart,setEmptyCart] = useState(false);
+  const [emptyCart, setEmptyCart] = useState(false);
   const context = useContext(UserContext);
 
 
@@ -137,12 +137,12 @@ function NavBar() {
     setUserMenu(false);
   }
 
-  const showEmptyCart=()=>{
+  const showEmptyCart = () => {
 
     setEmptyCart(!emptyCart);
   }
 
-  const hideEmptyCart=()=>{
+  const hideEmptyCart = () => {
 
     setEmptyCart(false)
   }
@@ -208,24 +208,23 @@ function NavBar() {
         <div css={{ display: "hidden", width: "2rem" }}></div>
 
         {context.user.cart.length > 0 ?
-          <Link to="/basket">
-            <div className={"icon"}>
-              <div css={{ display: "flex", alignItems: "center", "i": { marginRight: "0.5rem" } }}>
-                <i className="material-icons-outlined">shopping_cart</i>
-                <span>{context.user.cart.length}</span>
-              </div>
-            </div>
-          </Link>
-          : <div onMouseLeave={hideEmptyCart} onClick={showEmptyCart} className={"icon"}>
+
+            <NavLink activeClassName={"active"} to="/basket" className={"icon"}>
             <div css={{ display: "flex", alignItems: "center", "i": { marginRight: "0.5rem" } }}>
               <i className="material-icons-outlined">shopping_cart</i>
               <span>{context.user.cart.length}</span>
             </div>
-            {emptyCart ? <EmptyCart /> : null}
-          </div>
-}
+              </NavLink>    
+          : <div onMouseLeave={hideEmptyCart} onClick={showEmptyCart} className={"icon"}>
+        <div css={{ display: "flex", alignItems: "center", "i": { marginRight: "0.5rem" } }}>
+          <i className="material-icons-outlined">shopping_cart</i>
+          <span>{context.user.cart.length}</span>
+        </div>
+        {emptyCart ? <EmptyCart /> : null}
       </div>
+}
     </div>
+    </div >
   );
 }
 
@@ -242,7 +241,12 @@ const dropdown = {
 }
 const UserMenu = () => {
 
+  const context=useContext(UserContext)
 
+  const logout=()=>{
+
+    context.logout();
+  }
   return (
     <div css={dropdown}>
       <ul css={{ display: "flex", flexDirection: "column" }}>
@@ -251,7 +255,7 @@ const UserMenu = () => {
             ACCOUNT
           </Link>
         </li>
-        <li css={{}}>
+        <li onClick={logout} css={{}}>
           LOG OUT
       </li>
       </ul>
@@ -262,14 +266,14 @@ const UserMenu = () => {
 const dropdown02 = {
 
   position: "absolute",
-  right:"2rem",
+  right: "2rem",
   backgroundColor: "transparent",
   minWidth: "160px",
   zIndex: "1",
   paddingTop: "3rem"
 }
 
-const EmptyCart=()=>{
+const EmptyCart = () => {
 
   return (
     <div css={dropdown02}>

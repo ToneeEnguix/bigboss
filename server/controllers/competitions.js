@@ -57,7 +57,7 @@ class CompetitionController {
 
         catch (error) {
 
-console.log(error)
+y
             res.status(500).send(error);
         }
 

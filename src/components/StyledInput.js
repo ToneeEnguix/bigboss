@@ -68,7 +68,7 @@ export default class StyledInput extends React.Component {
 
                 "input:-webkit-autofill,input:-webkit-autofill:hover,input:-webkit-autofill:focus,input:-webkit-autofill:active": {
                     boxShadow: "0 0 0 30px #252525 inset !important;",
-                    "-webkit-text-fill-color": "white !important"
+                    WebkitTextFillColor: "white !important"
                 },
 
                 "label span": {

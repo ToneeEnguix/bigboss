@@ -136,6 +136,7 @@ height:4rem;
   background-color:#252525; 
   color:#FFFFFF;
 text-align: center;
+box-shadow: -1px 4px 22px 0px rgba(0,0,0,16%);
   border:none;
   margin:1rem;
   outline:none;
@@ -144,7 +145,41 @@ text-align: center;
   font-size:1.6rem;
   letter-spacing:0.3rem;
 
+}
+
+.roundButtonSmall{
+  border-radius:50%;
+   background-color:rgb(37,37,37); 
+  color:#FFFFFF;
+  border:none;
+  width:2rem;
+  height:2rem;
+  margin:1rem;
+  outline:none;
+  font-weight:500;
+  cursor:pointer;
+  font-size:1.6rem;
+
+ box-shadow: -1px 4px 22px 0px rgba(0,0,0,16%);
+}
+
+.inputAmountSmall{
+  width:2rem;
+  height:2rem;
+  background-color:#252525; 
+  color:#FFFFFF;
+text-align: center;
+box-shadow: -1px 4px 22px 0px rgba(0,0,0,16%);
+  border:none;
+  margin:1rem;
+  outline:none;
+  font-weight:500;
+  cursor:pointer;
+  font-size:1rem;
+  letter-spacing:0rem;
+  border:1px solid grey;
 
 }
+
   
   

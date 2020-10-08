@@ -21,11 +21,13 @@ const competitions= require("./routes/competitions.js");
 const users= require("./routes/users.js");
 const orders = require("./routes/orders");
 const token = require ("./routes/token.js");
+const coupons = require ("./routes/coupons.js");
 
  app.use("/token",token)
  app.use("/competitions",competitions);
  app.use('/users',users);
- // app.use("/orders",orders)
+ app.use('/coupons',coupons);
+ app.use("/orders",orders)
 
 
 const port = 4000
