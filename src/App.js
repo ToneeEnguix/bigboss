@@ -22,7 +22,8 @@ import Log from "./views/Log";
 import UserDashboard from "./views/UserDashboard";
 import Winners from "./views/Winners.js";
 import Terms from "./views/Terms.js";
-import ErrorPage from "./views/Error.js"
+import ErrorPage from "./views/Error.js";
+import ForgotPass from "./views/ForgotPass.js"
 
 import NavBar from "./components/NavBar";
 import NextDraw from "./components/NextDraw";
@@ -41,54 +42,79 @@ class App extends React.Component {
 
     const abort = new AbortController();
     const signal = abort.signal;
-    this.state = { 
-      user: {_id:true, fullName:"PEPE",cart:[]},
-      
+    this.state = {
+      user: { _id: true, fullName: "PEPE", cart: [{ competition: {price:20}, amount: 3 }] },
+
       activateUser: (user) => {
 
         this.setState({ user: user })
 
       },
-  
-  
-  }
+
+      buyTickets: (amount, competition) => {
+
+
+        const onCartIndex = this.state.user.cart.findIndex(cartItem =>
+          cartItem.competition._id === competition._id
+        )
+
+        let cartCopy = [...this.state.user.cart]
+
+        if (onCartIndex > -1) {
+
+          cartCopy[onCartIndex] = { ...cartCopy[onCartIndex], amount: cartCopy[onCartIndex].amount + amount };
+        }
+
+        else {
+
+          cartCopy.push({ competition, amount });
+
+        }
+
+        this.setState({ user: { ...this.state.user, cart: cartCopy } });
+
+      }
+    }
+
   }
 
   render() {
 
-    
+
     return (
       <UserContext.Provider value={this.state}>
         <Router>
           <ScrollToTop />
           <header>
-            <NextDraw/>
-          <NavBar/>
+            <NextDraw />
+            <NavBar />
           </header>
           <section>
-          <Switch>
-            <PublicRoute restricted={false} component={Home} path="/home" />
-            <PublicRoute restricted={false} component={Competitions} path="/competitions" />
-            <PublicRoute restricted={false} history={customHistory} exact
-              component={CompetitionDetails} path="/competitiondetails" />
-            <PublicRoute restricted={false} component={Winners} path="/winners" />
-            <PublicRoute restricted={false} component={Log} path="/log" />
-            <PublicRoute restricted={false} component={CreateAccount} path="/createaccount" />
-            <PublicRoute restricted={false} component={Draws} path="/draws" />
-            <PublicRoute restricted={false} component={Terms} path="/terms" />
-            <PublicRoute restricted={false} component={ErrorPage} path="/error" />
-            <PublicRoute restricted={false} component={Entries} path="/entries" />
-            <PublicRoute restricted={false} component={Basket} path="/basket" />
-            <PrivateRoute restricted={false} component={UserDashboard} path="/userdashboard" />
-            <PrivateRoute restricted={false} component={AdminDashboard} path="/admindashboard" />
-            <Route path="/">
+            <Switch>
+              <PublicRoute restricted={false} history={customHistory}
+                component={CompetitionDetails} path="/competitions/:id" />
+              <PublicRoute restricted={false} component={Home} path="/home" />
+              <PublicRoute restricted={false} component={Competitions} path="/competitions" />
+
+              <PublicRoute restricted={false} component={Winners} path="/winners" />
+              <PublicRoute restricted={false} component={Log} path="/log" />
+              <PublicRoute restricted={false} component={ForgotPass} path="/forgotPass" />
+              <PublicRoute restricted={false} component={CreateAccount} path="/createaccount" />
+              <PublicRoute restricted={false} component={Draws} path="/draws" />
+              <PublicRoute restricted={false} component={Terms} path="/terms" />
+              <PublicRoute restricted={false} component={ErrorPage} path="/error" />
+              <PublicRoute restricted={false} component={Entries} path="/entries" />
+              <PublicRoute restricted={false} component={Basket} path="/basket" />
+              <PrivateRoute restricted={false} component={UserDashboard} path="/userdashboard" />
+              <PrivateRoute restricted={false} component={AdminDashboard} path="/admindashboard" />
+              <Route  path="/">
                 <Redirect to="/home" />
               </Route>
-          </Switch>
+            </Switch>
           </section>
           <footer>
-            <FooterLinks/>
-            <FooterAds/>
+            <FooterLinks />
+            <FooterAds />
           </footer>
         </Router>
       </UserContext.Provider>

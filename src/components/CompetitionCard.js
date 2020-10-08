@@ -10,7 +10,7 @@ const card = {
 
     display: "flex",
     margin: "1.5rem 0",
-    boxShadow: "15px 10px 30px 0px rgba(0,0,0,16%)",
+    boxShadow: "-1px 4px 22px 0px black",
     justifyContent: "center",
     flexDirection:"column",
     borderRadius: "4%",
@@ -47,7 +47,7 @@ function CompetitionCard({ competition }) {
                 <h4 css={{ letterSpacing: "0.2rem", margin: "0.5rem 0", fontSize: "0.8rem" }}>£{competition.ticketPrice} PER ENTRY</h4>
                 <Counter date={competition.dateFinishes} />
                 <Link to={{
-                    pathname: "/competitiondetails",
+                    pathname: `/competitions/${competition._id}`,
                     state: {
                         competition: competition,
                     }

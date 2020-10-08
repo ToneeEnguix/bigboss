@@ -39,17 +39,25 @@ class CompetitionController {
 
     async read(req, res) {
 
-
-
+        const competitionID= req.params.id;
 
         try {
 
-            res.status(200).send();
+            const foundCompetition= await competitions.findById(competitionID);
+
+        
+            if (foundCompetition){
+            res.status(200).send(foundCompetition);
+            }
+            else 
+            {
+                res.status(404).send();
+            }
         }
 
         catch (error) {
 
-
+console.log(error)
             res.status(500).send(error);
         }
 

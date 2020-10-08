@@ -68,7 +68,7 @@ function CreateAccountAccess() {
         <button css={{ width: "100%" }} className="button02">LOG IN</button>
         <div css={{width:"100%",display:"flex",justifyContent:"center",flexDirection:"column",alignItems:"center"}}>
         <p css={{color: message.color, visibility: message.visibility }}>{message.message}</p>
-        <Link to="/forgottenpassword" css={{ width:"100%" ,padding: "0.5rem", textAlign: "center", color: "grey"}}>FORGOTTEN PASSWORD? CLICK HERE</Link>
+        <Link to="/forgotpass" css={{ width:"100%" ,padding: "0.5rem", textAlign: "center", color: "grey"}}>FORGOTTEN PASSWORD? CLICK HERE</Link>
       </div>
         </form>
     </div>

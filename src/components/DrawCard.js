@@ -12,7 +12,7 @@ const card = {
     display: "flex",
     margin: "1.5rem 0",
     width:"45%",
-    boxShadow: "15px 10px 30px 0px rgba(0,0,0,16%)",
+    boxShadow: "-1px 4px 22px 0px black",
     flexDirection: "column",
     textTransform: "uppercase",
     borderRadius: "4%",

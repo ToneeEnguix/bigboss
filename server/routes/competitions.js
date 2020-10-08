@@ -7,7 +7,7 @@ const express = require('express'),
 
   router.get("/randompicks",controller.randomPicks);
 
-router.get('/read',controller.read);
+router.get('/read/:id',controller.read);
 
 router.post("/update",controller.update);
 

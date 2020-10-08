@@ -80,7 +80,20 @@ p{
   outline:none;
   padding:1rem 4rem;
   font-weight:600;
- box-shadow: 10px 10px 5px 0px rgba(0,0,0,16%);
+ box-shadow: -1px 4px 22px 0px rgba(0,0,0,16%);
+ cursor:pointer;
+
+}
+
+.button03{
+
+  background-color:white;
+  color:rgb(37,37,37);
+  border:none;
+  outline:none;
+  padding:1rem 4rem;
+  font-weight:600;
+ box-shadow: -1px 4px 22px 0px rgba(0,0,0,16%);
  cursor:pointer;
 
 }
@@ -98,7 +111,7 @@ p{
   cursor:pointer;
   font-size:1.6rem;
 
- box-shadow: 10px 10px 5px 0px rgba(0,0,0,16%);
+ box-shadow: -1px 4px 22px 0px rgba(0,0,0,16%);
 }
 
 .roundButtonBlue{
@@ -114,7 +127,7 @@ height:4rem;
   cursor:pointer;
   font-size:1.6rem;
 
- box-shadow: 10px 10px 5px 0px rgba(0,0,0,16%);
+ box-shadow: -1px 4px 22px 0px rgba(0,0,0,16%);
 }
 
 .inputAmount{

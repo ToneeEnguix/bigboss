@@ -18,7 +18,7 @@ const number = {
 const selectedNumber = {
 
     margin: "1rem",
-    boxShadow: "15px 10px 30px 0px rgba(0,0,0,16%)",
+    boxShadow: "-1px 4px 22px 0px rgba(0,0,0,16%)",
     width: "60px",
     height: "60px",
     display: "flex",
@@ -29,7 +29,7 @@ const selectedNumber = {
     border:"1px solid #00C6D6"
 }
 
-const areEqual = (prevProps, nextProps) => prevProps.regenerate === nextProps.regenerate;
+const areEqual = (prevProps, nextProps) => prevProps.question=== nextProps.question;
 
 export default React.memo(props => {
 

@@ -14,7 +14,7 @@ import { jsx } from '@emotion/core';
 const number = {
 
     margin: "1rem",
-    boxShadow: "15px 10px 30px 0px rgba(0,0,0,16%)",
+    boxShadow: "-1px 4px 22px 0px rgba(0,0,0,16%)",
     width: "60px",
     height: "60px",
     display: "flex",
@@ -175,8 +175,5 @@ Countdown.propTypes = {
     date: PropTypes.string.isRequired
 };
 
-Countdown.defaultProps = {
-    date: new Date()
-};
 
 export default Countdown;

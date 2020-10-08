@@ -24,7 +24,7 @@ const style = {
 
     },
 
-    "ul:first-child": {
+    "ul:first-of-type": {
 
         marginTop: "1rem"
     },

@@ -6,7 +6,7 @@ import React, { useState, useContext } from 'react';
 import { ReactComponent as BigBossLogo } from "../resources/BigBossLogo.svg";
 
 import UserContext from "../context/UserContext";
-import { NavLink,Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 
 const flexContainer = {
   display: "flex",
@@ -121,20 +121,32 @@ const icons = {
 
 function NavBar() {
 
-  const [userMenu, setUserMenu] = useState(false)
+  const [userMenu, setUserMenu] = useState(false);
+  const [emptyCart,setEmptyCart] = useState(false);
   const context = useContext(UserContext);
 
 
   const extendMenu = () => {
 
-    setUserMenu(true)
+    setUserMenu(true);
 
   }
 
   const hideMenu = () => {
 
-    setUserMenu(false)
+    setUserMenu(false);
   }
+
+  const showEmptyCart=()=>{
+
+    setEmptyCart(!emptyCart);
+  }
+
+  const hideEmptyCart=()=>{
+
+    setEmptyCart(false)
+  }
+
 
   return (
     <div css={flexContainer}>
@@ -184,22 +196,34 @@ function NavBar() {
             </div>
           </NavLink>
           :
-          <div onMouseEnter={extendMenu} onMouseLeave={hideMenu} css={{position:"relative"}} className={"icon"}>
-            <div  css={{ display: "flex", alignItems: "center", "i": { marginRight: "0.5rem" } }}>
+          <div onMouseEnter={extendMenu} onMouseLeave={hideMenu} css={{ position: "relative" }} className={"icon"}>
+            <div css={{ display: "flex", alignItems: "center", "i": { marginRight: "0.5rem" } }}>
               <i className="material-icons-outlined">person</i>
               <span css={{ textTransform: "upperCase" }}>{context.user.fullName}</span>
-            </div>    
-            {userMenu? <UserMenu/>:null}    
-          </div>      
-        }
-        
-        <div css={{ display: "hidden", width: "2rem" }}></div>
-        <div className={"icon"}>
-          <div css={{ display: "flex", alignItems: "center", "i": { marginRight: "0.5rem" } }}>
-            <i className="material-icons-outlined">shopping_cart</i>
-            <span>03</span>
+            </div>
+            {userMenu ? <UserMenu /> : null}
           </div>
-        </div>
+        }
+
+        <div css={{ display: "hidden", width: "2rem" }}></div>
+
+        {context.user.cart.length > 0 ?
+          <Link to="/basket">
+            <div className={"icon"}>
+              <div css={{ display: "flex", alignItems: "center", "i": { marginRight: "0.5rem" } }}>
+                <i className="material-icons-outlined">shopping_cart</i>
+                <span>{context.user.cart.length}</span>
+              </div>
+            </div>
+          </Link>
+          : <div onMouseLeave={hideEmptyCart} onClick={showEmptyCart} className={"icon"}>
+            <div css={{ display: "flex", alignItems: "center", "i": { marginRight: "0.5rem" } }}>
+              <i className="material-icons-outlined">shopping_cart</i>
+              <span>{context.user.cart.length}</span>
+            </div>
+            {emptyCart ? <EmptyCart /> : null}
+          </div>
+}
       </div>
     </div>
   );
@@ -210,10 +234,11 @@ export default NavBar;
 const dropdown = {
 
   position: "absolute",
+
   backgroundColor: "transparent",
   minWidth: "160px",
   zIndex: "1",
-  paddingTop:"3rem"
+  paddingTop: "3rem"
 }
 const UserMenu = () => {
 
@@ -223,13 +248,32 @@ const UserMenu = () => {
       <ul css={{ display: "flex", flexDirection: "column" }}>
         <li css={{}}>
           <Link to="/userdashboard/details">
-          ACCOUNT
+            ACCOUNT
           </Link>
-      </li>
-      <li css={{}}>
-        LOG OUT
+        </li>
+        <li css={{}}>
+          LOG OUT
       </li>
       </ul>
+    </div >
+  )
+}
+
+const dropdown02 = {
+
+  position: "absolute",
+  right:"2rem",
+  backgroundColor: "transparent",
+  minWidth: "160px",
+  zIndex: "1",
+  paddingTop: "3rem"
+}
+
+const EmptyCart=()=>{
+
+  return (
+    <div css={dropdown02}>
+      <h5>BASKET IS CURRENTLY EMPTY</h5>
     </div >
   )
 }
