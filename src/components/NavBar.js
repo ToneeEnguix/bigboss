@@ -14,9 +14,9 @@ const flexContainer = {
   justifyContent: "space-between",
   width: "100%",
   boxShadow: "10px 10px 5px 0px rgba(0,0,0,16%)",
-  marginBottom: "1.3rem",
+  marginBottom: "0.3rem",
 
-  padding: "0.5rem",
+  padding: "0.1rem",
 
   "a": {
 
@@ -49,7 +49,7 @@ const menu = {
     display: "block",
     content: '""',
     position: "relative",
-    top: "1.7rem",
+    top: "1.5rem",
     borderBottom: "solid 3px #00C6D6",
     transform: "scaleX(0)",
     transition: "transform 100ms ease-in-out"
@@ -64,7 +64,7 @@ const menu = {
     display: "block",
     content: '""',
     position: "relative",
-    top: "1.7rem",
+    top: "1.5rem",
     borderBottom: "solid 3px #00C6D6",
     transform: "scaleX(1)",
     transition: "transform 100ms ease-in-out"
@@ -95,7 +95,7 @@ const icons = {
     display: "block",
     content: '""',
     position: "relative",
-    top: "1.7rem",
+    top: "1.5rem",
     borderBottom: "solid 3px #00C6D6",
     transform: "scaleX(0)",
     transition: "transform 100ms ease-in-out"
@@ -110,7 +110,7 @@ const icons = {
     display: "block",
     content: '""',
     position: "relative",
-    top: "1.7rem",
+    top: "1.5rem",
     borderBottom: "solid 3px #00C6D6",
     transform: "scaleX(1)",
     transition: "transform 100ms ease-in-out"
@@ -150,7 +150,7 @@ function NavBar() {
 
   return (
     <div css={flexContainer}>
-      <BigBossLogo css={{ marginLeft: "1rem" }} height={"65px"} width={"65px"} />
+      <BigBossLogo css={{ marginLeft: "1rem" }} height={"60px"} width={"60px"} />
 
       <ul css={menu}>
         <li>

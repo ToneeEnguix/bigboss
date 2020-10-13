@@ -12,7 +12,7 @@ const flexContainer = {
     justifyContent: "center",
     width: "100%",
     backgroundColor: "#222222",
-    padding: "0.6rem"
+    padding: "0.4rem"
 
 }
 

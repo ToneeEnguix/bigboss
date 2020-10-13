@@ -1,0 +1,197 @@
+[{
+  "_id": {
+    "$oid": "5f7b351559537043a887b888"
+  },
+  "title": "MOCKI MOCK",
+  "ticketPrice": 20,
+  "dateFinishes": {
+    "$date": "2020-10-07T17:00:00Z"
+  },
+  "maxTickets": 1000,
+  "ticketsAvailable": 24,
+  "prize": "Car",
+  "description": [
+    "line01",
+    "line02",
+    "line03",
+    "line04",
+    "line05"
+  ],
+  "pictures": [
+    "https://picsum.photos/1200/800",
+    "https://picsum.photos/1200/800",
+    "https://picsum.photos/1200/800",
+    "https://picsum.photos/1200/800"
+  ]
+},{
+  "_id": {
+    "$oid": "5f7b351559537043a887b889"
+  },
+  "title": "MOCKI MOCKy",
+  "ticketPrice": 20,
+  "dateFinishes": {
+    "$date": "2020-10-10T17:00:00Z"
+  },
+  "maxTickets": 1000,
+  "ticketsAvailable": 0,
+  "prize": "Car",
+  "description": [
+    "line01",
+    "line02",
+    "line03",
+    "line04",
+    "line05"
+  ],
+  "pictures": [
+    "https://picsum.photos/1200/800",
+    "https://picsum.photos/1200/800",
+    "https://picsum.photos/1200/800",
+    "https://picsum.photos/1200/800"
+  ]
+},{
+  "_id": {
+    "$oid": "5f7b351559537043a887b88a"
+  },
+  "title": "MOCKI MOCK",
+  "ticketPrice": 20,
+  "dateFinishes": {
+    "$date": "2020-11-12T17:00:00Z"
+  },
+  "maxTickets": 1000,
+  "ticketsAvailable": 24,
+  "prize": "Car",
+  "description": [
+    "line01",
+    "line02",
+    "line03",
+    "line04",
+    "line05"
+  ],
+  "pictures": [
+    "https://picsum.photos/1200/800",
+    "https://picsum.photos/1200/800",
+    "https://picsum.photos/1200/800",
+    "https://picsum.photos/1200/800"
+  ]
+},{
+  "_id": {
+    "$oid": "5f7b351559537043a887b88b"
+  },
+  "title": "MOCKI MOCK",
+  "ticketPrice": 20,
+  "dateFinishes": {
+    "$date": "2020-11-12T17:00:00Z"
+  },
+  "maxTickets": 1000,
+  "ticketsAvailable": 24,
+  "prize": "Car",
+  "description": [
+    "line01",
+    "line02",
+    "line03",
+    "line04",
+    "line05"
+  ],
+  "pictures": [
+    "https://picsum.photos/1200/800",
+    "https://picsum.photos/1200/800",
+    "https://picsum.photos/1200/800",
+    "https://picsum.photos/1200/800"
+  ]
+},{
+  "_id": {
+    "$oid": "5f7c342eb33f471334d79bf5"
+  },
+  "title": "MOCKI MOCK",
+  "ticketPrice": 20,
+  "dateFinishes": {
+    "$date": "1970-01-01T00:00:00Z"
+  },
+  "maxTickets": 1000,
+  "prize": "Car",
+  "description": [
+    "line01",
+    "line02",
+    "line03",
+    "line04",
+    "line05"
+  ],
+  "pictures": [
+    "https://picsum.photos/1200/800",
+    "https://picsum.photos/1200/800",
+    "https://picsum.photos/1200/800",
+    "https://picsum.photos/1200/800"
+  ]
+},{
+  "_id": {
+    "$oid": "5f7c342eb33f471334d79bf6"
+  },
+  "title": "MOCKI MOCK",
+  "ticketPrice": 20,
+  "dateFinishes": {
+    "$date": "1970-01-01T00:00:00Z"
+  },
+  "maxTickets": 1000,
+  "prize": "CarTT",
+  "description": [
+    "line01",
+    "line02",
+    "line03",
+    "line04",
+    "line05"
+  ],
+  "pictures": [
+    "https://picsum.photos/1200/800",
+    "https://picsum.photos/1200/800",
+    "https://picsum.photos/1200/800",
+    "https://picsum.photos/1200/800"
+  ]
+},{
+  "_id": {
+    "$oid": "5f7c342eb33f471334d79bf7"
+  },
+  "title": "MOCKI MOCK",
+  "ticketPrice": 20,
+  "dateFinishes": {
+    "$date": "1970-01-01T00:00:00Z"
+  },
+  "maxTickets": 1000,
+  "prize": "CarBLi",
+  "description": [
+    "line01",
+    "line02",
+    "line03",
+    "line04",
+    "line05"
+  ],
+  "pictures": [
+    "https://picsum.photos/1200/800",
+    "https://picsum.photos/1200/800",
+    "https://picsum.photos/1200/800",
+    "https://picsum.photos/1200/800"
+  ]
+},{
+  "_id": {
+    "$oid": "5f7c342eb33f471334d79bf8"
+  },
+  "title": "MOCKI MOCK",
+  "ticketPrice": 20,
+  "dateFinishes": {
+    "$date": "1970-01-01T00:00:00Z"
+  },
+  "maxTickets": 1000,
+  "prize": "CarPE",
+  "description": [
+    "line01",
+    "line02",
+    "line03",
+    "line04",
+    "line05"
+  ],
+  "pictures": [
+    "https://picsum.photos/1200/800",
+    "https://picsum.photos/1200/800",
+    "https://picsum.photos/1200/800",
+    "https://picsum.photos/1200/800"
+  ]
+}]

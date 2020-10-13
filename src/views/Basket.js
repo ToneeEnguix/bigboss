@@ -21,7 +21,7 @@ const contentWrapper = {
 
 const compsColumn = {
 
-  width:"30rem",
+  width:"30%",
   display: "flex",
   flexDirection: "column"
 }

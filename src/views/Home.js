@@ -2,17 +2,19 @@ import React from 'react';
 import HomeCarousel from "../components/HomeCarousel";
 import OtherCompetitions from "../components/OtherCompetitions";
 import RecentWinners from "../components/RecentWinners";
-import HowToPlay from "../components/HowToPlay"
+import HowToPlay from "../components/HowToPlay";
+/** @jsx jsx */
+import { jsx } from '@emotion/core';
 
 function Home() {
   return (
-    <React.Fragment>
+    <div css={{ marginTop: "7.5rem" }}>
 
-    <HomeCarousel/>
-    <OtherCompetitions/>
-    <RecentWinners/>
-    <HowToPlay/>
-    </React.Fragment>
+      <HomeCarousel />
+      <OtherCompetitions />
+      <RecentWinners />
+      <HowToPlay />
+    </div>
   );
 }
 

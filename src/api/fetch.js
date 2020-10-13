@@ -1,12 +1,15 @@
 import { API_URL } from "./API_URL"
 import { getToken } from './token';
 
-const getHeaders = async () => {
+const getHeaders = async (call) => {
 
     
     const token = await getToken();
     let headers = new Headers();
+
+    if (call.post===true){
     headers.append("Content-Type", "application/x-www-form-urlencoded");
+    }
 
     if (token) {
         headers.append("access-token",token)
@@ -17,7 +20,7 @@ const getHeaders = async () => {
 
 export const post = async (destination, body) => {
 
-    const headers = await getHeaders();
+    const headers = await getHeaders({post:true});
 
     const urlencoded = new URLSearchParams();
     urlencoded.append("data", JSON.stringify(body));
@@ -34,7 +37,7 @@ export const post = async (destination, body) => {
 };
 
 export const get = async (destination) => {
-    const headers = await getHeaders();
+    const headers = await getHeaders({post:false});
 
     const result = await fetch(`${API_URL}${destination}`, {
         method: 'GET',

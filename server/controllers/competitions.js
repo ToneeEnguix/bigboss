@@ -22,11 +22,25 @@ class CompetitionController {
     async randomPicks(req, res) {
 
 
-
-
         try {
 
-            res.status(200).send();
+            const totalItems = await competitions.count({ "dateFinishes": { "$gte": Date.now() } });
+            const selectedItems = new Set();
+            if (totalItems > 3) {
+                while (selectedItems.size < 3) {
+
+                    var random = Math.floor(Math.random() * totalItems);
+                    let newItem = await competitions.findOne().skip(random);
+                    selectedItems.add(newItem);
+                }
+            }
+            else{
+
+                let allCompetitions= await competitions.find({ "dateFinishes": { "$gte": Date.now() } })
+                selectedItems.add(allCompetitions)
+            }
+
+            res.status(200).send(...selectedItems);
         }
 
         catch (error) {
@@ -39,25 +53,24 @@ class CompetitionController {
 
     async read(req, res) {
 
-        const competitionID= req.params.id;
+        const competitionID = req.params.id;
 
         try {
 
-            const foundCompetition= await competitions.findById(competitionID);
+            const foundCompetition = await competitions.findById(competitionID);
 
-        
-            if (foundCompetition){
-            res.status(200).send(foundCompetition);
+
+            if (foundCompetition) {
+                res.status(200).send(foundCompetition);
             }
-            else 
-            {
+            else {
                 res.status(404).send();
             }
         }
 
         catch (error) {
 
-y
+            y
             res.status(500).send(error);
         }
 
@@ -103,8 +116,8 @@ y
 
 
         try {
-            const allCompetitions = await competitions.find({"dateFinishes": {"$gte": Date.now()}})
-          
+            const allCompetitions = await competitions.find({ "dateFinishes": { "$gte": Date.now() } })
+
 
             res.status(200).send(allCompetitions);
         }
@@ -121,8 +134,8 @@ y
 
 
         try {
-            const allCompetitions = await competitions.find({winner:{$ne: null}}).sort({dateFinishes:-1}).populate("winner")
-          
+            const allCompetitions = await competitions.find({ winner: { $ne: null } }).sort({ dateFinishes: -1 }).populate("winner")
+
 
             res.status(200).send(allCompetitions);
         }
@@ -134,13 +147,13 @@ y
 
     }
 
-    
+
     async withEntries(req, res) {
 
 
         try {
-            const allCompetitions = await competitions.find({entriesURL:{$ne: null}}).sort({dateFinishes:-1})
-          
+            const allCompetitions = await competitions.find({ entriesURL: { $ne: null } }).sort({ dateFinishes: -1 })
+
 
             res.status(200).send(allCompetitions);
         }

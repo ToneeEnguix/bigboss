@@ -22,12 +22,14 @@ const users= require("./routes/users.js");
 const orders = require("./routes/orders");
 const token = require ("./routes/token.js");
 const coupons = require ("./routes/coupons.js");
+const admin= require ("./routes/admin.js");
 
  app.use("/token",token)
  app.use("/competitions",competitions);
  app.use('/users',users);
  app.use('/coupons',coupons);
- app.use("/orders",orders)
+ app.use("/orders",orders);
+ app.use("/admin",admin);
 
 
 const port = 4000

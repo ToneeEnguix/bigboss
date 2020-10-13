@@ -23,13 +23,19 @@ import UserDashboard from "./views/UserDashboard";
 import Winners from "./views/Winners.js";
 import Terms from "./views/Terms.js";
 import ErrorPage from "./views/Error.js";
-import ForgotPass from "./views/ForgotPass.js"
+import ForgotPass from "./views/ForgotPass.js";
+
 
 import NavBar from "./components/NavBar";
 import NextDraw from "./components/NextDraw";
 
 import FooterAds from "./components/FooterAds";
 import FooterLinks from "./components/FooterLinks";
+
+import AdminLogin from "./views/AdminLogin";
+
+/** @jsx jsx */
+import { jsx } from '@emotion/core';
 
 import './App.css';
 
@@ -118,11 +124,11 @@ class App extends React.Component {
       <UserContext.Provider value={this.state}>
         <Router>
           <ScrollToTop />
-          <header>
+          <header css={{position:"fixed", top:"0", width:"100%",zIndex:"40"}}> 
             <NextDraw />
             <NavBar />
           </header>
-          <section>
+          <section css={{marginTop:"8rem"}}>
             <Switch>
               <PublicRoute restricted={false} history={customHistory}
                 component={CompetitionDetails} path="/competitions/:id" />
@@ -130,7 +136,7 @@ class App extends React.Component {
               <PublicRoute restricted={false} component={Competitions} path="/competitions" />
 
               <PublicRoute restricted={false} component={Winners} path="/winners" />
-              <PublicRoute restricted={false} component={Log} path="/log" />
+              <PublicRoute restricted={true} component={Log} path="/log" />
               <PublicRoute restricted={false} component={ForgotPass} path="/forgotPass" />
               <PublicRoute restricted={false} component={CreateAccount} path="/createaccount" />
               <PublicRoute restricted={false} component={Draws} path="/draws" />
@@ -138,6 +144,7 @@ class App extends React.Component {
               <PublicRoute restricted={false} component={ErrorPage} path="/error" />
               <PublicRoute restricted={false} component={Entries} path="/entries" />
               <PublicRoute restricted={false} component={Basket} path="/basket" />
+              <PublicRoute restricted={true} component={AdminLogin} path="/adminlogin" />
               <PrivateRoute restricted={false} component={UserDashboard} path="/userdashboard" />
               <PrivateRoute restricted={false} component={AdminDashboard} path="/admindashboard" />
               <Route path="/">
