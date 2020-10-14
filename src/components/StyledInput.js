@@ -129,6 +129,6 @@ export default class StyledInput extends React.Component {
 }
 
 StyledInput.defaultProps = {
-    valid: "2px solid #00C6D6",
+    valid: "2px solid #00FFFF",
 }
 

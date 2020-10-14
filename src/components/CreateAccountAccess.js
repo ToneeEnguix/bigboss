@@ -61,7 +61,7 @@ function CreateAccountAccess() {
       }}>
         <p>NEW CUSTOMER?</p>
         <p>SET UP AN ACCOUNT FOR </p>
-        <p css={{ color: "#00C6D6" }}>EXTRA FEATURES,PROMOTIONS AND MORE!</p>
+        <p css={{ color: "#00FFFF" }}>EXTRA FEATURES,PROMOTIONS AND MORE!</p>
       </div>
 
       <div css={{ display: "flex", justifyContent: "space-between", width: "80%" }}>

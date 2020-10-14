@@ -13,4 +13,6 @@ router.post("/delete",controller.delete);
 
 router.get("/all", controller.all); 
 
+router.get("/user/:id",controller.getUserOrders);
+
 module.exports = router;

@@ -13,10 +13,6 @@ const flexContainer = {
   alignItems: "center",
   justifyContent: "space-between",
   width: "100%",
-  boxShadow: "10px 10px 5px 0px rgba(0,0,0,16%)",
-  marginBottom: "0.3rem",
-
-  padding: "0.1rem",
 
   "a": {
 
@@ -33,24 +29,28 @@ const menu = {
   marginRight: "10rem",
   justifyContent: "space-between",
 
-  "& li:hover": {
-    cursor: "pointer",
-
-  },
 
   "a, strong": {
 
     fontWeight: "600",
     fontSize: "0.7rem",
-    letterSpacing: "0.3rem"
+    letterSpacing: "0.3rem",
+
+  },
+
+  "a": {
+    cursor: "pointer"
+  },
+  "strong": {
+    cursor: "context-menu"
   },
 
   "& a:after,strong:after": {
     display: "block",
     content: '""',
     position: "relative",
-    top: "1.5rem",
-    borderBottom: "solid 3px #00C6D6",
+    top: "1.2rem",
+    borderBottom: "solid 3px #00FFFF",
     transform: "scaleX(0)",
     transition: "transform 100ms ease-in-out"
   },
@@ -64,8 +64,8 @@ const menu = {
     display: "block",
     content: '""',
     position: "relative",
-    top: "1.5rem",
-    borderBottom: "solid 3px #00C6D6",
+    top: "1.2rem",
+    borderBottom: "solid 3px #00FFFF",
     transform: "scaleX(1)",
     transition: "transform 100ms ease-in-out"
 
@@ -76,9 +76,8 @@ const menu = {
 const icons = {
 
   display: "flex",
-  marginRight: "1rem",
-
-
+  marginRight: "2rem",
+  cursor: "context-menu",
 
   "div": {
 
@@ -95,10 +94,11 @@ const icons = {
     display: "block",
     content: '""',
     position: "relative",
-    top: "1.5rem",
-    borderBottom: "solid 3px #00C6D6",
+    top: "1.1rem",
+    borderBottom: "solid 3px #00FFFF",
     transform: "scaleX(0)",
-    transition: "transform 100ms ease-in-out"
+    transition: "transform 100ms ease-in-out",
+    cursor: "context-menu"
   },
 
   ".icon:hover:after": {
@@ -110,8 +110,8 @@ const icons = {
     display: "block",
     content: '""',
     position: "relative",
-    top: "1.5rem",
-    borderBottom: "solid 3px #00C6D6",
+    top: "1.1rem",
+    borderBottom: "solid 3px #00FFFF",
     transform: "scaleX(1)",
     transition: "transform 100ms ease-in-out"
 
@@ -123,6 +123,7 @@ function NavBar() {
 
   const [userMenu, setUserMenu] = useState(false);
   const [emptyCart, setEmptyCart] = useState(false);
+  const [more,setMore]=useState(false)
   const context = useContext(UserContext);
 
 
@@ -132,6 +133,14 @@ function NavBar() {
 
   }
 
+  const setValue = (amount) => {
+    let value = String(amount);
+    while (value.length < 2) {
+      value = '0' + value;
+    }
+    return value;
+
+  }
   const hideMenu = () => {
 
     setUserMenu(false);
@@ -147,10 +156,18 @@ function NavBar() {
     setEmptyCart(false)
   }
 
+  const showMore=()=>{
+
+
+    setMore(true)
+  }
+  
+  const hideMore=()=>{}
+
 
   return (
     <div css={flexContainer}>
-      <BigBossLogo css={{ marginLeft: "1rem" }} height={"60px"} width={"60px"} />
+      <BigBossLogo css={{ marginLeft: "2rem" }} height={"60px"} width={"60px"} />
 
       <ul css={menu}>
         <li>
@@ -178,7 +195,7 @@ function NavBar() {
             ENTRIES
             </NavLink>
         </li>
-        <li>
+        <li onMouseEnter={showMore}>
           <strong>
             MORE
             </strong>
@@ -196,34 +213,35 @@ function NavBar() {
             </div>
           </NavLink>
           :
-          <div onMouseEnter={extendMenu} onMouseLeave={hideMenu} css={{ position: "relative" }} className={"icon"}>
-            <div css={{ display: "flex", alignItems: "center", "i": { marginRight: "0.5rem" } }}>
-              <i className="material-icons-outlined">person</i>
-              <span css={{ textTransform: "upperCase" }}>{context.user.fullName}</span>
+          <div onMouseEnter={extendMenu} onMouseLeave={hideMenu} css={{ position: "relative", cursor: "context-menu" }} className={"icon"}>
+            <div css={{ cursor: "context-menu", display: "flex", alignItems: "center", "i": { marginRight: "0.5rem" } }}>
+              <i css={{ cursor: "context-menu" }} className="material-icons-outlined">person</i>
+              <span css={{ cursor: "context-menu", textTransform: "upperCase" }}>{context.user.fullName}</span>
             </div>
-            {userMenu ? <UserMenu /> : null}
+            {userMenu && context.showPurchaseAlert.status===false ? <UserMenu /> : null}
           </div>
         }
 
-        <div css={{ display: "hidden", width: "2rem" }}></div>
+        <div css={{ display: "hidden", width: "1rem" }}></div>
 
         {context.user.cart.length > 0 ?
 
-            <NavLink activeClassName={"active"} to="/basket" className={"icon"}>
+          <NavLink activeClassName={"active"} to="/basket" className={"icon"}>
             <div css={{ display: "flex", alignItems: "center", "i": { marginRight: "0.5rem" } }}>
               <i className="material-icons-outlined">shopping_cart</i>
-              <span>{context.user.cart.length}</span>
+              <span>{setValue(context.user.cart.length)}</span>
             </div>
-              </NavLink>    
+            <ShowPurchaseAlert active={context.showPurchaseAlert} />
+          </NavLink>
           : <div onMouseLeave={hideEmptyCart} onClick={showEmptyCart} className={"icon"}>
-        <div css={{ display: "flex", alignItems: "center", "i": { marginRight: "0.5rem" } }}>
-          <i className="material-icons-outlined">shopping_cart</i>
-          <span>{context.user.cart.length}</span>
-        </div>
-        {emptyCart ? <EmptyCart /> : null}
+            <div css={{ display: "flex", alignItems: "center", "i": { marginRight: "2rem" } }}>
+              <i className="material-icons-outlined">shopping_cart</i>
+              <span>{setValue(context.user.cart.length)}</span>
+            </div>
+            {emptyCart ? <EmptyCart /> : null}
+          </div>
+        }
       </div>
-}
-    </div>
     </div >
   );
 }
@@ -233,31 +251,45 @@ export default NavBar;
 const dropdown = {
 
   position: "absolute",
-
+  cursor: "context-menu",
   backgroundColor: "transparent",
   minWidth: "160px",
   zIndex: "1",
-  paddingTop: "3rem"
+  paddingTop: "1.3rem",
+
+  "li:hover>*": {
+
+    color: "#00FFFF"
+  },
+
+  "a:hover>*": {
+
+    color: "#00FFFF"
+  }
 }
 const UserMenu = () => {
 
-  const context=useContext(UserContext)
+  const context = useContext(UserContext)
 
-  const logout=()=>{
+  const logout = () => {
 
     context.logout();
   }
+
+
   return (
     <div css={dropdown}>
-      <ul css={{ display: "flex", flexDirection: "column" }}>
-        <li css={{}}>
+      <ul css={{ paddingTop: "1.2rem", display: "flex", flexDirection: "column", listStyle: "none", boxShadow: "0px 10px 5px 0px rgba(0,0,0,16%)" }}>
+        <li css={{ textDecoration: "none", margin: "0.5rem" }}>
           <Link to="/userdashboard/details">
-            ACCOUNT
+            <p>ACCOUNT</p>
           </Link>
         </li>
-        <li onClick={logout} css={{}}>
-          LOG OUT
-      </li>
+        <li onClick={logout} css={{ textDecoration: "none", margin: "0.5rem" }}>
+          <p>
+            LOG OUT
+          </p>
+        </li>
       </ul>
     </div >
   )
@@ -270,7 +302,7 @@ const dropdown02 = {
   backgroundColor: "transparent",
   minWidth: "160px",
   zIndex: "1",
-  paddingTop: "3rem"
+  paddingTop: "1.3rem"
 }
 
 const EmptyCart = () => {
@@ -279,5 +311,70 @@ const EmptyCart = () => {
     <div css={dropdown02}>
       <h5>BASKET IS CURRENTLY EMPTY</h5>
     </div >
+  )
+}
+
+const dropdown03 = {
+
+  position: "absolute",
+  right: "2rem",
+  backgroundColor: "transparent",
+  zIndex: "1",
+  paddingTop: "1.20rem",
+
+
+}
+
+
+const ShowPurchaseAlert = (props) => {
+
+
+  const setValue = (amount) => {
+    let value = String(amount);
+    while (value.length < 2) {
+      value = '0' + value;
+    }
+    return value;
+
+  }
+  if (props.active.status === false) return (
+    <React.Fragment></React.Fragment>
+  )
+  else return (
+    <div css={dropdown03}>
+      <div css={{
+        borderTop: "1px solid #868686",
+        backgroundColor: "#252525",
+      }}>
+        <div css={{ padding: "2rem 2rem" }}>
+          <div css={{ display: "flex", paddingBottom: "3rem" }}>
+            <p css={{ fontSize: "0.7rem", color: "#00FFFF", letterSpacing: "0.1rem" }}>SUCCESS! &nbsp;</p>
+            <p css={{ fontSize: "0.7rem", letterSpacing: "0.1rem" }}> ITEM ADDED TO CART</p>
+          </div>
+          <div css={{
+            display: "flex", alignItems: "center",
+
+          }}>
+            <div css={{ width: "200px" }}>
+              <img css={{ maxWidth: "100%" }} src={props.active.competition.pictures[0]} />
+            </div>
+            <div css={{
+              marginLeft: "2rem",
+              "p": { margin: "1rem 0" },
+
+            }}>
+              <p css={{ fontSize: "0.7rem", letterSpacing: "0.1rem" }}> {props.active.competition.title} COMPETITION</p>
+              <p css={{ color: "#00FFFF", fontSize: "0.7rem", letterSpacing: "0.1rem" }}>£{props.active.competition.ticketPrice}</p>
+              <p css={{ fontSize: "0.7rem", letterSpacing: "0.1rem" }}>QTY: {setValue(props.active.amount)} TICKETS</p>
+              <p css={{ textDecoration: "underline", fontSize: "0.7rem", letterSpacing: "0.1rem" }}>REMOVE</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div  css={{ borderRadius: "0px 0px 31px 0px", display:"flex",width:"100%",justifyContent:"center", paddingBottom: "1rem",
+        borderTop: "3px solid #00FFFF",}}>
+        <p css={{ padding:"1rem 0", textDecoration:"underline",color: "#00FFFF", fontSize: "0.8rem", letterSpacing: "0.1rem" }}>GO TO SECURE CHECKOUT</p>
+      </div>
+    </div>
   )
 }

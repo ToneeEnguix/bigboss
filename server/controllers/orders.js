@@ -5,7 +5,7 @@ class OrdersController {
 
   async create(req, res) {
 
-  
+
     try {
 
 
@@ -54,6 +54,26 @@ class OrdersController {
 
       res.status(500).send(error)
     }
+  }
+
+  async getUserOrders(req, res) {
+
+    const userId = req.params.id;
+
+    try {
+
+      const allOrders = await orders.find({ user: userId });
+
+      res.status(200).send(allOrders)
+    }
+    catch (error) {
+
+
+
+      res.status(500).send(error)
+    }
+
+
   }
 
 }

@@ -43,7 +43,7 @@ function CompetitionCard({ competition }) {
                 <img css={{ maxWidth: "100%" }} src={competition.pictures[0]} />
      
             <div css={textWrapper}>
-                <h4 css={{ letterSpacing: "0.2rem", color: "#00C6D6", margin: "0.5rem 0", fontSize: "0.8rem" }}> {competition.title} ENTRY</h4>
+                <h4 css={{ letterSpacing: "0.2rem", color: "#00FFFF", margin: "0.5rem 0", fontSize: "0.8rem" }}> {competition.title} ENTRY</h4>
                 <h4 css={{ letterSpacing: "0.2rem", margin: "0.5rem 0", fontSize: "0.8rem" }}>£{competition.ticketPrice} PER ENTRY</h4>
                 <Counter date={competition.dateFinishes} />
                 <Link to={{

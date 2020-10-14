@@ -59,7 +59,7 @@ function DrawCard(props) {
     return (
         <div css={card}>
             <div css={text}>
-                <p css={{ color: "#00C6D6" }}>DRAWN ON</p>
+                <p css={{ color: "#00FFFF" }}>DRAWN ON</p>
                 <p>{dateFormat[1]} {dateFormat[2]} {dateFormat[0]}</p>
             </div>
             <div css={video}>

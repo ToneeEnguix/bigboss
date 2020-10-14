@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 
@@ -26,14 +26,14 @@ const selectedNumber = {
     justifyContent: "center",
     fontSize: "1.2rem",
     cursor: "pointer",
-    border:"1px solid #00C6D6"
+    border: "1px solid #00C6D6"
 }
 
-const areEqual = (prevProps, nextProps) => prevProps.question=== nextProps.question;
+const areEqual = (prevProps, nextProps) => prevProps.question === nextProps.question;
 
 export default React.memo(props => {
 
-   
+
     const logAnswer = (value) => {
 
         if (correctResult === value) {
@@ -78,7 +78,7 @@ export default React.memo(props => {
 
     return (
         <React.Fragment>
-            <Results shuffledResults={shuffledResults} stringOperation={stringOperation} logAnswer={logAnswer}/>
+            <Results reset={props.question} shuffledResults={shuffledResults} stringOperation={stringOperation} logAnswer={logAnswer} />
         </React.Fragment>
     )
 }, areEqual)
@@ -105,46 +105,52 @@ const shuffle = (array) => {
 
 }
 
-const Results=(props)=>{
 
-    const [selected, setSelected] = useState(undefined);
 
-    const logAnswer=(element,index)=>{
 
-        setSelected(index)
+const Results = (props) => {
 
-        props.logAnswer(element)
+    const [selected, setSelected] = useState(0);
 
+    props.logAnswer(props.shuffledResults[selected])
+
+    const logAnswer = (element, index) => {
+
+        setSelected(index);
+
+        props.logAnswer(element);
 
     }
 
-return(
-    <React.Fragment>
-    <h3 css={{ fontSize: "0.7rem", marginTop: "1rem", letterSpacing: "0.2rem" }}>SECURITY QUESTION: WHAT IS {props.stringOperation}?</h3>
 
-    <div css={{ display: "flex" }}>
-        {props.shuffledResults.map((element, index) => {
+    return (
+        <React.Fragment>
+            <h3 css={{ fontSize: "0.7rem", marginTop: "1rem", letterSpacing: "0.2rem" }}>SECURITY QUESTION: WHAT IS {props.stringOperation}?</h3>
 
-            if (index !== selected) {
-                return (
-                    <div onClick={() => {logAnswer(element, index) }} key={index} css={number}>
-                        <strong>
-                            {element}
-                        </strong>
-                    </div>)
-            }
-            else{
-                return (
-                    <div onClick={() => { props.logAnswer(element, index) }} key={index} css={selectedNumber}>
-                        <strong>
-                            {element}
-                        </strong>
-                    </div>)
+            <div css={{ display: "flex" }}>
+                {props.shuffledResults.map((element, index) => {
+
+                    if (index !== selected) {
+                        return (
+                            <div onClick={() => { logAnswer(element, index) }} key={index} css={number}>
+                                <strong>
+                                    {element}
+                                </strong>
+                            </div>)
+                    }
+                    else {
+                        return (
+                            <div onClick={() => { props.logAnswer(element, index) }} key={index} css={selectedNumber}>
+                                <strong>
+                                    {element}
+                                </strong>
+                            </div>)
 
 
-            
-        }})}
-    </div>
-    </React.Fragment>
-)
-}
+
+                    }
+                })}
+            </div>
+        </React.Fragment>
+    )
+};

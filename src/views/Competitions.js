@@ -27,7 +27,7 @@ const competitionsWrap={
 function Competitions() {
 
   const [competitions, setCompetitions] = useState([]);
-  const [error, setError] = useState(false)
+  const [error, setError] = useState(false);
 
 
   async function getAllCompetitions() {

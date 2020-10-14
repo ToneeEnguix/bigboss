@@ -3,12 +3,12 @@ import React from 'react';
 import { jsx } from '@emotion/core';
 
 
-function Terms() {
+function About() {
   return (
     <React.Fragment>
-    <h1 css={{marginLeft:"4rem"}}>TERMS AND CONDITIONS</h1>
+    <h1 css={{marginLeft:"4rem"}}>ABOUT</h1>
     </React.Fragment>
   );
 }
 
-export default Terms;
+export default About;

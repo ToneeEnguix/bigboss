@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useContext } from 'react';
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { Redirect, useParams } from "react-router-dom"
@@ -9,6 +9,7 @@ import GenerateSecurityQuestion from "../utils/GenerateSecurityQuestion";
 import ShowCorrectButton from "../utils/ShowCorrectButton";
 import { ReactComponent as BigBossLogo } from "../resources/BigBossLogo.svg";
 import { get } from "../api/fetch";
+import UserContext from "../context/UserContext";
 
 
 const imageColumn = {
@@ -46,8 +47,8 @@ function CompetitionDetails(props) {
   const [correctAnswer, setcorrectAnswer] = useState(false)
   const [data, setData] = useState({ pictures: [], description: [] })
   const [amount, setAmount] = useState("01");
-  const [modal, setModal] = useState(false);
   const { id } = useParams();
+  const context = useContext(UserContext);
 
   useEffect(() => {
 
@@ -76,16 +77,7 @@ function CompetitionDetails(props) {
     }
   }
 
-  const showModal = () => {
 
-    setModal(true);
-    setTimeout(() => { setModal(false) }, 2000)
-  }
-  if (error) {
-    return (
-      <Redirect to={"/home"} />
-    )
-  }
 
   const setValue = (amount) => {
     let value = String(amount);
@@ -112,7 +104,9 @@ function CompetitionDetails(props) {
 
   const regenerateQuestion = () => {
 
-    setQuestion(!question)
+    setQuestion(!question);
+
+   
   }
 
   const checkAnswer = async (answer) => {
@@ -124,11 +118,23 @@ function CompetitionDetails(props) {
     else {
 
       setcorrectAnswer(true);
-
+    
     }
-
-
   }
+
+  const resetAnswer=()=>{
+
+    setcorrectAnswer(false);
+   
+  }
+
+  if (error) {
+    return (
+      <Redirect to={"/home"} />
+    )
+  }
+
+
   return (
 
     <div css={{ display: "flex", marginTop: "3rem", justifyContent: "space-between" }}>
@@ -147,8 +153,8 @@ function CompetitionDetails(props) {
         <img css={image} src={data.pictures[3]} />
       </div>
       <div css={detailsColumn}>
-        <h1 css={{ marginTop: "2rem", fontSize: "2rem" }}>{data.title}</h1>
-        <h3 css={{ margin: "1rem 0 2rem 0", color: "#00C6D6" }}>ONLY £{data.ticketPrice} PER ENTRY</h3>
+        <h1 css={{ marginTop: "2rem", fontSize: "2rem", textAlign:"center" }}>{data.title}</h1>
+        <h3 css={{ margin: "1rem 0 2rem 0", color: "#00FFFF" }}>ONLY £{data.ticketPrice} PER ENTRY</h3>
         <Counter date={data.dateFinishes} />
         <div css={{ display: "flex", alignItems: "center" }}>
           <div css={{ display: "flex", flexDirection: "column", alignItems: "center", padding: "1rem" }}>
@@ -163,13 +169,13 @@ function CompetitionDetails(props) {
           <GenerateSecurityQuestion checkAnswer={checkAnswer} question={question} />
         </div>
 
-        <ShowCorrectButton showModal={showModal} regenerateQuestion={regenerateQuestion} correctAnswer={correctAnswer} amount={Number(amount)} data={data} ticketsAvailable={data.ticketsAvailable} />
+        <ShowCorrectButton regenerateQuestion={regenerateQuestion} resetAnswer={resetAnswer}correctAnswer={correctAnswer} amount={Number(amount)} data={data} ticketsAvailable={data.ticketsAvailable} />
 
         <div css={{ width: "100%" }}>
 
           <h4 css={{
             marginTop: "2rem",
-            color: "#00C6D6",
+            color: "#00FFFF",
             fontSize: "0.9rem",
             letterSpacing: "0.1rem",
             marginBottom: "1rem"
@@ -183,7 +189,7 @@ function CompetitionDetails(props) {
           })}
           <h4 css={{
             marginTop: "2rem",
-            color: "#00C6D6",
+            color: "#00FFFF",
             fontSize: "0.7rem",
             letterSpacing: "0.1rem",
             marginBottom: "1rem"
@@ -193,7 +199,7 @@ function CompetitionDetails(props) {
         </div>
         <BigBossLogo css={{ margin: "4rem 0 2rem 0" }} height={"65px"} width={"65px"} />
       </div>
-      {modal ? <Modal /> : null}
+      <Modal active={context.showPurchaseAlert}/>
     </div>
   );
 }
@@ -201,9 +207,10 @@ function CompetitionDetails(props) {
 export default CompetitionDetails;
 
 
-const Modal = () => {
+const Modal = (props) => {
 
 
+  if (props.active.status===true){
   return (
 
     <div css={{
@@ -215,8 +222,12 @@ const Modal = () => {
       width: "100%",
       height: "100vh"
     }}>
-      <div>THIS IS TE CARD</div>
+    
     </div>
-
+  
   )
+  }
+  else{
+    return(<React.Fragment></React.Fragment>)
+  }
 }

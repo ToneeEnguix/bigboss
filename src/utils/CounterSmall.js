@@ -20,11 +20,11 @@ const number = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    fontSize:"1.2rem",
-   
-    
-    
-    "strong":{letterSpacing:"0.4rem"}
+    fontSize: "1.2rem",
+
+
+
+    "strong": { letterSpacing: "0.4rem" }
 
 }
 
@@ -120,50 +120,8 @@ class Countdown extends Component {
         const countDown = this.state;
 
         return (
-            <div css={{ display: "flex", justifyContent: "center", marginBottom: "2rem" }}>
-                <div css={countBox}>
-
-                    <div css={number}>
-                        <strong css={{ color: "#00FFFF" }}>
-                            {this.addLeadingZeros(countDown.days)}
-                        </strong>
-                    </div>
-                    <span css={description}>{countDown.days === 1 ? 'DAY' : 'DAYS'}</span>
-
-                </div>
-                <div css={countBox}>
-
-                    <div css={number}>
-                        <strong css={{ color: "#00FFFF" }}>
-                            {this.addLeadingZeros(countDown.hours)}
-                        </strong>
-                    </div>
-                    <span css={description}>HOURS</span>
-
-                </div>
-                <div css={countBox}>
-
-                    <div css={number}>
-                        <strong css={{ color: "#00FFFF" }}>
-                            {this.addLeadingZeros(countDown.min)}
-                        </strong>
-                    </div>
-                    <span css={description}>MINUTES</span>
-
-                </div>
-                <div css={countBox}>
-
-                    <div css={number}>
-                        <strong css={{ color: "#00FFFF" }}>
-                            {this.addLeadingZeros(countDown.sec)}
-                        </strong>
-                    </div>
-                    <span css={description}>SECONDS</span>
-
-                </div>
-
-
-
+            <div css={{ display: "flex", justifyContent: "center", }}>
+                <h5 css={{fontWeight:"600", fontSize:"0.7rem"}}>NEXT DRAW LIVE ON FACEBOOK IN {this.addLeadingZeros(countDown.days)} DAYS/ {this.addLeadingZeros(countDown.hours)} HRS/ {this.addLeadingZeros(countDown.min)} MIN/ {this.addLeadingZeros(countDown.sec)} SEC </h5>
             </div>
 
 

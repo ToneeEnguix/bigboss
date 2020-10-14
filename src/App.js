@@ -50,8 +50,10 @@ class App extends React.Component {
     const signal = abort.signal;
     this.state = {
       user: {
-        _id: true, fullName: "PEPE", cart: [{ competition: { _id: "5f7b351559537043a887b888", title: "MOCKI MOCK", ticketPrice: 20, dateFinishes: "2020-10-07T17:00:00.000Z", maxTickets: 1000, ticketsAvailable: 24, prize: "Car", description: ["line01", "line02", "line03", "line04", "line05"], pictures: ["https://picsum.photos/1200/800", "https://picsum.photos/1200/800", "https://picsum.photos/1200/800", "https://picsum.photos/1200/800"] }, amount: 3 }]
+        _id: "5f7c33b5b33f471334d79bf4", fullName: "PEPE", cart: [{ competition: { _id: "5f7b351559537043a887b888", title: "MOCKI MOCK", ticketPrice: 20, dateFinishes: "2020-10-07T17:00:00.000Z", maxTickets: 1000, ticketsAvailable: 24, prize: "Car", description: ["line01", "line02", "line03", "line04", "line05"], pictures: ["https://picsum.photos/1200/800", "https://picsum.photos/1200/800", "https://picsum.photos/1200/800", "https://picsum.photos/1200/800"] }, amount: 3 }]
       },
+
+      showPurchaseAlert: {status:false},
 
       activateUser: (user) => {
 
@@ -61,7 +63,8 @@ class App extends React.Component {
 
       logout: () => {
 
-        this.setState({ user: { _id: undefined, fulName: undefined, cart: [] } })
+        this.setState({ user: { _id: undefined, fulName: undefined, cart: [] } });
+        localStorage.clear();
       },
 
       buyTickets: (amount, competition) => {
@@ -84,7 +87,10 @@ class App extends React.Component {
 
         }
 
-        this.setState({ user: { ...this.state.user, cart: cartCopy } });
+        this.setState({showPurchaseAlert: {status:true, competition:competition,amount:amount}, user: { ...this.state.user, cart: cartCopy }});
+        
+        setTimeout(()=>{this.setState({showPurchaseAlert:{status:false}})},2000)
+       
 
       },
 
@@ -99,6 +105,7 @@ class App extends React.Component {
         cartCopy[onCartIndex] = { ...cartCopy[onCartIndex], amount: parseInt(newAmount) };
 
         this.setState({ user: { ...this.state.user, cart: cartCopy } });
+
 
       },
 
@@ -124,11 +131,11 @@ class App extends React.Component {
       <UserContext.Provider value={this.state}>
         <Router>
           <ScrollToTop />
-          <header css={{position:"fixed", top:"0", width:"100%",zIndex:"40"}}> 
+          <header css={{ position: "fixed", top: "0", width: "100%", zIndex: "40", boxShadow: "0px 10px 5px 0px rgba(0,0,0,16%)" }}>
             <NextDraw />
             <NavBar />
           </header>
-          <section css={{marginTop:"8rem"}}>
+          <section css={{ marginTop: "10rem" }}>
             <Switch>
               <PublicRoute restricted={false} history={customHistory}
                 component={CompetitionDetails} path="/competitions/:id" />

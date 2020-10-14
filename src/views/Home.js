@@ -8,7 +8,7 @@ import { jsx } from '@emotion/core';
 
 function Home() {
   return (
-    <div css={{ marginTop: "7.5rem" }}>
+    <div>
 
       <HomeCarousel />
       <OtherCompetitions />

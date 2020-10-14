@@ -3,12 +3,12 @@ import React from 'react';
 import { jsx } from '@emotion/core';
 
 
-function Terms() {
+function Privacy() {
   return (
     <React.Fragment>
-    <h1 css={{marginLeft:"4rem"}}>TERMS AND CONDITIONS</h1>
+    <h1 css={{marginLeft:"4rem"}}>PRIVACY POLICY</h1>
     </React.Fragment>
   );
 }
 
-export default Terms;
+export default Privacy;

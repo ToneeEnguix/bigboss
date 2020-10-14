@@ -147,6 +147,40 @@ class CompetitionController {
 
     }
 
+    async recentWinners(req, res) {
+
+
+        try {
+            const allCompetitions = await competitions.find({ winner: { $ne: null } }).sort({ dateFinishes: -1 }).populate("winner").limit(3)
+
+
+            res.status(200).send(allCompetitions);
+        }
+
+        catch (error) {
+
+            res.status(500).send(error);
+        }
+
+    }
+
+    async nextDraw (req,res){
+
+        try {
+       
+            const lastCompetition = await competitions.find({ "dateFinishes": { "$gte": Date.now() } }).sort({dateFinishes:1}).limit(1)
+
+            res.status(200).send(lastCompetition);
+        }
+
+        catch (error) {
+
+            res.status(500).send(error);
+        }
+
+
+    }
+
 
     async withEntries(req, res) {
 

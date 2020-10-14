@@ -6,7 +6,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { jsx } from '@emotion/core';
 import { get } from "../api/fetch";
 import { Redirect } from "react-router-dom";
-import CarouselCard from "./CarouselCard";
+import CarouselCard from "./CarouselHomeCard";
 
 
 

@@ -55,14 +55,14 @@ function BasketCard(props) {
 
     const add = () => {
 
-        const newValue = setValue(Number(amount) + 1);
+        const newValue = Number(amount) + 1;
         setAmount(newValue);
     }
 
     const substract = () => {
 
         if (amount !== "01") {
-            const newValue = setValue(Number(amount) - 1);
+            const newValue = Number(amount) - 1;
             setAmount(newValue);
         }
     }
@@ -92,7 +92,7 @@ function BasketCard(props) {
                     <button onClick={substract} className="roundButtonSmall">-</button>
                     <p css={{ fontWeight: "500" }}>MORE</p>
                     <button onClick={add} className="roundButtonSmall">+</button>
-                    <input value={amount} className="inputAmountSmall" />
+                    <input value={setValue(amount)} className="inputAmountSmall" />
                 </div>
                 <button onClick={saveUpdate} css={{ marginTop: "2rem" }} className="button02">SAVE YOUR UPDATE</button>
                 <p css={{marginTop:"0.3rem", fotWeight:"500",textAlign:"center",visibility:message.visible}}>{message.message}</p>

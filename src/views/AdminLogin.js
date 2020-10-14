@@ -59,7 +59,7 @@ function AdminLogin() {
 
             <h1>ADMIN LOGIN</h1>
             <div css={{ display: "flex", justifyContent: "center" }}>
-                <form onSubmit={submit} css={{ width: "30%", display: "flex", justifyContent: "center", marginTop: "8rem", flexDirection: "column", textAlign: "center" }}>
+                <form onSubmit={submit} css={{ width: "30%", display: "flex", justifyContent: "center", marginTop: "4rem", flexDirection: "column", textAlign: "center" }}>
 
                     <StyledInput type="text" width="100%" name="NAME" innerName="name" />
                     <StyledInput type="password" eye={true} width="100%" name="PASSWORD" innerName="password" />

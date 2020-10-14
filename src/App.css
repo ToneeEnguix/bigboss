@@ -74,7 +74,7 @@ p{
 
 .button02{
 
-  background-color:#00C6D6;
+  background-color:#00FFFF;
   color:rgb(37,37,37);
   border:none;
   outline:none;
@@ -116,7 +116,7 @@ p{
 
 .roundButtonBlue{
   border-radius:50%;
-  background-color:#00C6D6;
+  background-color:#00FFFF;
   color:#252525;
   border:none;
 width:4rem;
@@ -149,7 +149,7 @@ box-shadow: -1px 4px 22px 0px rgba(0,0,0,16%);
 
 .roundButtonSmall{
   border-radius:50%;
-   background-color:rgb(37,37,37); 
+   background-color:#252525; 
   color:#FFFFFF;
   border:none;
   width:2rem;

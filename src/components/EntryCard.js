@@ -55,10 +55,10 @@ function EntryCard(props) {
             <div css={text}>
                 <p css={{ color: "grey" }}>{props.winner.title} ENTRY</p>
                 <p >{props.winner.prize}</p>
-                <p css={{ color: "#00C6D6" }}>PUBLISHED ON {dateFormat[1]} {dateFormat[2]} {dateFormat[0]}</p>
+                <p css={{ color: "#00FFFF" }}>PUBLISHED ON {dateFormat[1]} {dateFormat[2]} {dateFormat[0]}</p>
             </div>
             <a css={{ width: "100%", display: "flex", justifyContent: "center", paddingBottom:"3rem"}} href={props.winner.entriesURL}>
-                <p css={{ color: "#00C6D6" }}>
+                <p css={{ color: "#00FFFF" }}>
                     VIEW ENTRIES
                     </p>
             </a>

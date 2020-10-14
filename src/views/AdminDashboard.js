@@ -20,7 +20,7 @@ function AdminDashboard(props) {
 
     useEffect(() => {
 
-        if (!props.location.state.admin) {
+        if (!props.location.state) {
             setRedirect(true)
         }
     }, [])

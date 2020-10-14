@@ -17,12 +17,13 @@ function ShowCorrectButton(props) {
             setError({visible:"hidden",message:"hidden"});
             context.buyTickets(props.amount, props.data);
             props.regenerateQuestion();
-            props.showModal();
+            props.resetAnswer(false);
         }
         else {
 
             setError({visible:"visible", message:"WRONG SECURITY QUESTION ANSWER"});
             props.regenerateQuestion();
+            setTimeout(()=>{setError({visible:"hidden",message:"hidden"})},2000)
         }
     }
 

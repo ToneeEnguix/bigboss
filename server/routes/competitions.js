@@ -17,6 +17,10 @@ router.get("/all", controller.all);
 
 router.get("/winners",controller.finished);
 
-router.get("/entries",controller.withEntries)
+router.get("/recentwinners",controller.recentWinners);
+
+router.get("/entries",controller.withEntries);
+
+router.get("/nextdraw",controller.nextDraw);
 
 module.exports = router;
