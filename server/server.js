@@ -23,6 +23,7 @@ const orders = require("./routes/orders");
 const token = require ("./routes/token.js");
 const coupons = require ("./routes/coupons.js");
 const admin= require ("./routes/admin.js");
+const faq= require ("./routes/faq.js");
 
  app.use("/token",token)
  app.use("/competitions",competitions);
@@ -30,6 +31,7 @@ const admin= require ("./routes/admin.js");
  app.use('/coupons',coupons);
  app.use("/orders",orders);
  app.use("/admin",admin);
+ app.use("/faq",faq);
 
 
 const port = 4000

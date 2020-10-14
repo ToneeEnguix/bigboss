@@ -10,21 +10,10 @@ import Orders from "../components/Orders";
 import Account from "../components/Account";
 import Password from "../components/Password";
 
-import UserContext from "../context/UserContext";
-
-
-const dashboard = {
-    display: "flex",
-    width: "100%",
-    color: "black",
-    justifyContent: "center",
-    backgroundColor: "white",
-    marginTop: "1rem"
-}
 
 const UserDashboard = ({ match }) => {
 
-    const context = useContext(UserContext);
+
 
 
     return (

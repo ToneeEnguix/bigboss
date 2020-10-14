@@ -21,7 +21,7 @@ import Home from "./views/Home";
 import Log from "./views/Log";
 import UserDashboard from "./views/UserDashboard";
 import Winners from "./views/Winners.js";
-import Terms from "./views/Terms.js";
+import MoreDashboard from "./views/MoreDashboard.js";
 import ErrorPage from "./views/Error.js";
 import ForgotPass from "./views/ForgotPass.js";
 
@@ -141,17 +141,16 @@ class App extends React.Component {
                 component={CompetitionDetails} path="/competitions/:id" />
               <PublicRoute restricted={false} component={Home} path="/home" />
               <PublicRoute restricted={false} component={Competitions} path="/competitions" />
-
               <PublicRoute restricted={false} component={Winners} path="/winners" />
               <PublicRoute restricted={true} component={Log} path="/log" />
               <PublicRoute restricted={false} component={ForgotPass} path="/forgotPass" />
               <PublicRoute restricted={false} component={CreateAccount} path="/createaccount" />
               <PublicRoute restricted={false} component={Draws} path="/draws" />
-              <PublicRoute restricted={false} component={Terms} path="/terms" />
               <PublicRoute restricted={false} component={ErrorPage} path="/error" />
               <PublicRoute restricted={false} component={Entries} path="/entries" />
               <PublicRoute restricted={false} component={Basket} path="/basket" />
               <PublicRoute restricted={true} component={AdminLogin} path="/adminlogin" />
+              <PublicRoute restricted={false} component={MoreDashboard} path="/more"/>
               <PrivateRoute restricted={false} component={UserDashboard} path="/userdashboard" />
               <PrivateRoute restricted={false} component={AdminDashboard} path="/admindashboard" />
               <Route path="/">

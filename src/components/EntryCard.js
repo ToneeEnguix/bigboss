@@ -27,15 +27,12 @@ const text = {
     "p": {
 
         margin: "1rem 0 0 0"
+    },
+
+    "span":{
+        cursor:"pointer"
     }
 }
-
-const video = {
-
-    padding: "0 2rem",
-
-}
-
 
 function EntryCard(props) {
 
@@ -55,9 +52,12 @@ function EntryCard(props) {
             <div css={text}>
                 <p css={{ color: "grey" }}>{props.winner.title} ENTRY</p>
                 <p >{props.winner.prize}</p>
-                <p css={{ color: "#00FFFF" }}>PUBLISHED ON {dateFormat[1]} {dateFormat[2]} {dateFormat[0]}</p>
+                <p css={{ color: "#00FFFF",marginBottom:"1rem !important" }}>PUBLISHED ON {dateFormat[1]} {dateFormat[2]} {dateFormat[0]}</p>
+                <span class="material-icons">
+                    share
+                </span>
             </div>
-            <a css={{ width: "100%", display: "flex", justifyContent: "center", paddingBottom:"3rem"}} href={props.winner.entriesURL}>
+            <a css={{ width: "100%", display: "flex", justifyContent: "center", paddingBottom: "3rem" }} href={props.winner.entriesURL}>
                 <p css={{ color: "#00FFFF" }}>
                     VIEW ENTRIES
                     </p>

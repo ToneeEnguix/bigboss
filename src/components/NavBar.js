@@ -123,7 +123,7 @@ function NavBar() {
 
   const [userMenu, setUserMenu] = useState(false);
   const [emptyCart, setEmptyCart] = useState(false);
-  const [more,setMore]=useState(false)
+  const [more, setMore] = useState(false)
   const context = useContext(UserContext);
 
 
@@ -156,13 +156,13 @@ function NavBar() {
     setEmptyCart(false)
   }
 
-  const showMore=()=>{
+  const showMore = () => {
 
 
     setMore(true)
   }
-  
-  const hideMore=()=>{}
+
+  const hideMore = () => { }
 
 
   return (
@@ -196,9 +196,26 @@ function NavBar() {
             </NavLink>
         </li>
         <li onMouseEnter={showMore}>
-          <strong>
+          <NavLink to="/more/about" isActive={(match, location) => {
+
+            if (location.pathname === "/more/about" || 
+            location.pathname === "/more/terms"||
+            location.pathname==="/more/faq"||
+            location.pathname==="/more/careers"||
+            location.pathname==="/more/privacy"
+            ) {
+
+              return true
+            }
+
+            else {
+
+              return false
+            }
+
+          }}>
             MORE
-            </strong>
+            </NavLink>
         </li>
       </ul>
       <div css={icons}>
@@ -218,7 +235,7 @@ function NavBar() {
               <i css={{ cursor: "context-menu" }} className="material-icons-outlined">person</i>
               <span css={{ cursor: "context-menu", textTransform: "upperCase" }}>{context.user.fullName}</span>
             </div>
-            {userMenu && context.showPurchaseAlert.status===false ? <UserMenu /> : null}
+            {userMenu && context.showPurchaseAlert.status === false ? <UserMenu /> : null}
           </div>
         }
 
@@ -281,9 +298,9 @@ const UserMenu = () => {
     <div css={dropdown}>
       <ul css={{ paddingTop: "1.2rem", display: "flex", flexDirection: "column", listStyle: "none", boxShadow: "0px 10px 5px 0px rgba(0,0,0,16%)" }}>
         <li css={{ textDecoration: "none", margin: "0.5rem" }}>
-          <Link to="/userdashboard/details">
+          <NavLink to="/userdashboard/details">
             <p>ACCOUNT</p>
-          </Link>
+          </NavLink>
         </li>
         <li onClick={logout} css={{ textDecoration: "none", margin: "0.5rem" }}>
           <p>
@@ -371,9 +388,11 @@ const ShowPurchaseAlert = (props) => {
           </div>
         </div>
       </div>
-      <div  css={{ borderRadius: "0px 0px 31px 0px", display:"flex",width:"100%",justifyContent:"center", paddingBottom: "1rem",
-        borderTop: "3px solid #00FFFF",}}>
-        <p css={{ padding:"1rem 0", textDecoration:"underline",color: "#00FFFF", fontSize: "0.8rem", letterSpacing: "0.1rem" }}>GO TO SECURE CHECKOUT</p>
+      <div css={{
+        borderRadius: "0px 0px 31px 0px", display: "flex", width: "100%", justifyContent: "center", paddingBottom: "1rem",
+        borderTop: "3px solid #00FFFF",
+      }}>
+        <p css={{ padding: "1rem 0", textDecoration: "underline", color: "#00FFFF", fontSize: "0.8rem", letterSpacing: "0.1rem" }}>GO TO SECURE CHECKOUT</p>
       </div>
     </div>
   )
