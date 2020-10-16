@@ -24,7 +24,7 @@ class CompetitionController {
 
         try {
 
-            const totalItems = await competitions.count({ "dateFinishes": { "$gte": Date.now() } });
+            const totalItems = await competitions.countDocuments({ "dateFinishes": { "$gte": Date.now() } });
             const selectedItems = new Set();
             if (totalItems > 3) {
                 while (selectedItems.size < 3) {

@@ -67,12 +67,12 @@ function ForgotPass() {
             if (result.ok) {
                 localStorage.clear();
                 setErrorMessage({ visibility: "visible", message: "PASSWORD CHANGED." });
-                setTimeout(() => { setErrorMessage({ visibility: "hidden", message: "hidden" }), 5000 });
+                setTimeout(() => { setErrorMessage({ visibility: "hidden", message: "hidden" })}, 5000 );
             }
             else {
                 localStorage.clear();
                 setErrorMessage({ visibility: "visible", message: "SOMETHING WENT WRONG. PLEASE TRY AGAIN LATER." });
-                setTimeout(() => { setErrorMessage({ visibility: "hidden", message: "hidden" }), 5000 });
+                setTimeout(() => { setErrorMessage({ visibility: "hidden", message: "hidden" })}, 5000 );
             }
         }
         else {

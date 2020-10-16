@@ -23,13 +23,8 @@ class TokenController {
 
                         const _id = decoded._id
 
-                        const activeUser = await users.findOne({ _id }).populate("wishlist.range").populate("sampleCart.range").populate("cart.range").populate("orders").populate("cart.range.variants.color");
+                        const activeUser = await users.findOne({ _id });
 
-                        const filteredResult = activeUser.cart.filter((item) => {
-                            return (item.range.variants[item.variantIndex].stock > 0);
-
-                        });
-                        activeUser.cart = filteredResult
                         res.status(200).send({ message: "Access Granted", userData: activeUser });
                     }
                 });

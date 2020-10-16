@@ -1,10 +1,14 @@
+
+
 export const logout = () => {
     localStorage.removeItem("@auth_token");
 }
 
-export const isLogin = () => {
+export const isLogin = (id) => {
 
-    if (localStorage.getItem("@auth_token")) {
+ 
+
+    if (localStorage.getItem("@auth_token") && id!==undefined) {
         return true;
     }
 

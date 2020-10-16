@@ -298,9 +298,9 @@ const UserMenu = () => {
     <div css={dropdown}>
       <ul css={{ paddingTop: "1.2rem", display: "flex", flexDirection: "column", listStyle: "none", boxShadow: "0px 10px 5px 0px rgba(0,0,0,16%)" }}>
         <li css={{ textDecoration: "none", margin: "0.5rem" }}>
-          <NavLink to="/userdashboard/details">
+          <Link to="/userdashboard/details">
             <p>ACCOUNT</p>
-          </NavLink>
+          </Link>
         </li>
         <li onClick={logout} css={{ textDecoration: "none", margin: "0.5rem" }}>
           <p>

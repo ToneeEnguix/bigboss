@@ -34,8 +34,10 @@ function Orders() {
 
   useEffect(() => {
 
+  if (context.user._id!==undefined){
     getOrders();
-  }, []);
+  }
+  }, );
 
   const getOrders = async () => {
 
@@ -44,7 +46,6 @@ function Orders() {
     if (result.ok) {
 
       setOrders(result.data);
-      console.log(result.data, "FFFFF")
 
     }
     else {
@@ -79,14 +80,19 @@ function Orders() {
       <div css={{ height: "50vh", marginLeft: "3rem", marginTop: "1rem", }}>
         <p css={{color:"#00FFFF",fontWeight:"600",marginBottom:"1rem"}}>ORDER HISTORY</p>
         <p css={{fontWeight:"600",marginBottom:"2rem"}}>YOU HAVE MADE {setValue(orders.length)} ORDERS SO FAR</p>
+        
         <table>
+          <thead>
+            <tr>
           <th  css={th}>ORDER DATE</th>
           <th css={th}>ORDER NUMBER</th>
           <th css={th}>AMOUNT</th>
           <th css={th}>PAYMENT</th>
-          {orders.length === 0 ?
-            <p css={{ marginLeft: "2rem" }}>YOU HAVE MADE 0 ORDERS SO FAR</p> :
-
+          </tr>
+          </thead>
+          <tbody>
+          {
+            
             orders.map((order, index) => {
 
               return (
@@ -99,7 +105,7 @@ function Orders() {
                 </tr>
               )
             })}
-
+</tbody>
         </table>
       </div>
     );
