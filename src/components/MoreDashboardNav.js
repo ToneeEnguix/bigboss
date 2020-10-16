@@ -70,6 +70,9 @@ export default class MoreDashboardNav extends React.Component {
                         <li>
                             <NavLink activeClassName={"active"} to="./privacy">PRIVACY</NavLink>
                         </li>
+                        <li>
+                            <NavLink activeClassName={"active"} to="./careers">CAREERS</NavLink>
+                        </li>
                     </ul>
                 </nav>
             

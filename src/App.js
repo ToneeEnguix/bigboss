@@ -46,6 +46,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
+ 
     const abort = new AbortController();
     const signal = abort.signal;
     this.state = {
@@ -53,7 +54,7 @@ class App extends React.Component {
         _id: "5f7c33b5b33f471334d79bf4", fullName: "PEPE", cart: [{ competition: { _id: "5f7b351559537043a887b888", title: "MOCKI MOCK", ticketPrice: 20, dateFinishes: "2020-10-07T17:00:00.000Z", maxTickets: 1000, ticketsAvailable: 24, prize: "Car", description: ["line01", "line02", "line03", "line04", "line05"], pictures: ["https://picsum.photos/1200/800", "https://picsum.photos/1200/800", "https://picsum.photos/1200/800", "https://picsum.photos/1200/800"] }, amount: 3 }]
       },
 
-      showPurchaseAlert: {status:false},
+      showPurchaseAlert: { status: false },
 
       activateUser: (user) => {
 
@@ -87,10 +88,10 @@ class App extends React.Component {
 
         }
 
-        this.setState({showPurchaseAlert: {status:true, competition:competition,amount:amount}, user: { ...this.state.user, cart: cartCopy }});
-        
-        setTimeout(()=>{this.setState({showPurchaseAlert:{status:false}})},2000)
-       
+        this.setState({ showPurchaseAlert: { status: true, competition: competition, amount: amount }, user: { ...this.state.user, cart: cartCopy } });
+
+         setTimeout(()=>{this.setState({showPurchaseAlert:{status:false}})},2000)
+
 
       },
 
@@ -120,9 +121,15 @@ class App extends React.Component {
         this.setState({ user: { ...this.state.user, cart: cartCopy } });
 
       },
-    }
+      hideModal: () => {
 
+
+        this.setState({ showPurchaseAlert: { status: false } })
+      }
+    }
   }
+
+
 
   render() {
 
@@ -150,7 +157,7 @@ class App extends React.Component {
               <PublicRoute restricted={false} component={Entries} path="/entries" />
               <PublicRoute restricted={false} component={Basket} path="/basket" />
               <PublicRoute restricted={true} component={AdminLogin} path="/adminlogin" />
-              <PublicRoute restricted={false} component={MoreDashboard} path="/more"/>
+              <PublicRoute restricted={false} component={MoreDashboard} path="/more" />
               <PrivateRoute restricted={false} component={UserDashboard} path="/userdashboard" />
               <PrivateRoute restricted={false} component={AdminDashboard} path="/admindashboard" />
               <Route path="/">

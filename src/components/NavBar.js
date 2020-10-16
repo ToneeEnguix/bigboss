@@ -198,11 +198,11 @@ function NavBar() {
         <li onMouseEnter={showMore}>
           <NavLink to="/more/about" isActive={(match, location) => {
 
-            if (location.pathname === "/more/about" || 
-            location.pathname === "/more/terms"||
-            location.pathname==="/more/faq"||
-            location.pathname==="/more/careers"||
-            location.pathname==="/more/privacy"
+            if (location.pathname === "/more/about" ||
+              location.pathname === "/more/terms" ||
+              location.pathname === "/more/faq" ||
+              location.pathname === "/more/careers" ||
+              location.pathname === "/more/privacy"
             ) {
 
               return true
@@ -346,6 +346,10 @@ const dropdown03 = {
 const ShowPurchaseAlert = (props) => {
 
 
+  const context = useContext(UserContext);
+
+
+
   const setValue = (amount) => {
     let value = String(amount);
     while (value.length < 2) {
@@ -354,7 +358,7 @@ const ShowPurchaseAlert = (props) => {
     return value;
 
   }
-  if (props.active.status === false) return (
+  if (context.showPurchaseAlert.status === false) return (
     <React.Fragment></React.Fragment>
   )
   else return (
@@ -392,7 +396,17 @@ const ShowPurchaseAlert = (props) => {
         borderRadius: "0px 0px 31px 0px", display: "flex", width: "100%", justifyContent: "center", paddingBottom: "1rem",
         borderTop: "3px solid #00FFFF",
       }}>
-        <p css={{ padding: "1rem 0", textDecoration: "underline", color: "#00FFFF", fontSize: "0.8rem", letterSpacing: "0.1rem" }}>GO TO SECURE CHECKOUT</p>
+        <Link to="/basket">
+          <p css={{
+            padding: "1rem 0",
+            textDecoration: "underline",
+            color: "#00FFFF",
+            fontSize: "0.8rem",
+            letterSpacing: "0.1rem"
+          }}>
+            GO TO SECURE CHECKOUT
+                </p>
+        </Link>
       </div>
     </div>
   )

@@ -10,6 +10,7 @@ import About from "../components/About";
 import FAQ from "../components/FAQ";
 import Privacy from "../components/Privacy";
 import Terms from "../components/Terms";
+import Careers from "../components/Careers";
 
 
 
@@ -28,7 +29,7 @@ const MoreDashboard = ({ match }) => {
                        <Route path={`${match.path}/faq`} component={FAQ} />
                     <Route path={`${match.path}/privacy`} component={Privacy} />
                     <Route path={`${match.path}/terms`} component={Terms} /> 
-
+                    <Route path={`${match.path}/careers`} component={Careers} /> 
                     <Route path={match.path} exact  component={About}>
                         
                     </Route>

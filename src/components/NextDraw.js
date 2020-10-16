@@ -15,7 +15,8 @@ const flexContainer = {
     width: "100%",
     backgroundColor: "#222222",
     height: "3rem",
-    overflow: "hidden"
+    overflow: "hidden",
+
 
 
 }
