@@ -61,8 +61,6 @@ class TokenController {
 
                 const token = req.headers['access-token'];
 
-                console.log(token)
-
                 if (token) {
                     jwt.verify(token, app.get('personalkey'), (err, decoded) => {
                         if (err) {

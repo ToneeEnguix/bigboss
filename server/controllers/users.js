@@ -162,7 +162,7 @@ class UserController {
 
                 };
                 const token = jwt.sign(payload, app.get('personalkey'), {
-                    expiresIn: 1220,
+                    expiresIn:  Math.floor(Date.now() / 1000) + (60 * 60),
                 });
 
                 const emailData = { _id: userToSendEmail._id, token: token }
@@ -171,7 +171,7 @@ class UserController {
             }
             else {
 
-                res.status(404);
+                res.status(404).send();
             }
 
 
@@ -180,7 +180,6 @@ class UserController {
 
         catch (error) {
 
-            console.log(error)
             res.status(500).send(error);
         }
 

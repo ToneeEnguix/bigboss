@@ -13,12 +13,17 @@ const wrapper = {
     margin: "0 auto",
     padding: "2rem",
     display: "flex",
-    justifyContent: "center"
+    justifyContent: "center",
+    flexDirection: "column",
+    alignItems: "center"
 }
 
 function ForgotPass() {
 
     const [redirect, setRedirect] = useState(false);
+    const [validPass, setValidPass] = useState({ color: "2px solid #00C6D6", ok: true });
+    const [validMatch, setValidMatch] = useState({ color: "2px solid #00C6D6", ok: true });
+    const [errorMessage, setErrorMessage] = useState({ visibility: "hidden", message: "hidden" });
 
     const params = useParams();
 
@@ -50,17 +55,31 @@ function ForgotPass() {
         newpassword.trim();
         passMatch.trim();
 
-
         const passStatus = verifyPass(newpassword);
         const matchStatus = verifyMatch(newpassword, passMatch);
+        setValidPass(passStatus);
+        setValidMatch(matchStatus);
 
-        if (passStatus.ok && matchStatus.ok)
-        {
+        if (passStatus.ok && matchStatus.ok) {
 
-            const result = await post(`/users/${params.id}/resetpassword`,{newpassword});
+            const result = await post(`/users/${params.id}/resetpassword`, { newpassword });
 
-            console.log(result)
+            if (result.ok) {
+                localStorage.clear();
+                setErrorMessage({ visibility: "visible", message: "PASSWORD CHANGED." });
+                setTimeout(() => { setErrorMessage({ visibility: "hidden", message: "hidden" }), 5000 });
+            }
+            else {
+                localStorage.clear();
+                setErrorMessage({ visibility: "visible", message: "SOMETHING WENT WRONG. PLEASE TRY AGAIN LATER." });
+                setTimeout(() => { setErrorMessage({ visibility: "hidden", message: "hidden" }), 5000 });
+            }
         }
+        else {
+
+            setErrorMessage({ visibility: "visible", message: "THE INPUT FIELDS IN RED CONTAIN ERRORS,PLEASE CORRECT THEM" });
+        }
+
 
     }
 
@@ -78,11 +97,13 @@ function ForgotPass() {
 
                 <form onSubmit={submit} css={{ width: "30%", display: "flex", justifyContent: "center", marginTop: "4rem", flexDirection: "column", textAlign: "center" }}>
 
-                    <StyledInput type="password" eye={true} width="100%" name="NEW PASSWORD" innerName="password" />
-                    <StyledInput type="password" eye={true} width="100%" name="CONFIRM NEW PASSWORD" innerName="passconfirm" />
+                    <StyledInput valid={validPass.color} type="password" eye={true} width="100%" name="NEW PASSWORD" innerName="password" />
+                    <StyledInput valid={validMatch.color} type="password" eye={true} width="100%" name="CONFIRM NEW PASSWORD" innerName="passconfirm" />
                     <button css={{ margin: "2rem 0" }} className="button01">SUBMIT</button>
 
                 </form>
+                <p>PASSWORD MUST HAVE BOTH NUMBERS AND LETTERS AND BE AT LEAST 8 CHARS LONG</p>
+                <p css={{ fontSize: "0.7rem", color: errorMessage.color, marginTop: "0.5rem", visibility: errorMessage.visibility }}>{errorMessage.message}</p>
             </div>
         </React.Fragment>
     );

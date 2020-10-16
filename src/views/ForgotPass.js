@@ -10,7 +10,9 @@ const wrapper = {
   margin: "0 auto",
   padding: "2rem",
   display: "flex",
-  justifyContent: "center"
+  justifyContent: "center",
+  flexDirection:"column",
+  alignItems:"center"
 }
 
 function ForgotPass(props) {
@@ -25,11 +27,11 @@ function ForgotPass(props) {
 
     if (result.ok){
 
-      setMessage({visibility:"visible", message:"EMAIL SENT"})
+      setMessage({visibility:"visible", message:"CHECK YOUR EMAIL ACCOUNT FOR FURTHER INSTRUCTIONS."});
     }
     else{
 
-      setMessage({visibility:"visible",message:"SOMETHING WAS WRONG"})
+      setMessage({visibility:"visible",message:"SOMETHING WENT WRONG,NO EMAIL SENT. MAKE SURE THE EMAIL PROVIDED IS CORRECT."})
     }
 
     setTimeout(()=>{ setMessage({visibility:"hidden",message:"hidden"})},3000)
