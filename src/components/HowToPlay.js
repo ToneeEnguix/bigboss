@@ -48,12 +48,6 @@ const card = {
   }
 }
 
-
-const icon = {
-
-  width: "75px",
-
-}
 function HowToPlay() {
   return (
     <div css={howToPlayWrapper} >
@@ -63,7 +57,7 @@ function HowToPlay() {
           <p css={{ color: "#00FFFF" }}>1.SELECT</p>
           <p>SELECT THE COMPETITION AND THE DESIRED NUMBER OF ENTRIES</p>
         </div>
-        <span class="material-icons">
+        <span className="material-icons">
           looks_one
 </span>
       </div>
@@ -72,7 +66,7 @@ function HowToPlay() {
           <p css={{ color: "#00FFFF" }}>2.ANSWER</p>
           <p>ANSWER THE QUALIFYING QUESTION AND COMPLETE PAYMENT</p>
         </div>
-        <span class="material-icons">
+        <span className="material-icons">
           looks_two
 </span>
       </div>
@@ -81,7 +75,7 @@ function HowToPlay() {
           <p css={{ color: "#00FFFF" }}>3.WAIT</p>
           <p>WAIT FOR THE COMPETITION TO LIVESTREAM ON FACEBOOK</p>
         </div>
-        <span class="material-icons">
+        <span className="material-icons">
           looks_3
 </span>
       </div>

@@ -24,6 +24,7 @@ import Winners from "./views/Winners.js";
 import MoreDashboard from "./views/MoreDashboard.js";
 import ErrorPage from "./views/Error.js";
 import ForgotPass from "./views/ForgotPass.js";
+import ResetPass from "./views/ResetPass";
 
 
 import NavBar from "./components/NavBar";
@@ -150,7 +151,8 @@ class App extends React.Component {
               <PublicRoute restricted={false} component={Competitions} path="/competitions" />
               <PublicRoute restricted={false} component={Winners} path="/winners" />
               <PublicRoute restricted={true} component={Log} path="/log" />
-              <PublicRoute restricted={false} component={ForgotPass} path="/forgotPass" />
+              <PublicRoute restricted={false} component={ResetPass} path="/resetpass/:id/:token" />
+              <PublicRoute restricted={false} component={ForgotPass} path="/forgotpass" />
               <PublicRoute restricted={false} component={CreateAccount} path="/createaccount" />
               <PublicRoute restricted={false} component={Draws} path="/draws" />
               <PublicRoute restricted={false} component={ErrorPage} path="/error" />

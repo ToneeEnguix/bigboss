@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import StyledInput from "../components/StyledInput";
+import {Redirect,useParams} from "react-router-dom";
+import {get} from "../api/fetch";
 
 
 const wrapper = {
@@ -11,9 +13,27 @@ const wrapper = {
   justifyContent: "center"
 }
 
-function ForgotPass() {
+function ForgotPass(props) {
 
-  const submit = async () => {
+  const [message,setMessage]=useState({visibility:"hidden",message:"hidden"})
+
+  const submit = async (e) => {
+
+    e.preventDefault();
+    const email = e.target.email.value;
+    const result = await get(`/users/${email}/askpasswordreset`)
+
+    if (result.ok){
+
+      setMessage({visibility:"visible", message:"EMAIL SENT"})
+    }
+    else{
+
+      setMessage({visibility:"visible",message:"SOMETHING WAS WRONG"})
+    }
+
+    setTimeout(()=>{ setMessage({visibility:"hidden",message:"hidden"})},3000)
+
 
   }
 
@@ -23,11 +43,10 @@ function ForgotPass() {
       <div css={wrapper}>
 
         <form onSubmit={submit} css={{ width: "30%", display: "flex", justifyContent: "center", marginTop: "4rem", flexDirection: "column", textAlign: "center" }}>
-
           <StyledInput type="text" width="100%" name="EMAIL" innerName="email" />
           <button css={{ margin: "2rem 0" }} className="button01">SUBMIT</button>
-          <p>WE WILL SEND YOU AN EMAIL TO THE PROVIDED ADRESS IF FOUND IN OUR DATABASE WITH FURTHER INSTRUCTIONS</p>
         </form>
+        <p css={{visibility:message.visibility}}>{message.message}</p>
       </div>
     </React.Fragment>
   );

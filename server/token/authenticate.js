@@ -44,5 +44,49 @@ class TokenController {
             res.status(500).send(e);
         }
     }
+
+    async verifyEmailToken(req, res) {
+
+        try {
+
+            const activeUserid = req.params.id;
+
+
+            const activeUser = await users.findOne({ _id: activeUserid });
+
+        
+
+            if (activeUser) {
+                app.set("personalkey", activeUser.password + "-" + activeUser.dateCreated);
+
+                const token = req.headers['access-token'];
+
+                console.log(token)
+
+                if (token) {
+                    jwt.verify(token, app.get('personalkey'), (err, decoded) => {
+                        if (err) {
+                     
+                            return res.status(401).json({ mensaje: 'Invalid Token' });
+                        } else {
+                                    
+                            res.status(200).send({message:"Access Granted"});
+                        }
+                    });
+                } else {
+                    res.status(401).send({
+                        mensaje: 'Token not provided'
+                    });
+                }
+            }
+            else {
+
+                res.status(404).send({mensaje:"No user found"});
+            }
+        }
+        catch (error) {
+            res.status(500).send();
+        }
+    }
 }
 module.exports = new TokenController;
