@@ -181,5 +181,14 @@ box-shadow: -1px 4px 22px 0px rgba(0,0,0,16%);
 
 }
 
+.carousel .control-dots{
+
+  bottom: 0px !important;
+}
+
+.carousel .control-dots .dot{
+
+  background: #00FFFF;
+}
   
   

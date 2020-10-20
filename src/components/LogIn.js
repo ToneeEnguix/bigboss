@@ -13,11 +13,11 @@ const createAccountWrapper = {
   justifyContent: "center",
   flexDirection: "column",
   alignItems: "center",
-  padding: "3rem",
+  padding: "3rem 6rem",
   margin: "1rem 4rem",
-  width: "40%",
-  boxShadow: "10px 10px 5px 5px rgba(0,0,0,16%)",
-  height: "70vh"
+ 
+  boxShadow: "-1px 4px 22px 0px black",
+  height: "27rem"
 }
 
 function CreateAccountAccess() {
@@ -36,7 +36,7 @@ function CreateAccountAccess() {
 
     if (!result.ok) {
       setMessage({ color: "red", visibility: "visible", message: "WRONG PASSWORD OR USERNAME" })
-      setTimeout(() => setMessage({ color: "green", visibility: "hidden", message: "hidden" }), 1000)
+      setTimeout(() => setMessage({ color: "green", visibility: "hidden", message: "hidden" }), 2000)
 
     }
     else {
@@ -58,16 +58,16 @@ function CreateAccountAccess() {
 
   return (
     <div css={createAccountWrapper}>
-      <BigBossLogo b height={"75px"} width={"75px"} />
+      <BigBossLogo  height={"175px"} width={"175px"} />
       <h3 css={{ margin: "1rem 0" }}>LOG IN</h3>
-      <form onSubmit={submit} css={{ width: "85%" }}>
+      <form onSubmit={submit} css={{ width: "100%" }}>
         <div>
           <StyledInput innerName={"email"} width={"100%"} name={"EMAIL"} />
         </div>
         <StyledInput innerName={"password"} type={"password"} width={"100%"} name={"PASSWORD"} />
         <button css={{ width: "100%" }} className="button02">LOG IN</button>
         <div css={{width:"100%",display:"flex",justifyContent:"center",flexDirection:"column",alignItems:"center"}}>
-        <p css={{color: message.color, visibility: message.visibility }}>{message.message}</p>
+        <p css={{marginTop:"0.5rem",color: message.color, visibility: message.visibility }}>{message.message}</p>
         <Link to="/forgotpass" css={{ width:"100%" ,padding: "0.5rem", textAlign: "center", color: "grey"}}>FORGOTTEN PASSWORD? CLICK HERE</Link>
       </div>
         </form>

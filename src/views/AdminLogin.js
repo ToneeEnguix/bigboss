@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import StyledInput from "../components/StyledInput";
-import {post} from "../api/fetch";
-import {Redirect} from "react-router-dom";
+import { post } from "../api/fetch";
+import { Redirect } from "react-router-dom";
+import UserContext from "../context/UserContext"
 
 const contentWrapper = {
 
@@ -19,36 +20,37 @@ const contentWrapper = {
 function AdminLogin() {
 
     const [message, setMessage] = useState({ color: "green", visibility: "hidden", message: "hidden" });
-    const [redirect,setRedirect]=useState(false);
+    const [redirect, setRedirect] = useState(false);
+    const context = useContext(UserContext);
 
     const submit = async (e) => {
 
         e.preventDefault();
-        const name= e.target.name.value;
-        const password=e.target.password.value;
-        const result = await post("/admin/signin", {name, password });
-        
-        if (result.ok)
-        {
-            localStorage.setItem("@auth_token",result.token)
-            setRedirect(true);
+        const name = e.target.name.value;
+        const password = e.target.password.value;
+        const result = await post("/admin/signin", { name, password });
+
+        if (result.ok) {
+
+            localStorage.setItem("@auth_token2", result.data.token);
+            context.setAdminStatus();
+            setRedirect(true)
         }
-        else{
+        else {
             setMessage({ color: "red", visibility: "visible", message: "WRONG CREDENTIALS" })
         }
 
     }
 
-    if (redirect){
+    if (redirect) {
 
-        return(
+        return (
 
             <Redirect
-            to={{
-            pathname: "/admindashboard",
-            state: { admin:true }
-          }}
-        />
+                to={{
+                    pathname: "/admindashboard",
+                }}
+            />
         )
     }
     return (
@@ -64,7 +66,7 @@ function AdminLogin() {
                     <StyledInput type="text" width="100%" name="NAME" innerName="name" />
                     <StyledInput type="password" eye={true} width="100%" name="PASSWORD" innerName="password" />
                     <button css={{ marginTop: "1rem" }} className="button01">SUBMIT</button>
-                    <p css={{color: message.color, visibility: message.visibility }}>{message.message}</p>
+                    <p css={{ color: message.color, visibility: message.visibility }}>{message.message}</p>
                 </form>
             </div>
         </div>

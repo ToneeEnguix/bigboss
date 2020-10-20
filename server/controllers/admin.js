@@ -31,7 +31,6 @@ class AdminController {
             if (match) {
                 const payload = {
                     check: true,
-                    _id: activeUser._id,
                     admin:true
                 };
 
@@ -39,8 +38,7 @@ class AdminController {
                     expiresIn: Math.floor(Date.now() / 1000) + (60 * 60)
                 });
 
-
-                res.status(200).json({
+                res.status(200).send({
                     message: 'Correct authentication',
                     token: token,
                     userData: activeUser,

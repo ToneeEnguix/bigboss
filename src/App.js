@@ -11,6 +11,7 @@ import ScrollToTop from "./utils/ScrollToTop";
 import { createBrowserHistory } from "history";
 import PrivateRoute from "./routeUtils/PrivateRoute";
 import PublicRoute from "./routeUtils/PublicRoute";
+import AdminRoute from "./routeUtils/AdminRoute";
 import UserContext from "./context/UserContext"
 import AdminDashboard from "./views/AdminDashboard";
 import Basket from "./views/Basket";
@@ -50,13 +51,12 @@ class App extends React.Component {
     super(props);
 
 
-    const abort = new AbortController();
-    const signal = abort.signal;
     this.state = {
       user: {
         _id: undefined, fullName: undefined, cart: []
       },
 
+      admin:false,
       showPurchaseAlert: { status: false },
 
       activateUser: (user) => {
@@ -68,7 +68,7 @@ class App extends React.Component {
 
       logout: () => {
 
-        this.setState({ user: { _id: undefined, fulName: undefined, cart: [] } });
+        this.setState({ user: { _id: undefined, fulName: undefined, cart: [],admin:false } });
         localStorage.clear();
       },
 
@@ -129,6 +129,11 @@ class App extends React.Component {
       hideModal: () => {
 
         this.setState({ showPurchaseAlert: { status: false } })
+      },
+
+      setAdminStatus: ()=>{
+
+        this.setState({admin:true});
       }
     }
   }
@@ -152,7 +157,6 @@ class App extends React.Component {
       }
     }
 
-    console.log(this.state.user)
   }
 
 
@@ -188,7 +192,7 @@ class App extends React.Component {
               <PublicRoute restricted={true} component={AdminLogin} path="/adminlogin" />
               <PublicRoute restricted={false} component={MoreDashboard} path="/more" />
               <PrivateRoute restricted={false} component={UserDashboard} path="/userdashboard" />
-              <PrivateRoute restricted={false} component={AdminDashboard} path="/admindashboard" />
+              <AdminRoute restricted={false} component={AdminDashboard} path="/admindashboard" />
               <Route path="/">
                 <Redirect to="/home" />
               </Route>

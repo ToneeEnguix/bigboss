@@ -19,7 +19,7 @@ const createAccountWrapper = {
   margin: "1rem 4rem",
 
   width: "90%",
-  boxShadow: "10px 10px 5px 5px rgba(0,0,0,16%)",
+  boxShadow: "-1px 4px 22px 0px black",
 
 }
 
@@ -38,15 +38,15 @@ function CreateAccountForm() {
 
     e.preventDefault();
     const email = e.target.email.value;
-    const fullName = e.target.name.value;
+    const name = e.target.name.value;
     const password = e.target.password.value;
     const passMatch = e.target.verifyPass.value;
-    fullName.trim();
+    name.trim();
     email.trim();
     password.trim();
     passMatch.trim();
 
-    const nameStatus = verifyName(fullName);
+    const nameStatus = verifyName(name);
     const emailStatus = verifyEmail(email);
     const passStatus = verifyPass(password);
     const matchStatus = verifyMatch(password, passMatch)
@@ -57,7 +57,7 @@ function CreateAccountForm() {
 
     if (nameStatus.ok === true && emailStatus.ok === true && passStatus.ok === true && matchStatus.ok === true) {
 
-      const result = await post("/users/signup", { email, fullName, password, passMatch });
+      const result = await post("/users/signup", { email, name, password, passMatch });
    
       if (result.status === 400) {
 
@@ -103,7 +103,7 @@ function CreateAccountForm() {
 
         </div>
         <div css={{ margin: "1rem 0", display: "flex", justifyContent: "space-around" }}>
-          <StyledInput width={"45%"} valid={validName.color} innerName={"name"} name={"FULL NAME"} />
+          <StyledInput width={"45%"} valid={validName.color} innerName={"name"} name={"NAME"} />
           <StyledInput width={"45%"} valid={validMatch.color} innerName={"verifyPass"} type={"password"} name={"REPEAT PASSWORD"} />
         </div>
         <div css={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>

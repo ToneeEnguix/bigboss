@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 
-import { Redirect } from "react-router-dom";
 
 const contentWrapper = {
 
@@ -16,22 +15,7 @@ const contentWrapper = {
 
 
 function AdminDashboard(props) {
-    const [redirect, setRedirect] = useState(false);
 
-    useEffect(() => {
-
-        if (!props.location.state) {
-            setRedirect(true)
-        }
-    }, [])
-
-    if (redirect) {
-
-        return (
-
-            <Redirect to="/home" />
-        )
-    }
 
     return (
 

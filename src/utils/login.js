@@ -14,3 +14,12 @@ export const isLogin = (id) => {
 
     return false;
 }
+
+export const isAdminLogin = (adminStatus) => {
+
+    if (localStorage.getItem("@auth_token2") && adminStatus==true) {
+        return true;
+    }
+
+    return false;
+}

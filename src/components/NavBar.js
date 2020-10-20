@@ -26,7 +26,7 @@ const menu = {
   display: "flex",
   listStyle: "none",
   width: "60%",
-  marginRight: "10rem",
+  marginRight: "8rem",
   justifyContent: "space-between",
 
 
@@ -162,8 +162,6 @@ function NavBar() {
     setMore(true)
   }
 
-  const hideMore = () => { }
-
 
   return (
     <div css={flexContainer}>
@@ -233,7 +231,7 @@ function NavBar() {
           <div onMouseEnter={extendMenu} onMouseLeave={hideMenu} css={{ position: "relative", cursor: "context-menu" }} className={"icon"}>
             <div css={{ cursor: "context-menu", display: "flex", alignItems: "center", "i": { marginRight: "0.5rem" } }}>
               <i css={{ cursor: "context-menu" }} className="material-icons-outlined">person</i>
-              <span css={{ cursor: "context-menu", textTransform: "upperCase" }}>{context.user.fullName}</span>
+              <span css={{ cursor: "context-menu", textTransform: "upperCase" }}>{context.user.name.substring(0,7)}</span>
             </div>
             {userMenu && context.showPurchaseAlert.status === false ? <UserMenu /> : null}
           </div>
@@ -251,7 +249,7 @@ function NavBar() {
             <ShowPurchaseAlert active={context.showPurchaseAlert} />
           </NavLink>
           : <div onMouseLeave={hideEmptyCart} onClick={showEmptyCart} className={"icon"}>
-            <div css={{ display: "flex", alignItems: "center", "i": { marginRight: "2rem" } }}>
+            <div css={{ display: "flex", alignItems: "center", "i": { marginRight: "0.5rem" } }}>
               <i className="material-icons-outlined">shopping_cart</i>
               <span>{setValue(context.user.cart.length)}</span>
             </div>
@@ -326,7 +324,13 @@ const EmptyCart = () => {
 
   return (
     <div css={dropdown02}>
-      <h5>BASKET IS CURRENTLY EMPTY</h5>
+       <div css={{
+        borderTop: "1px solid #868686",
+        backgroundColor: "#252525",
+        boxShadow: "-1px 4px 22px 0px black",
+      }}>
+      <h5 css={{padding:"2rem"}}>BASKET IS CURRENTLY EMPTY</h5>
+      </div>
     </div >
   )
 }

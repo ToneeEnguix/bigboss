@@ -10,11 +10,10 @@ const createAccountWrapper = {
   justifyContent: "center",
   alignItems: "center",
   flexDirection: "column",
-  padding: "3rem",
+  padding: "3rem 6rem",
   margin: "1rem 4rem",
-  width: "40%",
-  boxShadow: "10px 10px 5px 5px rgba(0,0,0,16%)",
-  height:"70vh"
+  boxShadow: "-1px 4px 22px 0px black",
+  height:"27rem"
 }
 
 const terms = {
@@ -53,10 +52,10 @@ function CreateAccountAccess() {
 
 
     <div css={createAccountWrapper}>
-      <BigBossLogo b height={"75px"} width={"75px"} />
+      <BigBossLogo  height={"75px"} width={"75px"} />
       <h3 css={{ marginTop: "1rem" }}>CREATE ACCOUNT</h3>
       <div css={{
-        margin: "1rem 0", width: "80%",
+        margin: "1rem 0", width: "100%",
         "p": { margin: "0.7rem 0" }
       }}>
         <p>NEW CUSTOMER?</p>
@@ -64,7 +63,7 @@ function CreateAccountAccess() {
         <p css={{ color: "#00FFFF" }}>EXTRA FEATURES,PROMOTIONS AND MORE!</p>
       </div>
 
-      <div css={{ display: "flex", justifyContent: "space-between", width: "80%" }}>
+      <div css={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
 
         <div css={{ display: "inline-block" }}>
           <p css={{ display: "inline-block" }}>ACCEPT &nbsp;</p>
@@ -75,7 +74,7 @@ function CreateAccountAccess() {
 
       </div>
 
-      <button css={{width:"85%", margin:"1rem 0"}} onClick={gotoCreate} className="button01">CREATE NEW ACCOUNT</button>
+      <button css={{width:"100%", margin:"1rem 0"}} onClick={gotoCreate} className="button01">CREATE NEW ACCOUNT</button>
       {alert ? <p>Please accept the Terms before proceeding</p> : <p css={{ visibility: "hidden" }}>hidden</p>}
     </div>
   );

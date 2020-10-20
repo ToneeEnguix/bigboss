@@ -48,7 +48,8 @@ function ForgotPass(props) {
           <StyledInput type="text" width="100%" name="EMAIL" innerName="email" />
           <button css={{ margin: "2rem 0" }} className="button01">SUBMIT</button>
         </form>
-        <p css={{visibility:message.visibility}}>{message.message}</p>
+        <p>PLEASE PROVIDE US WITH THE EMAIL ASSOCIATED TO YOUR ACCOUNT.</p>
+        <p css={{marginTop:"0.5rem", visibility:message.visibility}}>{message.message}</p>
       </div>
     </React.Fragment>
   );
