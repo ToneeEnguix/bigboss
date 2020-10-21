@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^7.2.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-modal": "^3.11.2",
     "react-multi-carousel": "^2.5.5",
     "react-player": "^2.6.2",
     "react-responsive-carousel": "^3.2.10",

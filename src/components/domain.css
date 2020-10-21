@@ -1,0 +1,34 @@
+.dm_modalBtn {
+  color: white;
+  outline: none;
+  border: none;
+  margin: 1rem;
+  border: 1px solid #1d8cde;
+  border-radius: 8px;
+  width: 123px;
+  height: 40px;
+}
+.dm_modalBtn1 {
+  background-color: #212121;
+}
+.dm_modalBtn1:hover {
+  background-color: #2b2b2b;
+}
+.dm_modalBtn2 {
+  background-color: #1d8cde;
+}
+.dm_modalBtn2:hover {
+  background-color: #3ba0e8;
+}
+.dm_infoLogo {
+  width: 15px;
+  align-self: flex-start;
+}
+.dm_info {
+  margin: auto;
+  margin-top: 4rem;
+}
+.dm_closeInfo {
+  align-self: flex-end;
+  margin: -3rem -7rem 0 0;
+}

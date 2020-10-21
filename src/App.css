@@ -1,185 +1,185 @@
 * {
-  margin:0;
-  padding:0;
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
   background-color: rgb(37 37 37);
-  color:rgb(255 255 255);
-  font-family: 'Montserrat', sans-serif;
-  
-  }
-
-  body{
-
-    max-width:1800px;
-    margin-left:auto;
-    margin-right:auto;
-  }
-
-
-
-  a{
-
-    text-decoration:none
-  }
-
-  h1{
-
-    font-size:1.5rem;
-    font-weight:600;
-    background-color:transparent;
-    letter-spacing:0.5rem
-
-  }
-
-  h3{
-
-    font-size:1rem;
-    font-weight:600;
-    letter-spacing:0.3rem;
-    background-color:transparent;
-  }
-
-
-  h4{
-
-    font-size:0.7rem;
-    font-weight:600;
-    background-color:transparent;
-  }
-
-p{
-
-  font-size:0.8rem;
-  font-weight:600;
-  letter-spacing:0.1rem;
-  background-color:transparent;
-
+  color: rgb(255 255 255);
+  font-family: "Montserrat", sans-serif;
 }
 
-
-.button01{
-
-  background-color:#252525;
-  color:#FFFFFF;
-  border:none;
-  letter-spacing:0.1rem;
-  padding:1rem 4rem;
-  outline:none;
-  font-weight:600;
-  cursor:pointer;
- box-shadow: -1px 4px 22px 0px rgba(0,0,0,16%);
-
-
+body {
+  max-width: 1800px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.button02{
-
-  background-color:#00FFFF;
-  color:rgb(37,37,37);
-  border:none;
-  outline:none;
-  padding:1rem 4rem;
-  font-weight:600;
- box-shadow: -1px 4px 22px 0px rgba(0,0,0,16%);
- cursor:pointer;
-
+a {
+  text-decoration: none;
 }
 
-.button03{
-
-  background-color:white;
-  color:rgb(37,37,37);
-  border:none;
-  outline:none;
-  padding:1rem 4rem;
-  font-weight:600;
- box-shadow: -1px 4px 22px 0px rgba(0,0,0,16%);
- cursor:pointer;
-
+h1 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  background-color: transparent;
+  letter-spacing: 0.5rem;
 }
 
-.roundButton{
-  border-radius:50%;
-   background-color:#252525; 
-  color:#FFFFFF;
-  border:none;
-  width:4rem;
-  height:4rem;
-  margin:1rem;
-  outline:none;
-  font-weight:600;
-  cursor:pointer;
-  font-size:1.6rem;
-
- box-shadow: -1px 4px 22px 0px rgba(0,0,0,16%);
+h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.3rem;
+  background-color: transparent;
 }
 
-.roundButtonBlue{
-  border-radius:50%;
-  background-color:#00FFFF;
-  color:#252525;
-  border:none;
-width:4rem;
-height:4rem;
-  margin:1rem;
-  outline:none;
-  font-weight:600;
-  cursor:pointer;
-  font-size:1.6rem;
-
- box-shadow: -1px 4px 22px 0px rgba(0,0,0,16%);
+h4 {
+  font-size: 0.7rem;
+  font-weight: 600;
+  background-color: transparent;
 }
 
-.inputAmount{
-  width:4rem;
-  height:4rem;
-  background-color:#252525; 
-  color:#FFFFFF;
-text-align: center;
-box-shadow: -1px 4px 22px 0px rgba(0,0,0,16%);
-  border:none;
-  margin:1rem;
-  outline:none;
-  font-weight:600;
-  cursor:pointer;
-  font-size:1.6rem;
-  letter-spacing:0.3rem;
-
+p {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.1rem;
+  background-color: transparent;
 }
 
-.roundButtonSmall{
-  border-radius:50%;
-   background-color:#252525; 
-  color:#FFFFFF;
-  border:none;
-  width:2rem;
-  height:2rem;
-  margin:1rem;
-  outline:none;
-  font-weight:500;
-  cursor:pointer;
-  font-size:1.6rem;
-
- box-shadow: -1px 4px 22px 0px rgba(0,0,0,16%);
+.button01 {
+  background-color: #252525;
+  color: #ffffff;
+  border: none;
+  letter-spacing: 0.1rem;
+  padding: 1rem 4rem;
+  outline: none;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: -1px 4px 22px 0px rgba(0, 0, 0, 16%);
 }
 
-.inputAmountSmall{
-  width:2rem;
-  height:2rem;
-  background-color:#252525; 
-  color:#FFFFFF;
-text-align: center;
-box-shadow: -1px 4px 22px 0px rgba(0,0,0,16%);
-  border:none;
-  margin:1rem;
-  outline:none;
-  font-weight:500;
-  cursor:pointer;
-  font-size:1rem;
-  letter-spacing:0rem;
-  border:1px solid grey;
-
+.button02 {
+  background-color: #00ffff;
+  color: rgb(37, 37, 37);
+  border: none;
+  outline: none;
+  padding: 1rem 4rem;
+  font-weight: 600;
+  box-shadow: -1px 4px 22px 0px rgba(0, 0, 0, 16%);
+  cursor: pointer;
 }
 
-  
-  
+.button03 {
+  background-color: white;
+  color: rgb(37, 37, 37);
+  border: none;
+  outline: none;
+  padding: 1rem 4rem;
+  font-weight: 600;
+  box-shadow: -1px 4px 22px 0px rgba(0, 0, 0, 16%);
+  cursor: pointer;
+}
+
+.roundButton {
+  border-radius: 50%;
+  background-color: #252525;
+  color: #ffffff;
+  border: none;
+  width: 4rem;
+  height: 4rem;
+  margin: 1rem;
+  outline: none;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 1.6rem;
+
+  box-shadow: -1px 4px 22px 0px rgba(0, 0, 0, 16%);
+}
+
+.roundButtonBlue {
+  border-radius: 50%;
+  background-color: #00ffff;
+  color: #252525;
+  border: none;
+  width: 4rem;
+  height: 4rem;
+  margin: 1rem;
+  outline: none;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 1.6rem;
+
+  box-shadow: -1px 4px 22px 0px rgba(0, 0, 0, 16%);
+}
+
+.inputAmount {
+  width: 4rem;
+  height: 4rem;
+  background-color: #252525;
+  color: #ffffff;
+  text-align: center;
+  box-shadow: -1px 4px 22px 0px rgba(0, 0, 0, 16%);
+  border: none;
+  margin: 1rem;
+  outline: none;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 1.6rem;
+  letter-spacing: 0.3rem;
+}
+
+.roundButtonSmall {
+  border-radius: 50%;
+  background-color: #252525;
+  color: #ffffff;
+  border: none;
+  width: 2rem;
+  height: 2rem;
+  margin: 1rem;
+  outline: none;
+  font-weight: 500;
+  cursor: pointer;
+  font-size: 1.6rem;
+  box-shadow: -1px 4px 22px 0px rgba(0, 0, 0, 16%);
+}
+
+.inputAmountSmall {
+  width: 2rem;
+  height: 2rem;
+  background-color: #252525;
+  color: #ffffff;
+  text-align: center;
+  box-shadow: -1px 4px 22px 0px rgba(0, 0, 0, 16%);
+  border: none;
+  margin: 1rem;
+  outline: none;
+  font-weight: 500;
+  cursor: pointer;
+  font-size: 1rem;
+  letter-spacing: 0rem;
+  border: 1px solid grey;
+}
+.adminPage {
+  position: absolute;
+  top: 90px;
+  left: 597.75px;
+  right: 0;
+  padding: 2rem 3rem;
+  background-color: #212121;
+  min-height: 100%;
+  height: auto;
+  width: auto;
+}
+.adminPage2 {
+  left: 237.75px;
+}
+.bgtransparent {
+  background-color: transparent;
+}
+.pointer {
+  cursor: pointer;
+}
+.hueRotateBlue {
+  filter: sepia(1) saturate(5000) brightness(0.6) hue-rotate(135deg);
+}
+.blueBorder {
+  border-color: green !important;
+}

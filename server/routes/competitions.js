@@ -1,26 +1,29 @@
-const express = require('express'),
-    router = express.Router(),
-    controller = require('../controllers/competitions.js');
+const express = require("express"),
+  router = express.Router(),
+  controller = require("../controllers/competitions.js");
 
+router.post("/create", controller.create);
 
- router.post('/create',controller.create);
+router.get("/randompicks", controller.randomPicks);
 
-  router.get("/randompicks",controller.randomPicks);
+router.get("/read/:id", controller.read);
 
-router.get('/read/:id',controller.read);
+router.post("/update", controller.update);
 
-router.post("/update",controller.update);
-
-router.post("/delete",controller.delete);
+router.post("/delete", controller.delete);
 
 router.get("/all", controller.all);
 
-router.get("/winners",controller.finished);
+router.get("/active", controller.active);
 
-router.get("/recentwinners",controller.recentWinners);
+router.get("/past", controller.past);
 
-router.get("/entries",controller.withEntries);
+router.get("/winners", controller.finished);
 
-router.get("/nextdraw",controller.nextDraw);
+router.get("/recentwinners", controller.recentWinners);
+
+router.get("/entries", controller.withEntries);
+
+router.get("/nextdraw", controller.nextDraw);
 
 module.exports = router;

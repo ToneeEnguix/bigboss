@@ -1,0 +1,47 @@
+input,
+button,
+textarea {
+  min-height: 36.75px;
+  outline: none;
+  border: none;
+  background-color: #262626;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 8px;
+  padding: 0.5rem 1.3rem;
+  color: white;
+  resize: none;
+  width: 100%;
+  margin: 1rem auto 0;
+}
+button {
+  font-family: "Raleway";
+  border: 0.1rem solid #707070;
+}
+::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  font-size: 0.75rem;
+  font-family: "Raleway", sans-seriff;
+}
+textarea {
+  font-family: "Raleway", sans-seriff;
+  font-weight: 500;
+}
+::-moz-placeholder {
+  /* Firefox 19+ */
+  font-size: 0.75rem;
+  font-family: "Raleway", sans-seriff;
+}
+:-ms-input-placeholder {
+  /* IE 10+ */
+  font-size: 0.75rem;
+  font-family: "Raleway", sans-seriff;
+}
+:-moz-placeholder {
+  /* Firefox 18- */
+  font-size: 0.8rem;
+  font-family: "Raleway", sans-seriff;
+}
+.grid2 {
+  display: grid;
+  grid-template-columns: 1.9fr 1fr;
+}
