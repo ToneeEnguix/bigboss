@@ -1,7 +1,7 @@
-import React, { useEffect, useState,useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { Redirect, useParams } from "react-router-dom"
+import { Redirect, useParams,useLocation } from "react-router-dom"
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import Counter from "../utils/Counter";
@@ -10,6 +10,7 @@ import ShowCorrectButton from "../utils/ShowCorrectButton";
 import { ReactComponent as BigBossLogo } from "../resources/BigBossLogo.svg";
 import { get } from "../api/fetch";
 import UserContext from "../context/UserContext";
+import bigbossblue from "../resources/bigbossblue.png"
 
 
 const imageColumn = {
@@ -78,7 +79,6 @@ function CompetitionDetails(props) {
   }
 
 
-
   const setValue = (amount) => {
     let value = String(amount);
     while (value.length < 2) {
@@ -106,7 +106,7 @@ function CompetitionDetails(props) {
 
     setQuestion(!question);
 
-   
+
   }
 
   const checkAnswer = async (answer) => {
@@ -118,14 +118,14 @@ function CompetitionDetails(props) {
     else {
 
       setcorrectAnswer(true);
-    
+
     }
   }
 
-  const resetAnswer=()=>{
+  const resetAnswer = () => {
 
     setcorrectAnswer(false);
-   
+
   }
 
   if (error) {
@@ -153,7 +153,7 @@ function CompetitionDetails(props) {
         <img css={image} src={data.pictures[3]} />
       </div>
       <div css={detailsColumn}>
-        <h1 css={{ marginTop: "2rem", fontSize: "2rem", textAlign:"center" }}>{data.title}</h1>
+        <h1 css={{ marginTop: "2rem", fontSize: "2rem", textAlign: "center" }}>{data.title}</h1>
         <h3 css={{ margin: "1rem 0 2rem 0", color: "#00FFFF" }}>ONLY £{data.ticketPrice} PER ENTRY</h3>
         <Counter date={data.dateFinishes} />
         <div css={{ display: "flex", alignItems: "center" }}>
@@ -169,7 +169,7 @@ function CompetitionDetails(props) {
           <GenerateSecurityQuestion checkAnswer={checkAnswer} question={question} />
         </div>
 
-        <ShowCorrectButton regenerateQuestion={regenerateQuestion} resetAnswer={resetAnswer}correctAnswer={correctAnswer} amount={Number(amount)} data={data} ticketsAvailable={data.ticketsAvailable} />
+        <ShowCorrectButton regenerateQuestion={regenerateQuestion} resetAnswer={resetAnswer} correctAnswer={correctAnswer} amount={Number(amount)} data={data} ticketsAvailable={data.ticketsAvailable} />
 
         <div css={{ width: "100%" }}>
 
@@ -197,9 +197,9 @@ function CompetitionDetails(props) {
           <strong css={{ fontSize: "0.8rem" }}>{data.maxTickets}</strong>
 
         </div>
-        <BigBossLogo css={{ margin: "4rem 0 2rem 0" }} height={"65px"} width={"65px"} />
+        <img css={{ width: "9rem", padding: "2rem", marginBottom: "1rem" }} src={bigbossblue} />
       </div>
-      <Modal active={context.showPurchaseAlert}/>
+      <Modal active={context.showPurchaseAlert} />
     </div>
   );
 }
@@ -209,25 +209,26 @@ export default CompetitionDetails;
 
 const Modal = (props) => {
 
+  const context = useContext(UserContext);
 
-  if (props.active.status===true){
-  return (
+  if (context.showPurchaseAlert.status === true) {
+    return (
 
-    <div css={{
-      position: "fixed",
-      top: "0",
-      left: "0",
-      backgroundColor: "rgba(255, 255, 255, 0.5)",
+      <div onClick={context.hideModal} css={{
+        position: "fixed",
+        top: "0",
+        left: "0",
+        backgroundColor: "rgba(255, 255, 255, 0.5)",
 
-      width: "100%",
-      height: "100vh"
-    }}>
-    
-    </div>
-  
-  )
+        width: "100%",
+        height: "100vh"
+      }}>
+
+      </div>
+
+    )
   }
-  else{
-    return(<React.Fragment></React.Fragment>)
+  else {
+    return (<React.Fragment></React.Fragment>)
   }
 }

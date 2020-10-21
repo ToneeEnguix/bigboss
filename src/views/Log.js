@@ -9,6 +9,7 @@ const logWrapper={
 
   display:"flex",
   alignItems:"center",
+  justifyContent:"space-around"
 
 
 

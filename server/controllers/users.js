@@ -5,6 +5,7 @@ const express = require("express");
 const app = express();
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
+const sendResetPasswordEmail = require("../emailSetup/emailScripts.js");
 
 app.set("key", config.key);
 

@@ -3,7 +3,7 @@ import React from 'react';
 import { jsx } from '@emotion/core';
 import { ReactComponent as BigBossLogo } from "../resources/BigBossLogo.svg";
 import { ReactComponent as GambleAware} from "../resources/GambleAware.svg";
-import { ReactComponent as Google } from "../resources/Google.svg";
+import googlepng from "../resources/googlepng.png"
 
 const footerWrapper = {
 
@@ -25,9 +25,10 @@ const footerWrapper = {
 function FooterAds() {
   return (
     <div css={footerWrapper}>
-    <BigBossLogo x={"60px"} height={"60px"} />
-    <Google x={"400px"} y={"50px"}height={"150px"}/>
-    <GambleAware x={"60px"} height={"30px"}/>
+    <BigBossLogo height={"70px"} />
+    <img css={{height:"70px"}} src={googlepng} alt="Google logo"/>
+
+    <GambleAware x={"70px"} height={"30px"}/>
     </div>
   );
 }

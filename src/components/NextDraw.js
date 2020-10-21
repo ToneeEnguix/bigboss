@@ -15,7 +15,8 @@ const flexContainer = {
     width: "100%",
     backgroundColor: "#222222",
     height: "3rem",
-    overflow: "hidden"
+    overflow: "hidden",
+
 
 
 }
@@ -61,7 +62,7 @@ function NextDraw() {
             <div>
                 <CounterSmall date={nextDraw} />
             </div>
-            <div css={{ paddingRight: "2rem" }}>
+            <div css={{ marginRight: "1rem" }}>
                 <LiveLogo css={{ backgroundColor: "#222222 !important" }} width={"80px"} height={"70px"} />
             </div>
 

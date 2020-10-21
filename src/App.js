@@ -5,11 +5,18 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
+import { getToken } from "./api/token";
+import { get } from "./api/fetch";
 import ScrollToTop from "./utils/ScrollToTop";
 import { createBrowserHistory } from "history";
 import PrivateRoute from "./routeUtils/PrivateRoute";
 import PublicRoute from "./routeUtils/PublicRoute";
+<<<<<<< HEAD
 import UserContext from "./context/UserContext";
+=======
+import AdminRoute from "./routeUtils/AdminRoute";
+import UserContext from "./context/UserContext"
+>>>>>>> 2be4926319ba214fddc4701872770b57da8c9b48
 import AdminDashboard from "./views/AdminDashboard";
 import Basket from "./views/Basket";
 import CompetitionDetails from "./views/CompetitionDetails";
@@ -24,6 +31,7 @@ import Winners from "./views/Winners.js";
 import MoreDashboard from "./views/MoreDashboard.js";
 import ErrorPage from "./views/Error.js";
 import ForgotPass from "./views/ForgotPass.js";
+import ResetPass from "./views/ResetPass";
 
 import NavBar from "./components/NavBar";
 import NextDraw from "./components/NextDraw";
@@ -41,10 +49,10 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
-    const abort = new AbortController();
-    const signal = abort.signal;
+
     this.state = {
       user: {
+<<<<<<< HEAD
         _id: "5f7c33b5b33f471334d79bf4",
         fullName: "PEPE",
         cart: [
@@ -80,6 +88,24 @@ class App extends React.Component {
         this.setState({
           user: { _id: undefined, fulName: undefined, cart: [] },
         });
+=======
+        _id: undefined, fullName: undefined, cart: []
+      },
+
+      admin:false,
+      showPurchaseAlert: { status: false },
+
+      activateUser: (user) => {
+
+        this.setState({ user: user });
+
+
+      },
+
+      logout: () => {
+
+        this.setState({ user: { _id: undefined, fulName: undefined, cart: [],admin:false } });
+>>>>>>> 2be4926319ba214fddc4701872770b57da8c9b48
         localStorage.clear();
       },
 
@@ -99,6 +125,7 @@ class App extends React.Component {
           cartCopy.push({ competition, amount });
         }
 
+<<<<<<< HEAD
         this.setState({
           showPurchaseAlert: {
             status: true,
@@ -111,6 +138,13 @@ class App extends React.Component {
         setTimeout(() => {
           this.setState({ showPurchaseAlert: { status: false } });
         }, 2000);
+=======
+        this.setState({ showPurchaseAlert: { status: true, competition: competition, amount: amount }, user: { ...this.state.user, cart: cartCopy } });
+
+        setTimeout(() => { this.setState({ showPurchaseAlert: { status: false } }) }, 2000)
+
+
+>>>>>>> 2be4926319ba214fddc4701872770b57da8c9b48
       },
 
       updateCart: (competition, newAmount) => {
@@ -137,8 +171,47 @@ class App extends React.Component {
         cartCopy.splice(toRemove, 1);
         this.setState({ user: { ...this.state.user, cart: cartCopy } });
       },
+<<<<<<< HEAD
     };
+=======
+
+      hideModal: () => {
+
+        this.setState({ showPurchaseAlert: { status: false } })
+      },
+
+      setAdminStatus: ()=>{
+
+        this.setState({admin:true});
+      }
+    }
   }
+
+  async componentDidMount() {
+
+    let token = getToken();
+
+    if (token) {
+   
+      const result = await get("/token/verifytoken");
+
+      if (result.ok) {
+
+        this.state.activateUser(result.data.userData);
+  
+      }
+      else{
+
+        localStorage.clear();
+      }
+    }
+
+>>>>>>> 2be4926319ba214fddc4701872770b57da8c9b48
+  }
+
+
+
+
 
   render() {
     return (
@@ -180,6 +253,7 @@ class App extends React.Component {
                 path="/winners"
               />
               <PublicRoute restricted={true} component={Log} path="/log" />
+<<<<<<< HEAD
               <PublicRoute
                 restricted={false}
                 component={ForgotPass}
@@ -226,6 +300,19 @@ class App extends React.Component {
                 component={AdminDashboard}
                 path="/admindashboard"
               />
+=======
+              <PublicRoute restricted={false} component={ResetPass} path="/resetpass/:id/:token" />
+              <PublicRoute restricted={false} component={ForgotPass} path="/forgotpass" />
+              <PublicRoute restricted={false} component={CreateAccount} path="/createaccount" />
+              <PublicRoute restricted={false} component={Draws} path="/draws" />
+              <PublicRoute restricted={false} component={ErrorPage} path="/error" />
+              <PublicRoute restricted={false} component={Entries} path="/entries" />
+              <PublicRoute restricted={false} component={Basket} path="/basket" />
+              <PublicRoute restricted={true} component={AdminLogin} path="/adminlogin" />
+              <PublicRoute restricted={false} component={MoreDashboard} path="/more" />
+              <PrivateRoute restricted={false} component={UserDashboard} path="/userdashboard" />
+              <AdminRoute restricted={false} component={AdminDashboard} path="/admindashboard" />
+>>>>>>> 2be4926319ba214fddc4701872770b57da8c9b48
               <Route path="/">
                 <Redirect to="/home" />
               </Route>

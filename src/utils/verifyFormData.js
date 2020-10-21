@@ -29,7 +29,7 @@ export const verifyPass = (password) => {
 
 export const verifyName = (name) => {
 
-    if (name.length > 3) {
+    if (name.length > 2) {
         return { color: "2px solid #00C6D6", ok: true }
     }
     else {

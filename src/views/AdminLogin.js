@@ -1,9 +1,17 @@
+<<<<<<< HEAD
 import React, { useState } from "react";
+=======
+import React, { useState, useContext } from 'react';
+>>>>>>> 2be4926319ba214fddc4701872770b57da8c9b48
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import StyledInput from "../components/StyledInput";
 import { post } from "../api/fetch";
 import { Redirect } from "react-router-dom";
+<<<<<<< HEAD
+=======
+import UserContext from "../context/UserContext"
+>>>>>>> 2be4926319ba214fddc4701872770b57da8c9b48
 
 const contentWrapper = {
   margin: "4rem 0rem",
@@ -69,6 +77,7 @@ const formStyles = {
 };
 
 function AdminLogin() {
+<<<<<<< HEAD
   const [message, setMessage] = useState({
     color: "green",
     visibility: "hidden",
@@ -91,9 +100,34 @@ function AdminLogin() {
         visibility: "visible",
         message: "WRONG CREDENTIALS",
       });
+=======
+
+    const [message, setMessage] = useState({ color: "green", visibility: "hidden", message: "hidden" });
+    const [redirect, setRedirect] = useState(false);
+    const context = useContext(UserContext);
+
+    const submit = async (e) => {
+
+        e.preventDefault();
+        const name = e.target.name.value;
+        const password = e.target.password.value;
+        const result = await post("/admin/signin", { name, password });
+
+        if (result.ok) {
+
+            localStorage.setItem("@auth_token2", result.data.token);
+            context.setAdminStatus();
+            setRedirect(true)
+        }
+        else {
+            setMessage({ color: "red", visibility: "visible", message: "WRONG CREDENTIALS" })
+        }
+
+>>>>>>> 2be4926319ba214fddc4701872770b57da8c9b48
     }
   };
 
+<<<<<<< HEAD
   if (redirect) {
     return (
       <Redirect
@@ -146,6 +180,34 @@ function AdminLogin() {
               <p css={{ fontSize: "9px", letterSpacing: "0.03rem !important" }}>
                 Trading as Marley Media
               </p>
+=======
+    if (redirect) {
+
+        return (
+
+            <Redirect
+                to={{
+                    pathname: "/admindashboard",
+                }}
+            />
+        )
+    }
+    return (
+
+
+
+        <div css={contentWrapper}>
+
+            <h1>ADMIN LOGIN</h1>
+            <div css={{ display: "flex", justifyContent: "center" }}>
+                <form onSubmit={submit} css={{ width: "30%", display: "flex", justifyContent: "center", marginTop: "4rem", flexDirection: "column", textAlign: "center" }}>
+
+                    <StyledInput type="text" width="100%" name="NAME" innerName="name" />
+                    <StyledInput type="password" eye={true} width="100%" name="PASSWORD" innerName="password" />
+                    <button css={{ marginTop: "1rem" }} className="button01">SUBMIT</button>
+                    <p css={{ color: message.color, visibility: message.visibility }}>{message.message}</p>
+                </form>
+>>>>>>> 2be4926319ba214fddc4701872770b57da8c9b48
             </div>
           </div>
           <input className="cl_input" placeholder="Email" name="name" />

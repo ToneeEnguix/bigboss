@@ -1,6 +1,6 @@
-export const getToken = async () => {
+export const getToken =  () => {
     try {
-      const value = await localStorage.getItem('@auth_token');
+      const value =  localStorage.getItem('@auth_token');
       if (value !== null) {
         return value;
       }
@@ -9,9 +9,9 @@ export const getToken = async () => {
     }
   };
   
-  export const setToken = async (token) => {
+  export const setToken =  (token) => {
     try {
-      await localStorage.setItem('@auth_token', token);
+       localStorage.setItem('@auth_token', token);
     } catch (e) {
       return null;
     }

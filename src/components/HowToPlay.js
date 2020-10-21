@@ -1,6 +1,8 @@
 import React from 'react';
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
+import one from "../resources/looks_one-24px.svg"
+
 
 const howToPlayWrapper = {
 
@@ -12,9 +14,9 @@ const howToPlayWrapper = {
   marginTop: "4rem",
   padding: "2rem",
 
-  "h1":{
+  "h1": {
 
-    marginBottom:"2rem"
+    marginBottom: "2rem"
   }
 
 }
@@ -29,7 +31,7 @@ const card = {
   padding: "2rem",
   margin: "2rem 0",
   display: "flex",
-  fontWeight:"600",
+  fontWeight: "600",
   justifyContent: "space-between",
   alignItems: "center",
   width: "100%",
@@ -37,12 +39,15 @@ const card = {
   "p": {
 
     fontWeight: "600",
-    padding:"0.5rem 0"
+    padding: "0.5rem 0"
+  },
+
+  "span": {
+
+    fontSize: "42px"
   }
 }
 
-
-const icon = {}
 function HowToPlay() {
   return (
     <div css={howToPlayWrapper} >
@@ -52,21 +57,27 @@ function HowToPlay() {
           <p css={{ color: "#00FFFF" }}>1.SELECT</p>
           <p>SELECT THE COMPETITION AND THE DESIRED NUMBER OF ENTRIES</p>
         </div>
-        <div css={icon}>1</div>
+        <span className="material-icons">
+          looks_one
+</span>
       </div>
       <div css={card}>
         <div css={text}>
           <p css={{ color: "#00FFFF" }}>2.ANSWER</p>
           <p>ANSWER THE QUALIFYING QUESTION AND COMPLETE PAYMENT</p>
         </div>
-        <div css={icon}>2</div>
+        <span className="material-icons">
+          looks_two
+</span>
       </div>
       <div css={card}>
         <div css={text}>
           <p css={{ color: "#00FFFF" }}>3.WAIT</p>
           <p>WAIT FOR THE COMPETITION TO LIVESTREAM ON FACEBOOK</p>
         </div>
-        <div css={icon}>3</div>
+        <span className="material-icons">
+          looks_3
+</span>
       </div>
     </div>
   );

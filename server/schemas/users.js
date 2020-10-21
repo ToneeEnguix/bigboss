@@ -4,9 +4,9 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
 
     email:{type:String, required:true},
-    fullName:{type:String},
+    name:{type:String ,required:true},
+    lastName:{type:String},
     password:{type:String, required:true},
-    cart:[{range:{ type: Schema.Types.ObjectId, ref: 'range' },variantIndex:Number,amount:Number}],
     dateCreated:{type:Date,default:Date.now()}
 
 });

@@ -5,5 +5,7 @@ const express = require('express'),
 
 router.get('/verifytoken', controller.verifyToken);
 
+router.get("/verifytokenemail/:id",controller.verifyEmailToken)
+
 
 module.exports = router;

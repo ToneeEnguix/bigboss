@@ -112,7 +112,7 @@ const Results = (props) => {
 
     const [selected, setSelected] = useState(0);
 
-    props.logAnswer(props.shuffledResults[selected])
+    props.logAnswer(props.shuffledResults[selected]); 
 
     const logAnswer = (element, index) => {
 

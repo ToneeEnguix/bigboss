@@ -4,8 +4,8 @@ import { jsx } from '@emotion/core';
 import { Redirect } from "react-router-dom"
 import UserContext from "../context/UserContext";
 import BasketCard from "../components/BasketCard";
-import { ReactComponent as BigBossLogo } from "../resources/BigBossLogo.svg";
 import { get } from "../api/fetch";
+import bigbossblue from "../resources/bigbossblue.png"
 
 const contentWrapper = {
 
@@ -208,7 +208,7 @@ function Basket() {
             </div>
             <div css={logo}>
               <div css={{ padding: "5rem 6rem", alignItems: "center", display: "flex", flexDirection: "column" }}>
-                <BigBossLogo color={"#00C6D6"} width={"150px"} height={"150px"} />
+                <img src={bigbossblue}/>
                 <p css={{ marginTop: "2rem", fontSize: "0.7rem" }}>ALL RIGHTS RESERVED. 2020</p>
               </div>
             </div>
