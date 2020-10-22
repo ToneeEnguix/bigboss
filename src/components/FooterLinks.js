@@ -10,6 +10,7 @@ const footerWrapper = {
   justifyContent: "space-between",
   marginTop: "4rem",
   flexDirection:"column",
+  flexWrap:"wrap",
 
   "h1": {
 
@@ -21,9 +22,9 @@ const footerWrapper = {
 const card = {
   boxShadow: "-1px 4px 22px 0px black",
   display: "flex",
-  height:"8rem",
   alignItems: "center",
   width: "20rem",
+  margin:"1rem 2rem",
   padding: "0 1rem",
   borderRadius: "4%",
   "span": {
@@ -43,11 +44,22 @@ const triangle = {
   borderLeft: "1rem solid white"
 }
 
+
+const hiddentriangle = {
+
+  visibility:"hidden",
+  width: "0",
+  height: "0",
+  borderTop: "1rem solid transparent",
+  borderBottom: "1rem solid transparent",
+
+  borderLeft: "1rem solid white"
+}
 function FooterLinks() {
   return (
     <div css={footerWrapper}>
 
-      <div css={{ display: "flex", width: "100%", justifyContent: "space-between", alignItems: "center" }}>
+      <div css={{ flexWrap:"wrap", display: "flex", width: "100%", justifyContent: "center", alignItems: "center" }}>
         <div css={card}>
           <span className="material-icons">
             looks_one
@@ -78,7 +90,7 @@ function FooterLinks() {
           </div>
         </div>
       </div>
-      <div css={{ margin:"2rem 0", display: "flex", width: "100%", justifyContent: "space-between", alignItems: "center" }}>
+      <div css={{ flexWrap:"wrap", margin:"2rem 0", display: "flex", width: "100%", justifyContent: "center", alignItems: "center" }}>
         <div css={card}>
           <span className="material-icons">
             looks_one
@@ -88,7 +100,7 @@ function FooterLinks() {
             <p css={{ fontWeight: "500", fontSize: "0.6rem", paddingTop: "0.2rem" }}>Real Competitions! Real prizes! Absolutely guaranteed Giveaways and prices</p>
           </div>
         </div>
-
+        <div css={hiddentriangle}></div>
         <div css={card}>
           <span className="material-icons">
             looks_two
@@ -98,7 +110,7 @@ function FooterLinks() {
             <p css={{ fontWeight: "500", fontSize: "0.6rem", paddingTop: "0.2rem" }}>We ensure the abolute best prizes and guarantee the totally most amazing items.</p>
           </div>
         </div>
-       
+        <div css={hiddentriangle}></div>
         <div css={card}>
           <span className="material-icons">
             looks_3
@@ -109,7 +121,7 @@ function FooterLinks() {
           </div>
         </div>
       </div>
-      <div css={{ display: "flex", width: "100%", justifyContent: "space-between", alignItems: "center" }}>
+      <div css={{ flexWrap:"wrap", display: "flex", width: "100%", justifyContent: "center", alignItems: "center" }}>
         <div css={card}>
           <span className="material-icons">
             looks_one
@@ -119,7 +131,7 @@ function FooterLinks() {
             <p css={{ fontWeight: "500", fontSize: "0.6rem", paddingTop: "0.2rem" }}>Real Competitions! Real prizes! Absolutely guaranteed Giveaways and prices</p>
           </div>
         </div>
-
+        <div css={hiddentriangle}></div>
         <div css={card}>
           <span className="material-icons">
             looks_two
@@ -129,7 +141,7 @@ function FooterLinks() {
             <p css={{ fontWeight: "500", fontSize: "0.6rem", paddingTop: "0.2rem" }}>We ensure the abolute best prizes and guarantee the totally most amazing items.</p>
           </div>
         </div>
-      
+        <div css={hiddentriangle}></div>
         <div css={card}>
           <span className="material-icons">
             looks_3

@@ -103,7 +103,7 @@ function CreateAccountForm() {
 
         </div>
         <div css={{ margin: "1rem 0", display: "flex", justifyContent: "space-around" }}>
-          <StyledInput width={"45%"} valid={validName.color} innerName={"name"} name={"NAME"} />
+          <StyledInput width={"45%"} valid={validName.color} innerName={"name"} name={"USER NAME"} />
           <StyledInput width={"45%"} valid={validMatch.color} innerName={"verifyPass"} type={"password"} name={"REPEAT PASSWORD"} />
         </div>
         <div css={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>

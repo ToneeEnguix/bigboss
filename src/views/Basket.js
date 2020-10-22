@@ -21,9 +21,9 @@ const contentWrapper = {
 
 const compsColumn = {
 
-  width:"30%",
   display: "flex",
-  flexDirection: "column"
+  flexDirection: "column",
+  alignItems:"center"
 }
 
 const dataColumn = {
@@ -37,6 +37,7 @@ const dataColumn = {
 const summary = {
 
   boxShadow: "-1px 4px 22px 0px black",
+  minWidth: "450px"
 
 }
 
@@ -162,7 +163,7 @@ function Basket() {
     <React.Fragment>
       <div css={contentWrapper}>
         <h1>BASKET</h1>
-        <div css={{ display: "flex", justifyContent: "space-evenly", marginTop:"3.5rem" }}>
+        <div css={{ display: "flex",flexWrap:"wrap", justifyContent: "space-evenly", marginTop:"3.5rem" }}>
           <div css={compsColumn}>
             {
               context.user.cart.map((competition, index) => {

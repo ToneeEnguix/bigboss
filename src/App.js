@@ -53,7 +53,7 @@ class App extends React.Component {
 
     this.state = {
       user: {
-        _id: undefined, fullName: undefined, cart: []
+        _id: undefined, name: undefined, cart: []
       },
 
       admin:false,
@@ -62,13 +62,14 @@ class App extends React.Component {
       activateUser: (user) => {
 
         this.setState({ user: user });
+  
 
 
       },
 
       logout: () => {
 
-        this.setState({ user: { _id: undefined, fulName: undefined, cart: [],admin:false } });
+        this.setState({ user: { _id: undefined, bame: undefined, cart: [],admin:false } });
         localStorage.clear();
       },
 
@@ -94,7 +95,7 @@ class App extends React.Component {
 
         this.setState({ showPurchaseAlert: { status: true, competition: competition, amount: amount }, user: { ...this.state.user, cart: cartCopy } });
 
-        setTimeout(() => { this.setState({ showPurchaseAlert: { status: false } }) }, 2000)
+        setTimeout(() => { this.setState({ showPurchaseAlert: { status: false } }) }, 7000)
 
 
       },

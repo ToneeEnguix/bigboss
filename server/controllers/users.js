@@ -14,13 +14,16 @@ class UserController {
 
     async save(req, res) {
 
-        const userToSave = JSON.parse(req.body.user);
+        const userToSave = JSON.parse(req.body.data);
+  
+        
+        const _id = req.decoded._id;
 
-        const _id = req.decoded._id
+        userToSave._id=_id;
 
         try {
             let user = await users.findOneAndUpdate({ _id: _id }, userToSave);
-            res.status(200).send(user);
+            res.status(200).send({userData:userToSave});
         }
 
         catch (error) {
@@ -79,7 +82,9 @@ class UserController {
 
         const receivedPassword = userToSave.password;
         const receivedEmail = userToSave.email;
-        const receivedName = userToSave.fullName;
+        const receivedName = userToSave.name;
+
+        console.log(receivedName)
 
         try {
             const activeUser = await users.findOne({ email: receivedEmail });
@@ -89,7 +94,7 @@ class UserController {
             }
 
             const hashedPassword = await bcrypt.hash(receivedPassword, saltRounds)
-            const newUser = await users.create({ fullName: receivedName, email: receivedEmail, password: hashedPassword });
+            const newUser = await users.create({ name: receivedName, email: receivedEmail, password: hashedPassword });
             const payload = {
                 check: true,
                 _id: newUser._id
@@ -107,6 +112,7 @@ class UserController {
         }
         catch (error) {
 
+console.log(error)
             res.status(500).send(error);
         }
     }

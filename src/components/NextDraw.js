@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { ReactComponent as LiveLogo } from "../resources/LiveLogo.svg";
 import CounterSmall from "../utils/CounterSmall";
 import { get } from "../api/fetch";
@@ -29,10 +29,19 @@ function NextDraw() {
     const [nextDraw, setNextDraw] = useState("");
     const [error, setError] = useState(false);
 
+
+
     useEffect(() => {
 
         getNextDraw();
     }, []);
+
+    const redrawLatest = () => {
+
+    
+        getNextDraw();
+
+    }
 
     const getNextDraw = async () => {
 
@@ -41,6 +50,7 @@ function NextDraw() {
         if (result.ok) {
 
             setNextDraw(result.data[0].dateFinishes);
+
 
         }
         else {
@@ -60,7 +70,7 @@ function NextDraw() {
             <div css={{ visibility: "hidden" }}
             >Hidden</div>
             <div>
-                <CounterSmall date={nextDraw} />
+                <CounterSmall key={nextDraw} setRedraw={redrawLatest} date={nextDraw} />
             </div>
             <div css={{ marginRight: "1rem" }}>
                 <LiveLogo css={{ backgroundColor: "#222222 !important" }} width={"80px"} height={"70px"} />

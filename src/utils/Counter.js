@@ -20,11 +20,11 @@ const number = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    fontSize:"1.2rem",
-   
-    
-    
-    "strong":{letterSpacing:"0.4rem"}
+    fontSize: "1.2rem",
+
+
+
+    "strong": { letterSpacing: "0.4rem" }
 
 }
 
@@ -57,10 +57,23 @@ class Countdown extends Component {
     }
 
     componentDidMount() {
+
         // update every second
         this.interval = setInterval(() => {
             const date = this.calculateCountdown(this.props.date);
-            date ? this.setState(date) : this.stop();
+            if (date) {
+                this.setState(date)
+            }
+            else {
+
+                this.stop();
+                this.setState({ disabled: true });
+
+                if (this.props.setDisabled)
+                {
+                this.props.setDisabled(true)
+                }
+            }
         }, 1000);
     }
 
@@ -119,55 +132,67 @@ class Countdown extends Component {
     render() {
         const countDown = this.state;
 
-        return (
-            <div css={{ display: "flex", justifyContent: "center", marginBottom: "2rem" }}>
-                <div css={countBox}>
+        if (countDown.disabled) {
 
-                    <div css={number}>
-                        <strong css={{ color: "#00FFFF" }}>
-                            {this.addLeadingZeros(countDown.days)}
-                        </strong>
+            return (
+                <div css={{diplay:"flex",justifyContent:"center"}}>
+                    <h3> TIME IS UP!</h3>
+                </div>
+            )
+        }
+
+        else {
+            return (
+                <div css={{ display: "flex", justifyContent: "center", marginBottom: "2rem" }}>
+                    <div css={countBox}>
+
+                        <div css={number}>
+                            <strong css={{ color: "#00FFFF" }}>
+                                {this.addLeadingZeros(countDown.days)}
+                            </strong>
+                        </div>
+                        <span css={description}>{countDown.days === 1 ? 'DAY' : 'DAYS'}</span>
+
                     </div>
-                    <span css={description}>{countDown.days === 1 ? 'DAY' : 'DAYS'}</span>
+                    <div css={countBox}>
+
+                        <div css={number}>
+                            <strong css={{ color: "#00FFFF" }}>
+                                {this.addLeadingZeros(countDown.hours)}
+                            </strong>
+                        </div>
+                        <span css={description}>HOURS</span>
+
+                    </div>
+                    <div css={countBox}>
+
+                        <div css={number}>
+                            <strong css={{ color: "#00FFFF" }}>
+                                {this.addLeadingZeros(countDown.min)}
+                            </strong>
+                        </div>
+                        <span css={description}>MINUTES</span>
+
+                    </div>
+                    <div css={countBox}>
+
+                        <div css={number}>
+                            <strong css={{ color: "#00FFFF" }}>
+                                {this.addLeadingZeros(countDown.sec)}
+                            </strong>
+                        </div>
+                        <span css={description}>SECONDS</span>
+
+                    </div>
+
+
 
                 </div>
-                <div css={countBox}>
-
-                    <div css={number}>
-                        <strong css={{ color: "#00FFFF" }}>
-                            {this.addLeadingZeros(countDown.hours)}
-                        </strong>
-                    </div>
-                    <span css={description}>HOURS</span>
-
-                </div>
-                <div css={countBox}>
-
-                    <div css={number}>
-                        <strong css={{ color: "#00FFFF" }}>
-                            {this.addLeadingZeros(countDown.min)}
-                        </strong>
-                    </div>
-                    <span css={description}>MINUTES</span>
-
-                </div>
-                <div css={countBox}>
-
-                    <div css={number}>
-                        <strong css={{ color: "#00FFFF" }}>
-                            {this.addLeadingZeros(countDown.sec)}
-                        </strong>
-                    </div>
-                    <span css={description}>SECONDS</span>
-
-                </div>
 
 
+            );
+        }
 
-            </div>
-
-
-        );
     }
 }
 
