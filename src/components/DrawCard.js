@@ -48,7 +48,7 @@ function DrawCard(props) {
 
     useEffect(() => {
 
-        const array= formatDate(props.winner.dateFinishes)
+        const array= formatDate(props.winner.entriesDate)
         setDateFormat(array);
     }, [props])
 
@@ -66,7 +66,7 @@ function DrawCard(props) {
             <div css={video}>
                 <ReactPlayer
                     width="auto"
-                    url="https://www.facebook.com/earthescapevids/videos/764858494045462/"
+                    url={props.winner.facebookURL}
                     controls
                 />
             </div>

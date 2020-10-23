@@ -6,6 +6,7 @@ const app = express();
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const sendResetPasswordEmail = require("../emailSetup/emailScripts.js");
+const welcomeEmail = require ("../emailSetup/emailScripts.js")
 
 app.set('key', config.key);
 
@@ -84,8 +85,6 @@ class UserController {
         const receivedEmail = userToSave.email;
         const receivedName = userToSave.name;
 
-        console.log(receivedName)
-
         try {
             const activeUser = await users.findOne({ email: receivedEmail });
 
@@ -103,6 +102,7 @@ class UserController {
                 expiresIn: Math.floor(Date.now() / 1000) + (60 * 60)
             });
 
+            welcomeEmail(newUser.email);
             res.status(200).json({
                 message: 'Correct authentication',
                 token: token,
