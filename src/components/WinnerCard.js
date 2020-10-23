@@ -11,8 +11,8 @@ const card = {
     margin: "1.5rem 0",
     boxShadow: "-1px 4px 22px 0px black",
     justifyContent: "center",
- 
-    width: "45%",
+    maxWidth:"600px",
+    margin: "4rem 0",
     flexDirection: "column",
     textTransform:"uppercase",
     borderRadius: "4%",

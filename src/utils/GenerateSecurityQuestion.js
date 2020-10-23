@@ -112,45 +112,50 @@ const Results = (props) => {
 
     const [selected, setSelected] = useState(0);
 
-    props.logAnswer(props.shuffledResults[selected]); 
 
-    const logAnswer = (element, index) => {
+    useEffect(()=>{
 
-        setSelected(index);
-
-        props.logAnswer(element);
-
-    }
-
-
-    return (
-        <React.Fragment>
-            <h3 css={{ fontSize: "0.7rem", marginTop: "1rem", letterSpacing: "0.2rem" }}>SECURITY QUESTION: WHAT IS {props.stringOperation}?</h3>
-
-            <div css={{ display: "flex" }}>
-                {props.shuffledResults.map((element, index) => {
-
-                    if (index !== selected) {
-                        return (
-                            <div onClick={() => { logAnswer(element, index) }} key={index} css={number}>
-                                <strong>
-                                    {element}
-                                </strong>
-                            </div>)
-                    }
-                    else {
-                        return (
-                            <div onClick={() => { props.logAnswer(element, index) }} key={index} css={selectedNumber}>
-                                <strong>
-                                    {element}
-                                </strong>
-                            </div>)
-
-
-
-                    }
-                })}
-            </div>
-        </React.Fragment>
+        props.logAnswer(props.shuffledResults[selected])}
     )
+
+
+const logAnswer = (element, index) => {
+
+    setSelected(index);
+
+    props.logAnswer(element);
+
+}
+
+
+return (
+    <React.Fragment>
+        <h3 css={{ fontSize: "0.7rem", marginTop: "1rem", letterSpacing: "0.2rem" }}>SECURITY QUESTION: WHAT IS {props.stringOperation}?</h3>
+
+        <div css={{ display: "flex" }}>
+            {props.shuffledResults.map((element, index) => {
+
+                if (index !== selected) {
+                    return (
+                        <div onClick={() => { logAnswer(element, index) }} key={index} css={number}>
+                            <strong>
+                                {element}
+                            </strong>
+                        </div>)
+                }
+                else {
+                    return (
+                        <div onClick={() => { props.logAnswer(element, index) }} key={index} css={selectedNumber}>
+                            <strong>
+                                {element}
+                            </strong>
+                        </div>)
+
+
+
+                }
+            })}
+        </div>
+    </React.Fragment>
+)
 };

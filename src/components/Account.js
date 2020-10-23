@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from 'react';
 /* @jsx jsx */
 import { jsx } from "@emotion/core/";
 import { post } from "../api/fetch";
+import UserContext from "../context/UserContext";
+import { useInputChange } from '../utils/useInputChange'
+
 
 const accountInput = {
   border: "none",
@@ -40,58 +43,80 @@ const columns = {
   },
 };
 function Account() {
+
+  const context = useContext(UserContext);
+  const [input, handleInputChange] = useInputChange()
+  const inputNames = [
+    {title:"NAME",inner:"name"},
+    {title:"LAST NAME",inner:"lastName"},
+    {title:"EMAIL",inner:"email"},
+    {title:"TELEPHONE NUMBER",inner:"phone"},
+    {title:"ADRESS",inner:"adress"},
+    {title:"CITY",inner:"city"},
+    {title:"COUNTY",inner:"county"},
+    {title:"POST CODE",inner:"postcode"},
+    {title:"COUNTRY",inner:"country"},
+  ];
+  const [message,setMessage]=useState({visibility:"hidden",message:"hidden"})
+
+
+  const submit = async  (e) => {
+
+
+    e.preventDefault();
+
+    const userData=new Object();
+
+    inputNames.forEach(input=>{
+
+      userData[input.inner]=e.target[input.inner].value;
+    })
+
+    const result= await post ("/users/save",userData)
+
+    if (result.ok){
+
+
+      const currentCart=[...context.user.cart]
+      const newUserData= result.data.userData;
+      newUserData.cart=currentCart;
+   
+     context.activateUser(newUserData);
+     setMessage({visibility:"visible",message:"SAVED SUCCESSFULLY"});
+     setTimeout(()=>{setMessage({visibility:"hidden",message:"hidden"});},2000)
+
+
+    }
+    else{
+
+      setMessage({visibility:"visible",message:"SOMETHING WENT WRONG,TRY AGAIN"});
+      setTimeout(()=>{setMessage({visibility:"hidden",message:"hidden"});},2000)
+
+    }
+
+
+  }
+
   return (
-    <form
-      css={{
-        height: "50vh",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        width: "70%",
-      }}
-    >
-      <div css={columns}>
-        <div css={inputWrapper}>
-          <label htmlFor="name">FORENAME</label>
-          <input css={accountInput} />
+    <React.Fragment>
+      <form onSubmit={submit} css={{ height: "50vh", display: "flex", flexDirection: "column", alignItems: "center", width: "70%" }}>
+        <div css={columns}>
+
+          {inputNames.map(name => {
+
+            return (
+
+              <div key={name.inner} css={inputWrapper}>
+                <label htmlFor={name.inner}>{name.title}</label>
+                <input name={name.inner} onChange={handleInputChange} defaultValue={context.user[name.inner]} css={accountInput} />
+              </div>
+            )
+          })}
         </div>
-        <div css={inputWrapper}>
-          <label htmlFor="surName">SURNAME</label>
-          <input css={accountInput} />
-        </div>
-        <div css={inputWrapper}>
-          <label htmlFor="email">EMAIL</label>
-          <input css={accountInput} />
-        </div>
-        <div css={inputWrapper}>
-          <label htmlFor="phone">TELEPHONE NUMBER</label>
-          <input css={accountInput} />
-        </div>
-        <div css={inputWrapper}>
-          <label htmlFor="adress">ADRESS</label>
-          <input css={accountInput} />
-        </div>
-        <div css={inputWrapper}>
-          <label htmlFor="city">CITY</label>
-          <input css={accountInput} />
-        </div>
-        <div css={inputWrapper}>
-          <label htmlFor="county">COUNTY</label>
-          <input css={accountInput} />
-        </div>
-        <div css={inputWrapper}>
-          <label htmlFor="postcode">POSTCODE</label>
-          <input css={accountInput} />
-        </div>
-        <div css={inputWrapper}>
-          <label htmlFor="country">COUNTRY</label>
-          <input css={accountInput} />
-        </div>
-      </div>
-      <button css={{ width: "50%" }} className="button01">
-        SAVE DETAILS
-      </button>
-    </form>
+        <button css={{ width: "50%" }} className="button01">SAVE DETAILS</button>
+        <p css={{marginTop:"0.5rem", visibility:message.visibility}}>{message.message}</p>
+      </form>
+    </React.Fragment>
   );
 }
 

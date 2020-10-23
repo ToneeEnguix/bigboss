@@ -17,7 +17,9 @@ const card = {
     flexDirection: "column",
     borderRadius: "4%",
     overflow: "hidden",
-    width: "100%"
+    minWidth: "450px"
+    
+
 
 }
 
@@ -92,7 +94,7 @@ function BasketCard(props) {
                     <button onClick={substract} className="roundButtonSmall">-</button>
                     <p css={{ fontWeight: "500" }}>MORE</p>
                     <button onClick={add} className="roundButtonSmall">+</button>
-                    <input value={setValue(amount)} className="inputAmountSmall" />
+                    <input readOnly={true} value={setValue(amount)} className="inputAmountSmall" />
                 </div>
                 <button onClick={saveUpdate} css={{ marginTop: "2rem" }} className="button02">SAVE YOUR UPDATE</button>
                 <p css={{marginTop:"0.3rem", fotWeight:"500",textAlign:"center",visibility:message.visible}}>{message.message}</p>

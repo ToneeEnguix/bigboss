@@ -44,32 +44,11 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
-
     this.state = {
       user: {
-        _id: "5f7c33b5b33f471334d79bf4",
-        fullName: "PEPE",
-        cart: [
-          {
-            competition: {
-              _id: "5f7b351559537043a887b888",
-              title: "MOCKI MOCK",
-              ticketPrice: 20,
-              dateFinishes: "2020-10-07T17:00:00.000Z",
-              maxTickets: 1000,
-              ticketsAvailable: 24,
-              prize: "Car",
-              description: ["line01", "line02", "line03", "line04", "line05"],
-              pictures: [
-                "https://picsum.photos/1200/800",
-                "https://picsum.photos/1200/800",
-                "https://picsum.photos/1200/800",
-                "https://picsum.photos/1200/800",
-              ],
-            },
-            amount: 3,
-          },
-        ],
+        _id: undefined,
+        name: undefined,
+        cart: [],
       },
 
       showPurchaseAlert: { status: false },
@@ -80,7 +59,7 @@ class App extends React.Component {
 
       logout: () => {
         this.setState({
-          user: { _id: undefined, fulName: undefined, cart: [] },
+          user: { _id: undefined, bame: undefined, cart: [], admin: false },
         });
         localStorage.clear();
       },
@@ -112,7 +91,7 @@ class App extends React.Component {
 
         setTimeout(() => {
           this.setState({ showPurchaseAlert: { status: false } });
-        }, 2000);
+        }, 7000);
       },
 
       updateCart: (competition, newAmount) => {
@@ -141,10 +120,6 @@ class App extends React.Component {
       },
     };
   }
-
-
-
-
 
   render() {
     return (

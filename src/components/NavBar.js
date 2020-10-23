@@ -3,7 +3,7 @@ import { jsx } from "@emotion/core";
 import React, { useState, useContext } from "react";
 import { ReactComponent as BigBossLogo } from "../resources/BigBossLogo.svg";
 import UserContext from "../context/UserContext";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useHistory } from "react-router-dom";
 
 const flexContainer = {
   display: "flex",
@@ -229,7 +229,7 @@ function NavBar() {
               <span
                 css={{ cursor: "context-menu", textTransform: "upperCase" }}
               >
-                {context.user.fullName}
+                {context.user.name.substring(0, 7)}
               </span>
             </div>
             {userMenu && context.showPurchaseAlert.status === false ? (
@@ -241,19 +241,21 @@ function NavBar() {
         <div css={{ display: "hidden", width: "1rem" }}></div>
 
         {context.user.cart.length > 0 ? (
-          <NavLink activeClassName={"active"} to="/basket" className={"icon"}>
-            <div
-              css={{
-                display: "flex",
-                alignItems: "center",
-                i: { marginRight: "0.5rem" },
-              }}
-            >
-              <i className="material-icons-outlined">shopping_cart</i>
-              <span>{setValue(context.user.cart.length)}</span>
-            </div>
+          <React.Fragment>
+            <NavLink activeClassName={"active"} to="/basket" className={"icon"}>
+              <div
+                css={{
+                  display: "flex",
+                  alignItems: "center",
+                  i: { marginRight: "0.5rem" },
+                }}
+              >
+                <i className="material-icons-outlined">shopping_cart</i>
+                <span>{setValue(context.user.cart.length)}</span>
+              </div>
+            </NavLink>
             <ShowPurchaseAlert active={context.showPurchaseAlert} />
-          </NavLink>
+          </React.Fragment>
         ) : (
           <div
             onMouseLeave={hideEmptyCart}
@@ -264,7 +266,7 @@ function NavBar() {
               css={{
                 display: "flex",
                 alignItems: "center",
-                i: { marginRight: "2rem" },
+                i: { marginRight: "0.5rem" },
               }}
             >
               <i className="material-icons-outlined">shopping_cart</i>
@@ -339,7 +341,15 @@ const dropdown02 = {
 const EmptyCart = () => {
   return (
     <div css={dropdown02}>
-      <h5>BASKET IS CURRENTLY EMPTY</h5>
+      <div
+        css={{
+          borderTop: "1px solid #868686",
+          backgroundColor: "#252525",
+          boxShadow: "-1px 4px 22px 0px black",
+        }}
+      >
+        <h5 css={{ padding: "2rem" }}>BASKET IS CURRENTLY EMPTY</h5>
+      </div>
     </div>
   );
 };
@@ -353,6 +363,19 @@ const dropdown03 = {
 };
 
 const ShowPurchaseAlert = (props) => {
+  const context = useContext(UserContext);
+  const history = useHistory();
+
+  const closenadGo = () => {
+    context.hideModal();
+    history.push("/basket");
+  };
+
+  const remove = () => {
+    context.hideModal();
+    context.remove(props.active.competition);
+  };
+
   const setValue = (amount) => {
     let value = String(amount);
     while (value.length < 2) {
@@ -360,13 +383,13 @@ const ShowPurchaseAlert = (props) => {
     }
     return value;
   };
-  if (props.active.status === false) return <React.Fragment></React.Fragment>;
+  if (context.showPurchaseAlert.status === false)
+    return <React.Fragment></React.Fragment>;
   else
     return (
       <div css={dropdown03}>
         <div
           css={{
-            borderTop: "1px solid #868686",
             backgroundColor: "#252525",
           }}
         >
@@ -421,6 +444,9 @@ const ShowPurchaseAlert = (props) => {
                   QTY: {setValue(props.active.amount)} TICKETS
                 </p>
                 <p
+                  onClick={() => {
+                    remove();
+                  }}
                   css={{
                     textDecoration: "underline",
                     fontSize: "0.7rem",
@@ -443,17 +469,23 @@ const ShowPurchaseAlert = (props) => {
             borderTop: "3px solid #00FFFF",
           }}
         >
-          <p
-            css={{
-              padding: "1rem 0",
-              textDecoration: "underline",
-              color: "#00FFFF",
-              fontSize: "0.8rem",
-              letterSpacing: "0.1rem",
+          <div
+            onClick={() => {
+              closenadGo();
             }}
           >
-            GO TO SECURE CHECKOUT
-          </p>
+            <p
+              css={{
+                padding: "1rem 0",
+                textDecoration: "underline",
+                color: "#00FFFF",
+                fontSize: "0.8rem",
+                letterSpacing: "0.1rem",
+              }}
+            >
+              GO TO SECURE CHECKOUT
+            </p>
+          </div>
         </div>
       </div>
     );

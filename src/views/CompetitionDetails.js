@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { Redirect, useParams,useLocation } from "react-router-dom"
+import { Redirect, useParams, useLocation } from "react-router-dom"
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import Counter from "../utils/Counter";
@@ -10,21 +10,28 @@ import ShowCorrectButton from "../utils/ShowCorrectButton";
 import { ReactComponent as BigBossLogo } from "../resources/BigBossLogo.svg";
 import { get } from "../api/fetch";
 import UserContext from "../context/UserContext";
-import bigbossblue from "../resources/bigbossblue.png"
+import bigbossblue from "../resources/bigbossblue.png";
+import facepaint from 'facepaint'
 
+
+const breakpoints = [576, 768, 992, 1200]
+
+const mq = facepaint(
+  breakpoints.map(bp => `@media (min-width: ${bp}px)`));
 
 const imageColumn = {
 
 
   margin: "0 3rem",
   minWidth: "600px",
+  maxWidth:"800px"
 
 }
 
 const detailsColumn = {
 
 
-  padding: "0 4vw",
+  padding: "0 4rem",
   marginRight: "3rem",
   display: "flex",
   flexDirection: "column",
@@ -48,6 +55,7 @@ function CompetitionDetails(props) {
   const [correctAnswer, setcorrectAnswer] = useState(false)
   const [data, setData] = useState({ pictures: [], description: [] })
   const [amount, setAmount] = useState("01");
+  const [disabled, setDisabled] = useState(false)
   const { id } = useParams();
   const context = useContext(UserContext);
 
@@ -137,7 +145,13 @@ function CompetitionDetails(props) {
 
   return (
 
-    <div css={{ display: "flex", marginTop: "3rem", justifyContent: "space-between" }}>
+    <div css={mq
+      ({
+        flexDirection: ["column", "column", "row", "row"],
+        display: "flex",
+        marginTop: "3rem",
+        justifyContent: ["center","center","space-between","space-between"]
+      })}>
       <div css={imageColumn}>
         <Carousel showStatus={false} showThumbs={false} showArrows={false}>
           {data.pictures.map((picture, index) => {
@@ -155,7 +169,7 @@ function CompetitionDetails(props) {
       <div css={detailsColumn}>
         <h1 css={{ marginTop: "2rem", fontSize: "2rem", textAlign: "center" }}>{data.title}</h1>
         <h3 css={{ margin: "1rem 0 2rem 0", color: "#00FFFF" }}>ONLY £{data.ticketPrice} PER ENTRY</h3>
-        <Counter date={data.dateFinishes} />
+        <Counter setDisabled={setDisabled} date={data.dateFinishes} />
         <div css={{ display: "flex", alignItems: "center" }}>
           <div css={{ display: "flex", flexDirection: "column", alignItems: "center", padding: "1rem" }}>
             <p>TICKET</p>
@@ -163,13 +177,13 @@ function CompetitionDetails(props) {
           </div>
           <button onClick={substract} className="roundButton">—</button>
           <button onClick={add} className="roundButtonBlue">+</button>
-          <input className="inputAmount" value={amount} />
+          <input readOnly={true} className="inputAmount" value={amount} />
         </div>
         <div css={{ display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center" }}>
           <GenerateSecurityQuestion checkAnswer={checkAnswer} question={question} />
         </div>
 
-        <ShowCorrectButton regenerateQuestion={regenerateQuestion} resetAnswer={resetAnswer} correctAnswer={correctAnswer} amount={Number(amount)} data={data} ticketsAvailable={data.ticketsAvailable} />
+        <ShowCorrectButton disabled={disabled} regenerateQuestion={regenerateQuestion} resetAnswer={resetAnswer} correctAnswer={correctAnswer} amount={Number(amount)} data={data} ticketsAvailable={data.ticketsAvailable} />
 
         <div css={{ width: "100%" }}>
 

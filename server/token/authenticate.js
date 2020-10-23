@@ -25,7 +25,10 @@ class TokenController {
 
                         const activeUser = await users.findOne({ _id });
 
+                        if (activeUser){
                         res.status(200).send({ message: "Access Granted", userData: activeUser });
+                        }
+                        else res.status(404).send();
                     }
                 });
             } else {

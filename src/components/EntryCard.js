@@ -13,7 +13,8 @@ const card = {
     textTransform: "uppercase",
     borderRadius: "4%",
     overflow: "hidden",
-    width: "45%"
+    maxWidth:"600px",
+    margin: "4rem 0",
 
 }
 

@@ -11,37 +11,7 @@ import { jsx } from '@emotion/core';
  * Refer to this : https://reactjs.org/warnings/dont-call-proptypes.html
  */
 
-const number = {
 
-    margin: "1rem",
-    boxShadow: "-1px 4px 22px 0px rgba(0,0,0,16%)",
-    width: "60px",
-    height: "60px",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    fontSize: "1.2rem",
-
-
-
-    "strong": { letterSpacing: "0.4rem" }
-
-}
-
-const description = {
-
-    fontSize: "0.5rem",
-    fontWeight: "600",
-    color: "#868686"
-}
-
-
-const countBox = {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-
-}
 
 
 class Countdown extends Component {
@@ -57,10 +27,18 @@ class Countdown extends Component {
     }
 
     componentDidMount() {
+
+        console.log(this.props.date)
         // update every second
         this.interval = setInterval(() => {
             const date = this.calculateCountdown(this.props.date);
-            date ? this.setState(date) : this.stop();
+
+            if (date) { this.setState(date) }
+            else {
+                this.stop();
+                this.props.setRedraw();
+
+            }
         }, 1000);
     }
 
@@ -72,7 +50,10 @@ class Countdown extends Component {
         let diff = (Date.parse(new Date(endDate)) - Date.parse(new Date())) / 1000;
 
         // clear countdown when date is reached
-        if (diff <= 0) return false;
+        if (diff <= 0) {
+
+            return false;
+        }
 
         const timeLeft = {
             years: 0,
@@ -121,7 +102,7 @@ class Countdown extends Component {
 
         return (
             <div css={{ display: "flex", justifyContent: "center", }}>
-                <h5 css={{fontWeight:"600", fontSize:"0.7rem"}}>NEXT DRAW LIVE ON FACEBOOK IN {this.addLeadingZeros(countDown.days)} DAYS/ {this.addLeadingZeros(countDown.hours)} HRS/ {this.addLeadingZeros(countDown.min)} MIN/ {this.addLeadingZeros(countDown.sec)} SEC </h5>
+                <h5 css={{ fontWeight: "600", fontSize: "0.7rem" }}>NEXT DRAW LIVE ON FACEBOOK IN {this.addLeadingZeros(countDown.days)} DAYS/ {this.addLeadingZeros(countDown.hours)} HRS/ {this.addLeadingZeros(countDown.min)} MIN/ {this.addLeadingZeros(countDown.sec)} SEC </h5>
             </div>
 
 
@@ -129,9 +110,6 @@ class Countdown extends Component {
     }
 }
 
-Countdown.propTypes = {
-    date: PropTypes.string.isRequired
-};
 
 
 export default Countdown;
