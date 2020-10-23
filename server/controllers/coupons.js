@@ -2,8 +2,14 @@ const coupons = require("../schemas/coupons.js");
 
 class CouponsController {
   async create(req, res) {
+    const coupon = {
+      title: "New Title",
+      discount: 0,
+      expires: Date.now(),
+    };
     try {
-      res.status(200).send();
+      await coupons.create(coupon);
+      res.status(200).send({ ok: true });
     } catch (error) {
       res.status(500).send(error);
     }
@@ -26,10 +32,28 @@ class CouponsController {
   }
 
   async update(req, res) {
-    
+    try {
+      const { coupon } = req.body;
+      const found = await coupons.findOne({ _id: coupon._id });
+      found.title = coupon.title;
+      found.discount = coupon.discount;
+      found.expires = coupon.expires;
+      await found.save();
+      res.status(200).send({ ok: true });
+    } catch (error) {
+      res.status(500).send(error);
+    }
   }
 
-  async delete(req, res) {}
+  async delete(req, res) {
+    try {
+      const { coupon } = req.body;
+      await coupons.deleteOne({ _id: coupon._id });
+      res.status(200).send({ ok: true });
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  }
 
   async all(req, res) {
     try {

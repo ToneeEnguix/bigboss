@@ -8,39 +8,47 @@ import power from "../resources/power.svg";
 const Sidebar = (props) => {
   return (
     <div className="flexColumn" css={sidebarStyle}>
-      <div>
+      <div className="bgtransparent">
         <div css={titleStyle}>Your Dashboard</div>
         <div className="flexColumn" css={contentStyle}>
           <Link
-            className={`${props.selected === "activeCompetitions" && "blue"}`}
+            className={`${
+              props.selected === "activeCompetitions" && "blue"
+            } bgtransparent`}
             css={contentLinks}
             to="/admindashboard/activecompetitions"
           >
             Active Competitions
           </Link>
           <Link
-            className={`${props.selected === "pastCompetitions" && "blue"}`}
+            className={`${
+              props.selected === "pastCompetitions" && "blue"
+            } bgtransparent`}
             css={contentLinks}
             to="/admindashboard/pastcompetitions"
           >
             Past Competitions
           </Link>
           <Link
-            className={`${props.selected === "listOfEntries" && "blue"}`}
+            className={`${
+              props.selected === "listOfEntries" && "blue"
+            } bgtransparent`}
             css={contentLinks}
             to="/admindashboard/listofentries"
           >
             List of Entries
           </Link>
           <Link
-            className={`${props.selected === "discounts" && "blue"}`}
+            className={`${
+              props.selected === "discounts" && "blue"
+            } bgtransparent`}
             css={contentLinks}
             to="/admindashboard/discounts"
           >
             Discounts
           </Link>
           <Link
-            className={`${props.selected === "faq" && "blue"}`}
+            className={`${props.selected === "faq" && "blue"} bgtransparent`}
             css={contentLinks}
             to="/admindashboard/faq"
           >
@@ -48,7 +56,7 @@ const Sidebar = (props) => {
           </Link>
         </div>
       </div>
-      <Link to="/">
+      <Link to="/" className="bgtransparent">
         <img
           src={power}
           className="bgtransparent pointer"

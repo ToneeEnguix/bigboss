@@ -141,7 +141,6 @@ p {
   box-shadow: -1px 4px 22px 0px rgba(0, 0, 0, 16%);
 }
 
-<<<<<<< HEAD
 .inputAmountSmall {
   width: 2rem;
   height: 2rem;
@@ -178,56 +177,19 @@ p {
 .pointer {
   cursor: pointer;
 }
+.default {
+  cursor: default;
+}
 .hueRotateBlue {
   filter: sepia(1) saturate(5000) brightness(0.6) hue-rotate(135deg);
 }
 .blueBorder {
   border-color: green !important;
 }
-=======
-.roundButtonSmall{
-  border-radius:50%;
-   background-color:#252525; 
-  color:#FFFFFF;
-  border:none;
-  width:2rem;
-  height:2rem;
-  margin:1rem;
-  outline:none;
-  font-weight:500;
-  cursor:pointer;
-  font-size:1.6rem;
-
- box-shadow: -1px 4px 22px 0px rgba(0,0,0,16%);
+.justifyText {
+  text-align: justify;
+  text-justify: inter-word;
 }
-
-.inputAmountSmall{
-  width:2rem;
-  height:2rem;
-  background-color:#252525; 
-  color:#FFFFFF;
-text-align: center;
-box-shadow: -1px 4px 22px 0px rgba(0,0,0,16%);
-  border:none;
-  margin:1rem;
-  outline:none;
-  font-weight:500;
-  cursor:pointer;
-  font-size:1rem;
-  letter-spacing:0rem;
-  border:1px solid grey;
-
+::-webkit-calendar-picker-indicator {
+  filter: invert(1);
 }
-
-.carousel .control-dots{
-
-  bottom: 0px !important;
-}
-
-.carousel .control-dots .dot{
-
-  background: #00FFFF;
-}
-  
-  
->>>>>>> 2be4926319ba214fddc4701872770b57da8c9b48

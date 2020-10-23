@@ -3,9 +3,9 @@ const express = require('express'),
     controller = require('../controllers/faq');
 
 
-router.post('/create',controller.create);
+router.get('/create',controller.create);
 
-router.post("/update",controller.update);
+router.post("/update", controller.update);
 
 router.post("/delete",controller.delete);
 

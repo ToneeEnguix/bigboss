@@ -17,7 +17,7 @@ const SecondSidebar = (props) => {
     props[props.selected] &&
       props[props.selected][0] &&
       props.setSection(props[props.selected][0].title);
-  }, [props.selected, props.allCompetitions]);
+  }, [props.selected, props.allCompetitions, props.discounts]);
 
   return (
     <div

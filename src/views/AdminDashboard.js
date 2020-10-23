@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import { jsx } from "@emotion/core";
 import AdminHeader from "../components/AdminHeader.js";
 import AdminSidebar from "../components/AdminSidebar.js";
-import SecondSidebar from "../components/SecondSidebar.js";
 import ActiveCompetitions from "./ActiveCompetitions";
 import PastCompetitions from "./PastCompetitions";
 import ListOfEntries from "./ListOfEntries";
@@ -14,38 +13,36 @@ import { URL } from "../config";
 import axios from "axios";
 
 const AdminDashboard = (props) => {
-  const [selected, setSelected] = useState("");
   const [redirect, setRedirect] = useState(false);
   const [activeCompetitions, setActiveCompetitions] = useState([]);
   const [pastCompetitions, setPastCompetitions] = useState([]);
   const [allCompetitions, setAllCompetitions] = useState([]);
   const [listOfEntries, setListOfEntries] = useState([]);
   const [discounts, setDiscounts] = useState([]);
-  const [faq, setFaq] = useState([{ question: "" }]);
-  const [section, setSection] = useState();
-  const [i, setI] = useState(0);
+  const [selected, setSelected] = useState("");
+  const [update, setUpdate] = useState(false);
+  const [create, setCreate] = useState(false);
 
   // useEffect(() => {
   //   !props.location.state && setRedirect(true);
   // }, []);
 
   useEffect(() => {
-    const getInfo = async () => {
-      let resActive = await axios.get(`${URL}/competitions/active`);
-      setActiveCompetitions(resActive.data);
-      let resPast = await axios.get(`${URL}/competitions/past`);
-      setPastCompetitions(resPast.data);
-      let resAll = await axios.get(`${URL}/competitions/all`);
-      setAllCompetitions(resAll.data);
-      let resEntries = await axios.get(`${URL}/competitions/all`);
-      setListOfEntries(resEntries.data);
-      let resDiscounts = await axios.get(`${URL}/coupons/all`);
-      setDiscounts(resDiscounts.data);
-      let resFaq = await axios.get(`${URL}/faq/all`);
-      setFaq(resFaq.data);
-    };
     getInfo();
-  }, []);
+  }, [selected, update, create]);
+
+  const getInfo = async () => {
+    let resActive = await axios.get(`${URL}/competitions/active`);
+    setActiveCompetitions(resActive.data);
+    let resPast = await axios.get(`${URL}/competitions/past`);
+    setPastCompetitions(resPast.data);
+    let resAll = await axios.get(`${URL}/competitions/all`);
+    setAllCompetitions(resAll.data);
+    let resEntries = await axios.get(`${URL}/competitions/all`);
+    setListOfEntries(resEntries.data);
+    let resDiscounts = await axios.get(`${URL}/coupons/all`);
+    setDiscounts(resDiscounts.data);
+  };
 
   useEffect(() => {
     let url = window.location.href;
@@ -66,62 +63,51 @@ const AdminDashboard = (props) => {
     return <Redirect to="/home" />;
   }
 
-  const handleChange = (section, e, i) => {
-    if (section === "faq") {
-      let tempFaq = faq;
-      tempFaq[i][e.target.name] = e.target.value;
-      console.log(tempFaq);
-      setFaq(tempFaq);
-    } else if (section === "discounts") {
-      let tempDiscounts = discounts;
-      tempDiscounts[i][e.target.name] = e.target.value;
-      console.log(tempDiscounts);
-      setI(i);
-      setDiscounts(tempDiscounts);
-    }
-  };
-
-  const saveContent = async () => {
-    console.log("Banana");
-    if (selected === "FAQ") {
-      let resFaq = await axios.post(`${URL}/faq/update`, { faq, i });
-      console.log(resFaq);
-    }
-  };
-
   return (
     <div>
-      <AdminHeader saveContent={saveContent} selected={selected} />
-      <AdminSidebar selected={selected} />
-      <SecondSidebar
-        activeCompetitions={activeCompetitions}
-        pastCompetitions={pastCompetitions}
-        allCompetitions={allCompetitions}
-        discounts={discounts}
+      <AdminHeader
+        updateSection={() => setUpdate(true)}
         selected={selected}
-        section={section}
-        setSection={(section) => setSection(section)}
+        newSection={() => setCreate(true)}
       />
+      <AdminSidebar selected={selected} />
       <Switch>
         <Route
           path={`${props.match.path}/activecompetitions`}
           render={(props) => (
             <ActiveCompetitions
               {...props}
-              activeCompetitions={activeCompetitions}
+              update={update}
+              setUpdate={() => setUpdate(false)}
             />
           )}
         />
         <Route
           path={`${props.match.path}/pastcompetitions`}
           render={(props) => (
-            <PastCompetitions {...props} pastCompetitions={pastCompetitions} />
+            <PastCompetitions
+              {...props}
+              pastCompetitions={pastCompetitions}
+              setPastCompetitions={(e, i) => {
+                let tempPastCompetitions = discounts;
+                tempPastCompetitions[i][e.target.name] = e.target.value;
+                setPastCompetitions(tempPastCompetitions);
+              }}
+            />
           )}
         />
         <Route
           path={`${props.match.path}/listofentries`}
           render={(props) => (
-            <ListOfEntries {...props} allCompetitions={allCompetitions} />
+            <ListOfEntries
+              {...props}
+              allCompetitions={allCompetitions}
+              setAllCompetitions={(e, i) => {
+                let tempDiscounts = discounts;
+                tempDiscounts[i][e.target.name] = e.target.value;
+                setAllCompetitions(tempDiscounts);
+              }}
+            />
           )}
         />
         <Route
@@ -130,14 +116,26 @@ const AdminDashboard = (props) => {
             <Discounts
               {...props}
               discounts={discounts}
-              setDiscounts={handleChange}
-              discounts={discounts}
+              update={update}
+              setUpdate={() => setUpdate(false)}
+              create={create}
+              setCreate={() => setCreate(false)}
             />
           )}
         />
         <Route
           path={`/admindashboard/faq`}
-          render={(props) => <FAQ {...props} faq={faq} setFaq={handleChange} />}
+          render={(props) => (
+            <FAQ
+              {...props}
+              update={update}
+              setUpdate={() => {
+                setUpdate(false);
+              }}
+              create={create}
+              setCreate={() => setCreate(false)}
+            />
+          )}
         />
         <Route path={props.match.path} exact>
           <Redirect to="/home" />

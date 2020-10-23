@@ -13,9 +13,9 @@ router.post("/save", protectedRoute,controller.save);
 
 router.post("/newpassword",protectedRoute,controller.newPassword);
 
-router.get ("/:email/askpasswordreset", controller.askPasswordReset);
+// router.get ("/:email/askpasswordreset", controller.askPasswordReset);
 
-router.post("/:_id/resetpassword",protectedEmailReset,controller.passwordReset)
+// router.post("/:_id/resetpassword",protectedEmailReset,controller.passwordReset)
 
 
 module.exports = router;

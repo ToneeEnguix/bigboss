@@ -5,6 +5,7 @@ const port = process.env.port || 4000;
 mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 require("dotenv").config();
 
 mongoose.set("useCreateIndex", true);

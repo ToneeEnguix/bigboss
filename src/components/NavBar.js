@@ -134,14 +134,7 @@ function NavBar() {
     setMore(true);
   };
 
-<<<<<<< HEAD
   const hideMore = () => {};
-=======
-
-    setMore(true)
-  }
-
->>>>>>> 2be4926319ba214fddc4701872770b57da8c9b48
 
   return (
     <div css={flexContainer}>
@@ -178,7 +171,6 @@ function NavBar() {
           </NavLink>
         </li>
         <li onMouseEnter={showMore}>
-<<<<<<< HEAD
           <NavLink
             to="/more/about"
             isActive={(match, location) => {
@@ -195,26 +187,6 @@ function NavBar() {
               }
             }}
           >
-=======
-          <NavLink to="/more/about" isActive={(match, location) => {
-
-            if (location.pathname === "/more/about" ||
-              location.pathname === "/more/terms" ||
-              location.pathname === "/more/faq" ||
-              location.pathname === "/more/careers" ||
-              location.pathname === "/more/privacy"
-            ) {
-
-              return true
-            }
-
-            else {
-
-              return false
-            }
-
-          }}>
->>>>>>> 2be4926319ba214fddc4701872770b57da8c9b48
             MORE
           </NavLink>
         </li>
@@ -233,7 +205,6 @@ function NavBar() {
               <span>LOG IN</span>
             </div>
           </NavLink>
-<<<<<<< HEAD
         ) : (
           <div
             onMouseEnter={extendMenu}
@@ -260,13 +231,6 @@ function NavBar() {
               >
                 {context.user.fullName}
               </span>
-=======
-          :
-          <div onMouseEnter={extendMenu} onMouseLeave={hideMenu} css={{ position: "relative", cursor: "context-menu" }} className={"icon"}>
-            <div css={{ cursor: "context-menu", display: "flex", alignItems: "center", "i": { marginRight: "0.5rem" } }}>
-              <i css={{ cursor: "context-menu" }} className="material-icons-outlined">person</i>
-              <span css={{ cursor: "context-menu", textTransform: "upperCase" }}>{context.user.name.substring(0,7)}</span>
->>>>>>> 2be4926319ba214fddc4701872770b57da8c9b48
             </div>
             {userMenu && context.showPurchaseAlert.status === false ? (
               <UserMenu />
@@ -290,7 +254,6 @@ function NavBar() {
             </div>
             <ShowPurchaseAlert active={context.showPurchaseAlert} />
           </NavLink>
-<<<<<<< HEAD
         ) : (
           <div
             onMouseLeave={hideEmptyCart}
@@ -304,10 +267,6 @@ function NavBar() {
                 i: { marginRight: "2rem" },
               }}
             >
-=======
-          : <div onMouseLeave={hideEmptyCart} onClick={showEmptyCart} className={"icon"}>
-            <div css={{ display: "flex", alignItems: "center", "i": { marginRight: "0.5rem" } }}>
->>>>>>> 2be4926319ba214fddc4701872770b57da8c9b48
               <i className="material-icons-outlined">shopping_cart</i>
               <span>{setValue(context.user.cart.length)}</span>
             </div>
@@ -380,23 +339,10 @@ const dropdown02 = {
 const EmptyCart = () => {
   return (
     <div css={dropdown02}>
-<<<<<<< HEAD
       <h5>BASKET IS CURRENTLY EMPTY</h5>
     </div>
   );
 };
-=======
-       <div css={{
-        borderTop: "1px solid #868686",
-        backgroundColor: "#252525",
-        boxShadow: "-1px 4px 22px 0px black",
-      }}>
-      <h5 css={{padding:"2rem"}}>BASKET IS CURRENTLY EMPTY</h5>
-      </div>
-    </div >
-  )
-}
->>>>>>> 2be4926319ba214fddc4701872770b57da8c9b48
 
 const dropdown03 = {
   position: "absolute",
@@ -407,22 +353,12 @@ const dropdown03 = {
 };
 
 const ShowPurchaseAlert = (props) => {
-<<<<<<< HEAD
-=======
-
-
-  const context = useContext(UserContext);
-
-
-
->>>>>>> 2be4926319ba214fddc4701872770b57da8c9b48
   const setValue = (amount) => {
     let value = String(amount);
     while (value.length < 2) {
       value = "0" + value;
     }
     return value;
-<<<<<<< HEAD
   };
   if (props.active.status === false) return <React.Fragment></React.Fragment>;
   else
@@ -449,30 +385,6 @@ const ShowPurchaseAlert = (props) => {
                 {" "}
                 ITEM ADDED TO CART
               </p>
-=======
-
-  }
-  if (context.showPurchaseAlert.status === false) return (
-    <React.Fragment></React.Fragment>
-  )
-  else return (
-    <div css={dropdown03}>
-      <div css={{
-        borderTop: "1px solid #868686",
-        backgroundColor: "#252525",
-      }}>
-        <div css={{ padding: "2rem 2rem" }}>
-          <div css={{ display: "flex", paddingBottom: "3rem" }}>
-            <p css={{ fontSize: "0.7rem", color: "#00FFFF", letterSpacing: "0.1rem" }}>SUCCESS! &nbsp;</p>
-            <p css={{ fontSize: "0.7rem", letterSpacing: "0.1rem" }}> ITEM ADDED TO CART</p>
-          </div>
-          <div css={{
-            display: "flex", alignItems: "center",
-
-          }}>
-            <div css={{ width: "200px" }}>
-              <img css={{ maxWidth: "100%" }} src={props.active.competition.pictures[0]} />
->>>>>>> 2be4926319ba214fddc4701872770b57da8c9b48
             </div>
             <div
               css={{
@@ -544,27 +456,5 @@ const ShowPurchaseAlert = (props) => {
           </p>
         </div>
       </div>
-<<<<<<< HEAD
     );
 };
-=======
-      <div css={{
-        borderRadius: "0px 0px 31px 0px", display: "flex", width: "100%", justifyContent: "center", paddingBottom: "1rem",
-        borderTop: "3px solid #00FFFF",
-      }}>
-        <Link to="/basket">
-          <p css={{
-            padding: "1rem 0",
-            textDecoration: "underline",
-            color: "#00FFFF",
-            fontSize: "0.8rem",
-            letterSpacing: "0.1rem"
-          }}>
-            GO TO SECURE CHECKOUT
-                </p>
-        </Link>
-      </div>
-    </div>
-  )
-}
->>>>>>> 2be4926319ba214fddc4701872770b57da8c9b48
