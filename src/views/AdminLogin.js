@@ -1,72 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import StyledInput from "../components/StyledInput";
 import { post } from "../api/fetch";
 import { Redirect } from "react-router-dom";
-
-const contentWrapper = {
-  margin: "4rem 0rem",
-
-  h1: {
-    marginLeft: "4rem",
-  },
-};
-
-const formStyles = {
-  width: "627.75px",
-  display: "flex",
-  justifyContent: "center",
-  margin: "12% auto",
-  flexDirection: "column",
-  backgroundColor: "#212121",
-  borderRadius: "10px",
-  textAlign: "center",
-  boxShadow: "0px 3px 6px #00000029",
-  padding: "2rem",
-  input: {
-    minHeight: "36.75px",
-    width: "486.75px",
-    outline: "none",
-    border: "none",
-    backgroundColor: "#262626",
-    boxShadow: "0px 3px 6px #00000029",
-    borderRadius: "8px",
-    padding: "0.5rem 1.5rem",
-    color: "white",
-    margin: "0.5rem auto",
-    fontWeight: "300",
-    fontFamily: "Raleway, sans-seriff",
-    "::-webkit-input-placeholder": {
-      /* Chrome/Opera/Safari */
-      fontSize: "0.8rem",
-      fontFamily: "Raleway, sans-seriff",
-      fontWeight: "300",
-    },
-  },
-  div: {
-    backgroundColor: "transparent",
-  },
-  button: {
-    border: "1px solid transparent",
-    boxShadow: "0px 3px 6px #00000029",
-    borderRadius: "8px",
-    width: "123px",
-    height: "36.75px",
-    textAlign: "center",
-    padding: "0.6rem 0",
-    boxSizing: "border-box",
-    margin: "1rem auto 0",
-    fontSize: "12px",
-    fontWeight: "300",
-    letterSpacing: ".01rem",
-    backgroundColor: "#212121",
-  },
-  "button:hover": {
-    border: "1px solid #1d8cde",
-    backgroundColor: "#262626",
-  },
-};
+import UserContext from "../context/UserContext";
 
 function AdminLogin() {
   const [message, setMessage] = useState({
@@ -75,6 +13,7 @@ function AdminLogin() {
     message: "hidden",
   });
   const [redirect, setRedirect] = useState(false);
+  const context = useContext(UserContext);
 
   const submit = async (e) => {
     e.preventDefault();
@@ -83,7 +22,8 @@ function AdminLogin() {
     const result = await post("/admin/signin", { name, password });
 
     if (result.ok) {
-      localStorage.setItem("@auth_token", result.token);
+      localStorage.setItem("@auth_token2", result.data.token);
+      context.setAdminStatus();
       setRedirect(true);
     } else {
       setMessage({
@@ -154,14 +94,6 @@ function AdminLogin() {
             placeholder="Customer ID: EXAMPLE12345"
             name="password"
           />
-          {/* <StyledInput type="text" width="100%" name="NAME" innerName="name" /> */}
-          {/* <StyledInput
-            type="password"
-            eye={true}
-            width="100%"
-            name="PASSWORD"
-            innerName="password"
-          /> */}
           <button css={{ marginTop: "1rem" }} className="button01">
             Start
           </button>
@@ -173,5 +105,68 @@ function AdminLogin() {
     </div>
   );
 }
+
+const contentWrapper = {
+  margin: "4rem 0rem",
+
+  h1: {
+    marginLeft: "4rem",
+  },
+};
+
+const formStyles = {
+  width: "627.75px",
+  display: "flex",
+  justifyContent: "center",
+  margin: "12% auto",
+  flexDirection: "column",
+  backgroundColor: "#212121",
+  borderRadius: "10px",
+  textAlign: "center",
+  boxShadow: "0px 3px 6px #00000029",
+  padding: "2rem",
+  input: {
+    minHeight: "36.75px",
+    width: "486.75px",
+    outline: "none",
+    border: "none",
+    backgroundColor: "#262626",
+    boxShadow: "0px 3px 6px #00000029",
+    borderRadius: "8px",
+    padding: "0.5rem 1.5rem",
+    color: "white",
+    margin: "0.5rem auto",
+    fontWeight: "300",
+    fontFamily: "Raleway, sans-seriff",
+    "::-webkit-input-placeholder": {
+      /* Chrome/Opera/Safari */
+      fontSize: "0.8rem",
+      fontFamily: "Raleway, sans-seriff",
+      fontWeight: "300",
+    },
+  },
+  div: {
+    backgroundColor: "transparent",
+  },
+  button: {
+    border: "1px solid transparent",
+    boxShadow: "0px 3px 6px #00000029",
+    borderRadius: "8px",
+    width: "123px",
+    height: "36.75px",
+    textAlign: "center",
+    padding: "0.6rem 0",
+    boxSizing: "border-box",
+    margin: "1rem auto 0",
+    fontSize: "12px",
+    fontWeight: "300",
+    letterSpacing: ".01rem",
+    backgroundColor: "#212121",
+  },
+  "button:hover": {
+    border: "1px solid #1d8cde",
+    backgroundColor: "#262626",
+  },
+};
 
 export default AdminLogin;

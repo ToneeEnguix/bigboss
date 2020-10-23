@@ -22,6 +22,7 @@ const AdminDashboard = (props) => {
   const [selected, setSelected] = useState("");
   const [update, setUpdate] = useState(false);
   const [create, setCreate] = useState(false);
+  const [refresh, setRefresh] = useState(false);
 
   // useEffect(() => {
   //   !props.location.state && setRedirect(true);
@@ -29,7 +30,7 @@ const AdminDashboard = (props) => {
 
   useEffect(() => {
     getInfo();
-  }, [selected, update, create]);
+  }, [selected, update, create, refresh]);
 
   const getInfo = async () => {
     let resActive = await axios.get(`${URL}/competitions/active`);
@@ -120,6 +121,9 @@ const AdminDashboard = (props) => {
               setUpdate={() => setUpdate(false)}
               create={create}
               setCreate={() => setCreate(false)}
+              setRefresh={() => {
+                setRefresh(!refresh);
+              }}
             />
           )}
         />

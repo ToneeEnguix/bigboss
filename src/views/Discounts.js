@@ -51,7 +51,8 @@ const Discounts = (props) => {
     await axios.post(`${URL}/coupons/delete`, {
       coupon: discounts[i],
     });
-    window.location.reload();
+    props.setRefresh();
+    setI(0);
   };
 
   const handleChange = (e, i) => {

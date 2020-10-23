@@ -11,6 +11,7 @@ import ScrollToTop from "./utils/ScrollToTop";
 import { createBrowserHistory } from "history";
 import PrivateRoute from "./routeUtils/PrivateRoute";
 import PublicRoute from "./routeUtils/PublicRoute";
+import AdminRoute from "./routeUtils/AdminRoute";
 import UserContext from "./context/UserContext";
 import AdminDashboard from "./views/AdminDashboard";
 import Basket from "./views/Basket";
@@ -118,6 +119,13 @@ class App extends React.Component {
         cartCopy.splice(toRemove, 1);
         this.setState({ user: { ...this.state.user, cart: cartCopy } });
       },
+      hideModal: () => {
+        this.setState({ showPurchaseAlert: { status: false } });
+      },
+
+      setAdminStatus: () => {
+        this.setState({ admin: true });
+      },
     };
   }
 
@@ -202,11 +210,12 @@ class App extends React.Component {
                 component={UserDashboard}
                 path="/userdashboard"
               />
-              <PrivateRoute
+              <PublicRoute
                 restricted={false}
                 component={AdminDashboard}
                 path="/admindashboard"
               />
+
               <Route path="/">
                 <Redirect to="/home" />
               </Route>
@@ -214,7 +223,10 @@ class App extends React.Component {
           </section>
           <footer
             css={{
-              display: `${window.location.href.includes("admin") && "none"}`,
+              display: `${
+                window.location.href.includes("admin") ? "none" : "flex"
+              } `,
+              flexDirection: "column",
             }}
           >
             <FooterLinks />
