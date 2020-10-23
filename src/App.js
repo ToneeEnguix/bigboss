@@ -199,7 +199,7 @@ class App extends React.Component {
               </Route>
             </Switch>
           </section>
-          <footer>
+          <footer css={{display:"flex",flexDirection:"column"}}>
             <FooterLinks />
             <FooterAds />
           </footer>
