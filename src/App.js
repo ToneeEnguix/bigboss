@@ -171,7 +171,7 @@ class App extends React.Component {
       <UserContext.Provider value={this.state}>
         <Router>
           <ScrollToTop />
-          <header css={{ position: "fixed", top: "0", width: "100%", zIndex: "40", boxShadow: "0px 10px 5px 0px rgba(0,0,0,16%)" }}>
+          <header css={{ maxWidth:"1800px", position: "fixed", top: "0", width: "100%", zIndex: "40", boxShadow: "0px 10px 5px 0px rgba(0,0,0,16%)" }}>
             <NextDraw />
             <NavBar />
           </header>

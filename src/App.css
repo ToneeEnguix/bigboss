@@ -191,4 +191,9 @@ box-shadow: -1px 4px 22px 0px rgba(0,0,0,16%);
   background: #00FFFF;
 }
   
-  
+
+.carousel .slider-wrapper {
+
+    border-radius:6%;
+
+}

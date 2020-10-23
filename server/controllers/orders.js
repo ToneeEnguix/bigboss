@@ -59,20 +59,21 @@ class OrdersController {
   async getUserOrders(req, res) {
 
     const userId = req.params.id;
+    const skip = Number(req.params.skip);
+
 
     try {
 
-      const allOrders = await orders.find({ user: userId });
+      let number = await orders.countDocuments({ user: userId });
+      const allOrders = await orders.find({ user: userId }).skip(skip).limit(5);
 
-      res.status(200).send(allOrders)
+      const pages = Math.ceil(number / 5);
+      res.status(200).send({ orders: allOrders, total: number, pages: pages })
     }
     catch (error) {
 
-
-
       res.status(500).send(error)
     }
-
 
   }
 
