@@ -200,3 +200,6 @@ p {
 .carousel .control-dots .dot {
   background: #00ffff;
 }
+.carousel .slider-wrapper {
+  border-radius: 6%;
+}
