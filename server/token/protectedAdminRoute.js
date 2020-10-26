@@ -16,8 +16,12 @@ protectedRoute.use(async (req, res, next) => {
       if (err) {
         res.status(401).send({ message: "Invalid Token" });
       } else {
-        req.decoded = decoded;
-        next();
+        if (decoded.admin) {
+          req.decoded = decoded;
+          next();
+        } else {
+          res.status(401).send({ message: "Invalid Token" });
+        }
       }
     });
   } else {

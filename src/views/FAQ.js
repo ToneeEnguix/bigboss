@@ -79,9 +79,10 @@ const FAQ = (props) => {
                     css={titleStyle}
                     defaultValue={item.question}
                     name="question"
+                    className="styledInput"
                   />
                   <button
-                    className="pointer"
+                    className="pointer styledInput"
                     css={buttonStyle}
                     type="button"
                     onClick={() => {
@@ -96,7 +97,7 @@ const FAQ = (props) => {
                   defaultValue={item.answer}
                   name="answer"
                   style={{ height: "182px", lineHeight: "1.4rem" }}
-                  // value={business.address}
+                  className="styledInput raleway"
                 ></textarea>
               </form>
             );

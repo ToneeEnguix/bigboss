@@ -11,10 +11,17 @@ import "../components/domain.css";
 
 const ActiveCompetitions = (props) => {
   const [activeCompetitions, setActiveCompetitions] = useState([
-    { title: "", ticketPrice: 0, ticketsAvailable: 10 },
+    {
+      title: "",
+      ticketPrice: 0,
+      ticketsAvailable: 10,
+      dateFinishes: "",
+      description: ["", "", "", "", ""],
+    },
   ]);
   const [i, setI] = useState(0);
   const [openModal, setOpenModal] = useState(false);
+  const [today, setToday] = useState("");
 
   useEffect(() => {
     getActiveCompetitions();
@@ -22,6 +29,10 @@ const ActiveCompetitions = (props) => {
 
   const getActiveCompetitions = async () => {
     let resAll = await axios.get(`${URL}/competitions/active`);
+    resAll.data.map((item) => {
+      item.dateFinishes = item.dateFinishes.slice(0, -8);
+      item.entriesDate = item.entriesDate.slice(0, -8);
+    });
     setActiveCompetitions(resAll.data);
   };
 
@@ -32,26 +43,39 @@ const ActiveCompetitions = (props) => {
         competition: activeCompetitions[i],
       });
     };
+    props.setRefresh();
     props.update && updateActiveCompetitions();
   }, [props.update]);
 
-  const handleChange = (e, i) => {
+  const handleChange = (e, i, idx) => {
     let tempActiveCompetitions = [...activeCompetitions];
+    if (e.target.name === "dateFinishes" || e.target.name === "entriesDate") {
+      e.target.value = new Date(e.target.value).toISOString().slice(0, -8);
+    } else if (e.target.name === "description") {
+      tempActiveCompetitions[i][e.target.name][idx] = e.target.value;
+      return setActiveCompetitions(tempActiveCompetitions);
+    }
     tempActiveCompetitions[i][e.target.name] = e.target.value;
     setActiveCompetitions(tempActiveCompetitions);
   };
+
+  useEffect(() => {
+    let today = new Date(Date.now()).toISOString().slice(0, -8);
+    setToday(today);
+  }, []);
 
   return (
     <div className="adminPage">
       <div className="flexColumn" css={secondSidebarStyle}>
         <div css={titleStyle2}>Active Competitions</div>
         <div className="flexColumn" css={contentStyle}>
-          {activeCompetitions[i] &&
-            activeCompetitions.map((item, idx) => {
+          {props.activeCompetitions[i] &&
+            props.activeCompetitions.map((item, idx) => {
               return (
                 <div
                   className={`${
-                    activeCompetitions[i].title === item.title && "blueBorder"
+                    props.activeCompetitions[i].title === item.title &&
+                    "blueBorder"
                   } flexCenter`}
                   onClick={() => {
                     setI(idx);
@@ -79,39 +103,94 @@ const ActiveCompetitions = (props) => {
             value={activeCompetitions[i].title}
             onChange={(e) => handleChange(e, i)}
             name="title"
+            className="styledInput"
           />
           <h3 css={titleStyle}>Price</h3>
           <input
             value={activeCompetitions[i].ticketPrice}
             onChange={(e) => handleChange(e, i)}
             name="ticketPrice"
+            className="styledInput"
           />
           <h3 css={titleStyle}>Description</h3>
-          <textarea
-            value={activeCompetitions[i].description}
-            name="address"
-            style={{ height: "100px", lineHeight: "1.4rem" }}
-          ></textarea>
+          <input
+            value={activeCompetitions[i].description[0]}
+            name="description"
+            className="styledInput"
+            onChange={(e) => handleChange(e, i, 0)}
+          />
+          <input
+            value={activeCompetitions[i].description[1]}
+            name="description"
+            className="styledInput"
+            onChange={(e) => handleChange(e, i, 1)}
+          />
+          <input
+            value={activeCompetitions[i].description[2]}
+            name="description"
+            className="styledInput"
+            onChange={(e) => handleChange(e, i, 2)}
+          />
+          <input
+            value={activeCompetitions[i].description[3]}
+            name="description"
+            className="styledInput"
+            onChange={(e) => handleChange(e, i, 3)}
+          />
+          <input
+            value={activeCompetitions[i].description[4]}
+            name="description"
+            className="styledInput"
+            onChange={(e) => handleChange(e, i, 4)}
+          />
           <h3 css={titleStyle}>Date Finishes</h3>
-          <input placeholder="DD / HH / MM / SS" />
+          <input
+            type="datetime-local"
+            name="dateFinishes"
+            min={today}
+            value={activeCompetitions[i].dateFinishes}
+            onChange={(e) => handleChange(e, i)}
+            className="styledInput"
+          />
           <h3 css={titleStyle}>How many tickets will be available?</h3>
           <input
             value={activeCompetitions[i].ticketsAvailable}
             onChange={(e) => handleChange(e, i)}
+            name="ticketsAvailable"
+            className="styledInput"
           />
           <hr css={hrStyle} />
           <h3 css={titleStyle}>Recorded Facebook Video</h3>
-          <input placeholder="Enter the link to the video, I.e. https://www.youtube.com" />
-          <input placeholder="And the ... DD / MM / YYYY" />
+          <input
+            value={activeCompetitions[i].facebookURL}
+            onChange={(e) => handleChange(e, i)}
+            name="facebookURL"
+            className="styledInput"
+          />
+          <input
+            type="datetime-local"
+            name="entriesDate"
+            min={today}
+            value={activeCompetitions[i].entriesDate}
+            onChange={(e) => handleChange(e, i)}
+            className="styledInput"
+          />
           <h3 css={titleStyle}>Spreadsheet Link</h3>
-          <input placeholder="Enter the link to the video, I.e. https://www.youtube.com" />
+          <input
+            value={activeCompetitions[i].entriesURL}
+            onChange={(e) => handleChange(e, i)}
+            name="entriesURL"
+            className="styledInput"
+          />
           <h3 css={titleStyle}>Photo of the Winner</h3>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
             <div>
               <div css={photoContStyle} className="flexCenter">
                 <img src={insert} css={imgStyle} />
               </div>
-              <button css={buttonStyle}>Select Files</button>
+              <button css={buttonStyle} className="styledInput">
+                Select Files
+              </button>
               <p className="gray raleway" css={pStyle}>
                 Maximum upload file size: 512 MB. Make sure you logo is a .PNG
               </p>
@@ -124,9 +203,12 @@ const ActiveCompetitions = (props) => {
             </div>
             <div>
               <h3 css={titleStyle}>Winner Name</h3>
-              <input placeholder="i.e. Jane Doe" />
+              <input placeholder="i.e. Jane Doe" className="styledInput" />
               <h3 css={titleStyle}>Email</h3>
-              <input placeholder="i.e. jane@janedoe.com" />
+              <input
+                placeholder="i.e. jane@janedoe.com"
+                className="styledInput"
+              />
             </div>
           </div>
         </div>
@@ -135,7 +217,9 @@ const ActiveCompetitions = (props) => {
             <div css={photoContStyle} className="flexCenter">
               <img src={insert} css={imgStyle} />
             </div>
-            <button css={buttonStyle}>Select Files</button>
+            <button css={buttonStyle} className="styledInput">
+              Select Files
+            </button>
             <p className="gray raleway" css={pStyle}>
               Maximum upload file size: 512 MB. Make sure you logo is a .PNG
             </p>
@@ -150,7 +234,9 @@ const ActiveCompetitions = (props) => {
             <div css={photoContStyle} className="flexCenter">
               <img src={insert} css={imgStyle} />
             </div>
-            <button css={buttonStyle}>Select Files</button>
+            <button css={buttonStyle} className="styledInput">
+              Select Files
+            </button>
             <p className="gray raleway" css={pStyle}>
               Maximum upload file size: 512 MB. Make sure you logo is a .PNG
             </p>
@@ -165,7 +251,9 @@ const ActiveCompetitions = (props) => {
             <div css={photoContStyle} className="flexCenter">
               <img src={insert} css={imgStyle} />
             </div>
-            <button css={buttonStyle}>Select Files</button>
+            <button css={buttonStyle} className="styledInput">
+              Select Files
+            </button>
             <p className="gray raleway" css={pStyle}>
               Maximum upload file size: 512 MB. Make sure you logo is a .PNG
             </p>
@@ -180,7 +268,9 @@ const ActiveCompetitions = (props) => {
             <div css={photoContStyle} className="flexCenter">
               <img src={insert} css={imgStyle} />
             </div>
-            <button css={buttonStyle}>Select Files</button>
+            <button css={buttonStyle} className="styledInput">
+              Select Files
+            </button>
             <p className="gray raleway" css={pStyle}>
               Maximum upload file size: 512 MB. Make sure you logo is a .PNG
             </p>
@@ -259,6 +349,7 @@ const mainTitleStyle = {
     letterSpacing: "0.05rem",
     fontWeight: "300",
     fontSize: "1.15rem",
+    height: "21px",
   },
   mainContentStyle = {
     backgroundColor: "#212121",

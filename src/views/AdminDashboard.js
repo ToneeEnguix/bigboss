@@ -78,8 +78,14 @@ const AdminDashboard = (props) => {
           render={(props) => (
             <ActiveCompetitions
               {...props}
+              activeCompetitions={activeCompetitions}
               update={update}
-              setUpdate={() => setUpdate(false)}
+              setUpdate={() => {
+                setUpdate(false);
+              }}
+              create={create}
+              setCreate={() => setCreate(false)}
+              setRefresh={() => setRefresh(!refresh)}
             />
           )}
         />
@@ -150,3 +156,21 @@ const AdminDashboard = (props) => {
 };
 
 export default AdminDashboard;
+
+// Next Steps:
+// - Delete past competition?
+// - Create active competition
+// - Delete active competition
+// - Upload Images
+
+// Competitions:
+// - Links dont open on new tab correctly
+// - Call winner through ref
+// - Once I got winner, add name and email
+// - Add admin middleware
+// - Change input style to variable ✅
+// - ticketsAvailable not updating
+
+// General Questions:
+// - Change winner in past Competitions?
+// - Add competitions + publish? Else adding empty competition to public?

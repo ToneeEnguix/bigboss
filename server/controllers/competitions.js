@@ -52,15 +52,22 @@ class CompetitionController {
   }
 
   async update(req, res) {
-    console.log(req.body);
     try {
       const { competition } = req.body;
       const found = await competitions.findOne({ _id: competition._id });
-      // NOT WORKING
-      found = competition;
-      console.log(found);
-      const updated = await found.save();
-      res.status(200).send(updated);
+      found.title = competition.title;
+      found.ticketPrice = competition.ticketPrice;
+      found.description = competition.description;
+      found.dateFinishes = competition.dateFinishes;
+      found.ticketsAvailable = competition.ticketsAvailable;
+      found.facebookURL = competition.facebookURL;
+      found.entriesDate = competition.entriesDate;
+      found.entriesURL = competition.entriesURL;
+      found.winnerPic = competition.winnerPic;
+      found.pictures = competition.pictures;
+      console.log("banana: ", found.ticketsAvailable, found);
+      await found.save();
+      res.status(200).send({ ok: true });
     } catch (error) {
       res.status(500).send(error);
     }

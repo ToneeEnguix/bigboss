@@ -107,25 +107,23 @@ const Discounts = (props) => {
               value={discounts[i] && discounts[i].title}
               name="title"
               onChange={(e) => handleChange(e, i)}
+              className="styledInput"
             />
             <h3 css={titleStyle}>Value Calculated in %</h3>
             <input
               value={discounts[i] && discounts[i].discount}
               name="discount"
               onChange={(e) => handleChange(e, i)}
+              className="styledInput"
             />
             <h3 css={titleStyle}>Date of Expiry</h3>
-            {/* <input
-              value={discounts[i] && discounts[i].expires.slice(0, 10)}
-              name="expires"
-              onChange={(e) => handleChange(e, i)}
-            /> */}
             <input
               type="datetime-local"
               name="expires"
               min={today}
               value={discounts[i] && discounts[i].expires}
               onChange={(e) => handleChange(e, i)}
+              className="pointer styledInput"
             />
           </form>
           <div className="bgtransparent"></div>
@@ -170,7 +168,7 @@ const Discounts = (props) => {
             className="inline bgtransparent raleway"
             style={{ fontSize: "1.2rem" }}
           >
-            Are you sure you want to delete this competition?
+            Are you sure you want to delete this discount?
           </h3>
         </div>
         <div className="flexCenter bgtransparent">

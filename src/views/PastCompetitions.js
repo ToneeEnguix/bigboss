@@ -11,15 +11,24 @@ import "../components/domain.css";
 
 const PastCompetitions = () => {
   const [pastCompetitions, setPastCompetitions] = useState([
-    { title: "", discount: 0, expires: "10-12-20" },
+    {
+      title: "",
+      discount: 0,
+      expires: "10-12-20",
+      pictures: ["https://picsum.photos/300/200"],
+      dateFinishes: "",
+      entriesDate: "",
+      description: [""],
+    },
   ]);
   const [i, setI] = useState(0);
   const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => {
     const getPastCompetitions = async () => {
-      let resAll = await axios.get(`${URL}/competitions/past`);
-      setPastCompetitions(resAll.data);
+      let resPast = await axios.get(`${URL}/competitions/past`);
+      setPastCompetitions(resPast.data);
+      console.log(resPast.data);
     };
     getPastCompetitions();
   }, [i]);
@@ -125,6 +134,7 @@ const PastCompetitions = () => {
             className="default"
             readOnly
             defaultValue={pastCompetitions[i].title}
+            className="styledInput"
           />
           <h3 className="default" css={titleStyle}>
             Price
@@ -133,142 +143,138 @@ const PastCompetitions = () => {
             className="default"
             readOnly
             defaultValue={pastCompetitions[i].ticketPrice}
+            className="styledInput"
           />
           <h3 className="default" css={titleStyle}>
             Description
           </h3>
-          <textarea
-            className="default"
-            readOnly
-            defaultValue={pastCompetitions[i].description}
-            name="address"
-            style={{ height: "100px", lineHeight: "1.4rem" }}
-          ></textarea>
+          <p className="styledInput raleway">
+            {pastCompetitions[i].description[0]}
+          </p>
+          <p className="styledInput raleway">
+            {pastCompetitions[i].description[1]}
+          </p>
+          <p className="styledInput raleway">
+            {pastCompetitions[i].description[2]}
+          </p>
+          <p className="styledInput raleway">
+            {pastCompetitions[i].description[3]}
+          </p>
+          <p className="styledInput raleway">
+            {pastCompetitions[i].description[4]}
+          </p>
           <h3 className="default" css={titleStyle}>
             Finish Date
           </h3>
-          <input
-            className="default"
-            readOnly
-            defaultValue="DD / HH / MM / SS"
-          />
+          <p className="styledInput raleway">
+            {pastCompetitions[i].dateFinishes.slice(0, -14) +
+              " " +
+              pastCompetitions[i].dateFinishes.slice(-10, -5)}
+          </p>
           <h3 className="default" css={titleStyle}>
-            How many tickets will be available?
+            How many tickets were available?
           </h3>
           <input
             className="default"
             readOnly
             defaultValue={pastCompetitions[i].ticketsAvailable}
+            className="styledInput"
           />
           <hr css={hrStyle} />
           <h3 className="default" css={titleStyle}>
             Recorded Facebook Video
           </h3>
-          <input
-            className="default"
-            readOnly
-            defaultValue="Enter the link to the video, I.e. https://www.youtube.com"
-          />
-          <input readOnly defaultValue="And the ... DD / MM / YYYY" />
+          <a href={pastCompetitions[i].facebookURL} target="_blank">
+            <p className="styledInput raleway">
+              {pastCompetitions[i].facebookURL}
+            </p>
+          </a>
+          <p className="styledInput raleway">
+            {pastCompetitions[i].entriesDate.slice(0, -14) +
+              " " +
+              pastCompetitions[i].entriesDate.slice(-10, -5)}
+          </p>
           <h3 className="default" css={titleStyle}>
             Spreadsheet Link
           </h3>
-          <input
-            readOnly
-            defaultValue="Enter the link to the video, I.e. https://www.youtube.com"
-          />
+          <a href={pastCompetitions[i].entriesURL} target="_blank">
+            <p className="styledInput raleway">
+              {pastCompetitions[i].entriesURL}
+            </p>
+          </a>
           <h3 className="default" css={titleStyle}>
             Photo of the Winner
           </h3>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
-            <div>
-              <div css={photoContStyle} className="flexCenter">
-                <img src={insert} css={imgStyle} />
+            {pastCompetitions[i].winnerPic ? (
+              <div css={imgContStyle}>
+                <img src={pastCompetitions[i].winnerPic} css={winnerImgStyle} />
               </div>
-              <button css={buttonStyle}>Select Files</button>
-              <p className="gray raleway" css={pStyle}>
-                Maximum upload file size: 512 MB. Make sure you logo is a .PNG
-              </p>
-              <p className="gray raleway" css={pStyle}>
-                A .PNG is a logo with a transparent background.
-              </p>
-              <p className="blue raleway" css={pStyle}>
-                Successfully saved!
-              </p>
-            </div>
+            ) : (
+              <div>
+                <div css={photoContStyle} className="flexCenter">
+                  <img src={insert} css={noImgStyle} />
+                </div>
+                <button css={buttonStyle} className="styledInput">
+                  Select Files
+                </button>
+                <p className="gray raleway" css={pStyle}>
+                  Maximum upload file size: 512 MB. Make sure you logo is a .PNG
+                </p>
+                <p className="gray raleway" css={pStyle}>
+                  A .PNG is a logo with a transparent background.
+                </p>
+                <p className="blue raleway" css={pStyle}>
+                  Successfully saved!
+                </p>
+              </div>
+            )}
+
             <div>
               <h3 className="default" css={titleStyle}>
                 Winner Name
               </h3>
-              <input readOnly defaultValue="i.e. Jane Doe" />
+              <input
+                readOnly
+                defaultValue="i.e. Jane Doe"
+                className="styledInput"
+              />
               <h3 className="default" css={titleStyle}>
                 Email
               </h3>
-              <input readOnly defaultValue="i.e. jane@janedoe.com" />
+              <input
+                readOnly
+                defaultValue="i.e. jane@janedoe.com"
+                className="styledInput"
+              />
             </div>
           </div>
         </div>
-        <div style={{ paddingLeft: "2.5rem" }}>
-          <div>
-            <div css={photoContStyle} className="flexCenter">
-              <img src={insert} css={imgStyle} />
-            </div>
-            <button css={buttonStyle}>Select Files</button>
-            <p className="gray raleway" css={pStyle}>
-              Maximum upload file size: 512 MB. Make sure you logo is a .PNG
-            </p>
-            <p className="gray raleway" css={pStyle}>
-              A .PNG is a logo with a transparent background.
-            </p>
-            <p className="blue raleway" css={pStyle}>
-              Successfully saved!
-            </p>
-          </div>
-          <div>
-            <div css={photoContStyle} className="flexCenter">
-              <img src={insert} css={imgStyle} />
-            </div>
-            <button css={buttonStyle}>Select Files</button>
-            <p className="gray raleway" css={pStyle}>
-              Maximum upload file size: 512 MB. Make sure you logo is a .PNG
-            </p>
-            <p className="gray raleway" css={pStyle}>
-              A .PNG is a logo with a transparent background.
-            </p>
-            <p className="blue raleway" css={pStyle}>
-              Successfully saved!
-            </p>
-          </div>
-          <div>
-            <div css={photoContStyle} className="flexCenter">
-              <img src={insert} css={imgStyle} />
-            </div>
-            <button css={buttonStyle}>Select Files</button>
-            <p className="gray raleway" css={pStyle}>
-              Maximum upload file size: 512 MB. Make sure you logo is a .PNG
-            </p>
-            <p className="gray raleway" css={pStyle}>
-              A .PNG is a logo with a transparent background.
-            </p>
-            <p className="blue raleway" css={pStyle}>
-              Successfully saved!
-            </p>
-          </div>
-          <div>
-            <div css={photoContStyle} className="flexCenter">
-              <img src={insert} css={imgStyle} />
-            </div>
-            <button css={buttonStyle}>Select Files</button>
-            <p className="gray raleway" css={pStyle}>
-              Maximum upload file size: 512 MB. Make sure you logo is a .PNG
-            </p>
-            <p className="gray raleway" css={pStyle}>
-              A .PNG is a logo with a transparent background.
-            </p>
-            <p className="blue raleway" css={pStyle}>
-              Successfully saved!
-            </p>
-          </div>
+        <div style={{ paddingLeft: "2.5rem", width: "100%" }}>
+          {pastCompetitions[i].pictures.map((item, idx) => {
+            return (
+              <div
+                className="flexColumn"
+                style={{
+                  backgroundColor: "#F1F1F1",
+                  margin: "0 auto 4rem",
+                  borderRadius: "10px",
+                }}
+              >
+                <h4
+                  className="raleway"
+                  css={{
+                    color: "black",
+                    padding: "0.7rem 0",
+                    fontSize: "1rem",
+                  }}
+                >
+                  Image {idx}
+                </h4>
+                <img src={item} css={imgStyle} />
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
@@ -281,6 +287,7 @@ const mainTitleStyle = {
     letterSpacing: "0.05rem",
     fontWeight: "300",
     fontSize: "1.15rem",
+    height: "21px",
   },
   mainContentStyle = {
     backgroundColor: "#212121",
@@ -311,7 +318,7 @@ const mainTitleStyle = {
     margin: "1.7rem 0 0",
     borderRadius: "7px",
   },
-  imgStyle = {
+  noImgStyle = {
     width: "100px",
     backgroundColor: "transparent",
     filter: "invert(70%)",
@@ -390,6 +397,19 @@ const secondSidebarStyle = {
     img: {
       backgroundColor: "#333333",
     },
+  },
+  imgContStyle = {
+    padding: "2rem 3rem 0 0",
+  },
+  imgStyle = {
+    width: "100%",
+    boxShadow: "5px 5px 10px #111",
+    borderRadius: "0 0 5px 5px",
+  },
+  winnerImgStyle = {
+    width: "100%",
+    boxShadow: "5px 5px 10px #111",
+    borderRadius: "10px",
   };
 
 export default PastCompetitions;

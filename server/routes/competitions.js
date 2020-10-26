@@ -1,8 +1,9 @@
 const express = require("express"),
   router = express.Router(),
   controller = require("../controllers/competitions.js");
+const protectedRoute = require("../token/protectedRoute.js");
 
-router.post("/create", controller.create);
+router.post("/create", protectedRoute, controller.create);
 
 router.get("/randompicks", controller.randomPicks);
 
