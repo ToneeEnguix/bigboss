@@ -45,3 +45,25 @@ textarea {
   display: grid;
   grid-template-columns: 1.9fr 1fr;
 }
+.gray {
+  color: gray;
+}
+.dropzone {
+  height: 8rem;
+  margin: 1rem;
+  padding: 1rem;
+  border: 2px dashed salmon;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  font-weight: bold;
+  cursor: pointer;
+  outline: none;
+}
+.active {
+  border: 2px solid rebeccapurple;
+}
+.none {
+  display: none;
+}

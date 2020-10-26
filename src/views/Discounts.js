@@ -79,7 +79,7 @@ const Discounts = (props) => {
                 return (
                   <div
                     className={`${
-                      props.discounts[i].title === item.title && "blueBorder"
+                      props.discounts[i]._id === item._id && "blueBorder"
                     } flexCenter`}
                     onClick={() => {
                       setI(idx);

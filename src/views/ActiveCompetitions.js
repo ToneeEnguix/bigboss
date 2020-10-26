@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import "./dashboardstyles.css";
@@ -6,8 +6,11 @@ import insert from "../resources/insert.svg";
 import ReactModal from "react-modal";
 import close from "../resources/close.svg";
 import axios from "axios";
-import { URL } from "../config";
+import { URL, NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME } from "../config";
 import "../components/domain.css";
+// import { useDropzone } from "react-dropzone";
+import { Image } from "cloudinary-react";
+import ImagePicker from "./imagePicker";
 
 const ActiveCompetitions = (props) => {
   const [activeCompetitions, setActiveCompetitions] = useState([
@@ -17,11 +20,40 @@ const ActiveCompetitions = (props) => {
       ticketsAvailable: 10,
       dateFinishes: "",
       description: ["", "", "", "", ""],
+      facebookURL: "",
+      entriesDate: "",
+      entriesURL: "",
+      pictures: ["", "", "", "", "", ""],
     },
   ]);
   const [i, setI] = useState(0);
   const [openModal, setOpenModal] = useState(false);
   const [today, setToday] = useState("");
+  const [tempPhoto, setTempPhoto] = useState("");
+  // const [uploadedFile, setUploadedFile] = useState("");
+
+  // const onDrop = useCallback((acceptedFiles) => {
+  //   const url = `https://api.cloudinary.com/v1_1/${NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/upload`;
+
+  //   acceptedFiles.forEach(async (acceptedFile) => {
+  //     const formData = new FormData();
+  //     formData.append("file", acceptedFile);
+  //     formData.append("upload_preset", NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET);
+
+  //     const res = await fetch(url, {
+  //       method: "post",
+  //       body: formData,
+  //     });
+  //     const data = await res.json();
+  //     console.log(data);
+  //     setUploadedFile(data);
+  //   });
+  // }, []);
+  // const { getRootProps, getInputProps, isDragActive } = useDropzone({
+  //   onDrop,
+  //   accepts: "image/*",
+  //   multiple: false,
+  // });
 
   useEffect(() => {
     getActiveCompetitions();
@@ -33,6 +65,9 @@ const ActiveCompetitions = (props) => {
       item.dateFinishes = item.dateFinishes.slice(0, -8);
       item.entriesDate = item.entriesDate.slice(0, -8);
     });
+    resAll.data.map((item) => {
+      item.pictures.push("");
+    });
     setActiveCompetitions(resAll.data);
   };
 
@@ -42,8 +77,8 @@ const ActiveCompetitions = (props) => {
       await axios.post(`${URL}/competitions/update`, {
         competition: activeCompetitions[i],
       });
+      getActiveCompetitions();
     };
-    props.setRefresh();
     props.update && updateActiveCompetitions();
   }, [props.update]);
 
@@ -74,8 +109,7 @@ const ActiveCompetitions = (props) => {
               return (
                 <div
                   className={`${
-                    props.activeCompetitions[i].title === item.title &&
-                    "blueBorder"
+                    props.activeCompetitions[i]._id === item._id && "blueBorder"
                   } flexCenter`}
                   onClick={() => {
                     setI(idx);
@@ -186,7 +220,7 @@ const ActiveCompetitions = (props) => {
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
             <div>
               <div css={photoContStyle} className="flexCenter">
-                <img src={insert} css={imgStyle} />
+                <img src={insert} css={noImgStyle} />
               </div>
               <button css={buttonStyle} className="styledInput">
                 Select Files
@@ -213,9 +247,64 @@ const ActiveCompetitions = (props) => {
           </div>
         </div>
         <div style={{ paddingLeft: "2.5rem" }}>
-          <div>
+          {/* here it goes */}
+          {activeCompetitions[i].pictures.map((image, idx) => {
+            return (
+              <div key={idx}>
+                <ImagePicker
+                  setState={(uploadedFile) => {
+                    let tempActive = activeCompetitions;
+                    tempActive[i].pictures[idx] = uploadedFile.url;
+                    setTempPhoto(uploadedFile.url);
+                    setActiveCompetitions(tempActive);
+                  }}
+                  image={image}
+                />
+                <div
+                  style={{
+                    display: image === "" && "none",
+                  }}
+                >
+                  <div css={photoContStyle} className="flexCenter">
+                    {/* <Image
+                    cloudName={NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}
+                    publicId={image}
+                    width="100"
+                    crop="scale"
+                    css={imgStyle}
+                  /> */}
+                    <img src={image} css={imgStyle} />
+                  </div>
+                  <p
+                    style={{
+                      display:
+                        idx !== activeCompetitions[i].pictures.length - 1 &&
+                        "none",
+                      position: "relative",
+                      top: "0",
+                      zIndex: "10",
+                    }}
+                  >
+                    Click top right corner to save changes
+                  </p>
+                </div>
+              </div>
+            );
+          })}
+          {/* <img src={tempPhoto} className={tempPhoto === "" && "none"} /> */}
+          {/* <ImagePicker
+            setState={(uploadedFile) => {
+              let tempActive = activeCompetitions;
+              tempActive[i].pictures.push(uploadedFile.url);
+              console.log(tempActive[i].pictures);
+              setActiveCompetitions(tempActive);
+            }}
+            // image={activeCompetitions[i].pictures[pictures.length]}
+          /> */}
+
+          {/* <div>
             <div css={photoContStyle} className="flexCenter">
-              <img src={insert} css={imgStyle} />
+              <img src={insert} css={noImgStyle} />
             </div>
             <button css={buttonStyle} className="styledInput">
               Select Files
@@ -226,61 +315,7 @@ const ActiveCompetitions = (props) => {
             <p className="gray raleway" css={pStyle}>
               A .PNG is a logo with a transparent background.
             </p>
-            <p className="blue raleway" css={pStyle}>
-              Successfully saved!
-            </p>
-          </div>
-          <div>
-            <div css={photoContStyle} className="flexCenter">
-              <img src={insert} css={imgStyle} />
-            </div>
-            <button css={buttonStyle} className="styledInput">
-              Select Files
-            </button>
-            <p className="gray raleway" css={pStyle}>
-              Maximum upload file size: 512 MB. Make sure you logo is a .PNG
-            </p>
-            <p className="gray raleway" css={pStyle}>
-              A .PNG is a logo with a transparent background.
-            </p>
-            <p className="blue raleway" css={pStyle}>
-              Successfully saved!
-            </p>
-          </div>
-          <div>
-            <div css={photoContStyle} className="flexCenter">
-              <img src={insert} css={imgStyle} />
-            </div>
-            <button css={buttonStyle} className="styledInput">
-              Select Files
-            </button>
-            <p className="gray raleway" css={pStyle}>
-              Maximum upload file size: 512 MB. Make sure you logo is a .PNG
-            </p>
-            <p className="gray raleway" css={pStyle}>
-              A .PNG is a logo with a transparent background.
-            </p>
-            <p className="blue raleway" css={pStyle}>
-              Successfully saved!
-            </p>
-          </div>
-          <div>
-            <div css={photoContStyle} className="flexCenter">
-              <img src={insert} css={imgStyle} />
-            </div>
-            <button css={buttonStyle} className="styledInput">
-              Select Files
-            </button>
-            <p className="gray raleway" css={pStyle}>
-              Maximum upload file size: 512 MB. Make sure you logo is a .PNG
-            </p>
-            <p className="gray raleway" css={pStyle}>
-              A .PNG is a logo with a transparent background.
-            </p>
-            <p className="blue raleway" css={pStyle}>
-              Successfully saved!
-            </p>
-          </div>
+          </div> */}
         </div>
       </div>
       <ReactModal
@@ -380,7 +415,7 @@ const mainTitleStyle = {
     margin: "1.7rem 0 0",
     borderRadius: "7px",
   },
-  imgStyle = {
+  noImgStyle = {
     width: "100px",
     backgroundColor: "transparent",
     filter: "invert(70%)",
@@ -459,6 +494,11 @@ const secondSidebarStyle = {
     img: {
       backgroundColor: "#333333",
     },
+  },
+  imgStyle = {
+    width: "100%",
+    boxShadow: "5px 5px 10px #111",
+    borderRadius: "0 0 5px 5px",
   };
 
 export default ActiveCompetitions;

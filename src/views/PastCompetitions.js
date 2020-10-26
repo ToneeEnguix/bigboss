@@ -19,6 +19,10 @@ const PastCompetitions = () => {
       dateFinishes: "",
       entriesDate: "",
       description: [""],
+      winner: {
+        name: "",
+        email: "",
+      },
     },
   ]);
   const [i, setI] = useState(0);
@@ -33,70 +37,9 @@ const PastCompetitions = () => {
     getPastCompetitions();
   }, [i]);
 
-  useEffect(() => {
-    console.log("i: ", i);
-    console.log(pastCompetitions);
-  }, [i, pastCompetitions]);
-
   return (
     <div className="adminPage">
       <div className="flexColumn" css={secondSidebarStyle}>
-        <ReactModal
-          isOpen={openModal}
-          style={{
-            overlay: {
-              backgroundColor: "#2626266d",
-            },
-            content: {
-              position: "relative",
-              top: "50%",
-              left: "1020px",
-              right: "auto",
-              bottom: "auto",
-              transform: "translate(-50%, -50%)",
-              backgroundColor: "#212121",
-              borderColor: "#707070",
-              color: "white",
-              fontFamily: "Raleway",
-              padding: "6rem 0",
-              boxSizing: "border-box",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-between",
-              height: "340px",
-              width: "640px",
-            },
-          }}
-        >
-          <img
-            src={close}
-            className="bgtransparent pointer"
-            style={{ margin: "-5rem -26.8rem 3rem 10rem" }}
-            onClick={() => setOpenModal(false)}
-          />
-          <div className="bgtransparent flexCenter">
-            <h3
-              className="inline bgtransparent raleway"
-              style={{ fontSize: "1.2rem" }}
-            >
-              Are you sure you want to delete this competition?
-            </h3>
-          </div>
-          <div className="flexCenter bgtransparent">
-            <button
-              className="raleway dm_modalBtn dm_modalBtn1 pointer"
-              onClick={() => setOpenModal(false)}
-            >
-              Yes
-            </button>
-            <button
-              className="raleway dm_modalBtn dm_modalBtn2 pointer"
-              onClick={() => setOpenModal(false)}
-            >
-              No
-            </button>
-          </div>
-        </ReactModal>
         <div css={titleStyle2}>Past Competitions</div>
         <div className="flexColumn" css={contentStyle}>
           {pastCompetitions[i] &&
@@ -104,7 +47,7 @@ const PastCompetitions = () => {
               return (
                 <div
                   className={`${
-                    pastCompetitions[i].title === item.title && "blueBorder"
+                    pastCompetitions[i]._id === item._id && "blueBorder"
                   } flexCenter`}
                   onClick={() => {
                     setI(idx);
@@ -236,16 +179,28 @@ const PastCompetitions = () => {
               </h3>
               <input
                 readOnly
-                defaultValue="i.e. Jane Doe"
-                className="styledInput"
+                defaultValue={
+                  pastCompetitions[i].winner
+                    ? pastCompetitions[i].winner.name
+                    : "No winner yet"
+                }
+                className={`${
+                  !pastCompetitions[i].winner && "gray"
+                } styledInput`}
               />
               <h3 className="default" css={titleStyle}>
                 Email
               </h3>
               <input
                 readOnly
-                defaultValue="i.e. jane@janedoe.com"
-                className="styledInput"
+                defaultValue={
+                  pastCompetitions[i].winner
+                    ? pastCompetitions[i].winner.email
+                    : "No winner yet"
+                }
+                className={`${
+                  !pastCompetitions[i].winner && "gray"
+                } styledInput`}
               />
             </div>
           </div>
@@ -260,6 +215,7 @@ const PastCompetitions = () => {
                   margin: "0 auto 4rem",
                   borderRadius: "10px",
                 }}
+                key={idx}
               >
                 <h4
                   className="raleway"
@@ -277,6 +233,62 @@ const PastCompetitions = () => {
           })}
         </div>
       </div>
+      <ReactModal
+        isOpen={openModal}
+        style={{
+          overlay: {
+            backgroundColor: "#2626266d",
+          },
+          content: {
+            position: "relative",
+            top: "50%",
+            left: "1020px",
+            right: "auto",
+            bottom: "auto",
+            transform: "translate(-50%, -50%)",
+            backgroundColor: "#212121",
+            borderColor: "#707070",
+            color: "white",
+            fontFamily: "Raleway",
+            padding: "6rem 0",
+            boxSizing: "border-box",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+            height: "340px",
+            width: "640px",
+          },
+        }}
+      >
+        <img
+          src={close}
+          className="bgtransparent pointer"
+          style={{ margin: "-5rem -26.8rem 3rem 10rem" }}
+          onClick={() => setOpenModal(false)}
+        />
+        <div className="bgtransparent flexCenter">
+          <h3
+            className="inline bgtransparent raleway"
+            style={{ fontSize: "1.2rem" }}
+          >
+            Are you sure you want to delete this competition?
+          </h3>
+        </div>
+        <div className="flexCenter bgtransparent">
+          <button
+            className="raleway dm_modalBtn dm_modalBtn1 pointer"
+            onClick={() => setOpenModal(false)}
+          >
+            Yes
+          </button>
+          <button
+            className="raleway dm_modalBtn dm_modalBtn2 pointer"
+            onClick={() => setOpenModal(false)}
+          >
+            No
+          </button>
+        </div>
+      </ReactModal>
     </div>
   );
 };

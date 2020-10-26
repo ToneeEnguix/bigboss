@@ -158,17 +158,19 @@ const AdminDashboard = (props) => {
 export default AdminDashboard;
 
 // Next Steps:
-// - Delete past competition?
-// - Create active competition
-// - Delete active competition
+// - Fetch and display listOfEntries ✅
 // - Upload Images
+// - Create competition
+// - Delete past competition?
+// - Delete active competition
 
 // Competitions:
-// - Links dont open on new tab correctly
-// - Call winner through ref
-// - Once I got winner, add name and email
-// - Add admin middleware
+// - check by index _id not by name ✅
 // - Change input style to variable ✅
+// - Call winner through ref ✅
+// - Once I got winner, add name and email ✅
+// - Links dont open on new tab correctly
+// - Add admin middleware
 // - ticketsAvailable not updating
 
 // General Questions:

@@ -8,9 +8,8 @@ import { URL } from "../config";
 import "../components/domain.css";
 
 const ListOfEntries = () => {
-  const [allCompetitions, setAllCompetitions] = useState([
-    { title: "", discount: 0, expires: "10-12-20" },
-  ]);
+  const [allCompetitions, setAllCompetitions] = useState([{ _id: "" }]);
+  const [listOfEntries, setListOfEntries] = useState([]);
   const [i, setI] = useState(0);
   const [openModal, setOpenModal] = useState(false);
 
@@ -18,6 +17,10 @@ const ListOfEntries = () => {
     const getAllCompetitions = async () => {
       let resAll = await axios.get(`${URL}/competitions/all`);
       setAllCompetitions(resAll.data);
+      console.log(resAll.data);
+      let resEntries = await axios.get(`${URL}/orders/${resAll.data[i]._id}`);
+      setListOfEntries(resEntries.data);
+      console.log(resEntries.data);
     };
     getAllCompetitions();
   }, [i]);
@@ -28,70 +31,9 @@ const ListOfEntries = () => {
     setAllCompetitions(tempAllCompetitions);
   };
 
-  useEffect(() => {
-    console.log("i: ", i);
-    console.log(allCompetitions);
-  }, [i, allCompetitions]);
-
   return (
     <div className="adminPage" css={sectionStyle}>
       <div className="flexColumn" css={secondSidebarStyle}>
-        <ReactModal
-          isOpen={openModal}
-          style={{
-            overlay: {
-              backgroundColor: "#2626266d",
-            },
-            content: {
-              position: "relative",
-              top: "50%",
-              left: "1020px",
-              right: "auto",
-              bottom: "auto",
-              transform: "translate(-50%, -50%)",
-              backgroundColor: "#212121",
-              borderColor: "#707070",
-              color: "white",
-              fontFamily: "Raleway",
-              padding: "6rem 0",
-              boxSizing: "border-box",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-between",
-              height: "340px",
-              width: "640px",
-            },
-          }}
-        >
-          <img
-            src={close}
-            className="bgtransparent pointer"
-            style={{ margin: "-5rem -26.8rem 3rem 10rem" }}
-            onClick={() => setOpenModal(false)}
-          />
-          <div className="bgtransparent flexCenter">
-            <h3
-              className="inline bgtransparent raleway"
-              style={{ fontSize: "1.2rem" }}
-            >
-              Are you sure you want to delete this competition?
-            </h3>
-          </div>
-          <div className="flexCenter bgtransparent">
-            <button
-              className="raleway dm_modalBtn dm_modalBtn1 pointer"
-              onClick={() => setOpenModal(false)}
-            >
-              Yes
-            </button>
-            <button
-              className="raleway dm_modalBtn dm_modalBtn2 pointer"
-              onClick={() => setOpenModal(false)}
-            >
-              No
-            </button>
-          </div>
-        </ReactModal>
         <div css={titleStyle2}>List Of Entries</div>
         <div className="flexColumn" css={contentStyle}>
           {allCompetitions[i] &&
@@ -99,7 +41,7 @@ const ListOfEntries = () => {
               return (
                 <div
                   className={`${
-                    allCompetitions[i].title === item.title && "blueBorder"
+                    allCompetitions[i]._id === item._id && "blueBorder"
                   } flexCenter`}
                   onClick={() => {
                     setI(idx);
@@ -121,40 +63,90 @@ const ListOfEntries = () => {
       </div>
       <div css={entriesStyle}>
         <h3>Entries</h3>
-        <p>Jon Doe</p>
-        <p>Jon Doe</p>
-        <p>Jon Doe</p>
-        <p>Jon Doe</p>
-        <p>Jon Doe</p>
-        <p>Jon Doe</p>
+        {listOfEntries.map((item, idx) => {
+          return <p key={idx}>{item.user.name}</p>;
+        })}
       </div>
       <div css={entriesStyle}>
         <h3>Email</h3>
-        <p>jon@jondoe.com</p>
-        <p>jon@jondoe.com</p>
-        <p>jon@jondoe.com</p>
-        <p>jon@jondoe.com</p>
-        <p>jon@jondoe.com</p>
-        <p>jon@jondoe.com</p>
+        {listOfEntries.map((item, idx) => {
+          return <p key={idx}>{item.user.email}</p>;
+        })}
       </div>
       <div css={entriesStyle}>
         <h3>Bought</h3>
-        <p>01</p>
-        <p>03</p>
-        <p>04</p>
-        <p>02</p>
-        <p>01</p>
-        <p>02</p>
+        {listOfEntries.map((item, idx) => {
+          return item.productsBought.map((item) => {
+            return <p key={idx}>{item.amount}</p>;
+          });
+        })}
       </div>
       <div css={entriesStyle}>
         <h3>Spent</h3>
-        <p>£30</p>
-        <p>£54</p>
-        <p>£30</p>
-        <p>£54</p>
-        <p>£30</p>
-        <p>£54</p>
+        {listOfEntries.map((item, idx) => {
+          console.log(item);
+          return item.productsBought.map((item) => {
+            console.log(item);
+            return <p key={idx}>{item.amount * item.product.ticketPrice}</p>;
+          });
+        })}
       </div>
+      <ReactModal
+        isOpen={openModal}
+        style={{
+          overlay: {
+            backgroundColor: "#2626266d",
+          },
+          content: {
+            position: "relative",
+            top: "50%",
+            left: "1020px",
+            right: "auto",
+            bottom: "auto",
+            transform: "translate(-50%, -50%)",
+            backgroundColor: "#212121",
+            borderColor: "#707070",
+            color: "white",
+            fontFamily: "Raleway",
+            padding: "6rem 0",
+            boxSizing: "border-box",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+            height: "340px",
+            width: "640px",
+          },
+        }}
+      >
+        <img
+          src={close}
+          className="bgtransparent pointer"
+          style={{ margin: "-5rem -26.8rem 3rem 10rem" }}
+          onClick={() => setOpenModal(false)}
+        />
+        <div className="bgtransparent flexCenter">
+          <h3
+            className="inline bgtransparent raleway"
+            style={{ fontSize: "1.2rem" }}
+          >
+            Are you sure you want to delete this competition?
+          </h3>
+        </div>
+        <div className="flexCenter bgtransparent">
+          <button
+            className="raleway dm_modalBtn dm_modalBtn1 pointer"
+            onClick={() => setOpenModal(false)}
+          >
+            Yes
+          </button>
+          <button
+            className="raleway dm_modalBtn dm_modalBtn2 pointer"
+            onClick={() => setOpenModal(false)}
+          >
+            No
+          </button>
+        </div>
+      </ReactModal>
     </div>
   );
 };

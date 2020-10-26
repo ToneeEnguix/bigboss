@@ -65,7 +65,7 @@ class CompetitionController {
       found.entriesURL = competition.entriesURL;
       found.winnerPic = competition.winnerPic;
       found.pictures = competition.pictures;
-      console.log("banana: ", found.ticketsAvailable, found);
+      console.log("banana: ", found.pictures);
       await found.save();
       res.status(200).send({ ok: true });
     } catch (error) {
@@ -96,7 +96,6 @@ class CompetitionController {
       const allCompetitions = await competitions.find({
         dateFinishes: { $gte: Date.now() },
       });
-
       res.status(200).send(allCompetitions);
     } catch (error) {
       console.log(error);
@@ -106,9 +105,11 @@ class CompetitionController {
 
   async past(req, res) {
     try {
-      const allCompetitions = await competitions.find({
-        dateFinishes: { $lte: Date.now() },
-      });
+      const allCompetitions = await competitions
+        .find({
+          dateFinishes: { $lte: Date.now() },
+        })
+        .populate("winner");
 
       res.status(200).send(allCompetitions);
     } catch (error) {
