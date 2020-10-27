@@ -191,8 +191,8 @@ const mainTitleStyle = {
     letterSpacing: "0.05rem",
     fontWeight: "300",
     fontSize: "1.15rem",
-    margin: "1.5rem 0 0",
-    width: "80%",
+    margin: "1.5rem 15px 0 0",
+    width: "100%",
   },
   buttonStyle = {
     fontFamily: "Raleway",
@@ -202,6 +202,6 @@ const mainTitleStyle = {
     margin: "1.5rem 0 0",
     width: "15%",
     "&:hover": {
-      backgroundColor: "rgba(255, 41, 41, .7)",
+      border: "1px solid rgba(255, 41, 41, .7)",
     },
   };

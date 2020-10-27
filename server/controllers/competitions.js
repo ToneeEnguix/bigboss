@@ -65,7 +65,7 @@ class CompetitionController {
       found.entriesURL = competition.entriesURL;
       found.winnerPic = competition.winnerPic;
       found.pictures = competition.pictures;
-      console.log("banana: ", found.pictures);
+      console.log("banana: ", found);
       await found.save();
       res.status(200).send({ ok: true });
     } catch (error) {

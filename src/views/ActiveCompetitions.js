@@ -219,21 +219,66 @@ const ActiveCompetitions = (props) => {
           <h3 css={titleStyle}>Photo of the Winner</h3>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
             <div>
-              <div css={photoContStyle} className="flexCenter">
-                <img src={insert} css={noImgStyle} />
+              <ImagePicker
+                setState={(uploadedFile) => {
+                  let tempActive = activeCompetitions;
+                  tempActive[i].winnerPic = uploadedFile.url;
+                  console.log(tempActive[i].winnerPic);
+                  setTempPhoto(uploadedFile.url);
+                  setActiveCompetitions(tempActive);
+                }}
+                image={activeCompetitions[i].winnerPic}
+              />
+              <div
+                style={{
+                  display: activeCompetitions[i].winnerPic === "" && "none",
+                  width: "200px",
+                  height: "200px",
+                  margin: "2rem 0 0",
+                }}
+                className="flexColumn bgtransparent"
+              >
+                <img
+                  src={close}
+                  style={{
+                    alignSelf: "flex-end",
+                    position: "relative",
+                    top: "27px",
+                    right: "8px",
+                    borderRadius: "100px",
+                  }}
+                  className="pointer"
+                />
+                <div
+                  css={photoContStyle}
+                  className="flexCenter"
+                  style={{
+                    width: "200px",
+                    height: "200px",
+                    alignSelf: "flex-start",
+                  }}
+                >
+                  <img
+                    src={activeCompetitions[i].winnerPic}
+                    css={imgStyle}
+                    style={{
+                      width: "200px",
+                      height: "200px",
+                      alignSelf: "flex-start",
+                    }}
+                  />
+                </div>
+                <p
+                  style={{
+                    display: activeCompetitions[i].winnerPic !== "" && "none",
+                    position: "relative",
+                    top: "0",
+                    zIndex: "10",
+                  }}
+                >
+                  Click top right corner to save changes
+                </p>
               </div>
-              <button css={buttonStyle} className="styledInput">
-                Select Files
-              </button>
-              <p className="gray raleway" css={pStyle}>
-                Maximum upload file size: 512 MB. Make sure you logo is a .PNG
-              </p>
-              <p className="gray raleway" css={pStyle}>
-                A .PNG is a logo with a transparent background.
-              </p>
-              <p className="blue raleway" css={pStyle}>
-                Successfully saved!
-              </p>
             </div>
             <div>
               <h3 css={titleStyle}>Winner Name</h3>
@@ -263,17 +308,28 @@ const ActiveCompetitions = (props) => {
                 <div
                   style={{
                     display: image === "" && "none",
+                    width: "100%",
+                    height: "300px",
                   }}
+                  className="flexColumn bgtransparent"
                 >
-                  <div css={photoContStyle} className="flexCenter">
-                    {/* <Image
-                    cloudName={NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}
-                    publicId={image}
-                    width="100"
-                    crop="scale"
-                    css={imgStyle}
-                  /> */}
-                    <img src={image} css={imgStyle} />
+                  <img
+                    src={close}
+                    style={{
+                      alignSelf: "flex-end",
+                      position: "relative",
+                      top: "22px",
+                      right: "5px",
+                      borderRadius: "100px",
+                    }}
+                    className="pointer"
+                  />
+                  <div
+                    css={photoContStyle}
+                    className="flexCenter"
+                    style={{ width: "100%" }}
+                  >
+                    <img src={image} css={imgStyle} style={{ width: "100%" }} />
                   </div>
                   <p
                     style={{
@@ -291,31 +347,6 @@ const ActiveCompetitions = (props) => {
               </div>
             );
           })}
-          {/* <img src={tempPhoto} className={tempPhoto === "" && "none"} /> */}
-          {/* <ImagePicker
-            setState={(uploadedFile) => {
-              let tempActive = activeCompetitions;
-              tempActive[i].pictures.push(uploadedFile.url);
-              console.log(tempActive[i].pictures);
-              setActiveCompetitions(tempActive);
-            }}
-            // image={activeCompetitions[i].pictures[pictures.length]}
-          /> */}
-
-          {/* <div>
-            <div css={photoContStyle} className="flexCenter">
-              <img src={insert} css={noImgStyle} />
-            </div>
-            <button css={buttonStyle} className="styledInput">
-              Select Files
-            </button>
-            <p className="gray raleway" css={pStyle}>
-              Maximum upload file size: 512 MB. Make sure you logo is a .PNG
-            </p>
-            <p className="gray raleway" css={pStyle}>
-              A .PNG is a logo with a transparent background.
-            </p>
-          </div> */}
         </div>
       </div>
       <ReactModal
@@ -412,20 +443,8 @@ const mainTitleStyle = {
     border: "1px dashed gray",
     height: "200px",
     width: "200px",
-    margin: "1.7rem 0 0",
+    margin: "0 0 1.7rem",
     borderRadius: "7px",
-  },
-  noImgStyle = {
-    width: "100px",
-    backgroundColor: "transparent",
-    filter: "invert(70%)",
-  },
-  buttonStyle = {
-    width: "70%",
-    backgroundColor: "transparent",
-  },
-  pStyle = {
-    marginTop: "1rem",
   };
 
 const secondSidebarStyle = {
@@ -496,7 +515,8 @@ const secondSidebarStyle = {
     },
   },
   imgStyle = {
-    width: "100%",
+    width: "200px",
+    height: "200px",
     boxShadow: "5px 5px 10px #111",
     borderRadius: "0 0 5px 5px",
   };

@@ -7,7 +7,6 @@ import {
 import { jsx } from "@emotion/core";
 import { useDropzone } from "react-dropzone";
 import insert from "../resources/insert.svg";
-// import { Image } from "cloudinary-react";
 
 const ImagePicker = (props) => {
   const [uploadedFile, setUploadedFile] = useState("");
@@ -47,22 +46,19 @@ const ImagePicker = (props) => {
       >
         <input {...getInputProps()} />
         <img src={insert} css={noImgStyle} />
-        <p className="gray">Click to select</p>
-        <p className="gray">or drag and drop</p>
+        <p
+          className="gray"
+          style={{ fontWeight: "300", letterSpacing: ".01rem" }}
+        >
+          Click to select
+        </p>
+        <p
+          className="gray"
+          style={{ fontWeight: "300", letterSpacing: ".01rem" }}
+        >
+          or drag and drop
+        </p>
       </div>
-      {/* <div
-        css={photoContStyle}
-        className="flexCenter"
-        style={{ display: uploadedFile === "" && "none" }}
-      >
-        <Image
-          cloudName={NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}
-          publicId={uploadedFile.url}
-          width="100"
-          crop="scale"
-          css={imgStyle}
-        />
-      </div> */}
       <p className="gray raleway" css={pStyle}>
         Maximum upload file size: 512 MB. Make sure you logo is a .PNG
       </p>
@@ -85,11 +81,6 @@ const photoContStyle = {
     backgroundColor: "transparent",
     filter: "invert(70%)",
   },
-  // imgStyle = {
-  //   width: "100%",
-  //   boxShadow: "5px 5px 10px #111",
-  //   borderRadius: "0 0 5px 5px",
-  // },
   pStyle = {
     marginTop: "1rem",
   };

@@ -159,10 +159,13 @@ export default AdminDashboard;
 
 // Next Steps:
 // - Fetch and display listOfEntries ✅
-// - Upload Images
-// - Create competition
-// - Delete past competition?
+// - Upload Images ✅
+// - Delete box in FAQS red only outline and 4px space ✅
+// - Delete Image
+// - Delete winner image
+// - Create competition (with publish button)
 // - Delete active competition
+// - Delete past competition? (NO)
 
 // Competitions:
 // - check by index _id not by name ✅
@@ -174,5 +177,5 @@ export default AdminDashboard;
 // - ticketsAvailable not updating
 
 // General Questions:
-// - Change winner in past Competitions?
+// - Change winner in past Competitions (YES + put it in top)
 // - Add competitions + publish? Else adding empty competition to public?
