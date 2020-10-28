@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import "./dashboardstyles.css";
-import insert from "../resources/insert.svg";
 import ReactModal from "react-modal";
 import close from "../resources/close.svg";
 import axios from "axios";
 import { URL } from "../config";
 import "../components/domain.css";
+import ImagePicker from "./imagePicker";
 
-const PastCompetitions = () => {
+const PastCompetitions = (props) => {
   const [pastCompetitions, setPastCompetitions] = useState([
     {
       title: "",
@@ -27,15 +27,52 @@ const PastCompetitions = () => {
   ]);
   const [i, setI] = useState(0);
   const [openModal, setOpenModal] = useState(false);
+  const [remove, setRemove] = useState("");
 
   useEffect(() => {
-    const getPastCompetitions = async () => {
-      let resPast = await axios.get(`${URL}/competitions/past`);
-      setPastCompetitions(resPast.data);
-      console.log(resPast.data);
-    };
     getPastCompetitions();
   }, [i]);
+
+  const getPastCompetitions = async () => {
+    try {
+      let resPast = await axios.get(`${URL}/competitions/past`);
+      setPastCompetitions(resPast.data);
+    } catch (err) {
+      console.error(err);
+    }
+    setRemove("");
+  };
+
+  useEffect(() => {
+    props.update && updateWinnersImg();
+  }, [props.update]);
+
+  const handleChange = (e, i) => {
+    let tempPastCompetitions = [...pastCompetitions];
+    tempPastCompetitions[i][e.target.name] = e.target.value;
+    setPastCompetitions(tempPastCompetitions);
+  };
+
+  const updateWinnersImg = async () => {
+    try {
+      !props.update && (pastCompetitions[i].winnerPic = "");
+      let competition = pastCompetitions[i];
+      competition.pictures.push("");
+      await axios.post(`${URL}/competitions/updatewinnerimg`, {
+        competition,
+      });
+      setOpenModal(false);
+      getPastCompetitions();
+      setRemove("");
+      props.setUpdate();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    console.log(pastCompetitions);
+  }, [remove]);
 
   return (
     <div className="adminPage">
@@ -56,12 +93,6 @@ const PastCompetitions = () => {
                   key={idx}
                 >
                   <p>{item.title}</p>
-                  <div
-                    className="flexCenter"
-                    onClick={() => setOpenModal(true)}
-                  >
-                    <img src={close} onClick={() => setOpenModal(true)} />
-                  </div>
                 </div>
               );
             })}
@@ -79,6 +110,86 @@ const PastCompetitions = () => {
             defaultValue={pastCompetitions[i].title}
             className="styledInput"
           />
+          <h3 css={titleStyle}>Photo of the Winner</h3>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+            <div>
+              <ImagePicker
+                setState={(uploadedFile) => {
+                  let tempPast = pastCompetitions;
+                  console.log(uploadedFile);
+                  tempPast[i].winnerPic = uploadedFile.secure_url;
+                  setRemove(" ");
+                  setPastCompetitions(tempPast);
+                }}
+                image={pastCompetitions[i].winnerPic}
+              />
+              <div
+                style={{
+                  display: pastCompetitions[i].winnerPic === "" && "none",
+                  width: "200px",
+                  height: "200px",
+                  margin: "2rem 0 0",
+                }}
+                className="flexColumn bgtransparent"
+              >
+                <img
+                  src={close}
+                  style={{
+                    alignSelf: "flex-end",
+                    position: "relative",
+                    top: "26px",
+                    right: "7px",
+                    borderRadius: "100px",
+                  }}
+                  className="pointer"
+                  onClick={() => {
+                    setRemove("winner's image");
+                    setOpenModal(true);
+                  }}
+                />
+                <div css={photoContStyle} className="flexCenter">
+                  <img
+                    src={pastCompetitions[i].winnerPic}
+                    css={imgStyle}
+                    style={{
+                      width: "200px",
+                      height: "200px",
+                      alignSelf: "flex-start",
+                    }}
+                  />
+                </div>
+                <p
+                  style={{
+                    display: remove !== " " && "none",
+                    position: "relative",
+                    top: "0",
+                    zIndex: "10",
+                  }}
+                >
+                  Click top right corner to save changes
+                </p>
+              </div>
+            </div>
+            {pastCompetitions[i].winner ? (
+              <div>
+                <h3 css={titleStyle}>Winner Name</h3>
+                <input
+                  defaultValue={pastCompetitions[i].winner.name}
+                  className="styledInput"
+                />
+                <h3 css={titleStyle}>Email</h3>
+                <input
+                  defaultValue={pastCompetitions[i].winner.email}
+                  className="styledInput"
+                />
+              </div>
+            ) : (
+              <div>
+                <h3 css={titleStyle}>Enter winner's email</h3>
+                <input placeholder="Enter here" className="styledInput" />
+              </div>
+            )}
+          </div>
           <h3 className="default" css={titleStyle}>
             Price
           </h3>
@@ -120,14 +231,14 @@ const PastCompetitions = () => {
           <input
             className="default"
             readOnly
-            defaultValue={pastCompetitions[i].ticketsAvailable}
+            defaultValue={pastCompetitions[i].maxTickets}
             className="styledInput"
           />
           <hr css={hrStyle} />
           <h3 className="default" css={titleStyle}>
             Recorded Facebook Video
           </h3>
-          <a href={pastCompetitions[i].facebookURL} target="_blank">
+          <a href={`http://${pastCompetitions[i].facebookURL}`} target="_blank">
             <p className="styledInput raleway">
               {pastCompetitions[i].facebookURL}
             </p>
@@ -140,70 +251,11 @@ const PastCompetitions = () => {
           <h3 className="default" css={titleStyle}>
             Spreadsheet Link
           </h3>
-          <a href={pastCompetitions[i].entriesURL} target="_blank">
+          <a href={`http://${pastCompetitions[i].entriesURL}`} target="_blank">
             <p className="styledInput raleway">
               {pastCompetitions[i].entriesURL}
             </p>
           </a>
-          <h3 className="default" css={titleStyle}>
-            Photo of the Winner
-          </h3>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
-            {pastCompetitions[i].winnerPic ? (
-              <div css={imgContStyle}>
-                <img src={pastCompetitions[i].winnerPic} css={winnerImgStyle} />
-              </div>
-            ) : (
-              <div>
-                <div css={photoContStyle} className="flexCenter">
-                  <img src={insert} css={noImgStyle} />
-                </div>
-                <button css={buttonStyle} className="styledInput">
-                  Select Files
-                </button>
-                <p className="gray raleway" css={pStyle}>
-                  Maximum upload file size: 512 MB. Make sure you logo is a .PNG
-                </p>
-                <p className="gray raleway" css={pStyle}>
-                  A .PNG is a logo with a transparent background.
-                </p>
-                <p className="blue raleway" css={pStyle}>
-                  Successfully saved!
-                </p>
-              </div>
-            )}
-
-            <div>
-              <h3 className="default" css={titleStyle}>
-                Winner Name
-              </h3>
-              <input
-                readOnly
-                defaultValue={
-                  pastCompetitions[i].winner
-                    ? pastCompetitions[i].winner.name
-                    : "No winner yet"
-                }
-                className={`${
-                  !pastCompetitions[i].winner && "gray"
-                } styledInput`}
-              />
-              <h3 className="default" css={titleStyle}>
-                Email
-              </h3>
-              <input
-                readOnly
-                defaultValue={
-                  pastCompetitions[i].winner
-                    ? pastCompetitions[i].winner.email
-                    : "No winner yet"
-                }
-                className={`${
-                  !pastCompetitions[i].winner && "gray"
-                } styledInput`}
-              />
-            </div>
-          </div>
         </div>
         <div style={{ paddingLeft: "2.5rem", width: "100%" }}>
           {pastCompetitions[i].pictures.map((item, idx) => {
@@ -234,6 +286,7 @@ const PastCompetitions = () => {
         </div>
       </div>
       <ReactModal
+        ariaHideApp={false}
         isOpen={openModal}
         style={{
           overlay: {
@@ -271,13 +324,13 @@ const PastCompetitions = () => {
             className="inline bgtransparent raleway"
             style={{ fontSize: "1.2rem" }}
           >
-            Are you sure you want to delete this competition?
+            Are you sure you want to delete this {remove}?
           </h3>
         </div>
         <div className="flexCenter bgtransparent">
           <button
             className="raleway dm_modalBtn dm_modalBtn1 pointer"
-            onClick={() => setOpenModal(false)}
+            onClick={() => updateWinnersImg()}
           >
             Yes
           </button>
@@ -325,22 +378,10 @@ const mainTitleStyle = {
   },
   photoContStyle = {
     border: "1px dashed gray",
-    height: "200px",
     width: "200px",
-    margin: "1.7rem 0 0",
+    height: "200px",
+    alignSelf: "flex-start",
     borderRadius: "7px",
-  },
-  noImgStyle = {
-    width: "100px",
-    backgroundColor: "transparent",
-    filter: "invert(70%)",
-  },
-  buttonStyle = {
-    width: "70%",
-    backgroundColor: "transparent",
-  },
-  pStyle = {
-    marginTop: "1rem",
   };
 
 const secondSidebarStyle = {
@@ -410,18 +451,10 @@ const secondSidebarStyle = {
       backgroundColor: "#333333",
     },
   },
-  imgContStyle = {
-    padding: "2rem 3rem 0 0",
-  },
   imgStyle = {
     width: "100%",
     boxShadow: "5px 5px 10px #111",
     borderRadius: "0 0 5px 5px",
-  },
-  winnerImgStyle = {
-    width: "100%",
-    boxShadow: "5px 5px 10px #111",
-    borderRadius: "10px",
   };
 
 export default PastCompetitions;

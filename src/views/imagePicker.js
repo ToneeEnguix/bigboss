@@ -59,12 +59,6 @@ const ImagePicker = (props) => {
           or drag and drop
         </p>
       </div>
-      <p className="gray raleway" css={pStyle}>
-        Maximum upload file size: 512 MB. Make sure you logo is a .PNG
-      </p>
-      <p className="gray raleway" css={pStyle}>
-        A .PNG is a logo with a transparent background.
-      </p>
     </div>
   );
 };

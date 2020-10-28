@@ -21,6 +21,8 @@ router.get("/past", controller.past);
 
 router.get("/winners", controller.finished);
 
+router.post("/updatewinnerimg", controller.updateWinnerImg);
+
 router.get("/recentwinners", controller.recentWinners);
 
 router.get("/entries", controller.withEntries);

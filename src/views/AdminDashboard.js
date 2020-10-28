@@ -95,10 +95,9 @@ const AdminDashboard = (props) => {
             <PastCompetitions
               {...props}
               pastCompetitions={pastCompetitions}
-              setPastCompetitions={(e, i) => {
-                let tempPastCompetitions = discounts;
-                tempPastCompetitions[i][e.target.name] = e.target.value;
-                setPastCompetitions(tempPastCompetitions);
+              update={update}
+              setUpdate={() => {
+                setUpdate(false);
               }}
             />
           )}
@@ -161,21 +160,25 @@ export default AdminDashboard;
 // - Fetch and display listOfEntries ✅
 // - Upload Images ✅
 // - Delete box in FAQS red only outline and 4px space ✅
-// - Delete Image
-// - Delete winner image
+// - Delete winner image ✅
+// - Delete past competition? (NO) => remove cross ✅
+// - Delete Image ✅
+// - If winner photo not saved and changed i then setRemove("") ✅
+// - Delete images from cloudinary (got public id from url) ❗️🚫
 // - Create competition (with publish button)
+//   - 
 // - Delete active competition
-// - Delete past competition? (NO)
+// - Add winner
 
 // Competitions:
-// - check by index _id not by name ✅
+// - check by _id not by name ✅
 // - Change input style to variable ✅
 // - Call winner through ref ✅
 // - Once I got winner, add name and email ✅
-// - Links dont open on new tab correctly
-// - Add admin middleware
-// - ticketsAvailable not updating
+// - Links dont open on new tab correctly ✅ (added 'http://' to beggining of href)
+// - ticketsAvailable not updating ✅ (because it was maxTickets and bc of type)
+// - Add admin middleware ❗️
 
 // General Questions:
-// - Change winner in past Competitions (YES + put it in top)
+// - Change winner in past Competitions (YES + put it in top) ✅
 // - Add competitions + publish? Else adding empty competition to public?

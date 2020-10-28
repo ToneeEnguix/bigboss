@@ -55,10 +55,6 @@ const FAQ = (props) => {
     setFaq(tempFaq);
   };
 
-  useEffect(() => {
-    console.log(i);
-  }, [i]);
-
   return (
     <div className="adminPage adminPage2">
       <h3 css={mainTitleStyle}>FAQ</h3>

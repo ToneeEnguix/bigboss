@@ -14,22 +14,14 @@ const ListOfEntries = () => {
   const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => {
-    const getAllCompetitions = async () => {
+    const getCompsAndEntries = async () => {
       let resAll = await axios.get(`${URL}/competitions/all`);
       setAllCompetitions(resAll.data);
-      console.log(resAll.data);
       let resEntries = await axios.get(`${URL}/orders/${resAll.data[i]._id}`);
       setListOfEntries(resEntries.data);
-      console.log(resEntries.data);
     };
-    getAllCompetitions();
+    getCompsAndEntries();
   }, [i]);
-
-  const handleChange = (e, i) => {
-    let tempAllCompetitions = [...allCompetitions];
-    tempAllCompetitions[i][e.target.name] = e.target.value;
-    setAllCompetitions(tempAllCompetitions);
-  };
 
   return (
     <div className="adminPage" css={sectionStyle}>
@@ -50,12 +42,6 @@ const ListOfEntries = () => {
                   key={idx}
                 >
                   <p>{item.title}</p>
-                  <div
-                    className="flexCenter"
-                    onClick={() => setOpenModal(true)}
-                  >
-                    <img src={close} onClick={() => setOpenModal(true)} />
-                  </div>
                 </div>
               );
             })}
@@ -84,9 +70,7 @@ const ListOfEntries = () => {
       <div css={entriesStyle}>
         <h3>Spent</h3>
         {listOfEntries.map((item, idx) => {
-          console.log(item);
           return item.productsBought.map((item) => {
-            console.log(item);
             return <p key={idx}>{item.amount * item.product.ticketPrice}</p>;
           });
         })}

@@ -1,4 +1,10 @@
-const competitions = require("../schemas/competitions.js");
+const competitions = require("../schemas/competitions.js"),
+  cloudinary = require("cloudinary");
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET,
+});
 
 class CompetitionController {
   async create(req, res) {
@@ -52,20 +58,26 @@ class CompetitionController {
   }
 
   async update(req, res) {
+    let { competition } = req.body;
+    competition.pictures[competition.pictures.length - 1] === "" &&
+      competition.pictures.pop();
     try {
-      const { competition } = req.body;
-      const found = await competitions.findOne({ _id: competition._id });
+      let found = await competitions.findOne({ _id: competition._id });
       found.title = competition.title;
-      found.ticketPrice = competition.ticketPrice;
       found.description = competition.description;
-      found.dateFinishes = competition.dateFinishes;
-      found.ticketsAvailable = competition.ticketsAvailable;
-      found.facebookURL = competition.facebookURL;
-      found.entriesDate = competition.entriesDate;
-      found.entriesURL = competition.entriesURL;
-      found.winnerPic = competition.winnerPic;
       found.pictures = competition.pictures;
-      console.log("banana: ", found);
+      found.ticketPrice = competition.ticketPrice;
+      found.prize = competition.prize;
+      found.winnerPic = competition.winnerPic;
+      found.facebookURL = competition.facebookURL;
+      found.entriesURL = competition.entriesURL;
+      found.__v = competition.__v;
+      found.ticketsSold = competition.ticketsSold;
+      found.entriesDate = new Date(competition.entriesDate);
+      found.dateFinishes = new Date(competition.dateFinishes);
+      found.maxTickets = parseInt(competition.maxTickets);
+      found.winner = mongoose.Types.ObjectId(competition.winner);
+      found._id = mongoose.Types.ObjectId(competition._id);
       await found.save();
       res.status(200).send({ ok: true });
     } catch (error) {
@@ -110,7 +122,6 @@ class CompetitionController {
           dateFinishes: { $lte: Date.now() },
         })
         .populate("winner");
-
       res.status(200).send(allCompetitions);
     } catch (error) {
       console.log(error);
@@ -165,6 +176,46 @@ class CompetitionController {
         .sort({ dateFinishes: -1 });
 
       res.status(200).send(allCompetitions);
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  }
+
+  async updateWinnerImg(req, res) {
+    let { competition } = req.body;
+    try {
+      let found = await competitions.findOne({ _id: competition._id });
+      // if (competition.winnerPic === "") {
+      //   let url = found.winnerPic;
+      //   let slashArr = [];
+      //   let dotArr = [];
+      //   while (url.includes("/")) {
+      //     let idx = url.indexOf("/");
+      //     slashArr.push(idx);
+      //     url = url.slice(0, idx) + url.slice(idx + 1);
+      //   }
+      //   while (url.includes(".")) {
+      //     let idx = url.indexOf(".");
+      //     dotArr.push(idx);
+      //     url = url.slice(0, idx) + url.slice(idx + 1);
+      //   }
+      //   let public_id = url.slice(
+      //     slashArr[slashArr.length - 1] - dotArr.length + 1,
+      //     dotArr[dotArr.length - 1]
+      //   );
+      //   console.log(
+      //     public_id,
+      //     process.env.CLOUD_NAME,
+      //     process.env.API_KEY,
+      //     process.env.API_SECRET,
+      //     "lemon"
+      //   );
+      //   await cloudinary.v2.api.delete_resources([public_id]);
+      //   console.log("lemon2");
+      // }
+      found.winnerPic = competition.winnerPic;
+      await found.save();
+      res.status(200).send({ ok: true });
     } catch (error) {
       res.status(500).send(error);
     }

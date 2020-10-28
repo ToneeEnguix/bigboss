@@ -2,14 +2,11 @@ import React, { useEffect, useState, useCallback } from "react";
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import "./dashboardstyles.css";
-import insert from "../resources/insert.svg";
 import ReactModal from "react-modal";
 import close from "../resources/close.svg";
 import axios from "axios";
-import { URL, NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME } from "../config";
+import { URL } from "../config";
 import "../components/domain.css";
-// import { useDropzone } from "react-dropzone";
-import { Image } from "cloudinary-react";
 import ImagePicker from "./imagePicker";
 
 const ActiveCompetitions = (props) => {
@@ -17,7 +14,7 @@ const ActiveCompetitions = (props) => {
     {
       title: "",
       ticketPrice: 0,
-      ticketsAvailable: 10,
+      maxTickets: 10,
       dateFinishes: "",
       description: ["", "", "", "", ""],
       facebookURL: "",
@@ -29,31 +26,8 @@ const ActiveCompetitions = (props) => {
   const [i, setI] = useState(0);
   const [openModal, setOpenModal] = useState(false);
   const [today, setToday] = useState("");
-  const [tempPhoto, setTempPhoto] = useState("");
-  // const [uploadedFile, setUploadedFile] = useState("");
-
-  // const onDrop = useCallback((acceptedFiles) => {
-  //   const url = `https://api.cloudinary.com/v1_1/${NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/upload`;
-
-  //   acceptedFiles.forEach(async (acceptedFile) => {
-  //     const formData = new FormData();
-  //     formData.append("file", acceptedFile);
-  //     formData.append("upload_preset", NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET);
-
-  //     const res = await fetch(url, {
-  //       method: "post",
-  //       body: formData,
-  //     });
-  //     const data = await res.json();
-  //     console.log(data);
-  //     setUploadedFile(data);
-  //   });
-  // }, []);
-  // const { getRootProps, getInputProps, isDragActive } = useDropzone({
-  //   onDrop,
-  //   accepts: "image/*",
-  //   multiple: false,
-  // });
+  const [remove, setRemove] = useState("");
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
     getActiveCompetitions();
@@ -68,6 +42,7 @@ const ActiveCompetitions = (props) => {
     resAll.data.map((item) => {
       item.pictures.push("");
     });
+    setRemove("");
     setActiveCompetitions(resAll.data);
   };
 
@@ -99,6 +74,13 @@ const ActiveCompetitions = (props) => {
     setToday(today);
   }, []);
 
+  const removePicture = () => {
+    let tempActiveCompetitions = [...activeCompetitions];
+    tempActiveCompetitions[i].pictures.splice(index, 1);
+    setActiveCompetitions(tempActiveCompetitions);
+    setOpenModal(false);
+  };
+
   return (
     <div className="adminPage">
       <div className="flexColumn" css={secondSidebarStyle}>
@@ -122,7 +104,13 @@ const ActiveCompetitions = (props) => {
                     className="flexCenter"
                     onClick={() => setOpenModal(true)}
                   >
-                    <img src={close} onClick={() => setOpenModal(true)} />
+                    <img
+                      src={close}
+                      onClick={() => {
+                        setRemove("competition");
+                        setOpenModal(true);
+                      }}
+                    />
                   </div>
                 </div>
               );
@@ -188,9 +176,9 @@ const ActiveCompetitions = (props) => {
           />
           <h3 css={titleStyle}>How many tickets will be available?</h3>
           <input
-            value={activeCompetitions[i].ticketsAvailable}
+            value={activeCompetitions[i].maxTickets}
             onChange={(e) => handleChange(e, i)}
-            name="ticketsAvailable"
+            name="maxTickets"
             className="styledInput"
           />
           <hr css={hrStyle} />
@@ -216,61 +204,29 @@ const ActiveCompetitions = (props) => {
             name="entriesURL"
             className="styledInput"
           />
-          <h3 css={titleStyle}>Photo of the Winner</h3>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
-            <div>
-              <ImagePicker
-                setState={(uploadedFile) => {
-                  let tempActive = activeCompetitions;
-                  tempActive[i].winnerPic = uploadedFile.url;
-                  console.log(tempActive[i].winnerPic);
-                  setTempPhoto(uploadedFile.url);
-                  setActiveCompetitions(tempActive);
-                }}
-                image={activeCompetitions[i].winnerPic}
-              />
-              <div
-                style={{
-                  display: activeCompetitions[i].winnerPic === "" && "none",
-                  width: "200px",
-                  height: "200px",
-                  margin: "2rem 0 0",
-                }}
-                className="flexColumn bgtransparent"
-              >
-                <img
-                  src={close}
-                  style={{
-                    alignSelf: "flex-end",
-                    position: "relative",
-                    top: "27px",
-                    right: "8px",
-                    borderRadius: "100px",
+        </div>
+        <div style={{ paddingLeft: "2.5rem" }}>
+          {/* here it goes */}
+          {activeCompetitions[i].pictures.map((image, idx) => {
+            console.log(image);
+            return (
+              <div key={idx}>
+                <ImagePicker
+                  setState={(uploadedFile) => {
+                    let tempActive = activeCompetitions;
+                    tempActive[i].pictures[idx] = uploadedFile.secure_url;
+                    setRemove(" ");
+                    console.log(tempActive);
+                    console.log(image);
+                    setActiveCompetitions(tempActive);
                   }}
-                  className="pointer"
+                  image={image}
                 />
-                <div
-                  css={photoContStyle}
-                  className="flexCenter"
-                  style={{
-                    width: "200px",
-                    height: "200px",
-                    alignSelf: "flex-start",
-                  }}
-                >
-                  <img
-                    src={activeCompetitions[i].winnerPic}
-                    css={imgStyle}
-                    style={{
-                      width: "200px",
-                      height: "200px",
-                      alignSelf: "flex-start",
-                    }}
-                  />
-                </div>
                 <p
                   style={{
-                    display: activeCompetitions[i].winnerPic !== "" && "none",
+                    display:
+                      (image !== "" || (image === "" && remove === "")) &&
+                      "none",
                     position: "relative",
                     top: "0",
                     zIndex: "10",
@@ -278,33 +234,6 @@ const ActiveCompetitions = (props) => {
                 >
                   Click top right corner to save changes
                 </p>
-              </div>
-            </div>
-            <div>
-              <h3 css={titleStyle}>Winner Name</h3>
-              <input placeholder="i.e. Jane Doe" className="styledInput" />
-              <h3 css={titleStyle}>Email</h3>
-              <input
-                placeholder="i.e. jane@janedoe.com"
-                className="styledInput"
-              />
-            </div>
-          </div>
-        </div>
-        <div style={{ paddingLeft: "2.5rem" }}>
-          {/* here it goes */}
-          {activeCompetitions[i].pictures.map((image, idx) => {
-            return (
-              <div key={idx}>
-                <ImagePicker
-                  setState={(uploadedFile) => {
-                    let tempActive = activeCompetitions;
-                    tempActive[i].pictures[idx] = uploadedFile.url;
-                    setTempPhoto(uploadedFile.url);
-                    setActiveCompetitions(tempActive);
-                  }}
-                  image={image}
-                />
                 <div
                   style={{
                     display: image === "" && "none",
@@ -323,6 +252,11 @@ const ActiveCompetitions = (props) => {
                       borderRadius: "100px",
                     }}
                     className="pointer"
+                    onClick={() => {
+                      setRemove("image");
+                      setIndex(idx);
+                      setOpenModal(true);
+                    }}
                   />
                   <div
                     css={photoContStyle}
@@ -350,6 +284,7 @@ const ActiveCompetitions = (props) => {
         </div>
       </div>
       <ReactModal
+        ariaHideApp={false}
         isOpen={openModal}
         style={{
           overlay: {
@@ -387,19 +322,22 @@ const ActiveCompetitions = (props) => {
             className="inline bgtransparent raleway"
             style={{ fontSize: "1.2rem" }}
           >
-            Are you sure you want to delete this competition?
+            Are you sure you want to delete this {remove}?
           </h3>
         </div>
         <div className="flexCenter bgtransparent">
           <button
             className="raleway dm_modalBtn dm_modalBtn1 pointer"
-            onClick={() => setOpenModal(false)}
+            onClick={() => removePicture()}
           >
             Yes
           </button>
           <button
             className="raleway dm_modalBtn dm_modalBtn2 pointer"
-            onClick={() => setOpenModal(false)}
+            onClick={() => {
+              setRemove("");
+              setOpenModal(false);
+            }}
           >
             No
           </button>
