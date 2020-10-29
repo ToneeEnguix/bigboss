@@ -30,8 +30,8 @@ class CompetitionController {
                 while (selectedItems.size < 3) {
 
                     var random = Math.floor(Math.random() * totalItems);
-                    let newItem = await competitions.findOne().skip(random);
-                    selectedItems.add(newItem);
+                    let newItem = await competitions.find({ "dateFinishes": { "$gte": Date.now() }}).skip(random);
+                    selectedItems.add(newItem[0]);
                 }
             }
             else{
@@ -40,12 +40,12 @@ class CompetitionController {
                 selectedItems.add(allCompetitions)
             }
 
-            res.status(200).send(...selectedItems);
+            res.status(200).send([...selectedItems]);
         }
 
         catch (error) {
 
-
+        
             res.status(500).send(error);
         }
 
