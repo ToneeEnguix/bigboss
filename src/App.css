@@ -201,53 +201,31 @@ p {
   background: #00ffff;
 }
 .carousel .slider-wrapper {
-<<<<<<< HEAD
   border-radius: 6%;
 }
-=======
 
-    border-radius:6%;
-
+.image-item {
+  width: 200px;
+  height: 200px;
 }
 
-.image-item{
-
-  width:200px;
-  height:200px;
-}
-
-.pepe{
-
-  width:100%;
-  height:60vh;
-
-
+.pepe {
+  width: 100%;
+  height: 60vh;
 }
 
 .pepe ul li {
-
-  margin:0 2rem;
-
-
+  margin: 0 2rem;
 }
 
-.otherComp{
-  
-  margin:0 6rem;
+.otherComp {
+  margin: 0 6rem;
 }
 
-
-.carousel-button-group{
-
-display:flex;
-
-
+.carousel-button-group {
+  display: flex;
 }
 
-.carousel-button-group >*{
-
-
-    margin:1rem 0;
-  
+.carousel-button-group > * {
+  margin: 1rem 0;
 }
->>>>>>> f11dcbb37d24b3d0254589bd01e6a1ecafc3b21f
