@@ -1,82 +1,63 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { jsx } from "@emotion/core";
 import { get } from "../api/fetch";
 import { Redirect } from "react-router-dom";
 import CarouselCard from "./CarouselHomeCard";
 
-
-
 const carouselWrapper = {
-
   margin: "0 5%",
   display: "flex",
   justifyContent: "center",
   padding: "2rem",
   marginTop: "4rem",
-
-}
+};
 
 function HomeCarousel() {
-
   const [error, setError] = useState(false);
   const [competitions, setCompetitions] = useState([]);
 
-
-
   useEffect(() => {
-
-    getRandomCompetitions();;
+    getRandomCompetitions();
   }, []);
 
-
   const getRandomCompetitions = async () => {
-
     const result = await get("/competitions/randompicks");
+    console.log(result.data);
     if (result.ok) {
       setCompetitions(result.data);
-
-    }
-    else {
+    } else {
       setError(true);
     }
-  }
+  };
 
   if (error) {
-    return (
-      <Redirect to={"/error"} />
-    )
+    return <Redirect to={"/error"} />;
   }
 
-
   return (
-    <div css={carouselWrapper} >
-      <Carousel css={{ 
-        height: "400px",
-         width: "100%",
-         maxWidth:"1200px",
-         ".carousel .slider-wrapper": {
-
-          borderRadius:"0 !important"
-      
-      }
-        
-    
-          }} showStatus={false} showThumbs={false} showArrows={false}>
-
+    <div css={carouselWrapper}>
+      <Carousel
+        css={{
+          height: "400px",
+          width: "100%",
+          maxWidth: "1200px",
+          ".carousel .slider-wrapper": {
+            borderRadius: "0 !important",
+          },
+        }}
+        showStatus={false}
+        showThumbs={false}
+        showArrows={false}
+      >
         {competitions.map((competition, index) => {
-
-          return (
-            <CarouselCard key={index} competition={competition} />
-          )
+          return <CarouselCard key={index} competition={competition} />;
         })}
-
       </Carousel>
-
-    </div >
+    </div>
   );
 }
 

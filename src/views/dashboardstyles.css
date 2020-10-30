@@ -57,9 +57,6 @@ textarea {
   cursor: pointer;
   outline: none;
 }
-.active {
-  border: 2px solid rebeccapurple;
-}
 .none {
   display: none;
 }
