@@ -36,14 +36,13 @@ class CompetitionController {
             .skip(random);
           selectedItems.add(newItem[0]);
         }
+        res.status(200).send([...selectedItems]);
       } else {
         let allCompetitions = await competitions.find({
           dateFinishes: { $gte: Date.now() },
         });
-        selectedItems.add(allCompetitions);
+        res.status(200).send(allCompetitions);
       }
-      console.log(selectedItems);
-      res.status(200).send([...selectedItems]);
     } catch (error) {
       res.status(500).send(error);
     }
@@ -93,9 +92,7 @@ class CompetitionController {
             slashArr[slashArr.length - 1] - dotArr.length + 1,
             dotArr[dotArr.length - 1]
           );
-          console.log(public_id);
           await cloudinary.v2.api.delete_resources([public_id]);
-          console.log("lemon2");
         }
       });
       found.pictures = competition.pictures;

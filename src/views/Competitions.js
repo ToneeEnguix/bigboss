@@ -31,7 +31,7 @@ function Competitions() {
 
 
   async function getAllCompetitions() {
-    const competitions = await get("/competitions/all");
+    const competitions = await get("/competitions/active");
 
     if (competitions.ok) {
       setCompetitions(competitions.data);

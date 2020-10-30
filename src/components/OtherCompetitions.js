@@ -32,7 +32,7 @@ export default function OtherCompetitions() {
 
   const getRandomCompetitions = async () => {
 
-    const result = await get("/competitions/all");
+    const result = await get("/competitions/active");
     if (result.ok) {
       setCompetitions(result.data);
 

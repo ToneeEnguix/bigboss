@@ -189,8 +189,11 @@ export default AdminDashboard;
 // - If no competitions show "no competitions" ✅
 // - Add prize input ✅
 // - Add admin middleware ❗️
+// - remove facebook url from active competition
+// - make facbook url editable in past competition
+// - update winner with whole info (pic, user and url)
 
 // General Questions:
 // - Change winner in past Competitions (YES + put it in top) ✅
 // - Add competitions + publish? Adding empty competition to public? ✅
-// - DeprecationWarning: collection.count is deprecated, and will be removed in a future version. Use Collection.countDocuments or Collection.estimatedDocumentCount instead ❗️
+// - DeprecationWarning: collection.count is deprecated, and will be removed in a future version. Use Collection.countDocuments or Collection.estimatedDocumentCount instead ✅
