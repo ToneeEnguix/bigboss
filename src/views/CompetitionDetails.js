@@ -11,7 +11,8 @@ import { ReactComponent as BigBossLogo } from "../resources/BigBossLogo.svg";
 import { get } from "../api/fetch";
 import UserContext from "../context/UserContext";
 import bigbossblue from "../resources/bigbossblue.png";
-import facepaint from 'facepaint'
+import facepaint from 'facepaint';
+import OtherCompetitions from "../components/OtherCompetitions";
 
 
 const breakpoints = [576, 768, 992, 1200]
@@ -24,7 +25,7 @@ const imageColumn = {
 
   margin: "0 3rem",
   minWidth: "600px",
-  maxWidth:"800px"
+  maxWidth: "800px",
 
 }
 
@@ -36,7 +37,7 @@ const detailsColumn = {
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  boxShadow: "-1px 4px 22px 0px black",
+  boxShadow: "0px 2px 4px 0px rgba(0,0,0,16%)"
 }
 
 
@@ -44,7 +45,7 @@ const image = {
 
   width: "100%",
   borderRadius: "2%",
-  margin: "1rem 0",
+  margin: "2.5rem 0",
   maxHeight: "450px"
 }
 
@@ -145,74 +146,79 @@ function CompetitionDetails(props) {
 
   return (
 
-    <div css={mq
-      ({
-        flexDirection: ["column", "column", "row", "row"],
-        display: "flex",
-        marginTop: "3rem",
-        justifyContent: ["center","center","space-between","space-between"]
-      })}>
-      <div css={imageColumn}>
-        <Carousel showStatus={false} showThumbs={false} showArrows={false}>
-          {data.pictures.map((picture, index) => {
+    <div css={{ display: "flex", flexDirection: "column" }}>
+      <div css={mq
+        ({
+          flexDirection: ["column", "column", "row", "row"],
+          display: "flex",
+          marginTop: "3rem",
+          justifyContent: ["center", "center", "space-between", "space-between"]
+        })}>
+        <div css={imageColumn}>
+          <Carousel showStatus={false} showThumbs={false} showArrows={false}>
+            {data.pictures.map((picture, index) => {
 
-            return (
-              <div key={index} css={{ width: "100%" }}>
-                <img css={image} key={index} src={picture} />
+              return (
+                <div key={index} css={{ width: "100%" }}>
+                  <img css={image} key={index} src={picture} />
 
-              </div>)
-          }
-          )}
-        </Carousel>
-        <img css={image} src={data.pictures[3]} />
-      </div>
-      <div css={detailsColumn}>
-        <h1 css={{ marginTop: "2rem", fontSize: "2rem", textAlign: "center" }}>{data.title}</h1>
-        <h3 css={{ margin: "1rem 0 2rem 0", color: "#00FFFF" }}>ONLY £{data.ticketPrice} PER ENTRY</h3>
-        <Counter setDisabled={setDisabled} date={data.dateFinishes} />
-        <div css={{ display: "flex", alignItems: "center" }}>
-          <div css={{ display: "flex", flexDirection: "column", alignItems: "center", padding: "1rem" }}>
-            <p>TICKET</p>
-            <p>QTY</p>
+                </div>)
+            }
+            )}
+          </Carousel>
+          <img css={image} src={data.pictures[3]} />
+        </div>
+        <div css={detailsColumn}>
+          <h1 css={{ marginTop: "2rem", fontSize: "2rem", textAlign: "center" }}>{data.title}</h1>
+          <h3 css={{ margin: "1rem 0 2rem 0", color: "#00FFFF" }}>ONLY £{data.ticketPrice} PER ENTRY</h3>
+          <Counter setDisabled={setDisabled} date={data.dateFinishes} />
+          <div css={{ display: "flex", alignItems: "center" }}>
+            <div css={{ display: "flex", flexDirection: "column", alignItems: "center", padding: "1rem" }}>
+              <p>TICKET</p>
+              <p>QTY</p>
+            </div>
+            <button onClick={substract} className="roundButton">—</button>
+            <button onClick={add} className="roundButtonBlue">+</button>
+            <input readOnly={true} className="inputAmount" value={amount} />
           </div>
-          <button onClick={substract} className="roundButton">—</button>
-          <button onClick={add} className="roundButtonBlue">+</button>
-          <input readOnly={true} className="inputAmount" value={amount} />
+          <div css={{ display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center" }}>
+            <GenerateSecurityQuestion checkAnswer={checkAnswer} question={question} />
+          </div>
+
+          <ShowCorrectButton disabled={disabled} regenerateQuestion={regenerateQuestion} resetAnswer={resetAnswer} correctAnswer={correctAnswer} amount={Number(amount)} data={data} ticketsAvailable={data.ticketsAvailable} />
+
+          <div css={{ width: "100%" }}>
+
+            <h4 css={{
+              marginTop: "2rem",
+              color: "#00FFFF",
+              fontSize: "0.9rem",
+              letterSpacing: "0.1rem",
+              marginBottom: "1rem"
+            }}>DESCRIPTION</h4>
+            {data.description.map(line => {
+
+              return (
+
+                <p key={line} css={{ padding: "0.5rem 0", textTransform: "uppercase" }}>{line}</p>
+              )
+            })}
+            <h4 css={{
+              marginTop: "2rem",
+              color: "#00FFFF",
+              fontSize: "0.7rem",
+              letterSpacing: "0.1rem",
+              marginBottom: "1rem"
+            }}>MAXIMUM NUMBER OF ENTRIES</h4>
+            <strong css={{ fontSize: "0.8rem" }}>{data.maxTickets}</strong>
+
+          </div>
+          <img css={{ width: "9rem", padding: "2rem", marginBottom: "1rem" }} src={bigbossblue} />
+
         </div>
-        <div css={{ display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center" }}>
-          <GenerateSecurityQuestion checkAnswer={checkAnswer} question={question} />
-        </div>
-
-        <ShowCorrectButton disabled={disabled} regenerateQuestion={regenerateQuestion} resetAnswer={resetAnswer} correctAnswer={correctAnswer} amount={Number(amount)} data={data} ticketsAvailable={data.ticketsAvailable} />
-
-        <div css={{ width: "100%" }}>
-
-          <h4 css={{
-            marginTop: "2rem",
-            color: "#00FFFF",
-            fontSize: "0.9rem",
-            letterSpacing: "0.1rem",
-            marginBottom: "1rem"
-          }}>DESCRIPTION</h4>
-          {data.description.map(line => {
-
-            return (
-
-              <p key={line} css={{ padding: "0.5rem 0", textTransform: "uppercase" }}>{line}</p>
-            )
-          })}
-          <h4 css={{
-            marginTop: "2rem",
-            color: "#00FFFF",
-            fontSize: "0.7rem",
-            letterSpacing: "0.1rem",
-            marginBottom: "1rem"
-          }}>MAXIMUM NUMBER OF ENTRIES</h4>
-          <strong css={{ fontSize: "0.8rem" }}>{data.maxTickets}</strong>
-
-        </div>
-        <img css={{ width: "9rem", padding: "2rem", marginBottom: "1rem" }} src={bigbossblue} />
+   
       </div>
+      <OtherCompetitions />
       <Modal active={context.showPurchaseAlert} />
     </div>
   );
@@ -232,7 +238,7 @@ const Modal = (props) => {
         position: "fixed",
         top: "0",
         left: "0",
-        backgroundColor: "rgba(255, 255, 255, 0.5)",
+        backgroundColor: "rgba(51, 51, 51, 0.5)",
 
         width: "100%",
         height: "100vh"

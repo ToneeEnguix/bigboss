@@ -10,7 +10,7 @@ const carouselCard = {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    paddingBottom:"3rem"
+    paddingBottom:"1rem"
 }
 
 const winner={

@@ -14,22 +14,24 @@ import { jsx } from '@emotion/core';
 const number = {
 
     margin: "0.5rem",
+    backgroundColor :"rgb(37,37,37)",
     boxShadow: "-1px 4px 22px 0px rgba(0,0,0,16%)",
-    width: "50px",
-    height: "50px",
+    width: "55px",
+    height: "55px",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     fontSize:"1.2rem",
-    backgroundColor:"rgb(0,0,0,0.9)",
+
     
 }
 
 const description = {
 
-    fontSize: "0.5rem",
-    fontWeight: "600",
-    color: "white"
+    fontSize: "0.4rem",
+    fontWeight: "500",
+    color: "white",
+    letterSpacing:"0.1rem"
 }
 
 
@@ -37,7 +39,7 @@ const countBox = {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-
+    backgroundColor:"transparent",
 
 }
 
@@ -118,11 +120,11 @@ class Countdown extends Component {
         const countDown = this.state;
 
         return (
-            <div css={{ display: "flex", justifyContent: "center", marginBottom: "2rem" }}>
+            <div css={{backgroundColor: "transparent", display: "flex", justifyContent: "center", marginBottom: "2rem" }}>
                 <div css={countBox}>
 
                     <div css={number}>
-                        <strong css={{ color: "#00FFFF",  backgroundColor:"rgb(0,0,0,0.9)" }}>
+                        <strong css={{ color: "#00FFFF" }}>
                             {this.addLeadingZeros(countDown.days)}
                         </strong>
                     </div>
@@ -132,7 +134,7 @@ class Countdown extends Component {
                 <div css={countBox}>
 
                     <div css={number}>
-                        <strong css={{ color: "#00FFFF",  backgroundColor:"rgb(0,0,0,0.9)" }}>
+                        <strong css={{ color: "#00FFFF" }}>
                             {this.addLeadingZeros(countDown.hours)}
                         </strong>
                     </div>
@@ -142,7 +144,7 @@ class Countdown extends Component {
                 <div css={countBox}>
 
                     <div css={number}>
-                        <strong css={{ color: "#00FFFF",  backgroundColor:"rgb(0,0,0,0.9)" }}>
+                        <strong css={{ color: "#00FFFF",  backgroundColor: "rgba(37, 37, 37, 0.9)" }}>
                             {this.addLeadingZeros(countDown.min)}
                         </strong>
                     </div>
@@ -152,7 +154,7 @@ class Countdown extends Component {
                 <div css={countBox}>
 
                     <div css={number}>
-                        <strong css={{ color: "#00FFFF",  backgroundColor:"rgb(0,0,0,0.9)" }}>
+                        <strong css={{ letterSpacing:"0.1rem", color: "#00FFFF",  backgroundColor: "rgba(37, 37, 37)" }}>
                             {this.addLeadingZeros(countDown.sec)}
                         </strong>
                     </div>

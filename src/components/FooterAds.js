@@ -18,6 +18,11 @@ const footerWrapper = {
   "h1":{
 
     marginBottom:"2rem"
+  },
+
+  ">*":{
+
+    paddingTop:"2rem"
   }
 
 }
@@ -25,10 +30,10 @@ const footerWrapper = {
 function FooterAds() {
   return (
     <div css={footerWrapper}>
-    <BigBossLogo height={"70px"} />
-    <img css={{height:"70px"}} src={googlepng} alt="Google logo"/>
+    <BigBossLogo height={"100px"} />
+    <img css={{height:"100px", alignSelf:"center"}} src={googlepng} alt="Google logo"/>
 
-    <GambleAware x={"70px"} height={"30px"}/>
+    <GambleAware x={"100px"} height={"100px"}/>
     </div>
   );
 }

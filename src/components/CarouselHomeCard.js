@@ -8,7 +8,7 @@ import {Link} from "react-router-dom"
 
 
 const carouselCard = {
-    height: "400px",
+   
     backgroundImage: 'url("https://picsum.photos/1200/800")',
     display: "flex",
     justifyContent: "center",
@@ -18,8 +18,8 @@ const carouselCard = {
 
 const info = {
 
-    backgroundColor: "rgb(37 37 37)",
-    opacity: "0.9",
+    backgroundColor: "rgba(37, 37, 37, 0.9)",
+margin:"5rem",
     padding: "2rem 1rem"
 }
 function CarouselCard(props) {
@@ -30,7 +30,7 @@ function CarouselCard(props) {
         <div css={carouselCard}>
             <div css={info}>
                 <h1 css={{ marginBottom: "0.5rem" }}>{props.competition.title}</h1>
-                <h5 css={{ marginBottom:"1.4rem",fontWeight: "600", letterSpacing: "0.1rem", color: "#00FFFF", tWeight: "600" }}>£{props.competition.ticketPrice} PER ENTRY</h5>
+                <h5 css={{ backgroundColor: "transparent", marginBottom:"1.4rem",fontWeight: "600", letterSpacing: "0.1rem", color: "#00FFFF", tWeight: "600" }}>£{props.competition.ticketPrice} PER ENTRY</h5>
                 <CountDown date={props.competition.dateFinishes} />
                 <Link to={{
                     pathname: `/competitions/${props.competition._id}`,
@@ -38,7 +38,7 @@ function CarouselCard(props) {
                         competition: props.competition,
                     }
                 }}>
-                    <button css={{  backgroundColor:"rgb(0,0,0,0.9)"}}className="button01">VIEW DETAILS</button>
+                    <button className="button01">VIEW DETAILS</button>
                 </Link>
             </div>
         </div>

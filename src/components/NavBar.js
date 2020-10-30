@@ -85,9 +85,9 @@ const icons = {
     cursor: "pointer",
   },
   "a,span": {
-    fontWeight: "600",
+    fontWeight: "300",
     fontSize: "0.7rem",
-    letterSpacing: "0.3rem"
+    letterSpacing: "0rem"
   },
 
 
@@ -332,7 +332,7 @@ const EmptyCart = () => {
         backgroundColor: "#252525",
         boxShadow: "-1px 4px 22px 0px black",
       }}>
-        <h5 css={{ padding: "2rem" }}>BASKET IS CURRENTLY EMPTY</h5>
+        <h5 css={{ fontWeight:300,letterSpacing:"0.1rem", padding: "2rem" }}>BASKET IS CURRENTLY EMPTY</h5>
       </div>
     </div >
   )
@@ -413,16 +413,14 @@ const ShowPurchaseAlert = (props) => {
         </div>
       </div>
       <div css={{
-        borderRadius: "0px 0px 31px 0px", display: "flex", width: "100%", justifyContent: "center", paddingBottom: "1rem",
-        borderTop: "3px solid #00FFFF",
+       display: "flex", width: "100%", justifyContent: "center", paddingBottom: "1rem",
+      
       }}>
         <div onClick={()=>{closenadGo()}}>
           <p css={{
             padding: "1rem 0",
-            textDecoration: "underline",
-            color: "#00FFFF",
             fontSize: "0.8rem",
-            letterSpacing: "0.1rem"
+            letterSpacing: "0.1rem",
           }}>
             GO TO SECURE CHECKOUT
                 </p>

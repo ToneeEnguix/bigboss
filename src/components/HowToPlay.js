@@ -27,19 +27,21 @@ const text = {
 }
 
 const card = {
-  boxShadow: "-1px 4px 22px 0px black",
+  boxShadow: "0px 2px 4px 0px rgba(0,0,0,16%)",
   padding: "2rem",
-  margin: "2rem 0",
+  margin: "1rem 0",
   display: "flex",
   fontWeight: "600",
   justifyContent: "space-between",
   alignItems: "center",
   width: "100%",
+  borderRadius:"6px",
 
   "p": {
 
-    fontWeight: "600",
-    padding: "0.5rem 0"
+    fontWeight: "500",
+    padding: "0.5rem 0",
+    letterSpacing:"0.1rem"
   },
 
   "span": {

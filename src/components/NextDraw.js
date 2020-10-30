@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { useCallback, useEffect, useState } from "react";
-import { ReactComponent as LiveLogo } from "../resources/LiveLogo.svg";
+import LiveLogo from "../resources/facebook.png";
 import CounterSmall from "../utils/CounterSmall";
 import { get } from "../api/fetch";
 import { Redirect } from "react-router-dom";
@@ -73,7 +73,7 @@ function NextDraw() {
                 <CounterSmall key={nextDraw} setRedraw={redrawLatest} date={nextDraw} />
             </div>
             <div css={{ marginRight: "1rem" }}>
-                <LiveLogo css={{ backgroundColor: "#222222 !important" }} width={"80px"} height={"70px"} />
+                <img src={LiveLogo} css={{width:"3.5rem"}} />
             </div>
 
         </div>

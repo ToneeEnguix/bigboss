@@ -12,7 +12,7 @@ const createAccountWrapper = {
   flexDirection: "column",
   padding: "3rem 6rem",
   margin: "1rem 4rem",
-  boxShadow: "-1px 4px 22px 0px black",
+  boxShadow: "0px 2px 4px 0px rgba(0,0,0,16%)",
   height: "27rem"
 }
 
@@ -128,7 +128,7 @@ function CreateAccountAccess() {
       </div>
 
       <button css={{ width: "100%", margin: "1rem 0" }} onClick={gotoCreate} className="button01">CREATE NEW ACCOUNT</button>
-      {alert ? <p>Please accept the Terms before proceeding</p> : <p css={{ visibility: "hidden" }}>hidden</p>}
+      {alert ? <p css={{fontWeight:"300", letterSpacing:"0.1rem"}}>Please accept the Terms before proceeding</p> : <p css={{ visibility: "hidden" }}>hidden</p>}
     </div>
   );
 

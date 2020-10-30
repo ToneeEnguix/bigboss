@@ -9,7 +9,7 @@ const card = {
 
     display: "flex",
     margin: "1.5rem 0",
-    boxShadow: "-1px 4px 22px 0px black",
+    boxShadow: "0px 2px 4px 0px rgba(0,0,0,16%)" ,
     justifyContent: "center",
     maxWidth:"600px",
     margin: "4rem 0",
@@ -35,7 +35,7 @@ const text = {
 
     "p":{
 
-        margin:"0.25rem 0 0 0"
+        margin:"1.25rem 0 0 0"
     }
 }
 
@@ -49,7 +49,7 @@ function WinnerCard({ winner }) {
             <div css={text}>
 
                 <p>{winner.prize}</p>
-    <p css={{color:"#373737"}}> WON BY {winner.winner.name} {winner.winner.lastName}</p>
+    <p css={{color:"#666666"}}> WON BY {winner.winner.name} {winner.winner.lastName}</p>
             </div>
 
         </div>
