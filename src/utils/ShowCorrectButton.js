@@ -36,7 +36,7 @@ function ShowCorrectButton(props) {
 
         )
     }
-    else if (context.user._id != undefined && props.ticketsAvailable > 0 && props.disabled==false) {
+    else if (context.user._id != undefined && (props.maxTickets-props.ticketsSold > 0) && props.disabled==false) {
         return (
             <React.Fragment>
                 <button onClick={() => { buyTickets() }} css={{ width: "100%", margin: "1rem 0" }} className="button02">BUY TICKETS</button>
