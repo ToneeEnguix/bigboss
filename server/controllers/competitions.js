@@ -24,15 +24,17 @@ class CompetitionController {
 
   async randomPicks(req, res) {
     try {
-      const totalItems = await competitions.count({
+      const totalItems = await competitions.countDocuments({
         dateFinishes: { $gte: Date.now() },
       });
       const selectedItems = new Set();
       if (totalItems > 3) {
         while (selectedItems.size < 3) {
           var random = Math.floor(Math.random() * totalItems);
-          let newItem = await competitions.findOne().skip(random);
-          selectedItems.add(newItem);
+          let newItem = await competitions
+            .find({ dateFinishes: { $gte: Date.now() } })
+            .skip(random);
+          selectedItems.add(newItem[0]);
         }
       } else {
         let allCompetitions = await competitions.find({
@@ -41,7 +43,7 @@ class CompetitionController {
         selectedItems.add(allCompetitions);
       }
 
-      res.status(200).send(...selectedItems);
+      res.status(200).send([...selectedItems]);
     } catch (error) {
       res.status(500).send(error);
     }
