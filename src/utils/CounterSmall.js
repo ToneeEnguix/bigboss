@@ -98,10 +98,16 @@ class Countdown extends Component {
 
     return (
       <div css={{ display: "flex", justifyContent: "center" }}>
-        <h5 css={{ fontWeight: "600", fontSize: "0.7rem" }}>
+        <h5
+          css={{
+            letterSpacing: "0.2rem",
+            fontWeight: "600",
+            fontSize: "0.5rem",
+          }}
+        >
           NEXT DRAW LIVE ON FACEBOOK IN {this.addLeadingZeros(countDown.days)}{" "}
-          DAYS/ {this.addLeadingZeros(countDown.hours)} HRS/{" "}
-          {this.addLeadingZeros(countDown.min)} MIN/{" "}
+          DAYS / {this.addLeadingZeros(countDown.hours)} HRS /{" "}
+          {this.addLeadingZeros(countDown.min)} MIN /{" "}
           {this.addLeadingZeros(countDown.sec)} SEC{" "}
         </h5>
       </div>

@@ -27,36 +27,29 @@ function FAQ() {
   }
 
   return (
-    <div
-      css={{
-        marginLeft: "4rem",
-        display: "flex",
-        flexDirection: "column",
-        width: "70%",
-      }}
-    >
+    <div css={{ marginLeft: "4rem", display: "flex", flexDirection: "column", width: "70%" }}>
       <h1 css={{ marginBottom: "2rem" }}>FAQ</h1>
       <div css={{ paddingRight: "2rem" }}>
-        {faqs.map((faq, index) => {
-          return (
-            <div key={index}>
-              <h5 css={{ textTransform: "uppercase", padding: "0.5rem 0" }}>
-                Q{index + 1}. {faq.question}
-              </h5>
-              <p
-                css={{
+
+        {
+          faqs.map((faq, index) => {
+            return (
+              <div css={{marginBottom:"3rem"}} key={index}>
+                <h5 css={{ textTransform: "uppercase", padding: "0.5rem 0", letterSpacing:"0.1rem" }}>Q{index + 1}. {faq.question}</h5>
+                <p css={{
                   textAlign: "justify",
-                  color: "#868686",
-                  textTransform: "uppercase",
-                  padding: "0.5rem 0",
-                  lineHeight: "1.4",
+                  paddingRight: "2rem",
+                  lineHeight: "2",
+                  fontWeight: "100",
+                  fontSize: "0.8rem",
+
+                  letterSpacing: "0rem !important"
                 }}
-              >
-                {faq.answer}
-              </p>
-            </div>
-          );
-        })}
+                >{faq.answer}</p>
+              </div>
+            )
+          })
+        }
       </div>
     </div>
   );

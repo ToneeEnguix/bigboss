@@ -6,13 +6,15 @@ import "react-multi-carousel/lib/styles.css";
 import OtherCompCard from "./OtherCompCard";
 import { get } from "../api/fetch";
 import { Redirect } from "react-router-dom";
+import arrowCarousel from "../resources/arrowCarousel.png";
 const otherCompetitionsWrapper = {
 
   display: "flex",
   justifyContent: "center",
   flexDirection: "column",
   alignItems: "center",
-  width: "100%"
+  width: "100%",
+  marginTop: "4rem"
 }
 export default function OtherCompetitions() {
 
@@ -49,7 +51,7 @@ export default function OtherCompetitions() {
 
   return (
     <div css={otherCompetitionsWrapper}>
-      <h1 css={{ marginBottom: "4rem" }}> OTHER COMPETITIONS ///</h1>
+      <h1 css={{ marginBottom: "4rem" }}> OTHER COMPETITIONS</h1>
       < Carousel
         additionalTransfrom={0}
         centerMode={true}
@@ -114,12 +116,20 @@ const ButtonGroup = ({ next, previous, goToSlide, ...rest }) => {
   return (
     <div className="carousel-button-group">
 
-      <div css={{ cursor:"pointer",padding: "1rem" }} onClick={() => previous()}>
 
-        PREVIOUS
+      <div css={{ display:"flex",alignItems:"center",cursor: "pointer", padding: "1rem" }} onClick={() => previous()}>
+
+      <img css={{transform:"rotate(180deg)",width:"1.6rem",marginRight:"1.5rem"}} src={arrowCarousel}/>
+<span css={{fontSize:"0.9rem", letterSpacing:"0.1rem"}}>
+        PREV
+        </span>
         </div>
-      <div css={{cursor:"pointer", padding: "1rem" }} onClick={() => next()}>
-        NEXT
+      <div css={{ display: "flex", cursor: "pointer", padding: "1rem", alignItems: "center" }} onClick={() => next()}>
+
+      <span css={{fontSize:"0.9rem", letterSpacing:"0.1rem"}}>
+          NEXT
+        </span>
+       <img css={{width:"1.6rem",marginLeft:"1.5rem"}} src={arrowCarousel}/>
       </div>
     </div>
   );

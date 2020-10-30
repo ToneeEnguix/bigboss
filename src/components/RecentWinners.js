@@ -40,12 +40,19 @@ function RecentWinners() {
   return (
     <div css={recentWinnersWrapper}>
       <h1> RECENT WINNERS</h1>
-      <Carousel
-        css={{ marginTop: "4rem", width: "100%" }}
-        showStatus={false}
-        showThumbs={false}
-        showArrows={false}
-      >
+      <Carousel css={{
+        marginTop: "4rem", width: "100%",
+        ".carousel .slider-wrapper": {
+
+          borderRadius: "0 !important"
+
+        },
+        ".carousel .control-dots":{
+
+          margin:"0 !important"
+        }
+      }} showStatus={false} showThumbs={false} showArrows={false}>
+
         {recentWinners.map((competition, index) => {
           return <CarouselWinnerCard key={index} competition={competition} />;
         })}

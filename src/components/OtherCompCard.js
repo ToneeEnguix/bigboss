@@ -7,7 +7,7 @@ import Counter from "../utils/Counter";
 
 const card = {
 
-
+    boxShadow: "0px 2px 4px 0px rgba(0,0,0,16%)",
     display: "flex",
 margin:"0 2rem",
     justifyContent: "center",
@@ -16,7 +16,7 @@ margin:"0 2rem",
 
 const textWrapper = {
 
-  boxShadow: "-1px 2px 2px 0px black",
+
     display: "flex",
     flexDirection: "column",
     "a": {
@@ -33,8 +33,8 @@ function OtherCompCard({ competition }) {
     return (
         <div css={card}>   
             <div css={textWrapper}>
-                <h4 css={{ letterSpacing: "0.2rem", color: "#00FFFF", margin: "0.5rem 0", fontSize: "0.8rem" }}> {competition.title} ENTRY</h4>
-                <h4 css={{ letterSpacing: "0.2rem", margin: "0.5rem 0", fontSize: "0.8rem" }}>£{competition.ticketPrice} PER ENTRY</h4>
+                <h4 css={{ letterSpacing: "0.2rem",paddingLeft:"1.1rem", color: "#00FFFF", margin: "0.5rem 0", fontSize: "0.8rem" }}> {competition.title} ENTRY</h4>
+                <h4 css={{ letterSpacing: "0.2rem", paddingLeft:"1.1rem", margin: "0.5rem 0", fontSize: "0.8rem" }}>£{competition.ticketPrice} PER ENTRY</h4>
                 <Counter date={competition.dateFinishes} />
                 <Link to={{
                     pathname: `/competitions/${competition._id}`,

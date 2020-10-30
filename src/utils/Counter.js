@@ -15,8 +15,8 @@ const number = {
 
     margin: "1rem",
     boxShadow: "-1px 4px 22px 0px rgba(0,0,0,16%)",
-    width: "60px",
-    height: "60px",
+    width: "55px",
+    height: "55px",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -32,7 +32,8 @@ const description = {
 
     fontSize: "0.5rem",
     fontWeight: "600",
-    color: "#868686"
+    color: "#868686",
+    letterSpacing:"0.1rem"
 }
 
 

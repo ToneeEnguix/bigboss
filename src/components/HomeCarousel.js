@@ -9,10 +9,8 @@ import { Redirect } from "react-router-dom";
 import CarouselCard from "./CarouselHomeCard";
 
 const carouselWrapper = {
-  margin: "0 5%",
   display: "flex",
   justifyContent: "center",
-  padding: "2rem",
   marginTop: "4rem",
 };
 
@@ -39,20 +37,19 @@ function HomeCarousel() {
   }
 
   return (
-    <div css={carouselWrapper}>
-      <Carousel
-        css={{
-          height: "400px",
-          width: "100%",
-          maxWidth: "1200px",
-          ".carousel .slider-wrapper": {
-            borderRadius: "0 !important",
-          },
-        }}
-        showStatus={false}
-        showThumbs={false}
-        showArrows={false}
-      >
+    <div css={carouselWrapper} >
+      <Carousel css={{ 
+         width: "100%",
+         maxWidth:"1200px",
+         ".carousel .slider-wrapper": {
+
+          borderRadius:"0 !important"
+      
+      }
+        
+    
+          }} showStatus={false} showThumbs={false} showArrows={false}>
+
         {competitions.map((competition, index) => {
           return <CarouselCard key={index} competition={competition} />;
         })}

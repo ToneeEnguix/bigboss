@@ -15,7 +15,8 @@ const accountInput = {
 };
 
 const inputWrapper = {
-  margin: "0.5rem 1rem",
+
+  margin: "1.5rem 1rem",
   display: "flex",
   flexDirection: "column",
 
