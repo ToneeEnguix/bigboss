@@ -44,14 +44,8 @@ const PastCompetitions = (props) => {
   };
 
   useEffect(() => {
-    props.update && updateWinnersImg();
+    props.update && updateWinnersImg() && updateWinner();
   }, [props.update]);
-
-  const handleChange = (e, i) => {
-    let tempPastCompetitions = [...pastCompetitions];
-    tempPastCompetitions[i][e.target.name] = e.target.value;
-    setPastCompetitions(tempPastCompetitions);
-  };
 
   const updateWinnersImg = async () => {
     try {
@@ -70,9 +64,48 @@ const PastCompetitions = (props) => {
     }
   };
 
-  useEffect(() => {
-    console.log(pastCompetitions);
-  }, [remove]);
+  const handleChange = (e) => {
+    let tempPastCompetitions = [...pastCompetitions];
+    if (!tempPastCompetitions[i].winner) {
+      tempPastCompetitions[i].winner = {
+        name: "",
+        email: "",
+      };
+    }
+    tempPastCompetitions[i].winner[e.target.name] = e.target.value;
+    setPastCompetitions(tempPastCompetitions);
+    pastCompetitions[i].winner.email !== "" && findWinner();
+  };
+
+  const findWinner = async () => {
+    try {
+      console.log(pastCompetitions[i].winner.email);
+      console.log("lemon");
+      let res = await axios.get(
+        `${URL}/users/${pastCompetitions[i].winner.email}`
+      );
+      console.log(res.data);
+      if (res.data.ok) {
+        let tempPastComp = [...pastCompetitions];
+        tempPastComp[i].winner = res.data.user;
+        console.log(tempPastComp);
+        setPastCompetitions(tempPastComp);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const updateWinner = async () => {
+    try {
+      const res = await axios.post(`${URL}/competitions/updatewinner`, {
+        competition: pastCompetitions[i],
+      });
+      console.log(res);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <div className="adminPage">
@@ -170,25 +203,40 @@ const PastCompetitions = (props) => {
                 </p>
               </div>
             </div>
-            {pastCompetitions[i].winner ? (
-              <div>
-                <h3 css={titleStyle}>Winner Name</h3>
-                <input
-                  defaultValue={pastCompetitions[i].winner.name}
-                  className="styledInput"
-                />
-                <h3 css={titleStyle}>Email</h3>
-                <input
-                  defaultValue={pastCompetitions[i].winner.email}
-                  className="styledInput"
-                />
-              </div>
-            ) : (
-              <div>
-                <h3 css={titleStyle}>Enter winner's email</h3>
-                <input placeholder="Enter here" className="styledInput" />
-              </div>
-            )}
+            <div>
+              <h3 css={titleStyle}>Email</h3>
+              <input
+                value={
+                  pastCompetitions[i].winner
+                    ? pastCompetitions[i].winner.email
+                    : "No winner yet"
+                }
+                className={`${
+                  !pastCompetitions[i].winner && "gray"
+                } styledInput`}
+                onChange={(e) => {
+                  handleChange(e);
+                }}
+                name="email"
+              />
+              <h3 css={titleStyle}>Winner Name</h3>
+              <input
+                value={
+                  pastCompetitions[i].winner && pastCompetitions[i].winner.name
+                    ? pastCompetitions[i].winner.name +
+                      " " +
+                      pastCompetitions[i].winner.lastName
+                    : "No winner yet"
+                }
+                readOnly
+                className={`${
+                  (!pastCompetitions[i].winner ||
+                    !pastCompetitions[i].winner.name) &&
+                  "gray"
+                } styledInput default`}
+                name="name"
+              />
+            </div>
           </div>
           <h3 className="default" css={titleStyle}>
             Price
@@ -197,6 +245,15 @@ const PastCompetitions = (props) => {
             className="default"
             readOnly
             defaultValue={pastCompetitions[i].ticketPrice}
+            className="styledInput"
+          />
+          <h3 className="default" css={titleStyle}>
+            Prize
+          </h3>
+          <input
+            className="default"
+            readOnly
+            defaultValue={pastCompetitions[i].prize}
             className="styledInput"
           />
           <h3 className="default" css={titleStyle}>
@@ -377,7 +434,6 @@ const mainTitleStyle = {
     padding: "0",
   },
   photoContStyle = {
-    border: "1px dashed gray",
     width: "200px",
     height: "200px",
     alignSelf: "flex-start",

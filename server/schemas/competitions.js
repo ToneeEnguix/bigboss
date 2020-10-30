@@ -15,7 +15,7 @@ const competitionSchema = new Schema({
   winnerPic: { type: String, default: undefined },
   entriesURL: { type: String, default: undefined },
   entriesDate: { type: Date, default: Date.now() },
-  facebookURL: { type: String },
+  facebookURL: { type: String, default: undefined },
 });
 
 module.exports = mongoose.model("competition", competitionSchema);

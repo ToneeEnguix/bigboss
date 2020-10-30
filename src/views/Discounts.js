@@ -115,6 +115,7 @@ const Discounts = (props) => {
               name="discount"
               onChange={(e) => handleChange(e, i)}
               className="styledInput"
+              type="text"
             />
             <h3 css={titleStyle}>Date of Expiry</h3>
             <input

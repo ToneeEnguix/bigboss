@@ -1,9 +1,9 @@
 const express = require("express"),
   router = express.Router(),
   controller = require("../controllers/competitions.js");
-const protectedRoute = require("../token/protectedRoute.js");
+// const protectedRoute = require("../token/protectedRoute.js");
 
-router.post("/create", protectedRoute, controller.create);
+router.post("/create", controller.create);
 
 router.get("/randompicks", controller.randomPicks);
 
@@ -20,6 +20,8 @@ router.get("/active", controller.active);
 router.get("/past", controller.past);
 
 router.get("/winners", controller.finished);
+
+router.post("/updatewinner", controller.updateWinner);
 
 router.post("/updatewinnerimg", controller.updateWinnerImg);
 

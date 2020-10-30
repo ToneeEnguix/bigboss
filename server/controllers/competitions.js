@@ -1,15 +1,22 @@
 const competitions = require("../schemas/competitions.js"),
   cloudinary = require("cloudinary");
 cloudinary.config({
-  cloud_name: process.env.CLOUD_NAME,
-  api_key: process.env.API_KEY,
-  api_secret: process.env.API_SECRET,
+  cloud_name: "big-boss-competitions",
+  api_key: "775334544597853",
+  api_secret: "4K-yJpKviBSrMeVllihf7cmuF2U",
 });
 
 class CompetitionController {
   async create(req, res) {
+    let { competition } = req.body;
     try {
-      res.status(200).send();
+      competition.entriesDate = new Date(competition.entriesDate);
+      competition.dateFinishes = new Date(competition.dateFinishes);
+      competition.maxTickets = parseInt(competition.maxTickets);
+      console.log(competition);
+      await competitions.create(competition);
+      console.log("lemon");
+      res.status(200).send({ ok: true });
     } catch (error) {
       res.status(500).send(error);
     }
@@ -65,6 +72,30 @@ class CompetitionController {
       let found = await competitions.findOne({ _id: competition._id });
       found.title = competition.title;
       found.description = competition.description;
+      found.pictures.map(async (item, idx) => {
+        if (competition.pictures[idx] !== item) {
+          let url = item;
+          let slashArr = [];
+          let dotArr = [];
+          while (url.includes("/")) {
+            let idx = url.indexOf("/");
+            slashArr.push(idx);
+            url = url.slice(0, idx) + url.slice(idx + 1);
+          }
+          while (url.includes(".")) {
+            let idx = url.indexOf(".");
+            dotArr.push(idx);
+            url = url.slice(0, idx) + url.slice(idx + 1);
+          }
+          let public_id = url.slice(
+            slashArr[slashArr.length - 1] - dotArr.length + 1,
+            dotArr[dotArr.length - 1]
+          );
+          console.log(public_id);
+          await cloudinary.v2.api.delete_resources([public_id]);
+          console.log("lemon2");
+        }
+      });
       found.pictures = competition.pictures;
       found.ticketPrice = competition.ticketPrice;
       found.prize = competition.prize;
@@ -86,8 +117,10 @@ class CompetitionController {
   }
 
   async delete(req, res) {
+    let { competition } = req.body;
     try {
-      res.status(200).send();
+      await competitions.deleteOne({ _id: competition._id });
+      res.status(200).send({ ok: true });
     } catch (error) {
       res.status(500).send(error);
     }
@@ -185,35 +218,46 @@ class CompetitionController {
     let { competition } = req.body;
     try {
       let found = await competitions.findOne({ _id: competition._id });
-      // if (competition.winnerPic === "") {
-      //   let url = found.winnerPic;
-      //   let slashArr = [];
-      //   let dotArr = [];
-      //   while (url.includes("/")) {
-      //     let idx = url.indexOf("/");
-      //     slashArr.push(idx);
-      //     url = url.slice(0, idx) + url.slice(idx + 1);
-      //   }
-      //   while (url.includes(".")) {
-      //     let idx = url.indexOf(".");
-      //     dotArr.push(idx);
-      //     url = url.slice(0, idx) + url.slice(idx + 1);
-      //   }
-      //   let public_id = url.slice(
-      //     slashArr[slashArr.length - 1] - dotArr.length + 1,
-      //     dotArr[dotArr.length - 1]
-      //   );
-      //   console.log(
-      //     public_id,
-      //     process.env.CLOUD_NAME,
-      //     process.env.API_KEY,
-      //     process.env.API_SECRET,
-      //     "lemon"
-      //   );
-      //   await cloudinary.v2.api.delete_resources([public_id]);
-      //   console.log("lemon2");
-      // }
+      if (competition.winnerPic === "") {
+        let url = found.winnerPic;
+        let slashArr = [];
+        let dotArr = [];
+        while (url.includes("/")) {
+          let idx = url.indexOf("/");
+          slashArr.push(idx);
+          url = url.slice(0, idx) + url.slice(idx + 1);
+        }
+        while (url.includes(".")) {
+          let idx = url.indexOf(".");
+          dotArr.push(idx);
+          url = url.slice(0, idx) + url.slice(idx + 1);
+        }
+        let public_id = url.slice(
+          slashArr[slashArr.length - 1] - dotArr.length + 1,
+          dotArr[dotArr.length - 1]
+        );
+        await cloudinary.v2.api.delete_resources([public_id]);
+        console.log("lemon2");
+      }
       found.winnerPic = competition.winnerPic;
+      await found.save();
+      res.status(200).send({ ok: true });
+    } catch (error) {
+      console.log(error);
+      res.status(500).send(error);
+    }
+  }
+
+  async updateWinner(req, res) {
+    let { competition } = req.body;
+    try {
+      let found = await competitions.findOne({ _id: competition._id });
+      if (competition.winner.email === "") {
+        found.winner = null;
+      } else {
+        found.winner = mongoose.Types.ObjectId(competition.winner._id);
+      }
+      console.log(found);
       await found.save();
       res.status(200).send({ ok: true });
     } catch (error) {

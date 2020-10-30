@@ -46,8 +46,8 @@ class CouponsController {
   }
 
   async delete(req, res) {
+    const { coupon } = req.body;
     try {
-      const { coupon } = req.body;
       await coupons.deleteOne({ _id: coupon._id });
       res.status(200).send({ ok: true });
     } catch (error) {

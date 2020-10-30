@@ -13,10 +13,6 @@
   font-family: "Raleway" !important;
   font-size: 0.9rem;
 }
-button {
-  font-family: "Raleway";
-  border: 0.1rem solid #707070;
-}
 ::-webkit-input-placeholder {
   /* Chrome/Opera/Safari */
   font-size: 0.75rem;
@@ -66,4 +62,7 @@ textarea {
 }
 .none {
   display: none;
+}
+.submitBtn:hover {
+  background-color: rgb(52, 52, 52);
 }

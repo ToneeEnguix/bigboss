@@ -3,10 +3,10 @@ const URL =
     ? `http://localhost:4000`
     : `http://164.90.180.49`;
 
-const NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME = "ckellytv";
-const NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET = "dzxujvsk";
-const NEXT_PUBLIC_CLOUDINARY_KEY = "884113981828137";
-const CLOUDINARY_SECRET = "lMAtVMwjbTz-mPc7udjQStS4I_E";
+const NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME = "big-boss-competitions";
+const NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET = "bbt00kul";
+const NEXT_PUBLIC_CLOUDINARY_KEY = "775334544597853";
+const CLOUDINARY_SECRET = "4K-yJpKviBSrMeVllihf7cmuF2U";
 
 export {
   URL,

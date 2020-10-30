@@ -185,6 +185,19 @@ class UserController {
       res.status(500).send();
     }
   }
+
+  async findByEmail(req, res) {
+    const { userMail } = req.params;
+    console.log(userMail);
+    try {
+      const user = await users.findOne({ email: userMail });
+      user
+        ? res.status(200).send({ ok: true, user })
+        : res.status(200).send({ ok: false, user });
+    } catch (err) {
+      res.status(500);
+    }
+  }
 }
 
 module.exports = new UserController();

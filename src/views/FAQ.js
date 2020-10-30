@@ -22,6 +22,7 @@ const FAQ = (props) => {
 
   const getFaq = async () => {
     let resFaq = await axios.get(`${URL}/faq/all`);
+    resFaq.data.reverse();
     setFaq(resFaq.data);
   };
 

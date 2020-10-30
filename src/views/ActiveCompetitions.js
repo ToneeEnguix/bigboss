@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
+/** @jsxFrag React.Fragment */
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import "./dashboardstyles.css";
@@ -14,8 +15,9 @@ const ActiveCompetitions = (props) => {
     {
       title: "",
       ticketPrice: 0,
-      maxTickets: 10,
       dateFinishes: "",
+      maxTickets: 10,
+      prize: "",
       description: ["", "", "", "", ""],
       facebookURL: "",
       entriesDate: "",
@@ -23,6 +25,23 @@ const ActiveCompetitions = (props) => {
       pictures: ["", "", "", "", "", ""],
     },
   ]);
+  const [newComp, setNewComp] = useState({
+    title: "New title",
+    ticketPrice: 10,
+    dateFinishes: new Date(Date.now()).toISOString().slice(0, -8),
+    prize: "Motorcycle",
+    maxTickets: 10,
+    description: ["", "", "", "", ""],
+    pictures: [
+      "https://res.cloudinary.com/ckellytv/image/upload/v1600421103/LOGO_BIG_BOSS_j9riqf.png",
+      "",
+      "",
+      "",
+    ],
+    entriesURL: "Paste link here",
+    facebookURL: "Paste link here",
+    entriesDate: new Date(Date.now()).toISOString().slice(0, -8),
+  });
   const [i, setI] = useState(0);
   const [openModal, setOpenModal] = useState(false);
   const [today, setToday] = useState("");
@@ -38,8 +57,6 @@ const ActiveCompetitions = (props) => {
     resAll.data.map((item) => {
       item.dateFinishes = item.dateFinishes.slice(0, -8);
       item.entriesDate = item.entriesDate.slice(0, -8);
-    });
-    resAll.data.map((item) => {
       item.pictures.push("");
     });
     setRemove("");
@@ -81,208 +98,459 @@ const ActiveCompetitions = (props) => {
     setOpenModal(false);
   };
 
+  const handleChange2 = (e) => {
+    setNewComp({ ...newComp, [e.target.name]: e.target.value });
+  };
+
+  const submitNewComp = async () => {
+    newComp.pictures.map((item, idx) => {
+      item === "" && newComp.pictures.splice(idx, 1);
+    });
+    try {
+      let res = await axios.post(`${URL}/competitions/create`, {
+        competition: newComp,
+      });
+      if (res.data.ok) {
+        props.setCreate();
+        getActiveCompetitions();
+        setI(activeCompetitions.length);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const removeCompetition = async () => {
+    let res = await axios.post(`${URL}/competitions/delete`, {
+      competition: activeCompetitions[i],
+    });
+    if (res.data.ok) {
+      props.setRefresh();
+      setOpenModal(false);
+      setI(0);
+      getActiveCompetitions();
+    }
+  };
+
+  useEffect(() => {
+    console.log(props.create, props.update, activeCompetitions);
+  }, [props.create, props.update, activeCompetitions]);
+
   return (
-    <div className="adminPage">
-      <div className="flexColumn" css={secondSidebarStyle}>
-        <div css={titleStyle2}>Active Competitions</div>
-        <div className="flexColumn" css={contentStyle}>
-          {props.activeCompetitions[i] &&
-            props.activeCompetitions.map((item, idx) => {
-              return (
-                <div
-                  className={`${
-                    props.activeCompetitions[i]._id === item._id && "blueBorder"
-                  } flexCenter`}
-                  onClick={() => {
-                    setI(idx);
-                  }}
-                  css={selectorContStyle}
-                  key={idx}
-                >
-                  <p>{item.title}</p>
-                  <div
-                    className="flexCenter"
-                    onClick={() => setOpenModal(true)}
-                  >
-                    <img
-                      src={close}
-                      onClick={() => {
-                        setRemove("competition");
-                        setOpenModal(true);
+    <>
+      {props.create ? (
+        <div className="adminPage adminPage2">
+          <div
+            className="bgtransparent flexCenter"
+            style={{ justifyContent: "space-between" }}
+          ></div>
+          <div css={mainContentStyle} className="grid2">
+            <div>
+              <h3 className="raleway">New Competition</h3>
+              <h3 css={titleStyle}>Title</h3>
+              <input
+                value={newComp.title}
+                onChange={(e) => handleChange2(e)}
+                name="title"
+                className="styledInput"
+              />
+              <h3 css={titleStyle}>Price</h3>
+              <input
+                value={newComp.ticketPrice}
+                onChange={(e) => handleChange2(e)}
+                name="ticketPrice"
+                className="styledInput"
+                type="number"
+              />
+              <h3 css={titleStyle}>Prize</h3>
+              <input
+                value={newComp.prize}
+                onChange={(e) => handleChange2(e)}
+                name="prize"
+                className="styledInput"
+                type="number"
+              />
+              <h3 css={titleStyle}>Description</h3>
+              <input
+                value={newComp.description[0]}
+                name="description"
+                className="styledInput"
+                onChange={(e) => {
+                  let newDescription = newComp.description;
+                  newDescription[0] = e.target.value;
+                  setNewComp({ ...newComp, description: newDescription });
+                }}
+              />
+              <input
+                value={newComp.description[1]}
+                name="description"
+                className="styledInput"
+                onChange={(e) => {
+                  let newDescription = newComp.description;
+                  newDescription[1] = e.target.value;
+                  setNewComp({ ...newComp, description: newDescription });
+                }}
+              />
+              <input
+                value={newComp.description[2]}
+                name="description"
+                className="styledInput"
+                onChange={(e) => {
+                  let newDescription = newComp.description;
+                  newDescription[2] = e.target.value;
+                  setNewComp({ ...newComp, description: newDescription });
+                }}
+              />
+              <input
+                value={newComp.description[3]}
+                name="description"
+                className="styledInput"
+                onChange={(e) => {
+                  let newDescription = newComp.description;
+                  newDescription[3] = e.target.value;
+                  setNewComp({ ...newComp, description: newDescription });
+                }}
+              />
+              <input
+                value={newComp.description[4]}
+                name="description"
+                className="styledInput"
+                onChange={(e) => {
+                  let newDescription = newComp.description;
+                  newDescription[4] = e.target.value;
+                  setNewComp({ ...newComp, description: newDescription });
+                }}
+              />
+              <h3 css={titleStyle}>Date Finishes</h3>
+              <input
+                type="datetime-local"
+                name="dateFinishes"
+                min={today}
+                value={newComp.dateFinishes}
+                onChange={(e) => handleChange2(e)}
+                className="styledInput"
+              />
+              <h3 css={titleStyle}>How many tickets will be available?</h3>
+              <input
+                value={newComp.maxTickets}
+                onChange={(e) => handleChange2(e)}
+                name="maxTickets"
+                className="styledInput"
+                type="number"
+              />
+              <hr css={hrStyle} />
+              <h3 css={titleStyle}>Recorded Facebook Video</h3>
+              <input
+                value={newComp.facebookURL}
+                onChange={(e) => handleChange2(e)}
+                name="facebookURL"
+                className="styledInput"
+              />
+              <input
+                type="datetime-local"
+                name="entriesDate"
+                min={today}
+                value={newComp.entriesDate}
+                onChange={(e) => handleChange2(e)}
+                className="styledInput"
+              />
+              <h3 css={titleStyle}>Spreadsheet Link</h3>
+              <input
+                value={newComp.entriesURL}
+                onChange={(e) => handleChange2(e)}
+                name="entriesURL"
+                className="styledInput"
+              />
+            </div>
+            <div
+              style={{
+                paddingLeft: "2.5rem",
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              {/* here it goes */}
+              <button
+                className="styledInput submitBtn pointer"
+                style={{ width: "100px", margin: "0 0 0 3.3rem" }}
+                onClick={() => submitNewComp()}
+              >
+                Submit
+              </button>
+              {newComp.pictures.map((image, idx) => {
+                return (
+                  <div key={idx}>
+                    <ImagePicker
+                      setState={(uploadedFile) => {
+                        let tempNewComp = newComp;
+                        tempNewComp.pictures[idx] = uploadedFile.secure_url;
+                        setRemove(idx);
+                        setNewComp(tempNewComp);
                       }}
+                      image={image}
                     />
+
+                    <div
+                      style={{
+                        display: image === "" && "none",
+                        width: "200px",
+                        height: "300px",
+                      }}
+                      className="flexColumn bgtransparent"
+                    >
+                      <img
+                        src={close}
+                        style={{
+                          alignSelf: "flex-end",
+                          position: "relative",
+                          top: "27px",
+                          right: "10px",
+                          borderRadius: "100px",
+                        }}
+                        className="pointer"
+                        onClick={() => {
+                          setRemove("image");
+                          setIndex(idx);
+                          setOpenModal(true);
+                        }}
+                      />
+                      <div
+                        css={photoContStyle}
+                        className="flexCenter"
+                        style={{ justifyContent: "flex-start" }}
+                      >
+                        <img
+                          src={image}
+                          css={imgStyle}
+                          style={{ width: "200px", height: "200px" }}
+                        />
+                      </div>
+                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
+          </div>
         </div>
-      </div>
-      <h3 css={mainTitleStyle}>{activeCompetitions[i].title}</h3>
-      <div css={mainContentStyle} className="grid2">
-        <div>
-          <h3 css={titleStyle}>Title</h3>
-          <input
-            value={activeCompetitions[i].title}
-            onChange={(e) => handleChange(e, i)}
-            name="title"
-            className="styledInput"
-          />
-          <h3 css={titleStyle}>Price</h3>
-          <input
-            value={activeCompetitions[i].ticketPrice}
-            onChange={(e) => handleChange(e, i)}
-            name="ticketPrice"
-            className="styledInput"
-          />
-          <h3 css={titleStyle}>Description</h3>
-          <input
-            value={activeCompetitions[i].description[0]}
-            name="description"
-            className="styledInput"
-            onChange={(e) => handleChange(e, i, 0)}
-          />
-          <input
-            value={activeCompetitions[i].description[1]}
-            name="description"
-            className="styledInput"
-            onChange={(e) => handleChange(e, i, 1)}
-          />
-          <input
-            value={activeCompetitions[i].description[2]}
-            name="description"
-            className="styledInput"
-            onChange={(e) => handleChange(e, i, 2)}
-          />
-          <input
-            value={activeCompetitions[i].description[3]}
-            name="description"
-            className="styledInput"
-            onChange={(e) => handleChange(e, i, 3)}
-          />
-          <input
-            value={activeCompetitions[i].description[4]}
-            name="description"
-            className="styledInput"
-            onChange={(e) => handleChange(e, i, 4)}
-          />
-          <h3 css={titleStyle}>Date Finishes</h3>
-          <input
-            type="datetime-local"
-            name="dateFinishes"
-            min={today}
-            value={activeCompetitions[i].dateFinishes}
-            onChange={(e) => handleChange(e, i)}
-            className="styledInput"
-          />
-          <h3 css={titleStyle}>How many tickets will be available?</h3>
-          <input
-            value={activeCompetitions[i].maxTickets}
-            onChange={(e) => handleChange(e, i)}
-            name="maxTickets"
-            className="styledInput"
-          />
-          <hr css={hrStyle} />
-          <h3 css={titleStyle}>Recorded Facebook Video</h3>
-          <input
-            value={activeCompetitions[i].facebookURL}
-            onChange={(e) => handleChange(e, i)}
-            name="facebookURL"
-            className="styledInput"
-          />
-          <input
-            type="datetime-local"
-            name="entriesDate"
-            min={today}
-            value={activeCompetitions[i].entriesDate}
-            onChange={(e) => handleChange(e, i)}
-            className="styledInput"
-          />
-          <h3 css={titleStyle}>Spreadsheet Link</h3>
-          <input
-            value={activeCompetitions[i].entriesURL}
-            onChange={(e) => handleChange(e, i)}
-            name="entriesURL"
-            className="styledInput"
-          />
-        </div>
-        <div style={{ paddingLeft: "2.5rem" }}>
-          {/* here it goes */}
-          {activeCompetitions[i].pictures.map((image, idx) => {
-            console.log(image);
-            return (
-              <div key={idx}>
-                <ImagePicker
-                  setState={(uploadedFile) => {
-                    let tempActive = activeCompetitions;
-                    tempActive[i].pictures[idx] = uploadedFile.secure_url;
-                    setRemove(" ");
-                    console.log(tempActive);
-                    console.log(image);
-                    setActiveCompetitions(tempActive);
-                  }}
-                  image={image}
-                />
-                <p
-                  style={{
-                    display:
-                      (image !== "" || (image === "" && remove === "")) &&
-                      "none",
-                    position: "relative",
-                    top: "0",
-                    zIndex: "10",
-                  }}
-                >
-                  Click top right corner to save changes
-                </p>
-                <div
-                  style={{
-                    display: image === "" && "none",
-                    width: "100%",
-                    height: "300px",
-                  }}
-                  className="flexColumn bgtransparent"
-                >
-                  <img
-                    src={close}
-                    style={{
-                      alignSelf: "flex-end",
-                      position: "relative",
-                      top: "22px",
-                      right: "5px",
-                      borderRadius: "100px",
-                    }}
-                    className="pointer"
-                    onClick={() => {
-                      setRemove("image");
-                      setIndex(idx);
-                      setOpenModal(true);
-                    }}
-                  />
-                  <div
-                    css={photoContStyle}
-                    className="flexCenter"
-                    style={{ width: "100%" }}
-                  >
-                    <img src={image} css={imgStyle} style={{ width: "100%" }} />
+      ) : activeCompetitions.length !== 0 ? (
+        <div className="adminPage">
+          <div className="flexColumn" css={secondSidebarStyle}>
+            <div css={titleStyle2}>Active Competitions</div>
+            <div className="flexColumn" css={contentStyle}>
+              {props.activeCompetitions[i] &&
+                props.activeCompetitions.map((item, idx) => {
+                  return (
+                    <div
+                      className={`${
+                        props.activeCompetitions[i]._id === item._id &&
+                        "blueBorder"
+                      } flexCenter`}
+                      onClick={() => {
+                        setI(idx);
+                      }}
+                      css={selectorContStyle}
+                      key={idx}
+                    >
+                      <p>{item.title}</p>
+                      <div
+                        className={`${
+                          props.activeCompetitions[i]._id !== item._id && "none"
+                        } flexCenter`}
+                        onClick={() => setOpenModal(true)}
+                      >
+                        <img
+                          src={close}
+                          onClick={() => {
+                            setRemove("competition");
+                            setOpenModal(true);
+                          }}
+                        />
+                      </div>
+                    </div>
+                  );
+                })}
+            </div>
+          </div>
+          <h3 css={mainTitleStyle}>{activeCompetitions[i].title}</h3>
+          <div css={mainContentStyle} className="grid2">
+            <div>
+              <h3 css={titleStyle}>Title</h3>
+              <input
+                value={activeCompetitions[i].title}
+                onChange={(e) => handleChange(e, i)}
+                name="title"
+                className="styledInput"
+              />
+              <h3 css={titleStyle}>Prize</h3>
+              <input
+                value={activeCompetitions[i].prize}
+                onChange={(e) => handleChange(e, i)}
+                name="prize"
+                className="styledInput"
+              />
+              <h3 css={titleStyle}>Price</h3>
+              <input
+                value={activeCompetitions[i].ticketPrice}
+                onChange={(e) => handleChange(e, i)}
+                name="ticketPrice"
+                className="styledInput"
+              />
+              <h3 css={titleStyle}>Description</h3>
+              <input
+                value={activeCompetitions[i].description[0]}
+                name="description"
+                className="styledInput"
+                onChange={(e) => handleChange(e, i, 0)}
+              />
+              <input
+                value={activeCompetitions[i].description[1]}
+                name="description"
+                className="styledInput"
+                onChange={(e) => handleChange(e, i, 1)}
+              />
+              <input
+                value={activeCompetitions[i].description[2]}
+                name="description"
+                className="styledInput"
+                onChange={(e) => handleChange(e, i, 2)}
+              />
+              <input
+                value={activeCompetitions[i].description[3]}
+                name="description"
+                className="styledInput"
+                onChange={(e) => handleChange(e, i, 3)}
+              />
+              <input
+                value={activeCompetitions[i].description[4]}
+                name="description"
+                className="styledInput"
+                onChange={(e) => handleChange(e, i, 4)}
+              />
+              <h3 css={titleStyle}>Date Finishes</h3>
+              <input
+                type="datetime-local"
+                name="dateFinishes"
+                min={today}
+                value={activeCompetitions[i].dateFinishes}
+                onChange={(e) => handleChange(e, i)}
+                className="styledInput"
+              />
+              <h3 css={titleStyle}>How many tickets will be available?</h3>
+              <input
+                value={activeCompetitions[i].maxTickets}
+                onChange={(e) => handleChange(e, i)}
+                name="maxTickets"
+                className="styledInput"
+              />
+              <hr css={hrStyle} />
+              <h3 css={titleStyle}>Recorded Facebook Video</h3>
+              <input
+                value={activeCompetitions[i].facebookURL}
+                onChange={(e) => handleChange(e, i)}
+                name="facebookURL"
+                className="styledInput"
+              />
+              <input
+                type="datetime-local"
+                name="entriesDate"
+                min={today}
+                value={activeCompetitions[i].entriesDate}
+                onChange={(e) => handleChange(e, i)}
+                className="styledInput"
+              />
+              <h3 css={titleStyle}>Spreadsheet Link</h3>
+              <input
+                value={activeCompetitions[i].entriesURL}
+                onChange={(e) => handleChange(e, i)}
+                name="entriesURL"
+                className="styledInput"
+              />
+            </div>
+            <div style={{ paddingLeft: "2.5rem" }}>
+              {activeCompetitions[i].pictures.map((image, idx) => {
+                return (
+                  <div key={idx}>
+                    <ImagePicker
+                      setState={(uploadedFile) => {
+                        let tempActive = activeCompetitions;
+                        tempActive[i].pictures[idx] = uploadedFile.secure_url;
+                        setRemove(" ");
+                        setActiveCompetitions(tempActive);
+                      }}
+                      image={image}
+                    />
+                    <p
+                      style={{
+                        display:
+                          (image !== "" || (image === "" && remove === "")) &&
+                          "none",
+                        marginTop: "1rem",
+                      }}
+                      className="raleway blue"
+                    >
+                      Click top right corner to save changes.
+                    </p>
+                    <div
+                      style={{
+                        display: image === "" && "none",
+                        width: "100%",
+                        height: "300px",
+                        alignItems: "flex-start",
+                      }}
+                      className="flexColumn bgtransparent"
+                    >
+                      <img
+                        src={close}
+                        style={{
+                          alignSelf: "flex-end",
+                          position: "relative",
+                          top: "27px",
+                          right: "30px",
+                          borderRadius: "100px",
+                        }}
+                        className="pointer"
+                        onClick={() => {
+                          setRemove("image");
+                          setIndex(idx);
+                          setOpenModal(true);
+                        }}
+                      />
+                      <div
+                        css={photoContStyle}
+                        className="flexCenter"
+                        style={{ justifyContent: "flex-start" }}
+                      >
+                        <img
+                          src={image}
+                          css={imgStyle}
+                          style={{ width: "200px", height: "200px" }}
+                        />
+                      </div>
+                      <p
+                        style={{
+                          display:
+                            idx !== activeCompetitions[i].pictures.length - 1 &&
+                            "none",
+                          marginTop: "1rem",
+                        }}
+                        className="raleway blue"
+                      >
+                        Click top right corner to save changes.
+                      </p>
+                    </div>
                   </div>
-                  <p
-                    style={{
-                      display:
-                        idx !== activeCompetitions[i].pictures.length - 1 &&
-                        "none",
-                      position: "relative",
-                      top: "0",
-                      zIndex: "10",
-                    }}
-                  >
-                    Click top right corner to save changes
-                  </p>
-                </div>
-              </div>
-            );
-          })}
+                );
+              })}
+            </div>
+          </div>
         </div>
-      </div>
+      ) : (
+        <div className="adminPage adminPage2 bg">
+          <h3 className="bgtransparent raleway" css={noCompTitleStyle}>
+            No active competitions. Click button on top to create one.
+          </h3>
+        </div>
+      )}
       <ReactModal
         ariaHideApp={false}
         isOpen={openModal}
@@ -328,12 +596,6 @@ const ActiveCompetitions = (props) => {
         <div className="flexCenter bgtransparent">
           <button
             className="raleway dm_modalBtn dm_modalBtn1 pointer"
-            onClick={() => removePicture()}
-          >
-            Yes
-          </button>
-          <button
-            className="raleway dm_modalBtn dm_modalBtn2 pointer"
             onClick={() => {
               setRemove("");
               setOpenModal(false);
@@ -341,9 +603,21 @@ const ActiveCompetitions = (props) => {
           >
             No
           </button>
+          <button
+            className="raleway dm_modalBtn dm_modalBtn2 pointer"
+            onClick={() => {
+              if (remove === "image") {
+                removePicture();
+              } else if (remove === "competition") {
+                removeCompetition();
+              }
+            }}
+          >
+            Yes
+          </button>
         </div>
       </ReactModal>
-    </div>
+    </>
   );
 };
 
@@ -378,7 +652,6 @@ const mainTitleStyle = {
     padding: "0",
   },
   photoContStyle = {
-    border: "1px dashed gray",
     height: "200px",
     width: "200px",
     margin: "0 0 1.7rem",
@@ -457,6 +730,9 @@ const secondSidebarStyle = {
     height: "200px",
     boxShadow: "5px 5px 10px #111",
     borderRadius: "0 0 5px 5px",
+  },
+  noCompTitleStyle = {
+    lineHeight: "2rem",
   };
 
 export default ActiveCompetitions;
