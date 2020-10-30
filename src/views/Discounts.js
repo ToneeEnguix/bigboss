@@ -14,9 +14,11 @@ const Discounts = (props) => {
   const [i, setI] = useState(0);
   const [openModal, setOpenModal] = useState(false);
   const [today, setToday] = useState("");
+  const [unsaved, setUnsaved] = useState(false);
 
   useEffect(() => {
     getDiscounts();
+    setUnsaved(false);
   }, [i]);
 
   const getDiscounts = async () => {
@@ -56,6 +58,7 @@ const Discounts = (props) => {
   };
 
   const handleChange = (e, i) => {
+    setUnsaved(true);
     let tempDiscounts = [...discounts];
     e.target.name === "expires" &&
       (e.target.value = new Date(e.target.value).toISOString().slice(0, -8));
@@ -71,6 +74,9 @@ const Discounts = (props) => {
   return (
     <div>
       <div className="adminPage">
+        {/* <div className={`${unsaved ? "unsaved" : "none"}`}>
+          Unsaved changes!
+        </div> */}
         <div className="flexColumn" css={secondSidebarStyle}>
           <div css={titleStyle2}>Active Discounts</div>
           <div className="flexColumn" css={contentStyle}>

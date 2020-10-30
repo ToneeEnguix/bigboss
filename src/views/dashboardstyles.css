@@ -66,3 +66,10 @@ textarea {
 .submitBtn:hover {
   background-color: rgb(52, 52, 52);
 }
+.unsaved {
+  position: absolute;
+  top: 0;
+  right: 100px;
+  background-color: red;
+  padding: 0.5rem 1rem;
+}

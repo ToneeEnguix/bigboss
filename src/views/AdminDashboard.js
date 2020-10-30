@@ -176,6 +176,7 @@ export default AdminDashboard;
 // - Click top right showing over reactModal ✅
 // - Message: "changes saved"
 // - Alert before exiting (unsaved changes) ✂️
+// - Overflow scroll on secondSidebar
 
 // Competitions:
 // - check by _id not by name ✅
