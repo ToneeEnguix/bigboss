@@ -175,8 +175,12 @@ export default AdminDashboard;
 // - Change FAQ order => sort by date ✅
 // - Click top right showing over reactModal ✅
 // - Message: "changes saved"
-// - Alert before exiting (unsaved changes) ✂️
-// - Overflow scroll on secondSidebar
+// - Alert before exiting (unsaved changes)
+//   - FAQ ✅
+//   - Discounts ✅
+//   - Past Comps ✅
+//   - Active Comps
+// - Overflow scroll on secondSidebar: https://stackoverflow.com/questions/7492062/css-overflow-scroll-always-show-vertical-scroll-bar
 
 // Competitions:
 // - check by _id not by name ✅
@@ -189,11 +193,14 @@ export default AdminDashboard;
 // - If no competitions show "no competitions" ✅
 // - Add prize input ✅
 // - Add admin middleware ❗️
-// - remove facebook url from active competition
-// - make facbook url editable in past competition
-// - update winner with whole info (pic, user and url)
+// - remove facebook url from active competition ✅
+// - make facbook url editable in past competition ✅
+// - save winner + facebook (1 func) ✅
+// - update winner with only whole info (pic, user and url) ❗️
+// - Set all placeholders appropiately
 
 // General Questions:
 // - Change winner in past Competitions (YES + put it in top) ✅
 // - Add competitions + publish? Adding empty competition to public? ✅
 // - DeprecationWarning: collection.count is deprecated, and will be removed in a future version. Use Collection.countDocuments or Collection.estimatedDocumentCount instead ✅
+// - How to call func inside same controller (getPublicId) ❗️

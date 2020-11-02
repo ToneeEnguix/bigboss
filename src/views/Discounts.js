@@ -15,6 +15,7 @@ const Discounts = (props) => {
   const [openModal, setOpenModal] = useState(false);
   const [today, setToday] = useState("");
   const [unsaved, setUnsaved] = useState(false);
+  const [saved, setSaved] = useState(false);
 
   useEffect(() => {
     getDiscounts();
@@ -33,9 +34,13 @@ const Discounts = (props) => {
   useEffect(() => {
     const updateDiscounts = async () => {
       props.setUpdate();
-      await axios.post(`${URL}/coupons/update`, {
+      let res = await axios.post(`${URL}/coupons/update`, {
         coupon: discounts[i],
       });
+      if (res.data.ok) {
+        setUnsaved(false);
+        setSaved(true);
+      }
     };
     props.update && updateDiscounts();
   }, [props.update]);
@@ -71,12 +76,17 @@ const Discounts = (props) => {
     setToday(today);
   }, []);
 
+  useEffect(() => {
+    if (saved) {
+      setTimeout(() => {
+        setSaved(false);
+      }, 1000);
+    }
+  }, [saved]);
+
   return (
     <div>
       <div className="adminPage">
-        {/* <div className={`${unsaved ? "unsaved" : "none"}`}>
-          Unsaved changes!
-        </div> */}
         <div className="flexColumn" css={secondSidebarStyle}>
           <div css={titleStyle2}>Active Discounts</div>
           <div className="flexColumn" css={contentStyle}>
@@ -136,6 +146,8 @@ const Discounts = (props) => {
           <div className="bgtransparent"></div>
         </div>
       </div>
+      <div className={`${unsaved ? "unsaved" : "none"}`}>Unsaved changes!</div>
+      <div className={`${saved ? "saved" : "none"}`}>Changes saved!</div>
       <ReactModal
         ariaHideApp={false}
         isOpen={openModal}

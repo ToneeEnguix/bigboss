@@ -185,7 +185,7 @@ function CompetitionDetails(props) {
             <GenerateSecurityQuestion checkAnswer={checkAnswer} question={question} />
           </div>
 
-          <ShowCorrectButton disabled={disabled} regenerateQuestion={regenerateQuestion} resetAnswer={resetAnswer} correctAnswer={correctAnswer} amount={Number(amount)} data={data} ticketsAvailable={data.ticketsAvailable} />
+          <ShowCorrectButton disabled={disabled} regenerateQuestion={regenerateQuestion} resetAnswer={resetAnswer} correctAnswer={correctAnswer} amount={Number(amount)} data={data} ticketsAvailable={data.maxTickets - data.ticketsSold} />
 
           <div css={{ width: "100%" }}>
 

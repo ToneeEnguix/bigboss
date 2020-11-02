@@ -64,9 +64,16 @@ textarea {
   background-color: rgb(52, 52, 52);
 }
 .unsaved {
-  position: absolute;
-  top: 0;
+  position: fixed;
+  top: 90px;
   right: 100px;
   background-color: red;
+  padding: 0.5rem 1rem;
+}
+.saved {
+  position: fixed;
+  top: 90px;
+  right: 100px;
+  background-color: blue;
   padding: 0.5rem 1rem;
 }

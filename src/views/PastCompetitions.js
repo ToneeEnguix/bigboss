@@ -23,19 +23,33 @@ const PastCompetitions = (props) => {
         name: "",
         email: "",
       },
+      facebookURL: "Paste link here",
+      entriesDate: "",
     },
   ]);
   const [i, setI] = useState(0);
   const [openModal, setOpenModal] = useState(false);
   const [remove, setRemove] = useState("");
+  const [today, setToday] = useState("");
+  const [unsaved, setUnsaved] = useState(false);
+  const [saved, setSaved] = useState(false);
 
   useEffect(() => {
     getPastCompetitions();
   }, [i]);
 
+  useEffect(() => {
+    props.update && updateWinner();
+  }, [props.update]);
+
   const getPastCompetitions = async () => {
     try {
       let resPast = await axios.get(`${URL}/competitions/past`);
+      resPast.data.map((item) => {
+        item.dateFinishes = item.dateFinishes.slice(0, -8);
+        item.entriesDate = item.entriesDate.slice(0, -8);
+        item.pictures.push("");
+      });
       setPastCompetitions(resPast.data);
     } catch (err) {
       console.error(err);
@@ -43,69 +57,73 @@ const PastCompetitions = (props) => {
     setRemove("");
   };
 
-  useEffect(() => {
-    props.update && updateWinnersImg() && updateWinner();
-  }, [props.update]);
-
-  const updateWinnersImg = async () => {
-    try {
-      !props.update && (pastCompetitions[i].winnerPic = "");
-      let competition = pastCompetitions[i];
-      competition.pictures.push("");
-      await axios.post(`${URL}/competitions/updatewinnerimg`, {
-        competition,
-      });
-      setOpenModal(false);
-      getPastCompetitions();
-      setRemove("");
-      props.setUpdate();
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
   const handleChange = (e) => {
+    setUnsaved(true);
     let tempPastCompetitions = [...pastCompetitions];
-    if (!tempPastCompetitions[i].winner) {
+    if (e.target.name === "email") {
       tempPastCompetitions[i].winner = {
         name: "",
         email: "",
       };
+      tempPastCompetitions[i].winner[e.target.name] = e.target.value;
+      pastCompetitions[i].winner.email !== "" && findWinner();
+    } else if (e.target.name === "entriesDate") {
+      e.target.value = new Date(e.target.value).toISOString().slice(0, -8);
     }
-    tempPastCompetitions[i].winner[e.target.name] = e.target.value;
+    tempPastCompetitions[i][e.target.name] = e.target.value;
     setPastCompetitions(tempPastCompetitions);
-    pastCompetitions[i].winner.email !== "" && findWinner();
   };
 
   const findWinner = async () => {
     try {
-      console.log(pastCompetitions[i].winner.email);
-      console.log("lemon");
       let res = await axios.get(
         `${URL}/users/${pastCompetitions[i].winner.email}`
       );
-      console.log(res.data);
+      let tempPastComp = [...pastCompetitions];
       if (res.data.ok) {
-        let tempPastComp = [...pastCompetitions];
+        setUnsaved(true);
         tempPastComp[i].winner = res.data.user;
-        console.log(tempPastComp);
-        setPastCompetitions(tempPastComp);
+      } else {
+        tempPastComp[i].winner.name = "";
       }
+      setPastCompetitions(tempPastComp);
     } catch (err) {
       console.error(err);
     }
   };
 
   const updateWinner = async () => {
+    !props.update && (pastCompetitions[i].winnerPic = "");
+    pastCompetitions[i].pictures.push("");
     try {
-      const res = await axios.post(`${URL}/competitions/updatewinner`, {
+      let res = await axios.post(`${URL}/competitions/updatewinner`, {
         competition: pastCompetitions[i],
       });
-      console.log(res);
+      if (res.data.ok) {
+        setOpenModal(false);
+        getPastCompetitions();
+        setRemove("");
+        props.setUpdate();
+        setUnsaved(false);
+        setSaved(true);
+      }
     } catch (err) {
       console.error(err);
     }
   };
+
+  useEffect(() => {
+    let today = new Date(Date.now()).toISOString().slice(0, -8);
+    setToday(today);
+  }, []);
+
+  useEffect(() => {
+    if (saved) {
+      setTimeout(() => {
+        setSaved(false);
+      }, 1000);
+    }
+  }, [saved]);
 
   return (
     <div className="adminPage">
@@ -149,10 +167,10 @@ const PastCompetitions = (props) => {
               <ImagePicker
                 setState={(uploadedFile) => {
                   let tempPast = pastCompetitions;
-                  console.log(uploadedFile);
                   tempPast[i].winnerPic = uploadedFile.secure_url;
                   setRemove(" ");
                   setPastCompetitions(tempPast);
+                  setUnsaved(true);
                 }}
                 image={pastCompetitions[i].winnerPic}
               />
@@ -177,6 +195,7 @@ const PastCompetitions = (props) => {
                   className="pointer"
                   onClick={() => {
                     setRemove("winner's image");
+                    setUnsaved(true);
                     setOpenModal(true);
                   }}
                 />
@@ -203,14 +222,15 @@ const PastCompetitions = (props) => {
                 </p>
               </div>
             </div>
-            <div>
+            <div css={placeholderStyle}>
               <h3 css={titleStyle}>Email</h3>
               <input
                 value={
                   pastCompetitions[i].winner
                     ? pastCompetitions[i].winner.email
-                    : "No winner yet"
+                    : ""
                 }
+                placeholder="No winner yet"
                 className={`${
                   !pastCompetitions[i].winner && "gray"
                 } styledInput`}
@@ -238,6 +258,21 @@ const PastCompetitions = (props) => {
               />
             </div>
           </div>
+          <h3 css={titleStyle}>Recorded Facebook Video</h3>
+          <input
+            value={pastCompetitions[i].facebookURL}
+            onChange={(e) => handleChange(e)}
+            name="facebookURL"
+            className="styledInput"
+          />
+          <input
+            type="datetime-local"
+            name="entriesDate"
+            min={today}
+            value={pastCompetitions[i].entriesDate}
+            onChange={(e) => handleChange(e)}
+            className="styledInput"
+          />
           <h3 className="default" css={titleStyle}>
             Price
           </h3>
@@ -293,19 +328,6 @@ const PastCompetitions = (props) => {
           />
           <hr css={hrStyle} />
           <h3 className="default" css={titleStyle}>
-            Recorded Facebook Video
-          </h3>
-          <a href={`http://${pastCompetitions[i].facebookURL}`} target="_blank">
-            <p className="styledInput raleway">
-              {pastCompetitions[i].facebookURL}
-            </p>
-          </a>
-          <p className="styledInput raleway">
-            {pastCompetitions[i].entriesDate.slice(0, -14) +
-              " " +
-              pastCompetitions[i].entriesDate.slice(-10, -5)}
-          </p>
-          <h3 className="default" css={titleStyle}>
             Spreadsheet Link
           </h3>
           <a href={`http://${pastCompetitions[i].entriesURL}`} target="_blank">
@@ -334,7 +356,7 @@ const PastCompetitions = (props) => {
                     fontSize: "1rem",
                   }}
                 >
-                  Image {idx}
+                  Image {idx + 1}
                 </h4>
                 <img src={item} css={imgStyle} />
               </div>
@@ -342,6 +364,8 @@ const PastCompetitions = (props) => {
           })}
         </div>
       </div>
+      <div className={`${unsaved ? "unsaved" : "none"}`}>Unsaved changes!</div>
+      <div className={`${saved ? "saved" : "none"}`}>Changes saved!</div>
       <ReactModal
         ariaHideApp={false}
         isOpen={openModal}
@@ -387,13 +411,16 @@ const PastCompetitions = (props) => {
         <div className="flexCenter bgtransparent">
           <button
             className="raleway dm_modalBtn dm_modalBtn1 pointer"
-            onClick={() => updateWinnersImg()}
+            onClick={() => updateWinner()}
           >
             Yes
           </button>
           <button
             className="raleway dm_modalBtn dm_modalBtn2 pointer"
-            onClick={() => setOpenModal(false)}
+            onClick={() => {
+              setUnsaved(false);
+              setOpenModal(false);
+            }}
           >
             No
           </button>
@@ -511,6 +538,19 @@ const secondSidebarStyle = {
     width: "100%",
     boxShadow: "5px 5px 10px #111",
     borderRadius: "0 0 5px 5px",
+  },
+  placeholderStyle = {
+    input: {
+      "::-webkit-input-placeholder": {
+        /* Edge */ fontSize: "0.9rem",
+      },
+      ":-ms-input-placeholder": {
+        /* Internet Explorer 10-11 */ fontSize: "0.9rem",
+      },
+      "::placeholder": {
+        fontSize: "0.9rem",
+      },
+    },
   };
 
 export default PastCompetitions;

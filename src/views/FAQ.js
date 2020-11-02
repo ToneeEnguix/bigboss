@@ -15,6 +15,8 @@ const FAQ = (props) => {
   ]);
   const [i, setI] = useState(0);
   const [openModal, setOpenModal] = useState(false);
+  const [unsaved, setUnsaved] = useState(false);
+  const [saved, setSaved] = useState(false);
 
   useEffect(() => {
     getFaq();
@@ -29,7 +31,11 @@ const FAQ = (props) => {
   useEffect(() => {
     const updateFaq = async () => {
       props.setUpdate();
-      await axios.post(`${URL}/faq/update`, { faq });
+      let res = await axios.post(`${URL}/faq/update`, { faq });
+      if (res.data.ok) {
+        setUnsaved(false);
+        setSaved(true);
+      }
     };
     props.update && updateFaq();
   }, [props.update]);
@@ -51,10 +57,19 @@ const FAQ = (props) => {
   };
 
   const handleChange = (e, i) => {
+    setUnsaved(true);
     let tempFaq = [...faq];
     tempFaq[i][e.target.name] = e.target.value;
     setFaq(tempFaq);
   };
+
+  useEffect(() => {
+    if (saved) {
+      setTimeout(() => {
+        setSaved(false);
+      }, 1000);
+    }
+  }, [saved]);
 
   return (
     <div className="adminPage adminPage2">
@@ -100,6 +115,8 @@ const FAQ = (props) => {
             );
           })}
       </div>
+      <div className={`${unsaved ? "unsaved" : "none"}`}>Unsaved changes!</div>
+      <div className={`${saved ? "saved" : "none"}`}>Changes saved!</div>
       <ReactModal
         ariaHideApp={false}
         isOpen={openModal}

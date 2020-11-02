@@ -19,8 +19,6 @@ const ActiveCompetitions = (props) => {
       maxTickets: 10,
       prize: "",
       description: ["", "", "", "", ""],
-      facebookURL: "",
-      entriesDate: "",
       entriesURL: "",
       pictures: ["", "", "", "", "", ""],
     },
@@ -39,14 +37,14 @@ const ActiveCompetitions = (props) => {
       "",
     ],
     entriesURL: "Paste link here",
-    facebookURL: "Paste link here",
-    entriesDate: new Date(Date.now()).toISOString().slice(0, -8),
   });
   const [i, setI] = useState(0);
   const [openModal, setOpenModal] = useState(false);
   const [today, setToday] = useState("");
   const [remove, setRemove] = useState("");
   const [index, setIndex] = useState(0);
+  const [unsaved, setUnsaved] = useState(false);
+  const [saved, setSaved] = useState(false);
 
   useEffect(() => {
     getActiveCompetitions();
@@ -56,7 +54,6 @@ const ActiveCompetitions = (props) => {
     let resAll = await axios.get(`${URL}/competitions/active`);
     resAll.data.map((item) => {
       item.dateFinishes = item.dateFinishes.slice(0, -8);
-      item.entriesDate = item.entriesDate.slice(0, -8);
       item.pictures.push("");
     });
     setRemove("");
@@ -66,17 +63,21 @@ const ActiveCompetitions = (props) => {
   useEffect(() => {
     const updateActiveCompetitions = async () => {
       props.setUpdate();
-      await axios.post(`${URL}/competitions/update`, {
+      let res = await axios.post(`${URL}/competitions/update`, {
         competition: activeCompetitions[i],
       });
-      getActiveCompetitions();
+      if (res.data.ok) {
+        setSaved(true);
+        getActiveCompetitions();
+      }
     };
     props.update && updateActiveCompetitions();
   }, [props.update]);
 
   const handleChange = (e, i, idx) => {
+    setUnsaved(true);
     let tempActiveCompetitions = [...activeCompetitions];
-    if (e.target.name === "dateFinishes" || e.target.name === "entriesDate") {
+    if (e.target.name === "dateFinishes") {
       e.target.value = new Date(e.target.value).toISOString().slice(0, -8);
     } else if (e.target.name === "description") {
       tempActiveCompetitions[i][e.target.name][idx] = e.target.value;
@@ -99,6 +100,7 @@ const ActiveCompetitions = (props) => {
   };
 
   const handleChange2 = (e) => {
+    setUnsaved(true);
     setNewComp({ ...newComp, [e.target.name]: e.target.value });
   };
 
@@ -133,8 +135,13 @@ const ActiveCompetitions = (props) => {
   };
 
   useEffect(() => {
-    console.log(props.create, props.update, activeCompetitions);
-  }, [props.create, props.update, activeCompetitions]);
+    setUnsaved(false);
+    if (saved) {
+      setTimeout(() => {
+        setSaved(false);
+      }, 1000);
+    }
+  }, [saved]);
 
   return (
     <>
@@ -239,21 +246,6 @@ const ActiveCompetitions = (props) => {
                 type="number"
               />
               <hr css={hrStyle} />
-              <h3 css={titleStyle}>Recorded Facebook Video</h3>
-              <input
-                value={newComp.facebookURL}
-                onChange={(e) => handleChange2(e)}
-                name="facebookURL"
-                className="styledInput"
-              />
-              <input
-                type="datetime-local"
-                name="entriesDate"
-                min={today}
-                value={newComp.entriesDate}
-                onChange={(e) => handleChange2(e)}
-                className="styledInput"
-              />
               <h3 css={titleStyle}>Spreadsheet Link</h3>
               <input
                 value={newComp.entriesURL}
@@ -443,24 +435,16 @@ const ActiveCompetitions = (props) => {
                 className="styledInput"
               />
               <hr css={hrStyle} />
-              <h3 css={titleStyle}>Recorded Facebook Video</h3>
-              <input
-                value={activeCompetitions[i].facebookURL}
-                onChange={(e) => handleChange(e, i)}
-                name="facebookURL"
-                className="styledInput"
-              />
-              <input
-                type="datetime-local"
-                name="entriesDate"
-                min={today}
-                value={activeCompetitions[i].entriesDate}
-                onChange={(e) => handleChange(e, i)}
-                className="styledInput"
-              />
               <h3 css={titleStyle}>Spreadsheet Link</h3>
               <input
-                value={activeCompetitions[i].entriesURL}
+                value={
+                  activeCompetitions[i].entriesURL !== "" ||
+                  activeCompetitions[i].entriesURL !== " " ||
+                  activeCompetitions[i].entriesURL !== null
+                    ? activeCompetitions[i].entriesURL
+                    : null
+                }
+                placeholder="Enter link here"
                 onChange={(e) => handleChange(e, i)}
                 name="entriesURL"
                 className="styledInput"
@@ -551,6 +535,8 @@ const ActiveCompetitions = (props) => {
           </h3>
         </div>
       )}
+      <div className={`${unsaved ? "unsaved" : "none"}`}>Unsaved changes!</div>
+      <div className={`${saved ? "saved" : "none"}`}>Changes saved!</div>
       <ReactModal
         ariaHideApp={false}
         isOpen={openModal}
@@ -633,6 +619,17 @@ const mainTitleStyle = {
     backgroundColor: "#212121",
     div: {
       backgroundColor: "#212121",
+    },
+    input: {
+      "::-webkit-input-placeholder": {
+        /* Edge */ fontSize: "0.9rem",
+      },
+      ":-ms-input-placeholder": {
+        /* Internet Explorer 10-11 */ fontSize: "0.9rem",
+      },
+      "::placeholder": {
+        fontSize: "0.9rem",
+      },
     },
   },
   titleStyle = {
