@@ -22,7 +22,7 @@ const Sidebar = (props) => {
           </Link>
           <Link
             className={`${
-              props.selected === "pastCompetitions" && "blue"
+              props.selected === "pastCompetitions" && "thisblue"
             } bgtransparent`}
             css={contentLinks}
             to="/admindashboard/pastcompetitions"

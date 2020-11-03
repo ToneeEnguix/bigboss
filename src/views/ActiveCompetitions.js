@@ -43,6 +43,7 @@ const ActiveCompetitions = (props) => {
   const [today, setToday] = useState("");
   const [remove, setRemove] = useState("");
   const [index, setIndex] = useState(0);
+  const [halfSubmit, setHalfSubmit] = useState(false);
   const [unsaved, setUnsaved] = useState(false);
   const [saved, setSaved] = useState(false);
 
@@ -106,20 +107,21 @@ const ActiveCompetitions = (props) => {
   };
 
   const submitNewComp = async () => {
-    console.log(newComp);
     newComp.pictures.map((item, idx) => {
       item === "" && newComp.pictures.splice(idx, 1);
     });
-    console.log(newComp);
     try {
       let res = await axios.post(`${URL}/competitions/create`, {
         competition: newComp,
       });
       if (res.data.ok) {
         props.setCreate();
+        setSaved(true);
         getActiveCompetitions();
+        setHalfSubmit(false);
       }
     } catch (err) {
+      setHalfSubmit(true);
       console.error(err);
     }
   };
@@ -270,7 +272,11 @@ const ActiveCompetitions = (props) => {
               {/* here it goes */}
               <button
                 className="styledInput submitBtn pointer"
-                style={{ width: "100px", margin: "0 0 0 3.3rem" }}
+                style={{
+                  width: "100px",
+                  margin: "0 0 0 3.3rem",
+                  backgroundColor: halfSubmit && "gray",
+                }}
                 onClick={() => submitNewComp()}
               >
                 Submit
@@ -334,7 +340,7 @@ const ActiveCompetitions = (props) => {
         <div className="adminPage">
           <div className="flexColumn" css={secondSidebarStyle}>
             <div css={titleStyle2}>Active Competitions</div>
-            <div className="flexColumn" css={contentStyle}>
+            <div className="flexColumn scrollbar" css={contentStyle}>
               {props.activeCompetitions[i] &&
                 props.activeCompetitions.map((item, idx) => {
                   return (
@@ -690,12 +696,12 @@ const secondSidebarStyle = {
     backgroundColor: "#262626",
   },
   contentStyle = {
+    boxSizing: "content-box",
     alignItems: "flex-start",
     lineHeight: "1.7rem",
-    width: "60%",
+    width: "360px",
     backgroundColor: "#262626",
     width: "100%",
-    padding: "0 3rem",
     "div:hover": {
       borderColor: "#2680eb !important",
     },
@@ -713,10 +719,10 @@ const secondSidebarStyle = {
     borderRadius: "100px",
     boxShadow: "0px 2px 3px #202020",
     padding: "0 0 0 1.8rem",
-    width: "100%",
+    width: "80%",
     justifyContent: "space-between",
     boxSizing: "border-box",
-    height: "34px",
+    height: "40px !important",
     cursor: "pointer",
     div: {
       backgroundColor: "#333333",

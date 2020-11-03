@@ -46,9 +46,8 @@ const PastCompetitions = (props) => {
     try {
       let resPast = await axios.get(`${URL}/competitions/past`);
       resPast.data.map((item) => {
-        item.dateFinishes = item.dateFinishes.slice(0, -8);
+        item.dateFinishes = item.dateFinishes.slice(0, -14);
         item.entriesDate = item.entriesDate.slice(0, -8);
-        item.pictures.push("");
       });
       setPastCompetitions(resPast.data);
     } catch (err) {
@@ -152,14 +151,14 @@ const PastCompetitions = (props) => {
       <h3 css={mainTitleStyle}>{pastCompetitions[i].title}</h3>
       <div css={mainContentStyle} className="grid2">
         <div>
-          <h3 className="default" css={titleStyle}>
+          <h3 className="default gray" css={titleStyle}>
             Title
           </h3>
           <input
             className="default"
             readOnly
             defaultValue={pastCompetitions[i].title}
-            className="styledInput"
+            className="styledInput gray"
           />
           <h3 css={titleStyle}>Photo of the Winner</h3>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
@@ -210,16 +209,6 @@ const PastCompetitions = (props) => {
                     }}
                   />
                 </div>
-                {/* <p
-                  style={{
-                    display: remove !== " " && "none",
-                    position: "relative",
-                    top: "0",
-                    zIndex: "10",
-                  }}
-                >
-                  Click top right corner to save changes
-                </p> */}
               </div>
             </div>
             <div css={placeholderStyle}>
@@ -277,61 +266,56 @@ const PastCompetitions = (props) => {
             Price
           </h3>
           <input
-            className="default"
             readOnly
             defaultValue={pastCompetitions[i].ticketPrice}
-            className="styledInput"
+            className="styledInput default gray"
           />
           <h3 className="default" css={titleStyle}>
             Prize
           </h3>
           <input
-            className="default"
             readOnly
             defaultValue={pastCompetitions[i].prize}
-            className="styledInput"
+            className="styledInput default gray"
           />
           <h3 className="default" css={titleStyle}>
             Description
           </h3>
-          <p className="styledInput raleway">
+          <p className="styledInput raleway gray">
             {pastCompetitions[i].description[0]}
           </p>
-          <p className="styledInput raleway">
+          <p className="styledInput raleway gray">
             {pastCompetitions[i].description[1]}
           </p>
-          <p className="styledInput raleway">
+          <p className="styledInput raleway gray">
             {pastCompetitions[i].description[2]}
           </p>
-          <p className="styledInput raleway">
+          <p className="styledInput raleway gray">
             {pastCompetitions[i].description[3]}
           </p>
-          <p className="styledInput raleway">
+          <p className="styledInput raleway gray">
             {pastCompetitions[i].description[4]}
           </p>
           <h3 className="default" css={titleStyle}>
             Finish Date
           </h3>
-          <p className="styledInput raleway">
-            {pastCompetitions[i].dateFinishes.slice(0, -14) +
-              " " +
-              pastCompetitions[i].dateFinishes.slice(-10, -5)}
+          <p className="styledInput raleway gray">
+            {pastCompetitions[i].dateFinishes}
           </p>
           <h3 className="default" css={titleStyle}>
             How many tickets were available?
           </h3>
           <input
-            className="default"
             readOnly
             defaultValue={pastCompetitions[i].maxTickets}
-            className="styledInput"
+            className="styledInput default gray"
           />
           <hr css={hrStyle} />
           <h3 className="default" css={titleStyle}>
             Spreadsheet Link
           </h3>
           <a href={`http://${pastCompetitions[i].entriesURL}`} target="_blank">
-            <p className="styledInput raleway">
+            <p className="styledInput raleway gray">
               {pastCompetitions[i].entriesURL}
             </p>
           </a>
@@ -342,7 +326,7 @@ const PastCompetitions = (props) => {
               <div
                 className="flexColumn"
                 style={{
-                  backgroundColor: "#F1F1F1",
+                  backgroundColor: "#333",
                   margin: "0 auto 4rem",
                   borderRadius: "10px",
                 }}
@@ -351,7 +335,7 @@ const PastCompetitions = (props) => {
                 <h4
                   className="raleway"
                   css={{
-                    color: "black",
+                    color: "white",
                     padding: "0.7rem 0",
                     fontSize: "1rem",
                   }}
@@ -411,18 +395,18 @@ const PastCompetitions = (props) => {
         <div className="flexCenter bgtransparent">
           <button
             className="raleway dm_modalBtn dm_modalBtn1 pointer"
-            onClick={() => updateWinner()}
-          >
-            Yes
-          </button>
-          <button
-            className="raleway dm_modalBtn dm_modalBtn2 pointer"
             onClick={() => {
               setUnsaved(false);
               setOpenModal(false);
             }}
           >
             No
+          </button>
+          <button
+            className="raleway dm_modalBtn dm_modalBtn2 pointer"
+            onClick={() => updateWinner()}
+          >
+            Yes
           </button>
         </div>
       </ReactModal>

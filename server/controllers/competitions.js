@@ -12,6 +12,7 @@ class CompetitionController {
     try {
       competition.dateFinishes = new Date(competition.dateFinishes);
       competition.maxTickets = parseInt(competition.maxTickets);
+      competition.pictures.pop();
       await competitions.create(competition);
       res.status(200).send({ ok: true });
     } catch (err) {
@@ -63,49 +64,49 @@ class CompetitionController {
     }
   }
 
-  async getPublicId(id) {
-    console.log("lemon");
-    // let url = id;
-    // let slashArr = [];
-    // let dotArr = [];
-    // while (url.includes("/")) {
-    //   let idx = url.indexOf("/");
-    //   slashArr.push(idx);
-    //   url = url.slice(0, idx) + url.slice(idx + 1);
-    // }
-    // while (url.includes(".")) {
-    //   let idx = url.indexOf(".");
-    //   dotArr.push(idx);
-    //   url = url.slice(0, idx) + url.slice(idx + 1);
-    // }
-    // let public_id = url.slice(
-    //   slashArr[slashArr.length - 1] - dotArr.length + 1,
-    //   dotArr[dotArr.length - 1]
-    // );
-    // await cloudinary.v2.api.delete_resources([public_id]);
-  }
+  // async getPublicId(id) {
+  // let url = id;
+  // let slashArr = [];
+  // let dotArr = [];
+  // while (url.includes("/")) {
+  //   let idx = url.indexOf("/");
+  //   slashArr.push(idx);
+  //   url = url.slice(0, idx) + url.slice(idx + 1);
+  // }
+  // while (url.includes(".")) {
+  //   let idx = url.indexOf(".");
+  //   dotArr.push(idx);
+  //   url = url.slice(0, idx) + url.slice(idx + 1);
+  // }
+  // let public_id = url.slice(
+  //   slashArr[slashArr.length - 1] - dotArr.length + 1,
+  //   dotArr[dotArr.length - 1]
+  // );
+  // await cloudinary.v2.api.delete_resources([public_id]);
+  // }
 
   async update(req, res) {
-    // const getPublicId = async (id) => {
-    //   let url = id;
-    //   let slashArr = [];
-    //   let dotArr = [];
-    //   while (url.includes("/")) {
-    //     let idx = url.indexOf("/");
-    //     slashArr.push(idx);
-    //     url = url.slice(0, idx) + url.slice(idx + 1);
-    //   }
-    //   while (url.includes(".")) {
-    //     let idx = url.indexOf(".");
-    //     dotArr.push(idx);
-    //     url = url.slice(0, idx) + url.slice(idx + 1);
-    //   }
-    //   let public_id = url.slice(
-    //     slashArr[slashArr.length - 1] - dotArr.length + 1,
-    //     dotArr[dotArr.length - 1]
-    //   );
-    //   await cloudinary.v2.api.delete_resources([public_id]);
-    // };
+    const getPublicId = async (id) => {
+      let url = id;
+      let slashArr = [];
+      let dotArr = [];
+      while (url.includes("/")) {
+        let idx = url.indexOf("/");
+        slashArr.push(idx);
+        url = url.slice(0, idx) + url.slice(idx + 1);
+      }
+      while (url.includes(".")) {
+        let idx = url.indexOf(".");
+        dotArr.push(idx);
+        url = url.slice(0, idx) + url.slice(idx + 1);
+      }
+      let public_id = url.slice(
+        slashArr[slashArr.length - 1] - dotArr.length + 1,
+        dotArr[dotArr.length - 1]
+      );
+      await cloudinary.v2.api.delete_resources([public_id]);
+    };
+    console.log(this, that);
     let { competition } = req.body;
     competition.pictures[competition.pictures.length - 1] === "" &&
       competition.pictures.pop();
@@ -116,7 +117,7 @@ class CompetitionController {
       found.pictures.map(async (item, idx) => {
         if (competition.pictures[idx] !== item) {
           let url = item;
-          this.getPublicId(url);
+          getPublicId(url);
         }
       });
       found.pictures = competition.pictures;
@@ -214,7 +215,6 @@ class CompetitionController {
         .find({ dateFinishes: { $gte: Date.now() } })
         .sort({ dateFinishes: 1 })
         .limit(1);
-      console.log('lemon: ', lastCompetition)
       res.status(200).send(lastCompetition);
     } catch (error) {
       res.status(500).send(error);

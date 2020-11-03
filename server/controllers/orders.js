@@ -54,7 +54,6 @@ class OrdersController {
 
   async getCompetitionOrders(req, res) {
     const competitionId = req.params.competitionId;
-    console.log(competitionId);
     try {
       let competitionDetails = await orders
         .find({
@@ -62,7 +61,6 @@ class OrdersController {
         })
         .populate("user")
         .populate("productsBought.product");
-      console.log(competitionDetails);
       res.status(200).send(competitionDetails);
     } catch (err) {
       res.status(500).send(err);
