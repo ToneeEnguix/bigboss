@@ -4,6 +4,12 @@ import { jsx } from '@emotion/core/';
 import {
     NavLink,
 } from "react-router-dom";
+import facepaint from 'facepaint';
+
+
+const breakpoints = [576, 768, 1225, 1400];
+const mq = facepaint(
+  breakpoints.map(bp => `@media (min-width: ${bp}px)`));
 
 const style = {
     display: "flex",

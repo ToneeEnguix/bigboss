@@ -4,6 +4,12 @@ import { jsx } from '@emotion/core/';
 import {
     NavLink,
 } from "react-router-dom";
+import facepaint from 'facepaint';
+
+
+const breakpoints = [576, 950, 992, 1200]
+const mq = facepaint(
+  breakpoints.map(bp => `@media (min-width: ${bp}px)`));
 
 const style = {
     display: "flex",
@@ -55,7 +61,7 @@ export default class MoreDashboardNav extends React.Component {
     render() {
 
         return (
-            <div  css={{borderRight:"1px solid #868686", width:"15%" , minHeight:"50vh"}}>  
+            <div  css={mq({display:["none","none","inline","inline"],borderRight:"1px solid #868686", width:"15%" , minHeight:"50vh"})}>  
                 <nav css={style}>
                     <ul>
                         <li>

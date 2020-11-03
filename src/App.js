@@ -41,7 +41,7 @@ import "./App.css";
 import facepaint from 'facepaint';
 
 const customHistory = createBrowserHistory();
-const breakpoints = [576, 768, 992, 1200]
+const breakpoints = [576, 950, 992, 1200]
 
 const mq = facepaint(
   breakpoints.map(bp => `@media (min-width: ${bp}px)`));

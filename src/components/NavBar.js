@@ -4,6 +4,12 @@ import React, { useState, useContext } from "react";
 import { ReactComponent as BigBossLogo } from "../resources/BigBossLogo.svg";
 import UserContext from "../context/UserContext";
 import { NavLink, Link, useHistory } from "react-router-dom";
+import facepaint from 'facepaint';
+
+
+const breakpoints = [576, 768, 1225, 1400];
+const mq = facepaint(
+  breakpoints.map(bp => `@media (min-width: ${bp}px)`));
 
 const flexContainer = {
   display: "flex",
@@ -16,11 +22,13 @@ const flexContainer = {
   },
 };
 
-const menu = {
+const menu = mq( {
+  position:"relative",
   display: "flex",
   listStyle: "none",
   width: "60%",
-  marginRight: "8rem",
+  left:["0","0","-4rem","-7rem"],
+  marginLeft:["1rem","1rem","1rem","0"],
   justifyContent: "space-between",
 
   "a, strong": {
@@ -59,7 +67,7 @@ const menu = {
     transform: "scaleX(1)",
     transition: "transform 100ms ease-in-out",
   },
-};
+});
 
 const icons = {
   display: "flex",
@@ -139,7 +147,11 @@ function NavBar() {
   return (
     <div css={flexContainer}>
       <BigBossLogo
-        css={{ marginLeft: "2rem" }}
+        css={mq({ 
+
+          width:["40px","40px","60px","60px"],
+       
+           marginLeft: ["1.0rem","1.0rem","2rem","2rem"] })}
         height={"60px"}
         width={"60px"}
       />
