@@ -6,23 +6,23 @@ import EntryCard from "../components/EntryCard";
 import { Redirect } from "react-router-dom"
 
 
-const contentWrapper={
+const contentWrapper = {
 
-  margin:"4rem 0rem",
+  margin: "4rem 0rem",
 
-  "h1":{
+  "h1": {
 
-    marginLeft:"4rem"
+    marginLeft: "4rem"
   }
 
 }
 
-const drawWrap={
+const drawWrap = {
 
-  marginTop:"2rem",
-  display:"flex",
-  justifyContent:"space-evenly",
-  flexWrap:"wrap"
+  marginTop: "2rem",
+  display: "flex",
+  justifyContent: "space-evenly",
+  flexWrap: "wrap"
 }
 function Entries() {
 
@@ -35,7 +35,7 @@ function Entries() {
 
     if (entries.ok) {
 
-       setEntries(entries.data);
+      setEntries(entries.data);
     }
     else {
       setError(true);
@@ -46,7 +46,7 @@ function Entries() {
 
     getAllEntries();
 
-  },[])
+  }, [])
 
   if (error) {
     return (
@@ -56,16 +56,20 @@ function Entries() {
 
   return (
     <div css={contentWrapper}>
-     
+
       <h1>ENTRIES</h1>
 
-      <div css={drawWrap}> 
+      <div css={drawWrap}>
 
-      {
-        entries.map((winner, index) => {
-          return (<EntryCard key={index} winner={winner} />)
-        })
-      }
+        {entries.length < 0 ?
+          entries.map((winner, index) => {
+            return (<EntryCard key={index} winner={winner} />)
+          }) :
+          <div css={{ padding: "4rem", display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <h1 >NOTHING TO SEE HERE YET!!</h1>
+            <p>Soon this section will have something for you!</p>
+          </div>
+        }
       </div>
     </div>
   );

@@ -6,23 +6,23 @@ import DrawCard from "../components/DrawCard";
 import { Redirect } from "react-router-dom"
 
 
-const contentWrapper={
+const contentWrapper = {
 
-  margin:"4rem 0rem",
+  margin: "4rem 0rem",
 
-  "h1":{
+  "h1": {
 
-    marginLeft:"4rem"
+    marginLeft: "4rem"
   }
 
 }
 
-const drawWrap={
+const drawWrap = {
 
-  marginTop:"2rem",
-  display:"flex",
-  justifyContent:"space-evenly",
-  flexWrap:"wrap"
+  marginTop: "2rem",
+  display: "flex",
+  justifyContent: "space-evenly",
+  flexWrap: "wrap"
 }
 function Draws() {
 
@@ -35,7 +35,7 @@ function Draws() {
 
     if (winners.ok) {
 
-       setWinners(winners.data);
+      setWinners(winners.data);
     }
     else {
       setError(true);
@@ -47,7 +47,7 @@ function Draws() {
 
     getAllWinners();
 
-  },[])
+  }, [])
 
   if (error) {
     return (
@@ -57,16 +57,20 @@ function Draws() {
 
   return (
     <div css={contentWrapper}>
-     
+
       <h1>DRAWS</h1>
 
-      <div css={drawWrap}> 
+      <div css={drawWrap}>
 
-      {
-        winners.map((winner, index) => {
-          return (<DrawCard key={index} winner={winner} />)
-        })
-      }
+        {winners.length > 0 ?
+          winners.map((winner, index) => {
+            return (<DrawCard key={index} winner={winner} />)
+          }) : 
+          <div css={{ padding: "4rem", display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <h1 >NOTHING TO SEE HERE YET!!</h1>
+            <p>Soon this section will have something for you!</p>
+          </div>
+        }
       </div>
     </div>
   );

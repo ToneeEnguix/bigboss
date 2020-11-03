@@ -59,10 +59,15 @@ function Competitions() {
 
       <div css={competitionsWrap}> 
 
-      {
+    
+      { competitions.length>0 ?
         competitions.map((competition, index) => {
           return (<CompetitionCard key={index} competition={competition} />)
-        })
+        }):
+        <div css={{padding:"4rem", display:"flex", flexDirection:"column", alignItems:"center"}}>
+        <h1 >NOTHING TO SEE HERE YET!!</h1>
+        <p>Soon this section will have something for you!</p>
+        </div>
       }
       </div>
     </div>
