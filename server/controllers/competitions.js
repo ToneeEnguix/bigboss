@@ -13,9 +13,9 @@ class CompetitionController {
       competition.entriesDate = new Date(competition.entriesDate);
       competition.dateFinishes = new Date(competition.dateFinishes);
       competition.maxTickets = parseInt(competition.maxTickets);
-      console.log(competition);
+     
       await competitions.create(competition);
-      console.log("lemon");
+  
       res.status(200).send({ ok: true });
     } catch (error) {
       res.status(500).send(error);
@@ -181,7 +181,7 @@ class CompetitionController {
         .sort({ dateFinishes: -1 })
         .populate("winner")
         .limit(3);
-      console.log(allCompetitions);
+
       res.status(200).send(allCompetitions);
     } catch (error) {
       res.status(500).send(error);

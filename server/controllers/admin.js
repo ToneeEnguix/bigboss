@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const config = require("../token/jwtConfig.js");
 const express = require("express");
 const app = express();
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const saltRounds = 10;
 
 app.set("key", config.key);

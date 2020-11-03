@@ -26,7 +26,7 @@ const flexContainer = {
 function NextDraw() {
 
 
-    const [nextDraw, setNextDraw] = useState("");
+    const [nextDraw, setNextDraw] = useState(undefined);
     const [error, setError] = useState(false);
 
 
@@ -38,7 +38,7 @@ function NextDraw() {
 
     const redrawLatest = () => {
 
-    
+
         getNextDraw();
 
     }
@@ -47,13 +47,15 @@ function NextDraw() {
 
         const result = await get("/competitions/nextdraw");
 
-        if (result.ok) {
+        if (result.ok && result.data.length !==0) {
 
+            
             setNextDraw(result.data[0].dateFinishes);
 
-
         }
-        else {
+        
+        else if (!result.ok) {
+       
             setError(true);
 
         }
@@ -65,19 +67,39 @@ function NextDraw() {
         )
     }
 
-    return (
-        <div css={flexContainer}>
-            <div css={{ visibility: "hidden" }}
-            >Hidden</div>
-            <div>
-                <CounterSmall key={nextDraw} setRedraw={redrawLatest} date={nextDraw} />
+
+    if (nextDraw !== undefined) {
+        return (
+            <div css={flexContainer}>
+                <div css={{ visibility: "hidden" }}
+                >Hidden</div>
+                <div>
+                    <CounterSmall key={nextDraw} setRedraw={redrawLatest} date={nextDraw} />
+                </div>
+                <div css={{ marginRight: "1rem" }}>
+                    <img src={LiveLogo} css={{ width: "3.5rem" }} />
+                </div>
+
             </div>
-            <div css={{ marginRight: "1rem" }}>
-                <img src={LiveLogo} css={{width:"3.5rem"}} />
+        );
+    }
+    else {
+        return (
+            <div css={flexContainer}>
+                <div css={{ visibility: "hidden" }}
+                >Hidden</div>
+                <div>
+                    <p>NO NEXT DRAWS AVAILABLE!</p>
+                </div>
+                <div css={{ marginRight: "1rem" }}>
+                    <img src={LiveLogo} css={{ width: "3.5rem" }} />
+                </div>
+
             </div>
 
-        </div>
-    );
+
+        )
+    }
 }
 
 export default NextDraw;

@@ -53,7 +53,7 @@ const container = {
     left: "0",
     height: "20px",
     width: "20px",
-    backgroundColor: "#eee",
+    backgroundColor: "white",
 
   },
 
