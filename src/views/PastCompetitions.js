@@ -210,7 +210,7 @@ const PastCompetitions = (props) => {
                     }}
                   />
                 </div>
-                <p
+                {/* <p
                   style={{
                     display: remove !== " " && "none",
                     position: "relative",
@@ -219,7 +219,7 @@ const PastCompetitions = (props) => {
                   }}
                 >
                   Click top right corner to save changes
-                </p>
+                </p> */}
               </div>
             </div>
             <div css={placeholderStyle}>

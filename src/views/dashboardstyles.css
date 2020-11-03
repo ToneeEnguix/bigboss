@@ -67,13 +67,15 @@ textarea {
   position: fixed;
   top: 90px;
   right: 100px;
-  background-color: red;
+  background-color: transparent;
   padding: 0.5rem 1rem;
+  color: #e3138b
 }
 .saved {
   position: fixed;
   top: 90px;
   right: 100px;
-  background-color: blue;
+  background-color: transparent;
   padding: 0.5rem 1rem;
+  color: #0ca830
 }

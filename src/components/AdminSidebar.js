@@ -13,7 +13,7 @@ const Sidebar = (props) => {
         <div className="flexColumn" css={contentStyle}>
           <Link
             className={`${
-              props.selected === "activeCompetitions" && "blue"
+              props.selected === "activeCompetitions" && "thisblue"
             } bgtransparent`}
             css={contentLinks}
             to="/admindashboard/activecompetitions"
@@ -31,7 +31,7 @@ const Sidebar = (props) => {
           </Link>
           <Link
             className={`${
-              props.selected === "listOfEntries" && "blue"
+              props.selected === "listOfEntries" && "thisblue"
             } bgtransparent`}
             css={contentLinks}
             to="/admindashboard/listofentries"
@@ -40,7 +40,7 @@ const Sidebar = (props) => {
           </Link>
           <Link
             className={`${
-              props.selected === "discounts" && "blue"
+              props.selected === "discounts" && "thisblue"
             } bgtransparent`}
             css={contentLinks}
             to="/admindashboard/discounts"
@@ -48,7 +48,7 @@ const Sidebar = (props) => {
             Discounts
           </Link>
           <Link
-            className={`${props.selected === "faq" && "blue"} bgtransparent`}
+            className={`${props.selected === "faq" && "thisblue"} bgtransparent`}
             css={contentLinks}
             to="/admindashboard/faq"
           >

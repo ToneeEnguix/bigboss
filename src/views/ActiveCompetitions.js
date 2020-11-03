@@ -93,6 +93,7 @@ const ActiveCompetitions = (props) => {
   }, []);
 
   const removePicture = () => {
+    setUnsaved(true);
     let tempActiveCompetitions = [...activeCompetitions];
     tempActiveCompetitions[i].pictures.splice(index, 1);
     setActiveCompetitions(tempActiveCompetitions);
@@ -105,9 +106,11 @@ const ActiveCompetitions = (props) => {
   };
 
   const submitNewComp = async () => {
+    console.log(newComp);
     newComp.pictures.map((item, idx) => {
       item === "" && newComp.pictures.splice(idx, 1);
     });
+    console.log(newComp);
     try {
       let res = await axios.post(`${URL}/competitions/create`, {
         competition: newComp,
@@ -115,7 +118,6 @@ const ActiveCompetitions = (props) => {
       if (res.data.ok) {
         props.setCreate();
         getActiveCompetitions();
-        setI(activeCompetitions.length);
       }
     } catch (err) {
       console.error(err);
@@ -175,12 +177,12 @@ const ActiveCompetitions = (props) => {
                 onChange={(e) => handleChange2(e)}
                 name="prize"
                 className="styledInput"
-                type="number"
               />
               <h3 css={titleStyle}>Description</h3>
               <input
                 value={newComp.description[0]}
                 name="description"
+                placeholder="Write description here"
                 className="styledInput"
                 onChange={(e) => {
                   let newDescription = newComp.description;
@@ -191,6 +193,7 @@ const ActiveCompetitions = (props) => {
               <input
                 value={newComp.description[1]}
                 name="description"
+                placeholder="Write description here"
                 className="styledInput"
                 onChange={(e) => {
                   let newDescription = newComp.description;
@@ -201,6 +204,7 @@ const ActiveCompetitions = (props) => {
               <input
                 value={newComp.description[2]}
                 name="description"
+                placeholder="Write description here"
                 className="styledInput"
                 onChange={(e) => {
                   let newDescription = newComp.description;
@@ -211,6 +215,7 @@ const ActiveCompetitions = (props) => {
               <input
                 value={newComp.description[3]}
                 name="description"
+                placeholder="Write description here"
                 className="styledInput"
                 onChange={(e) => {
                   let newDescription = newComp.description;
@@ -221,6 +226,7 @@ const ActiveCompetitions = (props) => {
               <input
                 value={newComp.description[4]}
                 name="description"
+                placeholder="Write description here"
                 className="styledInput"
                 onChange={(e) => {
                   let newDescription = newComp.description;
@@ -369,6 +375,7 @@ const ActiveCompetitions = (props) => {
               <h3 css={titleStyle}>Title</h3>
               <input
                 value={activeCompetitions[i].title}
+                placeholder="Enter title"
                 onChange={(e) => handleChange(e, i)}
                 name="title"
                 className="styledInput"
@@ -376,6 +383,7 @@ const ActiveCompetitions = (props) => {
               <h3 css={titleStyle}>Prize</h3>
               <input
                 value={activeCompetitions[i].prize}
+                placeholder="Enter prize"
                 onChange={(e) => handleChange(e, i)}
                 name="prize"
                 className="styledInput"
@@ -383,6 +391,7 @@ const ActiveCompetitions = (props) => {
               <h3 css={titleStyle}>Price</h3>
               <input
                 value={activeCompetitions[i].ticketPrice}
+                placeholder="Enter price"
                 onChange={(e) => handleChange(e, i)}
                 name="ticketPrice"
                 className="styledInput"
@@ -391,30 +400,35 @@ const ActiveCompetitions = (props) => {
               <input
                 value={activeCompetitions[i].description[0]}
                 name="description"
+                placeholder="Write description here"
                 className="styledInput"
                 onChange={(e) => handleChange(e, i, 0)}
               />
               <input
                 value={activeCompetitions[i].description[1]}
                 name="description"
+                placeholder="Write description here"
                 className="styledInput"
                 onChange={(e) => handleChange(e, i, 1)}
               />
               <input
                 value={activeCompetitions[i].description[2]}
                 name="description"
+                placeholder="Write description here"
                 className="styledInput"
                 onChange={(e) => handleChange(e, i, 2)}
               />
               <input
                 value={activeCompetitions[i].description[3]}
                 name="description"
+                placeholder="Write description here"
                 className="styledInput"
                 onChange={(e) => handleChange(e, i, 3)}
               />
               <input
                 value={activeCompetitions[i].description[4]}
                 name="description"
+                placeholder="Write description here"
                 className="styledInput"
                 onChange={(e) => handleChange(e, i, 4)}
               />
@@ -430,6 +444,7 @@ const ActiveCompetitions = (props) => {
               <h3 css={titleStyle}>How many tickets will be available?</h3>
               <input
                 value={activeCompetitions[i].maxTickets}
+                placeholder="Number of tickets"
                 onChange={(e) => handleChange(e, i)}
                 name="maxTickets"
                 className="styledInput"
@@ -437,13 +452,7 @@ const ActiveCompetitions = (props) => {
               <hr css={hrStyle} />
               <h3 css={titleStyle}>Spreadsheet Link</h3>
               <input
-                value={
-                  activeCompetitions[i].entriesURL !== "" ||
-                  activeCompetitions[i].entriesURL !== " " ||
-                  activeCompetitions[i].entriesURL !== null
-                    ? activeCompetitions[i].entriesURL
-                    : null
-                }
+                value={activeCompetitions[i].entriesURL}
                 placeholder="Enter link here"
                 onChange={(e) => handleChange(e, i)}
                 name="entriesURL"
@@ -458,12 +467,13 @@ const ActiveCompetitions = (props) => {
                       setState={(uploadedFile) => {
                         let tempActive = activeCompetitions;
                         tempActive[i].pictures[idx] = uploadedFile.secure_url;
+                        setUnsaved(true);
                         setRemove(" ");
                         setActiveCompetitions(tempActive);
                       }}
                       image={image}
                     />
-                    <p
+                    {/* <p
                       style={{
                         display:
                           (image !== "" || (image === "" && remove === "")) &&
@@ -473,7 +483,7 @@ const ActiveCompetitions = (props) => {
                       className="raleway blue"
                     >
                       Click top right corner to save changes.
-                    </p>
+                    </p> */}
                     <div
                       style={{
                         display: image === "" && "none",
@@ -510,7 +520,7 @@ const ActiveCompetitions = (props) => {
                           style={{ width: "200px", height: "200px" }}
                         />
                       </div>
-                      <p
+                      {/* <p
                         style={{
                           display:
                             idx !== activeCompetitions[i].pictures.length - 1 &&
@@ -520,7 +530,7 @@ const ActiveCompetitions = (props) => {
                         className="raleway blue"
                       >
                         Click top right corner to save changes.
-                      </p>
+                      </p> */}
                     </div>
                   </div>
                 );
