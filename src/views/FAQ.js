@@ -15,6 +15,8 @@ const FAQ = (props) => {
   ]);
   const [i, setI] = useState(0);
   const [openModal, setOpenModal] = useState(false);
+  const [unsaved, setUnsaved] = useState(false);
+  const [saved, setSaved] = useState(false);
 
   useEffect(() => {
     getFaq();
@@ -29,7 +31,11 @@ const FAQ = (props) => {
   useEffect(() => {
     const updateFaq = async () => {
       props.setUpdate();
-      await axios.post(`${URL}/faq/update`, { faq });
+      let res = await axios.post(`${URL}/faq/update`, { faq });
+      if (res.data.ok) {
+        setUnsaved(false);
+        setSaved(true);
+      }
     };
     props.update && updateFaq();
   }, [props.update]);
@@ -51,10 +57,19 @@ const FAQ = (props) => {
   };
 
   const handleChange = (e, i) => {
+    setUnsaved(true);
     let tempFaq = [...faq];
     tempFaq[i][e.target.name] = e.target.value;
     setFaq(tempFaq);
   };
+
+  useEffect(() => {
+    if (saved) {
+      setTimeout(() => {
+        setSaved(false);
+      }, 1000);
+    }
+  }, [saved]);
 
   return (
     <div className="adminPage adminPage2">
@@ -67,6 +82,7 @@ const FAQ = (props) => {
                 key={i}
                 className="bgtransparent"
                 onChange={(e) => handleChange(e, i)}
+                css={placeholderStyle}
               >
                 <div
                   className="flexCenter bgtransparent"
@@ -75,6 +91,7 @@ const FAQ = (props) => {
                   <input
                     css={titleStyle}
                     defaultValue={item.question}
+                    placeholder="Write question"
                     name="question"
                     className="styledInput"
                   />
@@ -92,6 +109,7 @@ const FAQ = (props) => {
                 </div>
                 <textarea
                   defaultValue={item.answer}
+                  placeholder="Write answer"
                   name="answer"
                   style={{ height: "182px", lineHeight: "1.4rem" }}
                   className="styledInput raleway"
@@ -100,6 +118,8 @@ const FAQ = (props) => {
             );
           })}
       </div>
+      <div className={`${unsaved ? "unsaved" : "none"}`}>Unsaved changes!</div>
+      <div className={`${saved ? "saved" : "none"}`}>Changes saved!</div>
       <ReactModal
         ariaHideApp={false}
         isOpen={openModal}
@@ -147,26 +167,25 @@ const FAQ = (props) => {
           className="flexColumn bgtransparent justifyText"
           css={{ margin: "3rem auto 2rem", padding: "0 2rem", width: "100%" }}
         >
-          <p css={{ fontFamily: "Raleway", marginBottom: "1rem" }}>
+          <p css={{ marginBottom: "1rem" }} className="raleway">
             {faq[i] && faq[i].question}
           </p>
-          <p css={{ fontFamily: "Raleway" }}>{faq[i] && faq[i].answer}</p>
         </div>
         <div className="flexCenter bgtransparent">
           <button
             className="raleway dm_modalBtn dm_modalBtn1 pointer"
+            onClick={() => setOpenModal(false)}
+          >
+            No
+          </button>
+          <button
+            className="raleway dm_modalBtn dm_modalBtn2 pointer"
             onClick={() => {
               deleteFaq();
               setOpenModal(false);
             }}
           >
             Yes
-          </button>
-          <button
-            className="raleway dm_modalBtn dm_modalBtn2 pointer"
-            onClick={() => setOpenModal(false)}
-          >
-            No
           </button>
         </div>
       </ReactModal>
@@ -199,6 +218,30 @@ const mainTitleStyle = {
     margin: "1.5rem 0 0",
     width: "15%",
     "&:hover": {
-      border: "1px solid rgba(255, 41, 41, .7)",
+      boxShadow: "0px 1px 1px rgba(147, 147, 147, .07)",
+    },
+  },
+  placeholderStyle = {
+    input: {
+      "::-webkit-input-placeholder": {
+        /* Edge */ fontSize: "0.9rem",
+      },
+      ":-ms-input-placeholder": {
+        /* Internet Explorer 10-11 */ fontSize: "0.9rem",
+      },
+      "::placeholder": {
+        fontSize: "0.9rem",
+      },
+    },
+    textarea: {
+      "::-webkit-input-placeholder": {
+        /* Edge */ fontSize: "0.9rem",
+      },
+      ":-ms-input-placeholder": {
+        /* Internet Explorer 10-11 */ fontSize: "0.9rem",
+      },
+      "::placeholder": {
+        fontSize: "0.9rem",
+      },
     },
   };

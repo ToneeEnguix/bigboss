@@ -10,15 +10,14 @@ class CompetitionController {
   async create(req, res) {
     let { competition } = req.body;
     try {
-      competition.entriesDate = new Date(competition.entriesDate);
       competition.dateFinishes = new Date(competition.dateFinishes);
       competition.maxTickets = parseInt(competition.maxTickets);
-     
+      competition.pictures.pop();
       await competitions.create(competition);
-  
       res.status(200).send({ ok: true });
-    } catch (error) {
-      res.status(500).send(error);
+    } catch (err) {
+      console.log(err);
+      res.status(500).send(err);
     }
   }
 
@@ -65,7 +64,49 @@ class CompetitionController {
     }
   }
 
+  // async getPublicId(id) {
+  // let url = id;
+  // let slashArr = [];
+  // let dotArr = [];
+  // while (url.includes("/")) {
+  //   let idx = url.indexOf("/");
+  //   slashArr.push(idx);
+  //   url = url.slice(0, idx) + url.slice(idx + 1);
+  // }
+  // while (url.includes(".")) {
+  //   let idx = url.indexOf(".");
+  //   dotArr.push(idx);
+  //   url = url.slice(0, idx) + url.slice(idx + 1);
+  // }
+  // let public_id = url.slice(
+  //   slashArr[slashArr.length - 1] - dotArr.length + 1,
+  //   dotArr[dotArr.length - 1]
+  // );
+  // await cloudinary.v2.api.delete_resources([public_id]);
+  // }
+
   async update(req, res) {
+    const getPublicId = async (id) => {
+      let url = id;
+      let slashArr = [];
+      let dotArr = [];
+      while (url.includes("/")) {
+        let idx = url.indexOf("/");
+        slashArr.push(idx);
+        url = url.slice(0, idx) + url.slice(idx + 1);
+      }
+      while (url.includes(".")) {
+        let idx = url.indexOf(".");
+        dotArr.push(idx);
+        url = url.slice(0, idx) + url.slice(idx + 1);
+      }
+      let public_id = url.slice(
+        slashArr[slashArr.length - 1] - dotArr.length + 1,
+        dotArr[dotArr.length - 1]
+      );
+      await cloudinary.v2.api.delete_resources([public_id]);
+    };
+    console.log(this, that);
     let { competition } = req.body;
     competition.pictures[competition.pictures.length - 1] === "" &&
       competition.pictures.pop();
@@ -76,37 +117,17 @@ class CompetitionController {
       found.pictures.map(async (item, idx) => {
         if (competition.pictures[idx] !== item) {
           let url = item;
-          let slashArr = [];
-          let dotArr = [];
-          while (url.includes("/")) {
-            let idx = url.indexOf("/");
-            slashArr.push(idx);
-            url = url.slice(0, idx) + url.slice(idx + 1);
-          }
-          while (url.includes(".")) {
-            let idx = url.indexOf(".");
-            dotArr.push(idx);
-            url = url.slice(0, idx) + url.slice(idx + 1);
-          }
-          let public_id = url.slice(
-            slashArr[slashArr.length - 1] - dotArr.length + 1,
-            dotArr[dotArr.length - 1]
-          );
-          await cloudinary.v2.api.delete_resources([public_id]);
+          getPublicId(url);
         }
       });
       found.pictures = competition.pictures;
       found.ticketPrice = competition.ticketPrice;
       found.prize = competition.prize;
-      found.winnerPic = competition.winnerPic;
-      found.facebookURL = competition.facebookURL;
       found.entriesURL = competition.entriesURL;
       found.__v = competition.__v;
       found.ticketsSold = competition.ticketsSold;
-      found.entriesDate = new Date(competition.entriesDate);
       found.dateFinishes = new Date(competition.dateFinishes);
       found.maxTickets = parseInt(competition.maxTickets);
-      found.winner = mongoose.Types.ObjectId(competition.winner);
       found._id = mongoose.Types.ObjectId(competition._id);
       await found.save();
       res.status(200).send({ ok: true });
@@ -194,7 +215,6 @@ class CompetitionController {
         .find({ dateFinishes: { $gte: Date.now() } })
         .sort({ dateFinishes: 1 })
         .limit(1);
-
       res.status(200).send(lastCompetition);
     } catch (error) {
       res.status(500).send(error);
@@ -213,41 +233,28 @@ class CompetitionController {
     }
   }
 
-  async updateWinnerImg(req, res) {
-    let { competition } = req.body;
-    try {
-      let found = await competitions.findOne({ _id: competition._id });
-      if (competition.winnerPic === "") {
-        let url = found.winnerPic;
-        let slashArr = [];
-        let dotArr = [];
-        while (url.includes("/")) {
-          let idx = url.indexOf("/");
-          slashArr.push(idx);
-          url = url.slice(0, idx) + url.slice(idx + 1);
-        }
-        while (url.includes(".")) {
-          let idx = url.indexOf(".");
-          dotArr.push(idx);
-          url = url.slice(0, idx) + url.slice(idx + 1);
-        }
-        let public_id = url.slice(
-          slashArr[slashArr.length - 1] - dotArr.length + 1,
-          dotArr[dotArr.length - 1]
-        );
-        await cloudinary.v2.api.delete_resources([public_id]);
-        console.log("lemon2");
-      }
-      found.winnerPic = competition.winnerPic;
-      await found.save();
-      res.status(200).send({ ok: true });
-    } catch (error) {
-      console.log(error);
-      res.status(500).send(error);
-    }
-  }
-
   async updateWinner(req, res) {
+    const getPublicId = async (id) => {
+      let url = id;
+      let slashArr = [];
+      let dotArr = [];
+      while (url.includes("/")) {
+        let idx = url.indexOf("/");
+        slashArr.push(idx);
+        url = url.slice(0, idx) + url.slice(idx + 1);
+      }
+      while (url.includes(".")) {
+        let idx = url.indexOf(".");
+        dotArr.push(idx);
+        url = url.slice(0, idx) + url.slice(idx + 1);
+      }
+      let public_id = url.slice(
+        slashArr[slashArr.length - 1] - dotArr.length + 1,
+        dotArr[dotArr.length - 1]
+      );
+      await cloudinary.v2.api.delete_resources([public_id]);
+    };
+    // Starts here
     let { competition } = req.body;
     try {
       let found = await competitions.findOne({ _id: competition._id });
@@ -256,11 +263,18 @@ class CompetitionController {
       } else {
         found.winner = mongoose.Types.ObjectId(competition.winner._id);
       }
-      console.log(found);
+      if (competition.winnerPic === "") {
+        let url = found.winnerPic;
+        getPublicId(url);
+      }
+      found.winnerPic = competition.winnerPic;
+      found.facebookURL = competition.facebookURL;
+      found.entriesDate = new Date(competition.entriesDate);
       await found.save();
       res.status(200).send({ ok: true });
-    } catch (error) {
-      res.status(500).send(error);
+    } catch (err) {
+      console.error(err);
+      res.status(500).send(err);
     }
   }
 }

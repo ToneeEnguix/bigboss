@@ -14,8 +14,8 @@
   font-weight: 300;
   letter-spacing: 0.02rem;
 }
-.blue {
-  color: #2680eb;
+.thisblue {
+  color: #1d8cde;
 }
 .gray {
   color: gray;
@@ -65,7 +65,7 @@
 }
 .h_rightPlus:hover {
   background-color: #212121;
-  border: 1px solid #2680eb;
+  border: 1px solid #1d8cde;
 }
 .h_rightImg {
   width: 25px;

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
+/** @jsxFrag React.Fragment */
 import ReactModal from "react-modal";
 import close from "../resources/close.svg";
 import axios from "axios";
@@ -15,6 +16,7 @@ const Discounts = (props) => {
   const [openModal, setOpenModal] = useState(false);
   const [today, setToday] = useState("");
   const [unsaved, setUnsaved] = useState(false);
+  const [saved, setSaved] = useState(false);
 
   useEffect(() => {
     getDiscounts();
@@ -33,9 +35,13 @@ const Discounts = (props) => {
   useEffect(() => {
     const updateDiscounts = async () => {
       props.setUpdate();
-      await axios.post(`${URL}/coupons/update`, {
+      let res = await axios.post(`${URL}/coupons/update`, {
         coupon: discounts[i],
       });
+      if (res.data.ok) {
+        setUnsaved(false);
+        setSaved(true);
+      }
     };
     props.update && updateDiscounts();
   }, [props.update]);
@@ -71,16 +77,22 @@ const Discounts = (props) => {
     setToday(today);
   }, []);
 
+  useEffect(() => {
+    if (saved) {
+      setTimeout(() => {
+        setSaved(false);
+      }, 1000);
+    }
+  }, [saved]);
+
   return (
     <div>
       <div className="adminPage">
-        {/* <div className={`${unsaved ? "unsaved" : "none"}`}>
-          Unsaved changes!
-        </div> */}
         <div className="flexColumn" css={secondSidebarStyle}>
           <div css={titleStyle2}>Active Discounts</div>
           <div className="flexColumn" css={contentStyle}>
-            {props.discounts[i] &&
+            {props.discounts.length > 0 ? (
+              props.discounts[i] &&
               props.discounts.map((item, idx) => {
                 return (
                   <div
@@ -102,40 +114,57 @@ const Discounts = (props) => {
                     </div>
                   </div>
                 );
-              })}
+              })
+            ) : (
+              <div className="bgtransparent">
+                <h3 className="raleway">No current discounts</h3>
+              </div>
+            )}
           </div>
         </div>
-        <h3 css={mainTitleStyle}>{discounts[i] && discounts[i].title}</h3>
-        <div className="grid2 bgtransparent">
-          <form className="bgtransparent">
-            <h3 css={titleStyle}>Discount Code</h3>
-            <input
-              value={discounts[i] && discounts[i].title}
-              name="title"
-              onChange={(e) => handleChange(e, i)}
-              className="styledInput"
-            />
-            <h3 css={titleStyle}>Value Calculated in %</h3>
-            <input
-              value={discounts[i] && discounts[i].discount}
-              name="discount"
-              onChange={(e) => handleChange(e, i)}
-              className="styledInput"
-              type="text"
-            />
-            <h3 css={titleStyle}>Date of Expiry</h3>
-            <input
-              type="datetime-local"
-              name="expires"
-              min={today}
-              value={discounts[i] && discounts[i].expires}
-              onChange={(e) => handleChange(e, i)}
-              className="pointer styledInput"
-            />
-          </form>
-          <div className="bgtransparent"></div>
-        </div>
+        {props.discounts.length > 0 ? (
+          <>
+            <h3 css={mainTitleStyle}>{discounts[i] && discounts[i].title}</h3>
+            <div className="grid2 bgtransparent" css={placeholderStyle}>
+              <form className="bgtransparent">
+                <h3 css={titleStyle}>Discount Code</h3>
+                <input
+                  value={discounts[i] && discounts[i].title}
+                  placeholder="Enter discount name"
+                  name="title"
+                  onChange={(e) => handleChange(e, i)}
+                  className="styledInput"
+                />
+                <h3 css={titleStyle}>Value Calculated in %</h3>
+                <input
+                  value={discounts[i] ? discounts[i].discount : null}
+                  placeholder="Enter discount percentage"
+                  name="discount"
+                  onChange={(e) => handleChange(e, i)}
+                  className="styledInput"
+                  type="number"
+                />
+                <h3 css={titleStyle}>Date of Expiry</h3>
+                <input
+                  type="datetime-local"
+                  name="expires"
+                  min={today}
+                  value={discounts[i] && discounts[i].expires}
+                  onChange={(e) => handleChange(e, i)}
+                  className="pointer styledInput"
+                />
+              </form>
+              <div className="bgtransparent"></div>
+            </div>
+          </>
+        ) : (
+          <div className="bgtransparent">
+            <h3 className="raleway">No current discounts</h3>
+          </div>
+        )}
       </div>
+      <div className={`${unsaved ? "unsaved" : "none"}`}>Unsaved changes!</div>
+      <div className={`${saved ? "saved" : "none"}`}>Changes saved!</div>
       <ReactModal
         ariaHideApp={false}
         isOpen={openModal}
@@ -181,18 +210,18 @@ const Discounts = (props) => {
         <div className="flexCenter bgtransparent">
           <button
             className="raleway dm_modalBtn dm_modalBtn1 pointer"
+            onClick={() => setOpenModal(false)}
+          >
+            No
+          </button>
+          <button
+            className="raleway dm_modalBtn dm_modalBtn2 pointer"
             onClick={() => {
               deleteDiscount();
               setOpenModal(false);
             }}
           >
             Yes
-          </button>
-          <button
-            className="raleway dm_modalBtn dm_modalBtn2 pointer"
-            onClick={() => setOpenModal(false)}
-          >
-            No
           </button>
         </div>
       </ReactModal>
@@ -281,6 +310,19 @@ const titleStyle2 = {
     },
     img: {
       backgroundColor: "#333333",
+    },
+  },
+  placeholderStyle = {
+    input: {
+      "::-webkit-input-placeholder": {
+        /* Edge */ fontSize: "0.9rem",
+      },
+      ":-ms-input-placeholder": {
+        /* Internet Explorer 10-11 */ fontSize: "0.9rem",
+      },
+      "::placeholder": {
+        fontSize: "0.9rem",
+      },
     },
   };
 

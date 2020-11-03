@@ -64,9 +64,30 @@ textarea {
   background-color: rgb(52, 52, 52);
 }
 .unsaved {
-  position: absolute;
-  top: 0;
+  position: fixed;
+  top: 90px;
   right: 100px;
-  background-color: red;
+  background-color: transparent;
   padding: 0.5rem 1rem;
+  color: #e3138b;
+}
+.saved {
+  position: fixed;
+  top: 90px;
+  right: 100px;
+  background-color: transparent;
+  padding: 0.5rem 1rem;
+  color: #0ca830;
+}
+.scrollbar {
+  overflow-y: scroll;
+}
+.scrollbar ::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 7px;
+}
+.scrollbar ::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
 }

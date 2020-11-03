@@ -19,8 +19,6 @@ const ActiveCompetitions = (props) => {
       maxTickets: 10,
       prize: "",
       description: ["", "", "", "", ""],
-      facebookURL: "",
-      entriesDate: "",
       entriesURL: "",
       pictures: ["", "", "", "", "", ""],
     },
@@ -39,14 +37,15 @@ const ActiveCompetitions = (props) => {
       "",
     ],
     entriesURL: "Paste link here",
-    facebookURL: "Paste link here",
-    entriesDate: new Date(Date.now()).toISOString().slice(0, -8),
   });
   const [i, setI] = useState(0);
   const [openModal, setOpenModal] = useState(false);
   const [today, setToday] = useState("");
   const [remove, setRemove] = useState("");
   const [index, setIndex] = useState(0);
+  const [halfSubmit, setHalfSubmit] = useState(false);
+  const [unsaved, setUnsaved] = useState(false);
+  const [saved, setSaved] = useState(false);
 
   useEffect(() => {
     getActiveCompetitions();
@@ -56,7 +55,6 @@ const ActiveCompetitions = (props) => {
     let resAll = await axios.get(`${URL}/competitions/active`);
     resAll.data.map((item) => {
       item.dateFinishes = item.dateFinishes.slice(0, -8);
-      item.entriesDate = item.entriesDate.slice(0, -8);
       item.pictures.push("");
     });
     setRemove("");
@@ -66,17 +64,21 @@ const ActiveCompetitions = (props) => {
   useEffect(() => {
     const updateActiveCompetitions = async () => {
       props.setUpdate();
-      await axios.post(`${URL}/competitions/update`, {
+      let res = await axios.post(`${URL}/competitions/update`, {
         competition: activeCompetitions[i],
       });
-      getActiveCompetitions();
+      if (res.data.ok) {
+        setSaved(true);
+        getActiveCompetitions();
+      }
     };
     props.update && updateActiveCompetitions();
   }, [props.update]);
 
   const handleChange = (e, i, idx) => {
+    setUnsaved(true);
     let tempActiveCompetitions = [...activeCompetitions];
-    if (e.target.name === "dateFinishes" || e.target.name === "entriesDate") {
+    if (e.target.name === "dateFinishes") {
       e.target.value = new Date(e.target.value).toISOString().slice(0, -8);
     } else if (e.target.name === "description") {
       tempActiveCompetitions[i][e.target.name][idx] = e.target.value;
@@ -92,6 +94,7 @@ const ActiveCompetitions = (props) => {
   }, []);
 
   const removePicture = () => {
+    setUnsaved(true);
     let tempActiveCompetitions = [...activeCompetitions];
     tempActiveCompetitions[i].pictures.splice(index, 1);
     setActiveCompetitions(tempActiveCompetitions);
@@ -99,6 +102,7 @@ const ActiveCompetitions = (props) => {
   };
 
   const handleChange2 = (e) => {
+    setUnsaved(true);
     setNewComp({ ...newComp, [e.target.name]: e.target.value });
   };
 
@@ -112,10 +116,12 @@ const ActiveCompetitions = (props) => {
       });
       if (res.data.ok) {
         props.setCreate();
+        setSaved(true);
         getActiveCompetitions();
-        setI(activeCompetitions.length);
+        setHalfSubmit(false);
       }
     } catch (err) {
+      setHalfSubmit(true);
       console.error(err);
     }
   };
@@ -133,8 +139,13 @@ const ActiveCompetitions = (props) => {
   };
 
   useEffect(() => {
-    console.log(props.create, props.update, activeCompetitions);
-  }, [props.create, props.update, activeCompetitions]);
+    setUnsaved(false);
+    if (saved) {
+      setTimeout(() => {
+        setSaved(false);
+      }, 1000);
+    }
+  }, [saved]);
 
   return (
     <>
@@ -168,12 +179,12 @@ const ActiveCompetitions = (props) => {
                 onChange={(e) => handleChange2(e)}
                 name="prize"
                 className="styledInput"
-                type="number"
               />
               <h3 css={titleStyle}>Description</h3>
               <input
                 value={newComp.description[0]}
                 name="description"
+                placeholder="Write description here"
                 className="styledInput"
                 onChange={(e) => {
                   let newDescription = newComp.description;
@@ -184,6 +195,7 @@ const ActiveCompetitions = (props) => {
               <input
                 value={newComp.description[1]}
                 name="description"
+                placeholder="Write description here"
                 className="styledInput"
                 onChange={(e) => {
                   let newDescription = newComp.description;
@@ -194,6 +206,7 @@ const ActiveCompetitions = (props) => {
               <input
                 value={newComp.description[2]}
                 name="description"
+                placeholder="Write description here"
                 className="styledInput"
                 onChange={(e) => {
                   let newDescription = newComp.description;
@@ -204,6 +217,7 @@ const ActiveCompetitions = (props) => {
               <input
                 value={newComp.description[3]}
                 name="description"
+                placeholder="Write description here"
                 className="styledInput"
                 onChange={(e) => {
                   let newDescription = newComp.description;
@@ -214,6 +228,7 @@ const ActiveCompetitions = (props) => {
               <input
                 value={newComp.description[4]}
                 name="description"
+                placeholder="Write description here"
                 className="styledInput"
                 onChange={(e) => {
                   let newDescription = newComp.description;
@@ -239,21 +254,6 @@ const ActiveCompetitions = (props) => {
                 type="number"
               />
               <hr css={hrStyle} />
-              <h3 css={titleStyle}>Recorded Facebook Video</h3>
-              <input
-                value={newComp.facebookURL}
-                onChange={(e) => handleChange2(e)}
-                name="facebookURL"
-                className="styledInput"
-              />
-              <input
-                type="datetime-local"
-                name="entriesDate"
-                min={today}
-                value={newComp.entriesDate}
-                onChange={(e) => handleChange2(e)}
-                className="styledInput"
-              />
               <h3 css={titleStyle}>Spreadsheet Link</h3>
               <input
                 value={newComp.entriesURL}
@@ -272,7 +272,11 @@ const ActiveCompetitions = (props) => {
               {/* here it goes */}
               <button
                 className="styledInput submitBtn pointer"
-                style={{ width: "100px", margin: "0 0 0 3.3rem" }}
+                style={{
+                  width: "100px",
+                  margin: "0 0 0 3.3rem",
+                  backgroundColor: halfSubmit && "gray",
+                }}
                 onClick={() => submitNewComp()}
               >
                 Submit
@@ -336,7 +340,7 @@ const ActiveCompetitions = (props) => {
         <div className="adminPage">
           <div className="flexColumn" css={secondSidebarStyle}>
             <div css={titleStyle2}>Active Competitions</div>
-            <div className="flexColumn" css={contentStyle}>
+            <div className="flexColumn scrollbar" css={contentStyle}>
               {props.activeCompetitions[i] &&
                 props.activeCompetitions.map((item, idx) => {
                   return (
@@ -377,6 +381,7 @@ const ActiveCompetitions = (props) => {
               <h3 css={titleStyle}>Title</h3>
               <input
                 value={activeCompetitions[i].title}
+                placeholder="Enter title"
                 onChange={(e) => handleChange(e, i)}
                 name="title"
                 className="styledInput"
@@ -384,6 +389,7 @@ const ActiveCompetitions = (props) => {
               <h3 css={titleStyle}>Prize</h3>
               <input
                 value={activeCompetitions[i].prize}
+                placeholder="Enter prize"
                 onChange={(e) => handleChange(e, i)}
                 name="prize"
                 className="styledInput"
@@ -391,6 +397,7 @@ const ActiveCompetitions = (props) => {
               <h3 css={titleStyle}>Price</h3>
               <input
                 value={activeCompetitions[i].ticketPrice}
+                placeholder="Enter price"
                 onChange={(e) => handleChange(e, i)}
                 name="ticketPrice"
                 className="styledInput"
@@ -399,30 +406,35 @@ const ActiveCompetitions = (props) => {
               <input
                 value={activeCompetitions[i].description[0]}
                 name="description"
+                placeholder="Write description here"
                 className="styledInput"
                 onChange={(e) => handleChange(e, i, 0)}
               />
               <input
                 value={activeCompetitions[i].description[1]}
                 name="description"
+                placeholder="Write description here"
                 className="styledInput"
                 onChange={(e) => handleChange(e, i, 1)}
               />
               <input
                 value={activeCompetitions[i].description[2]}
                 name="description"
+                placeholder="Write description here"
                 className="styledInput"
                 onChange={(e) => handleChange(e, i, 2)}
               />
               <input
                 value={activeCompetitions[i].description[3]}
                 name="description"
+                placeholder="Write description here"
                 className="styledInput"
                 onChange={(e) => handleChange(e, i, 3)}
               />
               <input
                 value={activeCompetitions[i].description[4]}
                 name="description"
+                placeholder="Write description here"
                 className="styledInput"
                 onChange={(e) => handleChange(e, i, 4)}
               />
@@ -438,29 +450,16 @@ const ActiveCompetitions = (props) => {
               <h3 css={titleStyle}>How many tickets will be available?</h3>
               <input
                 value={activeCompetitions[i].maxTickets}
+                placeholder="Number of tickets"
                 onChange={(e) => handleChange(e, i)}
                 name="maxTickets"
                 className="styledInput"
               />
               <hr css={hrStyle} />
-              <h3 css={titleStyle}>Recorded Facebook Video</h3>
-              <input
-                value={activeCompetitions[i].facebookURL}
-                onChange={(e) => handleChange(e, i)}
-                name="facebookURL"
-                className="styledInput"
-              />
-              <input
-                type="datetime-local"
-                name="entriesDate"
-                min={today}
-                value={activeCompetitions[i].entriesDate}
-                onChange={(e) => handleChange(e, i)}
-                className="styledInput"
-              />
               <h3 css={titleStyle}>Spreadsheet Link</h3>
               <input
                 value={activeCompetitions[i].entriesURL}
+                placeholder="Enter link here"
                 onChange={(e) => handleChange(e, i)}
                 name="entriesURL"
                 className="styledInput"
@@ -474,12 +473,13 @@ const ActiveCompetitions = (props) => {
                       setState={(uploadedFile) => {
                         let tempActive = activeCompetitions;
                         tempActive[i].pictures[idx] = uploadedFile.secure_url;
+                        setUnsaved(true);
                         setRemove(" ");
                         setActiveCompetitions(tempActive);
                       }}
                       image={image}
                     />
-                    <p
+                    {/* <p
                       style={{
                         display:
                           (image !== "" || (image === "" && remove === "")) &&
@@ -489,7 +489,7 @@ const ActiveCompetitions = (props) => {
                       className="raleway blue"
                     >
                       Click top right corner to save changes.
-                    </p>
+                    </p> */}
                     <div
                       style={{
                         display: image === "" && "none",
@@ -526,7 +526,7 @@ const ActiveCompetitions = (props) => {
                           style={{ width: "200px", height: "200px" }}
                         />
                       </div>
-                      <p
+                      {/* <p
                         style={{
                           display:
                             idx !== activeCompetitions[i].pictures.length - 1 &&
@@ -536,7 +536,7 @@ const ActiveCompetitions = (props) => {
                         className="raleway blue"
                       >
                         Click top right corner to save changes.
-                      </p>
+                      </p> */}
                     </div>
                   </div>
                 );
@@ -551,6 +551,8 @@ const ActiveCompetitions = (props) => {
           </h3>
         </div>
       )}
+      <div className={`${unsaved ? "unsaved" : "none"}`}>Unsaved changes!</div>
+      <div className={`${saved ? "saved" : "none"}`}>Changes saved!</div>
       <ReactModal
         ariaHideApp={false}
         isOpen={openModal}
@@ -634,6 +636,17 @@ const mainTitleStyle = {
     div: {
       backgroundColor: "#212121",
     },
+    input: {
+      "::-webkit-input-placeholder": {
+        /* Edge */ fontSize: "0.9rem",
+      },
+      ":-ms-input-placeholder": {
+        /* Internet Explorer 10-11 */ fontSize: "0.9rem",
+      },
+      "::placeholder": {
+        fontSize: "0.9rem",
+      },
+    },
   },
   titleStyle = {
     fontFamily: "Raleway",
@@ -683,12 +696,12 @@ const secondSidebarStyle = {
     backgroundColor: "#262626",
   },
   contentStyle = {
+    boxSizing: "content-box",
     alignItems: "flex-start",
     lineHeight: "1.7rem",
-    width: "60%",
+    width: "360px",
     backgroundColor: "#262626",
     width: "100%",
-    padding: "0 3rem",
     "div:hover": {
       borderColor: "#2680eb !important",
     },
@@ -706,10 +719,10 @@ const secondSidebarStyle = {
     borderRadius: "100px",
     boxShadow: "0px 2px 3px #202020",
     padding: "0 0 0 1.8rem",
-    width: "100%",
+    width: "80%",
     justifyContent: "space-between",
     boxSizing: "border-box",
-    height: "34px",
+    height: "40px !important",
     cursor: "pointer",
     div: {
       backgroundColor: "#333333",
