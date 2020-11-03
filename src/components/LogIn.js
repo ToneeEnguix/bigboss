@@ -14,8 +14,8 @@ const createAccountWrapper = {
   flexDirection: "column",
   alignItems: "center",
   padding: "3rem 6rem",
-  margin: "1rem 4rem",
-  minWidth: "550px",
+  margin: "1rem 0.5rem",
+  minWidth: "525px",
   boxShadow: "0px 2px 4px 0px rgba(0,0,0,16%)",
   height: "27rem"
 }

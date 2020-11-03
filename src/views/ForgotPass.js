@@ -4,6 +4,13 @@ import { jsx } from '@emotion/core';
 import StyledInput from "../components/StyledInput";
 import {Redirect,useParams} from "react-router-dom";
 import {get} from "../api/fetch";
+import facepaint from 'facepaint';
+
+
+const breakpoints = [576, 950, 992, 1200]
+
+const mq = facepaint(
+  breakpoints.map(bp => `@media (min-width: ${bp}px)`));
 
 
 const wrapper = {
@@ -44,11 +51,16 @@ function ForgotPass(props) {
       <h1 css={{marginLeft:"4rem"}}>FORGOTTEN PASSWORD</h1>
       <div css={wrapper}>
 
-        <form onSubmit={submit} css={{ width: "30%", display: "flex", justifyContent: "center", marginTop: "4rem", flexDirection: "column", textAlign: "center" }}>
+        <form onSubmit={submit} css={mq({ width:["auto","auto","30%","30%"],
+         display: "flex",
+          justifyContent: "center",
+           marginTop: "4rem",
+            flexDirection: "column",
+             textAlign: "center" })}>
           <StyledInput type="text" width="100%" name="EMAIL" innerName="email" />
           <button css={{ margin: "2rem 0" }} className="button01">SUBMIT</button>
         </form>
-        <p>PLEASE PROVIDE US WITH THE EMAIL ASSOCIATED TO YOUR ACCOUNT.</p>
+        <p css={{textAlign:"center"}}>PLEASE PROVIDE US WITH THE EMAIL ASSOCIATED TO YOUR ACCOUNT.</p>
         <p css={{marginTop:"0.5rem", visibility:message.visibility}}>{message.message}</p>
       </div>
     </React.Fragment>

@@ -7,21 +7,27 @@ import { verifyEmail, verifyPass, verifyMatch, verifyName } from "../utils/verif
 import { post } from "../api/fetch";
 import { Redirect } from "react-router-dom";
 import UserContext from "../context/UserContext";
+import facepaint from 'facepaint';
 
-const createAccountWrapper = {
+
+const breakpoints = [576, 950, 992, 1200]
+
+const mq = facepaint(
+  breakpoints.map(bp => `@media (min-width: ${bp}px)`));
+
+const createAccountWrapper = mq({
 
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
   flexDirection: "column",
   alignItems: "center",
-  padding: "3rem",
-  margin: "1rem 4rem",
-
+  padding: "2.5rem 3rem",
+  margin: ["0rem","0rem","0rem 4rem","0rem 4rem"],
   width: "90%",
   boxShadow: "-1px 4px 22px 0px black",
 
-}
+})
 
 function CreateAccountForm() {
 
@@ -95,20 +101,26 @@ function CreateAccountForm() {
       <BigBossLogo b height={"50px"} width={"50px"} />
       <h3 css={{ margin: "1rem 0" }}>CREATE ACCOUNT</h3>
       <form onSubmit={submit} css={{ width: "85%" }}>
-        <div css={{ margin: "1rem 0", display: "flex", justifyContent: "space-around" }}>
-          <StyledInput width={"45%"} valid={validEmail.color} innerName={"email"} name={"EMAIL"} />
+        <div css={mq({ flexDirection:["column","column","row","row"],
+        margin: "1rem 0", 
+        display: "flex", 
+        justifyContent: "space-around" })}>
+          <StyledInput width={"45%"}  valid={validEmail.color} innerName={"email"} name={"EMAIL"} />
 
-          <StyledInput width={"45%"} valid={validPass.color} type={"password"} innerName={"password"} name={"CREATE PASSWORD"} />
+          <StyledInput width={"45%"}  valid={validPass.color} type={"password"} innerName={"password"} name={"CREATE PASSWORD"} />
 
 
         </div>
-        <div css={{ margin: "1rem 0", display: "flex", justifyContent: "space-around" }}>
+        <div css={mq({ flexDirection:["column","column","row","row"],
+        margin: "1rem 0", 
+        display: "flex", 
+        justifyContent: "space-around" })}>
           <StyledInput width={"45%"} valid={validName.color} innerName={"name"} name={"USER NAME"} />
-          <StyledInput width={"45%"} valid={validMatch.color} innerName={"verifyPass"} type={"password"} name={"REPEAT PASSWORD"} />
+          <StyledInput width={"45%"}  valid={validMatch.color} innerName={"verifyPass"} type={"password"} name={"REPEAT PASSWORD"} />
         </div>
         <div css={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
-          <button css={{ width: "50%" }} className="button02">CREATE YOUR ACCOUNT</button>
-          <p css={{ padding: "0.5rem", color: "grey", fontSize: "0.7rem" }}>PASSWORD MUST BE 8 CHARS LONG AND CONTAIN BOTH LETTERS AND NUMBERS</p>
+          <button css={mq({ width: ["auto","auto","50%","50%"] })} className="button02">CREATE YOUR ACCOUNT</button>
+          <p css={{ textAlign:"center", padding: "0.5rem", color: "grey", fontSize: "0.7rem" }}>PASSWORD MUST BE 8 CHARS LONG AND CONTAIN BOTH LETTERS AND NUMBERS</p>
           <p css={{ fontSize: "0.7rem", color: errorMessage.color, marginTop: "0.5rem", visibility: errorMessage.visibility }}>{errorMessage.message}</p>
         </div>
       </form>
