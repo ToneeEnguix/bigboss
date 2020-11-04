@@ -199,6 +199,7 @@ export default AdminDashboard;
 //   - If all inputs filled, send save ✅
 //   - Check on facebook videos (about above) ✅
 // - Add admin middleware ❗️
+// - No /adminlogin from mobile
 
 // GENERAL:
 // - Change winner in past Competitions (YES + put it in top) ✅
