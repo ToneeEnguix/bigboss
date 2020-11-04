@@ -201,7 +201,7 @@ class CompetitionController {
         .sort({ dateFinishes: -1 })
         .populate("winner")
         .limit(3);
-      console.log(allCompetitions);
+
       res.status(200).send(allCompetitions);
     } catch (error) {
       res.status(500).send(error);

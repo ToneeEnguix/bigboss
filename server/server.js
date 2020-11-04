@@ -11,12 +11,13 @@ require("dotenv").config();
 mongoose.set("useCreateIndex", true);
 async function connecting() {
   try {
-    await mongoose.connect(process.env.MONGO, {
+    await mongoose.connect("mongodb://127.0.0.1/bigBoss", {
       useUnifiedTopology: true,
       useNewUrlParser: true,
     });
     console.log("Connected to the DB");
   } catch (error) {
+    console.log(error)
     console.log(
       "ERROR: Seems like your DB is not running, please start it up !!!"
     );

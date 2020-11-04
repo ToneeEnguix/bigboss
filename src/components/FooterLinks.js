@@ -23,7 +23,7 @@ const card = {
   boxShadow: "0px 2px 4px 0px rgba(0,0,0,16%)",
   display: "flex",
   alignItems: "center",
-  width: "20rem",
+  width: "26%",
   margin:"1rem 2rem",
   padding: "0 1rem",
   borderRadius: "6px",

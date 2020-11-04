@@ -1,6 +1,14 @@
 import React from "react";
 /* @jsx jsx */
 import { jsx } from "@emotion/core/";
+import facepaint from 'facepaint';
+
+
+const breakpoints = [576, 950, 992, 1200]
+
+const mq = facepaint(
+  breakpoints.map(bp => `@media (min-width: ${bp}px)`));
+
 
 const eyeposition = {
   position: "relative",
@@ -33,12 +41,15 @@ export default class StyledInput extends React.Component {
   }
 
   render() {
+
+   
     return (
       <div
-        css={{
+        css={mq({
           display: "flex",
           flexDirection: "column",
-          width: this.props.width,
+          width: ["100%","100%",this.props.width,this.props.width],
+          minWidth:"150px",
 
           label: {
             display: "block",
@@ -92,7 +103,7 @@ export default class StyledInput extends React.Component {
             backgroundColor: "transparent",
             zIndex: "3",
           },
-        }}
+        })}
       >
         <input
           onChange={this.handleChange}

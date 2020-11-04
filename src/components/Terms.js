@@ -1,11 +1,18 @@
 import React from 'react';
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
+import facepaint from 'facepaint';
+
+
+const breakpoints = [576, 950, 992, 1200]
+
+const mq = facepaint(
+  breakpoints.map(bp => `@media (min-width: ${bp}px)`));
 
 
 function Terms() {
   return (
-    <div css={{ marginLeft: "4rem", width: "70%" }}>
+    <div css={mq({ marginLeft: ["0","0","4rem","4rem"], width:["100%","100%","70%","70%"] })}>
       <h1 css={{ marginBottom: "2rem" }} >TERMS AND CONDITIONS</h1>
       <p css={{
 
