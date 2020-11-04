@@ -27,7 +27,7 @@ const ListOfEntries = () => {
     <div className="adminPage" css={sectionStyle}>
       <div className="flexColumn" css={secondSidebarStyle}>
         <div css={titleStyle2}>List Of Entries</div>
-        <div className="flexColumn" css={contentStyle}>
+        <div className="flexColumn scrollbar" css={contentStyle}>
           {allCompetitions[i] &&
             allCompetitions.map((item, idx) => {
               return (
@@ -210,7 +210,6 @@ const secondSidebarStyle = {
     width: "100%",
     justifyContent: "space-between",
     boxSizing: "border-box",
-    height: "34px",
     cursor: "pointer",
     div: {
       backgroundColor: "#333333",
@@ -224,6 +223,9 @@ const secondSidebarStyle = {
     },
     img: {
       backgroundColor: "#333333",
+    },
+    p: {
+      lineHeight: "32px",
     },
   };
 

@@ -46,7 +46,6 @@ function NextDraw() {
     const getNextDraw = async () => {
 
         const result = await get("/competitions/nextdraw");
-        console.log(result)
 
         if (result.ok) {
 

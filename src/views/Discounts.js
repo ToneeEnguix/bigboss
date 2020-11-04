@@ -90,7 +90,7 @@ const Discounts = (props) => {
       <div className="adminPage">
         <div className="flexColumn" css={secondSidebarStyle}>
           <div css={titleStyle2}>Active Discounts</div>
-          <div className="flexColumn" css={contentStyle}>
+          <div className="flexColumn scrollbar" css={contentStyle}>
             {props.discounts.length > 0 ? (
               props.discounts[i] &&
               props.discounts.map((item, idx) => {
@@ -296,7 +296,6 @@ const titleStyle2 = {
     width: "100%",
     justifyContent: "space-between",
     boxSizing: "border-box",
-    height: "34px",
     cursor: "pointer",
     div: {
       backgroundColor: "#333333",
@@ -311,6 +310,9 @@ const titleStyle2 = {
     img: {
       backgroundColor: "#333333",
     },
+    p: {
+      lineHeight: "32px",
+    }
   },
   placeholderStyle = {
     input: {
