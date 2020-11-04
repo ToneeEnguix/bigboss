@@ -13,7 +13,7 @@ import { URL } from "../config";
 import axios from "axios";
 
 const AdminDashboard = (props) => {
-  const [redirect, setRedirect] = useState(false);
+
   const [activeCompetitions, setActiveCompetitions] = useState([]);
   const [pastCompetitions, setPastCompetitions] = useState([]);
   const [allCompetitions, setAllCompetitions] = useState([]);
@@ -24,9 +24,6 @@ const AdminDashboard = (props) => {
   const [create, setCreate] = useState(false);
   const [refresh, setRefresh] = useState(false);
 
-  // useEffect(() => {
-  //   !props.location.state && setRedirect(true);
-  // }, []);
 
   useEffect(() => {
     getInfo();
@@ -60,10 +57,7 @@ const AdminDashboard = (props) => {
     }
   }, [window.location.href]);
 
-  if (redirect) {
-    return <Redirect to="/home" />;
-  }
-
+  
   return (
     <div>
       <AdminHeader

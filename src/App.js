@@ -218,7 +218,7 @@ class App extends React.Component {
               component={UserDashboard}
               path="/userdashboard"
             />
-            <PublicRoute
+            <AdminRoute
               restricted={false}
               component={AdminDashboard}
               path="/admindashboard"
