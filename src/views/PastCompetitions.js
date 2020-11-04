@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 /** @jsx jsx */
+/** @jsxFrag React.Fragment */
 import { jsx } from "@emotion/core";
 import "./dashboardstyles.css";
 import ReactModal from "react-modal";
@@ -23,7 +24,7 @@ const PastCompetitions = (props) => {
         name: "",
         email: "",
       },
-      facebookURL: "Paste link here",
+      facebookURL: "",
       entriesDate: "",
     },
   ]);
@@ -50,6 +51,7 @@ const PastCompetitions = (props) => {
         item.entriesDate = item.entriesDate.slice(0, -8);
       });
       setPastCompetitions(resPast.data);
+      console.log(resPast.data);
     } catch (err) {
       console.error(err);
     }
@@ -126,228 +128,237 @@ const PastCompetitions = (props) => {
 
   return (
     <div className="adminPage">
-      <div className="flexColumn" css={secondSidebarStyle}>
-        <div css={titleStyle2}>Past Competitions</div>
-        <div className="flexColumn" css={contentStyle}>
-          {pastCompetitions[i] &&
-            pastCompetitions.map((item, idx) => {
-              return (
-                <div
-                  className={`${
-                    pastCompetitions[i]._id === item._id && "blueBorder"
-                  } flexCenter`}
-                  onClick={() => {
-                    setI(idx);
-                  }}
-                  css={selectorContStyle}
-                  key={idx}
-                >
-                  <p>{item.title}</p>
-                </div>
-              );
-            })}
-        </div>
-      </div>
-      <h3 css={mainTitleStyle}>{pastCompetitions[i].title}</h3>
-      <div css={mainContentStyle} className="grid2">
-        <div>
-          <h3 className="default gray" css={titleStyle}>
-            Title
-          </h3>
-          <input
-            className="default"
-            readOnly
-            defaultValue={pastCompetitions[i].title}
-            className="styledInput gray"
-          />
-          <h3 css={titleStyle}>Photo of the Winner</h3>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+      {pastCompetitions.length > 0 ? (
+        <>
+          <div className="flexColumn" css={secondSidebarStyle}>
+            <div css={titleStyle2}>Past Competitions</div>
+            <div className="flexColumn scrollbar" css={contentStyle}>
+              {pastCompetitions[i] &&
+                pastCompetitions.map((item, idx) => {
+                  return (
+                    <div
+                      className={`${
+                        pastCompetitions[i]._id === item._id && "blueBorder"
+                      } flexCenter`}
+                      onClick={() => {
+                        setI(idx);
+                      }}
+                      css={selectorContStyle}
+                      key={idx}
+                    >
+                      <p>{item.title}</p>
+                    </div>
+                  );
+                })}
+            </div>
+          </div>
+          <h3 css={mainTitleStyle}>{pastCompetitions[i].title}</h3>
+          <div css={mainContentStyle} className="grid2">
             <div>
-              <ImagePicker
-                setState={(uploadedFile) => {
-                  let tempPast = pastCompetitions;
-                  tempPast[i].winnerPic = uploadedFile.secure_url;
-                  setRemove(" ");
-                  setPastCompetitions(tempPast);
-                  setUnsaved(true);
-                }}
-                image={pastCompetitions[i].winnerPic}
+              <h3 className="default gray" css={titleStyle}>
+                Title
+              </h3>
+              <input
+                className="default"
+                readOnly
+                defaultValue={pastCompetitions[i].title}
+                className="styledInput gray"
               />
-              <div
-                style={{
-                  display: pastCompetitions[i].winnerPic === "" && "none",
-                  width: "200px",
-                  height: "200px",
-                  margin: "2rem 0 0",
-                }}
-                className="flexColumn bgtransparent"
-              >
-                <img
-                  src={close}
-                  style={{
-                    alignSelf: "flex-end",
-                    position: "relative",
-                    top: "26px",
-                    right: "7px",
-                    borderRadius: "100px",
-                  }}
-                  className="pointer"
-                  onClick={() => {
-                    setRemove("winner's image");
-                    setUnsaved(true);
-                    setOpenModal(true);
-                  }}
-                />
-                <div css={photoContStyle} className="flexCenter">
-                  <img
-                    src={pastCompetitions[i].winnerPic}
-                    css={imgStyle}
+              <h3 css={titleStyle}>Photo of the Winner</h3>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+                <div>
+                  <ImagePicker
+                    setState={(uploadedFile) => {
+                      let tempPast = pastCompetitions;
+                      tempPast[i].winnerPic = uploadedFile.secure_url;
+                      setRemove(" ");
+                      setPastCompetitions(tempPast);
+                      setUnsaved(true);
+                    }}
+                    image={pastCompetitions[i].winnerPic}
+                  />
+                  <div
                     style={{
+                      display:
+                        (pastCompetitions[i].winnerPic === "" ||
+                          !pastCompetitions[i].winnerPic) &&
+                        "none",
                       width: "200px",
                       height: "200px",
-                      alignSelf: "flex-start",
+                      margin: "2rem 0 0",
                     }}
+                    className="flexColumn bgtransparent"
+                  >
+                    <img
+                      src={close}
+                      style={{
+                        alignSelf: "flex-end",
+                        position: "relative",
+                        top: "26px",
+                        right: "7px",
+                        borderRadius: "100px",
+                      }}
+                      className="pointer"
+                      onClick={() => {
+                        setRemove("winner's image");
+                        setUnsaved(true);
+                        setOpenModal(true);
+                      }}
+                    />
+                    <div css={photoContStyle} className="flexCenter">
+                      <img
+                        src={pastCompetitions[i].winnerPic}
+                        css={imgStyle}
+                        style={{
+                          width: "200px",
+                          height: "200px",
+                          alignSelf: "flex-start",
+                        }}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div css={placeholderStyle}>
+                  <h3 css={titleStyle}>Email</h3>
+                  <input
+                    value={
+                      pastCompetitions[i].winner
+                        ? pastCompetitions[i].winner.email
+                        : ""
+                    }
+                    placeholder="No winner yet"
+                    className={`${
+                      !pastCompetitions[i].winner && "gray"
+                    } styledInput`}
+                    onChange={(e) => {
+                      handleChange(e);
+                    }}
+                    name="email"
+                  />
+                  <h3 css={titleStyle}>Winner Name</h3>
+                  <input
+                    value={
+                      pastCompetitions[i].winner &&
+                      pastCompetitions[i].winner.name
+                        ? pastCompetitions[i].winner.name +
+                          " " +
+                          pastCompetitions[i].winner.lastName
+                        : "No winner yet"
+                    }
+                    readOnly
+                    className={`${
+                      (!pastCompetitions[i].winner ||
+                        !pastCompetitions[i].winner.name) &&
+                      "gray"
+                    } styledInput default`}
+                    name="name"
                   />
                 </div>
               </div>
-            </div>
-            <div css={placeholderStyle}>
-              <h3 css={titleStyle}>Email</h3>
+              <h3 css={titleStyle}>Recorded Facebook Video</h3>
               <input
                 value={
-                  pastCompetitions[i].winner
-                    ? pastCompetitions[i].winner.email
+                  pastCompetitions[i].facebookURL
+                    ? pastCompetitions[i].facebookURL
                     : ""
                 }
-                placeholder="No winner yet"
-                className={`${
-                  !pastCompetitions[i].winner && "gray"
-                } styledInput`}
-                onChange={(e) => {
-                  handleChange(e);
-                }}
-                name="email"
+                placeholder="Paste link here"
+                onChange={(e) => handleChange(e)}
+                name="facebookURL"
+                className="styledInput"
               />
-              <h3 css={titleStyle}>Winner Name</h3>
               <input
-                value={
-                  pastCompetitions[i].winner && pastCompetitions[i].winner.name
-                    ? pastCompetitions[i].winner.name +
-                      " " +
-                      pastCompetitions[i].winner.lastName
-                    : "No winner yet"
-                }
+                type="datetime-local"
+                name="entriesDate"
+                min={today}
+                value={pastCompetitions[i].entriesDate}
+                onChange={(e) => handleChange(e)}
+                className="styledInput"
+              />
+              <h3 className="default" css={titleStyle}>
+                Price
+              </h3>
+              <input
                 readOnly
-                className={`${
-                  (!pastCompetitions[i].winner ||
-                    !pastCompetitions[i].winner.name) &&
-                  "gray"
-                } styledInput default`}
-                name="name"
+                defaultValue={pastCompetitions[i].ticketPrice}
+                className="styledInput default gray"
+              />
+              <h3 className="default" css={titleStyle}>
+                Prize
+              </h3>
+              <input
+                readOnly
+                defaultValue={pastCompetitions[i].prize}
+                className="styledInput default gray"
+              />
+              <h3 className="default" css={titleStyle}>
+                Description
+              </h3>
+              <p className="styledInput raleway gray">
+                {pastCompetitions[i].description[0]}
+              </p>
+              <p className="styledInput raleway gray">
+                {pastCompetitions[i].description[1]}
+              </p>
+              <p className="styledInput raleway gray">
+                {pastCompetitions[i].description[2]}
+              </p>
+              <p className="styledInput raleway gray">
+                {pastCompetitions[i].description[3]}
+              </p>
+              <p className="styledInput raleway gray">
+                {pastCompetitions[i].description[4]}
+              </p>
+              <h3 className="default" css={titleStyle}>
+                Finish Date
+              </h3>
+              <p className="styledInput raleway gray">
+                {pastCompetitions[i].dateFinishes}
+              </p>
+              <h3 className="default" css={titleStyle}>
+                How many tickets were available?
+              </h3>
+              <input
+                readOnly
+                defaultValue={pastCompetitions[i].maxTickets}
+                placeholder="No tickets available"
+                className="styledInput default gray"
               />
             </div>
+            <div style={{ paddingLeft: "2.5rem", width: "100%" }}>
+              {pastCompetitions[i].pictures.map((item, idx) => {
+                return (
+                  <div
+                    className="flexColumn"
+                    style={{
+                      backgroundColor: "#333",
+                      margin: "0 auto 4rem",
+                      borderRadius: "10px",
+                    }}
+                    key={idx}
+                  >
+                    <h4
+                      className="raleway"
+                      css={{
+                        color: "white",
+                        padding: "0.7rem 0",
+                        fontSize: "1rem",
+                      }}
+                    >
+                      Image {idx + 1}
+                    </h4>
+                    <img src={item} css={imgStyle} />
+                  </div>
+                );
+              })}
+            </div>
           </div>
-          <h3 css={titleStyle}>Recorded Facebook Video</h3>
-          <input
-            value={pastCompetitions[i].facebookURL}
-            onChange={(e) => handleChange(e)}
-            name="facebookURL"
-            className="styledInput"
-          />
-          <input
-            type="datetime-local"
-            name="entriesDate"
-            min={today}
-            value={pastCompetitions[i].entriesDate}
-            onChange={(e) => handleChange(e)}
-            className="styledInput"
-          />
-          <h3 className="default" css={titleStyle}>
-            Price
-          </h3>
-          <input
-            readOnly
-            defaultValue={pastCompetitions[i].ticketPrice}
-            className="styledInput default gray"
-          />
-          <h3 className="default" css={titleStyle}>
-            Prize
-          </h3>
-          <input
-            readOnly
-            defaultValue={pastCompetitions[i].prize}
-            className="styledInput default gray"
-          />
-          <h3 className="default" css={titleStyle}>
-            Description
-          </h3>
-          <p className="styledInput raleway gray">
-            {pastCompetitions[i].description[0]}
-          </p>
-          <p className="styledInput raleway gray">
-            {pastCompetitions[i].description[1]}
-          </p>
-          <p className="styledInput raleway gray">
-            {pastCompetitions[i].description[2]}
-          </p>
-          <p className="styledInput raleway gray">
-            {pastCompetitions[i].description[3]}
-          </p>
-          <p className="styledInput raleway gray">
-            {pastCompetitions[i].description[4]}
-          </p>
-          <h3 className="default" css={titleStyle}>
-            Finish Date
-          </h3>
-          <p className="styledInput raleway gray">
-            {pastCompetitions[i].dateFinishes}
-          </p>
-          <h3 className="default" css={titleStyle}>
-            How many tickets were available?
-          </h3>
-          <input
-            readOnly
-            defaultValue={pastCompetitions[i].maxTickets}
-            className="styledInput default gray"
-          />
-          <hr css={hrStyle} />
-          <h3 className="default" css={titleStyle}>
-            Spreadsheet Link
-          </h3>
-          <a href={`http://${pastCompetitions[i].entriesURL}`} target="_blank">
-            <p className="styledInput raleway gray">
-              {pastCompetitions[i].entriesURL}
-            </p>
-          </a>
+        </>
+      ) : (
+        <div>
+          <h3></h3>
         </div>
-        <div style={{ paddingLeft: "2.5rem", width: "100%" }}>
-          {pastCompetitions[i].pictures.map((item, idx) => {
-            return (
-              <div
-                className="flexColumn"
-                style={{
-                  backgroundColor: "#333",
-                  margin: "0 auto 4rem",
-                  borderRadius: "10px",
-                }}
-                key={idx}
-              >
-                <h4
-                  className="raleway"
-                  css={{
-                    color: "white",
-                    padding: "0.7rem 0",
-                    fontSize: "1rem",
-                  }}
-                >
-                  Image {idx + 1}
-                </h4>
-                <img src={item} css={imgStyle} />
-              </div>
-            );
-          })}
-        </div>
-      </div>
+      )}
       <div className={`${unsaved ? "unsaved" : "none"}`}>Unsaved changes!</div>
       <div className={`${saved ? "saved" : "none"}`}>Changes saved!</div>
       <ReactModal
@@ -502,7 +513,6 @@ const secondSidebarStyle = {
     width: "100%",
     justifyContent: "space-between",
     boxSizing: "border-box",
-    height: "34px",
     cursor: "pointer",
     div: {
       backgroundColor: "#333333",
@@ -516,6 +526,9 @@ const secondSidebarStyle = {
     },
     img: {
       backgroundColor: "#333333",
+    },
+    p: {
+      lineHeight: "32px",
     },
   },
   imgStyle = {

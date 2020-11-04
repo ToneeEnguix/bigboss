@@ -19,7 +19,6 @@ const ActiveCompetitions = (props) => {
       maxTickets: 10,
       prize: "",
       description: ["", "", "", "", ""],
-      entriesURL: "",
       pictures: ["", "", "", "", "", ""],
     },
   ]);
@@ -36,7 +35,6 @@ const ActiveCompetitions = (props) => {
       "",
       "",
     ],
-    entriesURL: "Paste link here",
   });
   const [i, setI] = useState(0);
   const [openModal, setOpenModal] = useState(false);
@@ -254,13 +252,6 @@ const ActiveCompetitions = (props) => {
                 type="number"
               />
               <hr css={hrStyle} />
-              <h3 css={titleStyle}>Spreadsheet Link</h3>
-              <input
-                value={newComp.entriesURL}
-                onChange={(e) => handleChange2(e)}
-                name="entriesURL"
-                className="styledInput"
-              />
             </div>
             <div
               style={{
@@ -361,6 +352,7 @@ const ActiveCompetitions = (props) => {
                           props.activeCompetitions[i]._id !== item._id && "none"
                         } flexCenter`}
                         onClick={() => setOpenModal(true)}
+                        style={{ height: "32px", width: "32px" }}
                       >
                         <img
                           src={close}
@@ -453,15 +445,6 @@ const ActiveCompetitions = (props) => {
                 placeholder="Number of tickets"
                 onChange={(e) => handleChange(e, i)}
                 name="maxTickets"
-                className="styledInput"
-              />
-              <hr css={hrStyle} />
-              <h3 css={titleStyle}>Spreadsheet Link</h3>
-              <input
-                value={activeCompetitions[i].entriesURL}
-                placeholder="Enter link here"
-                onChange={(e) => handleChange(e, i)}
-                name="entriesURL"
                 className="styledInput"
               />
             </div>
@@ -701,7 +684,6 @@ const secondSidebarStyle = {
     lineHeight: "1.7rem",
     width: "360px",
     backgroundColor: "#262626",
-    width: "100%",
     "div:hover": {
       borderColor: "#2680eb !important",
     },
@@ -714,7 +696,7 @@ const secondSidebarStyle = {
     },
   },
   selectorContStyle = {
-    margin: "0 auto 1.2rem",
+    margin: "0 auto 1.4rem",
     border: "1px solid transparent",
     borderRadius: "100px",
     boxShadow: "0px 2px 3px #202020",
@@ -722,7 +704,7 @@ const secondSidebarStyle = {
     width: "80%",
     justifyContent: "space-between",
     boxSizing: "border-box",
-    height: "40px !important",
+    height: "34px !important",
     cursor: "pointer",
     div: {
       backgroundColor: "#333333",
@@ -736,6 +718,9 @@ const secondSidebarStyle = {
     },
     img: {
       backgroundColor: "#333333",
+    },
+    p: {
+      lineHeight: "32px",
     },
   },
   imgStyle = {

@@ -123,7 +123,6 @@ class CompetitionController {
       found.pictures = competition.pictures;
       found.ticketPrice = competition.ticketPrice;
       found.prize = competition.prize;
-      found.entriesURL = competition.entriesURL;
       found.__v = competition.__v;
       found.ticketsSold = competition.ticketsSold;
       found.dateFinishes = new Date(competition.dateFinishes);

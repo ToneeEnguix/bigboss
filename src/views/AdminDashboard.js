@@ -150,7 +150,7 @@ const AdminDashboard = (props) => {
 
 export default AdminDashboard;
 
-// Next Steps:
+// Next Steps: ✅
 // - Fetch and display listOfEntries ✅
 // - Upload Images ✅
 // - Delete box in FAQS red only outline and 4px space ✅
@@ -175,7 +175,7 @@ export default AdminDashboard;
 //   - Active Comps ✅
 // - Why do you have to press Submit twice to create competition? (first time gives error, not second time => find out what changes!) ✅ Sol: there was one empty array element !
 // - Contemplate no discounts situation ✅
-// - Overflow scroll on secondSidebar: https://stackoverflow.com/questions/7492062/css-overflow-scroll-always-show-vertical-scroll-bar ❗️
+// - Overflow scroll on secondSidebar: https://stackoverflow.com/questions/7492062/css-overflow-scroll-always-show-vertical-scroll-bar ✅
 
 // COMPETITIONS:
 // - check by _id not by name ✅
@@ -194,10 +194,11 @@ export default AdminDashboard;
 // - Set all placeholders appropiately ✅
 // - CSS on notifications (ask Chris) ✅
 // - if not editable color gray ✅
+// - If no competitions, next draw getting weird ✅
+// - update winner with only whole info (pic, user and fb url) ❗️
+//   - If all inputs filled, send save
+//   - Check on facebook videos (about above) ❗
 // - Add admin middleware ❗️
-// - update winner with only whole info (pic, user and url) ❗️
-// - Check on facebook videos (about above) ❗
-// - If no competitions, next draw getting weird ❗️ 
 
 // GENERAL:
 // - Change winner in past Competitions (YES + put it in top) ✅
