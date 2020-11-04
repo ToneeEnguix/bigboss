@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 /** @jsx jsx */
+/** @jsxFrag React.Fragment */
 import { jsx } from "@emotion/core";
 import ReactModal from "react-modal";
 import close from "../resources/close.svg";
@@ -17,64 +18,79 @@ const ListOfEntries = () => {
     const getCompsAndEntries = async () => {
       let resAll = await axios.get(`${URL}/competitions/all`);
       setAllCompetitions(resAll.data);
-      let resEntries = await axios.get(`${URL}/orders/${resAll.data[i]._id}`);
-      setListOfEntries(resEntries.data);
+      if (resAll.data.length !== 0) {
+        let resEntries = await axios.get(`${URL}/orders/${resAll.data[i]._id}`);
+        setListOfEntries(resEntries.data);
+      }
     };
     getCompsAndEntries();
   }, [i]);
 
   return (
-    <div className="adminPage" css={sectionStyle}>
-      <div className="flexColumn" css={secondSidebarStyle}>
-        <div css={titleStyle2}>List Of Entries</div>
-        <div className="flexColumn scrollbar" css={contentStyle}>
-          {allCompetitions[i] &&
-            allCompetitions.map((item, idx) => {
-              return (
-                <div
-                  className={`${
-                    allCompetitions[i]._id === item._id && "blueBorder"
-                  } flexCenter`}
-                  onClick={() => {
-                    setI(idx);
-                  }}
-                  css={selectorContStyle}
-                  key={idx}
-                >
-                  <p>{item.title}</p>
-                </div>
-              );
+    <>
+      {allCompetitions.length !== 0 ? (
+        <div className="adminPage" css={sectionStyle}>
+          <div className="flexColumn" css={secondSidebarStyle}>
+            <div css={titleStyle2}>List Of Entries</div>
+            <div className="flexColumn scrollbar" css={contentStyle}>
+              {allCompetitions[i] &&
+                allCompetitions.map((item, idx) => {
+                  return (
+                    <div
+                      className={`${
+                        allCompetitions[i]._id === item._id && "blueBorder"
+                      } flexCenter`}
+                      onClick={() => {
+                        setI(idx);
+                      }}
+                      css={selectorContStyle}
+                      key={idx}
+                    >
+                      <p>{item.title}</p>
+                    </div>
+                  );
+                })}
+            </div>
+          </div>
+          <div css={entriesStyle}>
+            <h3>Entries</h3>
+            {listOfEntries.map((item, idx) => {
+              return <p key={idx}>{item.user.name}</p>;
             })}
+          </div>
+          <div css={entriesStyle}>
+            <h3>Email</h3>
+            {listOfEntries.map((item, idx) => {
+              return <p key={idx}>{item.user.email}</p>;
+            })}
+          </div>
+          <div css={entriesStyle}>
+            <h3>Bought</h3>
+            {listOfEntries.map((item, idx) => {
+              return item.productsBought.map((item) => {
+                return <p key={idx}>{item.amount}</p>;
+              });
+            })}
+          </div>
+          <div css={entriesStyle}>
+            <h3>Spent</h3>
+            {listOfEntries.map((item, idx) => {
+              return item.productsBought.map((item) => {
+                return (
+                  <p key={idx}>{item.amount * item.product.ticketPrice}</p>
+                );
+              });
+            })}
+          </div>
         </div>
-      </div>
-      <div css={entriesStyle}>
-        <h3>Entries</h3>
-        {listOfEntries.map((item, idx) => {
-          return <p key={idx}>{item.user.name}</p>;
-        })}
-      </div>
-      <div css={entriesStyle}>
-        <h3>Email</h3>
-        {listOfEntries.map((item, idx) => {
-          return <p key={idx}>{item.user.email}</p>;
-        })}
-      </div>
-      <div css={entriesStyle}>
-        <h3>Bought</h3>
-        {listOfEntries.map((item, idx) => {
-          return item.productsBought.map((item) => {
-            return <p key={idx}>{item.amount}</p>;
-          });
-        })}
-      </div>
-      <div css={entriesStyle}>
-        <h3>Spent</h3>
-        {listOfEntries.map((item, idx) => {
-          return item.productsBought.map((item) => {
-            return <p key={idx}>{item.amount * item.product.ticketPrice}</p>;
-          });
-        })}
-      </div>
+      ) : (
+        <div className="adminPage adminPage2 bg">
+          <h3 className="bgtransparent raleway" css={noCompTitleStyle}>
+            No competitions. Go to Active Competitions and click button on top
+            to create one.
+          </h3>
+        </div>
+      )}
       <ReactModal
         isOpen={openModal}
         style={{
@@ -131,7 +147,7 @@ const ListOfEntries = () => {
           </button>
         </div>
       </ReactModal>
-    </div>
+    </>
   );
 };
 
@@ -227,6 +243,9 @@ const secondSidebarStyle = {
     p: {
       lineHeight: "32px",
     },
+  },
+  noCompTitleStyle = {
+    lineHeight: "2rem",
   };
 
 export default ListOfEntries;

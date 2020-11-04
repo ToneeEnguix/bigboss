@@ -16,7 +16,7 @@ const PastCompetitions = (props) => {
       title: "",
       discount: 0,
       expires: "10-12-20",
-      pictures: ["https://picsum.photos/300/200"],
+      pictures: [""],
       dateFinishes: "",
       entriesDate: "",
       description: [""],
@@ -51,7 +51,6 @@ const PastCompetitions = (props) => {
         item.entriesDate = item.entriesDate.slice(0, -8);
       });
       setPastCompetitions(resPast.data);
-      console.log(resPast.data);
     } catch (err) {
       console.error(err);
     }
@@ -94,9 +93,18 @@ const PastCompetitions = (props) => {
   };
 
   const updateWinner = async () => {
-    !props.update && (pastCompetitions[i].winnerPic = "");
-    pastCompetitions[i].pictures.push("");
+    props.setUpdate();
+    if (
+      !pastCompetitions[i].winnerPic ||
+      !pastCompetitions[i].winner ||
+      !pastCompetitions[i].facebookURL ||
+      !pastCompetitions[i].entriesDate
+    ) {
+      console.log("lemon1");
+      return false;
+    }
     try {
+      console.log("lemon2");
       let res = await axios.post(`${URL}/competitions/updatewinner`, {
         competition: pastCompetitions[i],
       });
@@ -104,7 +112,6 @@ const PastCompetitions = (props) => {
         setOpenModal(false);
         getPastCompetitions();
         setRemove("");
-        props.setUpdate();
         setUnsaved(false);
         setSaved(true);
       }
@@ -127,9 +134,9 @@ const PastCompetitions = (props) => {
   }, [saved]);
 
   return (
-    <div className="adminPage">
-      {pastCompetitions.length > 0 ? (
-        <>
+    <>
+      {pastCompetitions.length !== 0 ? (
+        <div className="adminPage">
           <div className="flexColumn" css={secondSidebarStyle}>
             <div css={titleStyle2}>Past Competitions</div>
             <div className="flexColumn scrollbar" css={contentStyle}>
@@ -155,7 +162,7 @@ const PastCompetitions = (props) => {
           <h3 css={mainTitleStyle}>{pastCompetitions[i].title}</h3>
           <div css={mainContentStyle} className="grid2">
             <div>
-              <h3 className="default gray" css={titleStyle}>
+              <h3 className="default" css={titleStyle}>
                 Title
               </h3>
               <input
@@ -353,10 +360,13 @@ const PastCompetitions = (props) => {
               })}
             </div>
           </div>
-        </>
+        </div>
       ) : (
-        <div>
-          <h3></h3>
+        <div className="adminPage adminPage2 bg">
+          <h3 className="bgtransparent raleway" css={noCompTitleStyle}>
+            No past competitions. Go to Active Competitions and click button on
+            top to create one.
+          </h3>
         </div>
       )}
       <div className={`${unsaved ? "unsaved" : "none"}`}>Unsaved changes!</div>
@@ -421,7 +431,7 @@ const PastCompetitions = (props) => {
           </button>
         </div>
       </ReactModal>
-    </div>
+    </>
   );
 };
 
@@ -548,6 +558,9 @@ const secondSidebarStyle = {
         fontSize: "0.9rem",
       },
     },
+  },
+  noCompTitleStyle = {
+    lineHeight: "2rem",
   };
 
 export default PastCompetitions;

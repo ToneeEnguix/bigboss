@@ -107,7 +107,9 @@ const Discounts = (props) => {
                   >
                     <p>{item.title}</p>
                     <div
-                      className="flexCenter"
+                      className={`${
+                        props.discounts[i]._id !== item._id && "nope"
+                      } flexCenter`}
                       onClick={() => setOpenModal(true)}
                     >
                       <img src={close} onClick={() => setOpenModal(true)} />
@@ -312,7 +314,7 @@ const titleStyle2 = {
     },
     p: {
       lineHeight: "32px",
-    }
+    },
   },
   placeholderStyle = {
     input: {

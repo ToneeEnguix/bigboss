@@ -29,12 +29,7 @@ const ActiveCompetitions = (props) => {
     prize: "Motorcycle",
     maxTickets: 10,
     description: ["", "", "", "", ""],
-    pictures: [
-      "https://res.cloudinary.com/ckellytv/image/upload/v1600421103/LOGO_BIG_BOSS_j9riqf.png",
-      "",
-      "",
-      "",
-    ],
+    pictures: ["", "", "", ""],
   });
   const [i, setI] = useState(0);
   const [openModal, setOpenModal] = useState(false);
@@ -93,8 +88,10 @@ const ActiveCompetitions = (props) => {
 
   const removePicture = () => {
     setUnsaved(true);
+    console.log("lemon3", index, activeCompetitions[i]);
     let tempActiveCompetitions = [...activeCompetitions];
     tempActiveCompetitions[i].pictures.splice(index, 1);
+    console.log("lemon4", tempActiveCompetitions[i]);
     setActiveCompetitions(tempActiveCompetitions);
     setOpenModal(false);
   };
@@ -105,9 +102,13 @@ const ActiveCompetitions = (props) => {
   };
 
   const submitNewComp = async () => {
-    newComp.pictures.map((item, idx) => {
-      item === "" && newComp.pictures.splice(idx, 1);
-    });
+    console.log("1", newComp);
+    newComp.pictures = newComp.pictures.filter((item) => item !== "");
+    console.log("2", newComp);
+    if (newComp.pictures.length === 0) {
+      return false;
+    }
+    console.log("3", newComp);
     try {
       let res = await axios.post(`${URL}/competitions/create`, {
         competition: newComp,
@@ -304,6 +305,7 @@ const ActiveCompetitions = (props) => {
                         }}
                         className="pointer"
                         onClick={() => {
+                          console.log("lemon1");
                           setRemove("image");
                           setIndex(idx);
                           setOpenModal(true);
@@ -462,17 +464,6 @@ const ActiveCompetitions = (props) => {
                       }}
                       image={image}
                     />
-                    {/* <p
-                      style={{
-                        display:
-                          (image !== "" || (image === "" && remove === "")) &&
-                          "none",
-                        marginTop: "1rem",
-                      }}
-                      className="raleway blue"
-                    >
-                      Click top right corner to save changes.
-                    </p> */}
                     <div
                       style={{
                         display: image === "" && "none",
@@ -509,17 +500,6 @@ const ActiveCompetitions = (props) => {
                           style={{ width: "200px", height: "200px" }}
                         />
                       </div>
-                      {/* <p
-                        style={{
-                          display:
-                            idx !== activeCompetitions[i].pictures.length - 1 &&
-                            "none",
-                          marginTop: "1rem",
-                        }}
-                        className="raleway blue"
-                      >
-                        Click top right corner to save changes.
-                      </p> */}
                     </div>
                   </div>
                 );
@@ -591,6 +571,7 @@ const ActiveCompetitions = (props) => {
           <button
             className="raleway dm_modalBtn dm_modalBtn2 pointer"
             onClick={() => {
+              console.log("lemon2");
               if (remove === "image") {
                 removePicture();
               } else if (remove === "competition") {
