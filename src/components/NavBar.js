@@ -3,13 +3,11 @@ import { jsx } from "@emotion/core";
 import React, { useState, useContext } from "react";
 import { ReactComponent as BigBossLogo } from "../resources/BigBossLogo.svg";
 import UserContext from "../context/UserContext";
-import { NavLink, Link, useHistory } from "react-router-dom";
-import facepaint from 'facepaint';
-
+import { NavLink, Link, useHistory, useLocation } from "react-router-dom";
+import facepaint from "facepaint";
 
 const breakpoints = [576, 768, 1225, 1400];
-const mq = facepaint(
-  breakpoints.map(bp => `@media (min-width: ${bp}px)`));
+const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
 
 const flexContainer = {
   display: "flex",
@@ -22,13 +20,13 @@ const flexContainer = {
   },
 };
 
-const menu = mq( {
-  position:"relative",
+const menu = mq({
+  position: "relative",
   display: "flex",
   listStyle: "none",
   width: "60%",
-  left:["0","0","-4rem","-7rem"],
-  marginLeft:["1rem","1rem","1rem","0"],
+  left: ["0", "0", "-4rem", "-7rem"],
+  marginLeft: ["1rem", "1rem", "1rem", "0"],
   justifyContent: "space-between",
 
   "a, strong": {
@@ -80,7 +78,7 @@ const icons = {
   "a,span": {
     fontWeight: "300",
     fontSize: "0.7rem",
-    letterSpacing: "0rem"
+    letterSpacing: "0rem",
   },
 
   ".icon:after": {
@@ -114,6 +112,7 @@ function NavBar() {
   const [emptyCart, setEmptyCart] = useState(false);
   const [more, setMore] = useState(false);
   const context = useContext(UserContext);
+  const location = useLocation();
 
   const extendMenu = () => {
     setUserMenu(true);
@@ -145,13 +144,18 @@ function NavBar() {
   const hideMore = () => {};
 
   return (
-    <div css={flexContainer}>
+    <div
+      css={flexContainer}
+      style={{
+        display: location.pathname.includes("admin") && "none",
+      }}
+    >
       <BigBossLogo
-        css={mq({ 
+        css={mq({
+          width: ["40px", "40px", "60px", "60px"],
 
-          width:["40px","40px","60px","60px"],
-       
-           marginLeft: ["1.0rem","1.0rem","2rem","2rem"] })}
+          marginLeft: ["1.0rem", "1.0rem", "2rem", "2rem"],
+        })}
         height={"60px"}
         width={"60px"}
       />
@@ -353,12 +357,16 @@ const dropdown02 = {
 const EmptyCart = () => {
   return (
     <div css={dropdown02}>
-      <div css={{
-        borderTop: "1px solid #868686",
-        backgroundColor: "#252525",
-        boxShadow: "-1px 4px 22px 0px black",
-      }}>
-        <h5 css={{ fontWeight:300,letterSpacing:"0.1rem", padding: "2rem" }}>BASKET IS CURRENTLY EMPTY</h5>
+      <div
+        css={{
+          borderTop: "1px solid #868686",
+          backgroundColor: "#252525",
+          boxShadow: "-1px 4px 22px 0px black",
+        }}
+      >
+        <h5 css={{ fontWeight: 300, letterSpacing: "0.1rem", padding: "2rem" }}>
+          BASKET IS CURRENTLY EMPTY
+        </h5>
       </div>
     </div>
   );
@@ -469,20 +477,30 @@ const ShowPurchaseAlert = (props) => {
             </div>
           </div>
         </div>
-      <div css={{
-        display: "flex", width: "100%", justifyContent: "center", paddingBottom: "1rem",
-        
-      }}>
-        <div onClick={()=>{closenadGo()}}>
-          <p css={{
-            padding: "1rem 0",
-            fontSize: "0.8rem",
-            letterSpacing: "0.1rem",
-          }}>
-            GO TO SECURE CHECKOUT
-                </p>
+        <div
+          css={{
+            display: "flex",
+            width: "100%",
+            justifyContent: "center",
+            paddingBottom: "1rem",
+          }}
+        >
+          <div
+            onClick={() => {
+              closenadGo();
+            }}
+          >
+            <p
+              css={{
+                padding: "1rem 0",
+                fontSize: "0.8rem",
+                letterSpacing: "0.1rem",
+              }}
+            >
+              GO TO SECURE CHECKOUT
+            </p>
+          </div>
         </div>
       </div>
-    </div>
     );
 };
