@@ -41,6 +41,8 @@ class OrdersController {
     const userId = req.params.id;
     const skip = Number(req.params.skip);
 
+    console.log(skip)
+
     try {
       let number = await orders.countDocuments({ user: userId });
       const allOrders = await orders.find({ user: userId }).skip(skip).limit(5);
@@ -63,6 +65,7 @@ class OrdersController {
         .populate("productsBought.product");
       res.status(200).send(competitionDetails);
     } catch (err) {
+
       res.status(500).send(err);
     }
   }

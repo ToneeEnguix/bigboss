@@ -122,7 +122,7 @@ function CreateAccountAccess() {
         </div>
         <div>
         <label className="container" css={container}  >
-          <input type="checkbox" checked={radio} />
+          <input readOnly type="checkbox" checked={radio} />
           <span onClick={() => { setRadio(!radio) }}></span>
         </label>
         </div>

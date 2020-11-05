@@ -42,8 +42,7 @@ function CreateAccountAccess() {
     else {
       context.activateUser(result.data.userData);
       localStorage.setItem("@auth_token", result.data.token)
-      setMessage({ color: "green", visibility: "visible", message: "WELCOME!" });
-      setTimeout(() => setRedirect(true), 1000);
+     
     }
 
 

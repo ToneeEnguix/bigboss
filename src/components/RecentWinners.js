@@ -26,7 +26,6 @@ function RecentWinners() {
   const getRecentWinners = async () => {
     const result = await get("/competitions/recentwinners");
     if (result.ok) {
-      console.log(result.data);
       setRecentWinners(result.data);
     } else {
       setError(true);

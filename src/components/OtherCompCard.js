@@ -28,24 +28,24 @@ const textWrapper = {
 }
 
 
-function OtherCompCard({ competition }) {
+function OtherCompCard(props) {
 
     return (
-        <div css={card}>   
+        <div key={props.competition._id} css={card}>   
             <div css={textWrapper}>
-                <h4 css={{ letterSpacing: "0.2rem",paddingLeft:"1.1rem", color: "#00FFFF", margin: "0.5rem 0", fontSize: "0.8rem" }}> {competition.title} ENTRY</h4>
-                <h4 css={{ letterSpacing: "0.2rem", paddingLeft:"1.1rem", margin: "0.5rem 0", fontSize: "0.8rem" }}>£{competition.ticketPrice} PER ENTRY</h4>
-                <Counter date={competition.dateFinishes} />
+                <h4 css={{ letterSpacing: "0.2rem",paddingLeft:"1.1rem", color: "#00FFFF", margin: "0.5rem 0", fontSize: "0.8rem" }}> {props.competition.title} ENTRY</h4>
+                <h4 css={{ letterSpacing: "0.2rem", paddingLeft:"1.1rem", margin: "0.5rem 0", fontSize: "0.8rem" }}>£{props.competition.ticketPrice} PER ENTRY</h4>
+                <Counter date={props.competition.dateFinishes} />
                 <Link to={{
-                    pathname: `/competitions/${competition._id}`,
+                    pathname: `/competitions/${props.competition._id}`,
                     state: {
-                        competition: competition,
+                        competition: props.competition,
                     }
                 }}>
                     <button className="button01"> VIEW DETAILS</button>
                 </Link>
             </div>
-           <img src={competition.pictures[0]} css={{maxWidth:"50%"}}/>
+           <img src={props.competition.pictures[0]} css={{maxWidth:"50%"}}/>
         </div>
     );
 }

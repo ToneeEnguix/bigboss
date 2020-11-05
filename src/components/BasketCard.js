@@ -63,7 +63,7 @@ function BasketCard(props) {
 
     const substract = () => {
 
-        if (amount !== "01") {
+        if (amount !== 1) {
             const newValue = Number(amount) - 1;
             setAmount(newValue);
         }

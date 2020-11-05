@@ -3,23 +3,31 @@ import React, { useEffect, useState } from 'react';
 import { jsx } from '@emotion/core';
 import ReactPlayer from 'react-player/facebook'
 import {formatDate} from "../utils/formatDate.js";
+import facepaint from 'facepaint';
+
+const breakpoints = [576, 950, 1200, 1300]
+
+const mq = facepaint(
+  breakpoints.map(bp => `@media (min-width: ${bp}px)`));
 
 
 
-const card = {
+
+const card = mq({
 
 
     display: "flex",
-    margin: "1.5rem 0",
-    maxWidth:"600px",
+    margin: "2rem 4rem",
+    minWidth:["550px","550px","600px","650px"],
+    maxHeight:["450px","400px","550px","550px"],
     margin: "4rem 0",
-    boxShadow: "-1px 4px 22px 0px black",
+    boxShadow: "0px 2px 4px 0px rgba(0,0,0,16%)",
     flexDirection: "column",
     textTransform: "uppercase",
     borderRadius: "4%",
     overflow: "hidden",
 
-}
+});
 
 
 const text = {
@@ -38,6 +46,8 @@ const text = {
 const video = {
 
     padding: "0 2rem",
+
+
 
 }
 

@@ -4,6 +4,7 @@ import { jsx } from "@emotion/core";
 import { get } from "../api/fetch";
 import { Redirect } from "react-router-dom";
 import UserContext from "../context/UserContext";
+import arrowCarousel from "../resources/arrowCarousel.png";
 
 const th = {
   color: "#868686",
@@ -24,7 +25,9 @@ const tr = {
 function Orders() {
   const [orders, setOrders] = useState([]);
   const [error, setError] = useState(false);
-  const [limit,setLimit]=useState(false)
+  const [render,setRender]=useState(false)
+
+
   const context = useContext(UserContext);
 
   useEffect(() => {
@@ -40,7 +43,10 @@ function Orders() {
 
     if (result.ok) {
       setOrders(result.data);
-      console.log(result.data, "FFFFF");
+      console.log(result)
+      setRender(!render);
+     
+
     } else {
       setError(true);
     }
@@ -68,7 +74,7 @@ function Orders() {
       <p css={{ color: "#00FFFF", fontWeight: "600", marginBottom: "1rem" }}>ORDER HISTORY</p>
       <p css={{ fontWeight: "600", marginBottom: "2rem" }}>YOU HAVE MADE {setValue(orders.total)} ORDERS SO FAR</p>
 
-      {orders.total > 0 && limit===false?
+      {orders.total > 0 ?
         <table>
           <thead>
             <tr>
@@ -79,7 +85,6 @@ function Orders() {
             </tr>
           </thead>
           <tbody>
-
             {
               orders.orders.map((order, index) => {
                 return (
@@ -93,14 +98,9 @@ function Orders() {
                 )
               })}
           </tbody>
-        </table> : 
-        limit===true?
-        <div>
-          <p>OLDER ORDERS NOT AVAILABLE</p>
-          </div>:null
-        
-        }
-      <Pages setLimit={setLimit} pages={orders.pages} changePage={getOrders} />
+        </table> : null}
+
+      <Pages changePage={getOrders} />
     </div>
   );
 }
@@ -108,80 +108,57 @@ function Orders() {
 
 const Pages = (props) => {
 
-  const [active, setActive] = useState(1)
 
-  const pages = [];
+  const [page, setPage] = useState(1);
 
-  for (let i = 0; i < props.pages && i<8; i++) {
+  const next = () => {
 
-    pages.push(i + 1)
+
+console.log(page)
+    props.changePage((page)* 5);
+    setPage(page + 1);
+
+
+  }
+
+  const prev = () => {
+
+    if (page >2) {
+
+
+      props.changePage((page-2)* 5);
+      setPage(page - 1);
+
+    }
+    else if (page===2){
+
+      props.changePage(0);
+      setPage(page - 1);
+
+    }
   }
 
   return (
-    <div css={{ display: "flex", justifyContent: "center" }}>
-      {pages.map((page) => {
 
-        return (
-          <React.Fragment>
-            {page !== active ?
-              <span key={page}
-                css={{
-                  lineHeight: "1.2rem",
-                  padding: "1rem",
-                  margin: "1rem",
-                  textDecoration: "underline",
-                  color: "#00FFFF",
-                  cursor: "pointer"
-                }}
-                onClick={() => { setActive(page); 
-                  if (page<8) {
-                    props.setLimit(false);
-                    props.changePage((page - 1) * 5);
+    <div css={{ display: "flex", justifyContent: "center", alignItems: "center", cursor: "pointer", padding: "1rem" }}
+    >
 
-                 }
-                 else {
-                   props.setLimit(true);
-                 }
-                 
-                }
-              }
-              >
-                {page}
-              </span> :
+      <img onClick={() => { prev() }}
+        css={{ cursor: "pointer", transform: "rotate(180deg)", width: "1.6rem", marginRight: "1.5rem" }} src={arrowCarousel} />
 
-              <span key={page}
-                css={{
-                  border:"1px solid #00FFFF",
-                  lineHeight: "1.2rem",
-                  padding: "1rem",
-                  margin: "1rem",
-                  textDecoration: "underline",
-                  color: "#00FFFF",
-                  cursor: "pointer"
-                }}
-                onClick={() => { setActive(page); 
-                  if (page<8) {
-                    props.setLimit(false);
-                    props.changePage((page - 1) * 5);
+      <span css={{
+        lineHeight: "1.2rem",
+        padding: "1rem",
+        margin: "1rem",
+        textDecoration: "underline",
+        color: "#00FFFF",
+        cursor: "pointer"
+      }}>{page}</span>
 
-                 }
-                 else {
-                   props.setLimit(true);
-                 }
-                 
-                }
-              }
-              >
-                {page}
-              </span>
-
-
-            }
-          </React.Fragment>
-        )
-      })
-      }
+      <img onClick={() => { next() }}
+        css={{ cursor: "pointer", width: "1.6rem", marginLeft: "1.5rem" }} src={arrowCarousel} />
     </div>
+
   )
 }
 

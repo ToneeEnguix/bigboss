@@ -13,7 +13,7 @@ const competitionSchema = new Schema({
   pictures: [{ type: String, required: true }],
   winner: { type: Schema.Types.ObjectId, ref: "user", default: null },
   winnerPic: { type: String, default: undefined },
-  entriesDate: { type: Date, default: Date.now() },
+  entriesDate: { type: Date},
   facebookURL: { type: String, default: undefined },
 });
 

@@ -166,7 +166,7 @@ function CompetitionDetails(props) {
             }
             )}
           </Carousel>
-          <img css={image} src={data.pictures[3]} />
+          <img css={image} src={data.pictures[data.pictures.length-1]} />
         </div>
         <div css={detailsColumn}>
           <h1 css={{ marginTop: "2rem", fontSize: "2rem", textAlign: "center" }}>{data.title}</h1>

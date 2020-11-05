@@ -24,7 +24,6 @@ function HomeCarousel() {
 
   const getRandomCompetitions = async () => {
     const result = await get("/competitions/randompicks");
-    console.log(result.data);
     if (result.ok) {
       setCompetitions(result.data);
     } else {
@@ -51,7 +50,7 @@ function HomeCarousel() {
           }} showStatus={false} showThumbs={false} showArrows={false}>
 
         {competitions.map((competition, index) => {
-          return <CarouselCard key={index} competition={competition} />;
+          return <CarouselCard competition={competition} />;
         })}
       </Carousel>
     </div>

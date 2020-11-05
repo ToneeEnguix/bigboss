@@ -1,6 +1,5 @@
 export const formatDate = (string) => {
   const array = string.split("-");
-  console.log(array);
   const monthNumber = array[1];
   const month = monthName(monthNumber);
   const dayString = dayName(array[2].substring(0, 2));

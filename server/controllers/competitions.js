@@ -150,7 +150,7 @@ class CompetitionController {
       const allCompetitions = await competitions.find();
       res.status(200).send(allCompetitions);
     } catch (error) {
-      console.log(error);
+ 
       res.status(500).send(error);
     }
   }
@@ -158,11 +158,11 @@ class CompetitionController {
   async active(req, res) {
     try {
       const allCompetitions = await competitions.find({
-        dateFinishes: { $gte: Date.now() },
-      });
+        dateFinishes: { $gte: Date.now() }
+      }).sort({'dateFinishes': 1});
       res.status(200).send(allCompetitions);
     } catch (error) {
-      console.log(error);
+ 
       res.status(500).send(error);
     }
   }

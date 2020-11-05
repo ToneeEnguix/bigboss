@@ -116,8 +116,10 @@ function FooterLinks() {
             business
 </span>
           <div css={{ display: "flex", flexDirection: "column", padding: "0 0.5rem", margin: "1.5rem 0" }}>
-            <p css={{ fontSize: "0.7rem" }}>ANSWER THE QUALIFIER</p>
-            <p css={descriptions}>We ensure the abolute best prizes and guarantee the totally most amazing items.</p>
+            <p css={{ fontSize: "0.7rem" }}>CONTACT US</p>
+            <p css={descriptions}>02890 836 783
+612 Antrim Road BT36 4RF 
+<a href="mailto:bigbosscompetitions@gmail.com">bigbosscompetitions@gmail.com</a></p>
           </div>
         </div>
         <div css={hiddentriangle}></div>
@@ -126,8 +128,10 @@ function FooterLinks() {
             help_outline
 </span>
           <div css={{  display: "flex", flexDirection: "column", padding: "0 0.5rem", margin: "1.5rem 0" }}>
-            <p css={{ fontSize: "0.7rem" }}>SIT TIGHT</p>
-            <p css={descriptions}>We make sure your safety and fun are protected. We encrypt all data keeping your protected.</p>
+            <p css={{ fontSize: "0.7rem" }}>FAQ</p>
+            <p css={descriptions}>Why not take a look here?
+These are the popular queries
+regarding  the prizes.</p>
           </div>
         </div>
       </div>
@@ -137,8 +141,10 @@ function FooterLinks() {
             biotech
 </span>
           <div css={{ display: "flex", flexDirection: "column", padding: "0 0.5rem", margin: "1.5rem 0" }}>
-            <p css={{ fontSize: "0.7rem" }}>CHOOSE YOUR DRAW</p>
-            <p css={descriptions}>Real Competitions! Real prizes! Absolutely guaranteed Giveaways and prices</p>
+            <p css={{ fontSize: "0.7rem" }}>ABOUT</p>
+            <p css={descriptions}>If you wish to know a little
+More about us! Please
+Check out this section.</p>
           </div>
         </div>
         <div css={hiddentriangle}></div>
@@ -147,8 +153,10 @@ function FooterLinks() {
 card_giftcard
 </span>
           <div css={{ display: "flex", flexDirection: "column", padding: "0 0.5rem", margin: "1.5rem 0" }}>
-            <p css={{ fontSize: "0.7rem" }}>ANSWER THE QUALIFIER</p>
-            <p css={descriptions}>We ensure the abolute best prizes and guarantee the totally most amazing items.</p>
+            <p css={{ fontSize: "0.7rem" }}>TERMS</p>
+            <p css={descriptions}>These are the terms outlining
+Our policy and your rights
+regarding buying tickets</p>
           </div>
         </div>
         <div css={hiddentriangle}></div>
