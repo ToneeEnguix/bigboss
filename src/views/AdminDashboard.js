@@ -198,8 +198,15 @@ export default AdminDashboard;
 // - update winner with only whole info (pic, user and fb url) ✅
 //   - If all inputs filled, send save ✅
 //   - Check on facebook videos (about above) ✅
+// - add photo on newComp??? ✅
+// - logout => fotter / header ✅
+// - refresh logout? ✅
+//   - password input type password ✅
 // - Add admin middleware ❗️
-// - No /adminlogin from mobile
+// - No /adminlogin from mobile ✅ => breakpoint in adminlogin
+// - re-check admin user ❗️ (with Chris/Carla at deploy)
+// - Photo format ❗️
+// - video fb ❗️
 
 // GENERAL:
 // - Change winner in past Competitions (YES + put it in top) ✅

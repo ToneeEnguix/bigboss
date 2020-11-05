@@ -106,7 +106,6 @@ class CompetitionController {
       );
       await cloudinary.v2.api.delete_resources([public_id]);
     };
-    console.log(this, that);
     let { competition } = req.body;
     competition.pictures[competition.pictures.length - 1] === "" &&
       competition.pictures.pop();

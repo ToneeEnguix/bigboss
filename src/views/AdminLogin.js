@@ -5,6 +5,7 @@ import StyledInput from "../components/StyledInput";
 import { post } from "../api/fetch";
 import { Redirect } from "react-router-dom";
 import UserContext from "../context/UserContext";
+import facepaint from "facepaint";
 
 function AdminLogin() {
   const [message, setMessage] = useState({
@@ -14,6 +15,9 @@ function AdminLogin() {
   });
   const [redirect, setRedirect] = useState(false);
   const context = useContext(UserContext);
+  const breakpoints = [944, 950];
+
+  const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
 
   const submit = async (e) => {
     e.preventDefault();
@@ -44,8 +48,23 @@ function AdminLogin() {
       />
     );
   }
+  if (window.screen.width < 900 && window.screen.height < 768) {
+    return (
+      <Redirect
+        to={{
+          pathname: "/home",
+        }}
+      />
+    );
+  }
+
   return (
-    <div css={contentWrapper}>
+    <div
+      css={mq({
+        display: ["none", "inline"],
+        margin: "4rem 0rem",
+      })}
+    >
       <div
         css={{
           display: "flex",
@@ -93,6 +112,7 @@ function AdminLogin() {
             className="cl_input"
             placeholder="Customer ID: EXAMPLE12345"
             name="password"
+            type="password"
           />
           <button css={{ marginTop: "1rem" }} className="button01">
             Start

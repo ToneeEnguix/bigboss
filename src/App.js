@@ -28,24 +28,20 @@ import MoreDashboard from "./views/MoreDashboard.js";
 import ErrorPage from "./views/Error.js";
 import ForgotPass from "./views/ForgotPass.js";
 import ResetPass from "./views/ResetPass";
-
 import NavBar from "./components/NavBar";
 import NextDraw from "./components/NextDraw";
-
 import FooterAds from "./components/FooterAds";
 import FooterLinks from "./components/FooterLinks";
 import AdminLogin from "./views/AdminLogin";
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import "./App.css";
-import facepaint from 'facepaint';
+import facepaint from "facepaint";
 
 const customHistory = createBrowserHistory();
-const breakpoints = [576, 950, 992, 1200]
+const breakpoints = [576, 950, 992, 1200];
 
-const mq = facepaint(
-  breakpoints.map(bp => `@media (min-width: ${bp}px)`));
-
+const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
 
 class App extends React.Component {
   constructor(props) {
@@ -142,105 +138,96 @@ class App extends React.Component {
           <ScrollToTop />
           <header
             css={mq({
-            maxWidth: "1800px",
-            display:["none","none","inline","inline"],
+              maxWidth: "1800px",
+              display: ["none", "none", "inline", "inline"],
               position: "fixed",
               top: "0",
               width: "100%",
               zIndex: "40",
               boxShadow: "0px 2px 4px 0px rgba(0,0,0,16%)",
             })}
-            style={{
-            display: window.location.href.includes("admin") && "none",
-          }}
           >
             <NextDraw />
-          <NavBar />
+            <NavBar />
           </header>
-        <section css={{ marginTop: "10rem" }}>
-          <Switch>
-            <PublicRoute
-              restricted={false}
-              history={customHistory}
-              component={CompetitionDetails}
-              path="/competitions/:id"
-            />
-            <PublicRoute restricted={false} component={Home} path="/home" />
-            <PublicRoute
-              restricted={false}
-              component={Competitions}
-              path="/competitions"
-            />
-            <PublicRoute
-              restricted={false}
-              component={Winners}
-              path="/winners"
-            />
-            <PublicRoute restricted={true} component={Log} path="/log" />
-            <PublicRoute
-              restricted={false}
-              component={ForgotPass}
-              path="/forgotPass"
-            />
-            <PublicRoute
-              restricted={false}
-              component={CreateAccount}
-              path="/createaccount"
-            />
-            <PublicRoute restricted={false} component={Draws} path="/draws" />
-            <PublicRoute
-              restricted={false}
-              component={ErrorPage}
-              path="/error"
-            />
-            <PublicRoute
-              restricted={false}
-              component={Entries}
-              path="/entries"
-            />
-            <PublicRoute
-              restricted={false}
-              component={Basket}
-              path="/basket"
-            />
-            <PublicRoute
-              restricted={true}
-              component={AdminLogin}
-              path="/adminlogin"
-            />
-            <PublicRoute
-              restricted={false}
-              component={MoreDashboard}
-              path="/more"
-            />
-            <PrivateRoute
-              restricted={false}
-              component={UserDashboard}
-              path="/userdashboard"
-            />
-            <AdminRoute
-              restricted={false}
-              component={AdminDashboard}
-              path="/admindashboard"
-            />
+          <section css={{ marginTop: "10rem" }}>
+            <Switch>
+              <PublicRoute
+                restricted={false}
+                history={customHistory}
+                component={CompetitionDetails}
+                path="/competitions/:id"
+              />
+              <PublicRoute restricted={false} component={Home} path="/home" />
+              <PublicRoute
+                restricted={false}
+                component={Competitions}
+                path="/competitions"
+              />
+              <PublicRoute
+                restricted={false}
+                component={Winners}
+                path="/winners"
+              />
+              <PublicRoute restricted={true} component={Log} path="/log" />
+              <PublicRoute
+                restricted={false}
+                component={ForgotPass}
+                path="/forgotPass"
+              />
+              <PublicRoute
+                restricted={false}
+                component={CreateAccount}
+                path="/createaccount"
+              />
+              <PublicRoute restricted={false} component={Draws} path="/draws" />
+              <PublicRoute
+                restricted={false}
+                component={ErrorPage}
+                path="/error"
+              />
+              <PublicRoute
+                restricted={false}
+                component={Entries}
+                path="/entries"
+              />
+              <PublicRoute
+                restricted={false}
+                component={Basket}
+                path="/basket"
+              />
+              <PublicRoute
+                restricted={true}
+                component={AdminLogin}
+                path="/adminlogin"
+              />
+              <PublicRoute
+                restricted={false}
+                component={MoreDashboard}
+                path="/more"
+              />
+              <PrivateRoute
+                restricted={false}
+                component={UserDashboard}
+                path="/userdashboard"
+              />
+              <AdminRoute
+                restricted={false}
+                component={AdminDashboard}
+                path="/admindashboard"
+              />
 
-            <Route path="/">
-              <Redirect to="/home" />
-            </Route>
-          </Switch>
-        </section>
-        <footer
-          css={{
-            display: `${window.location.href.includes("admin") ? "none" : "flex"
-              } `,
-            flexDirection: "column",
-          }}
-        >
-          <FooterLinks />
-          <FooterAds />
-        </footer>
+              <Route path="/">
+                <Redirect to="/home" />
+              </Route>
+            </Switch>
+          </section>
+          <footer css={{ flexDirection: "column" }}>
+            <FooterLinks />
+            <FooterAds />
+          </footer>
         </Router>
-      </UserContext.Provider >
+      </UserContext.Provider>
     );
   }
 }
