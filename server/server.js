@@ -11,7 +11,7 @@ require("dotenv").config();
 mongoose.set("useCreateIndex", true);
 async function connecting() {
   try {
-    await mongoose.connect("mongodb://127.0.0.1/bigBoss", {
+    await mongoose.connect(process.env.MONGO, {
       useUnifiedTopology: true,
       useNewUrlParser: true,
     });

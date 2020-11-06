@@ -205,7 +205,7 @@ export default AdminDashboard;
 // - Add admin middleware ❗️
 // - No /adminlogin from mobile ✅ => breakpoint in adminlogin
 // - re-check admin user ❗️ (with Chris/Carla at deploy)
-// - Photo format ❗️
+// - Photo format ✅
 // - video fb ❗️
 
 // GENERAL:

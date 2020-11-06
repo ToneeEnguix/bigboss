@@ -98,13 +98,12 @@ const PastCompetitions = (props) => {
       !pastCompetitions[i].winnerPic ||
       !pastCompetitions[i].winner ||
       !pastCompetitions[i].facebookURL ||
-      !pastCompetitions[i].entriesDate
+      !pastCompetitions[i].entriesDate ||
+      !pastCompetitions[i].facebookURL.includes("facebook.com/")
     ) {
-      console.log("lemon1");
       return false;
     }
     try {
-      console.log("lemon2");
       let res = await axios.post(`${URL}/competitions/updatewinner`, {
         competition: pastCompetitions[i],
       });

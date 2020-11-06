@@ -88,10 +88,8 @@ const ActiveCompetitions = (props) => {
 
   const removePicture = () => {
     setUnsaved(true);
-    console.log("lemon3", index, activeCompetitions[i]);
     let tempActiveCompetitions = [...activeCompetitions];
     tempActiveCompetitions[i].pictures.splice(index, 1);
-    console.log("lemon4", tempActiveCompetitions[i]);
     setActiveCompetitions(tempActiveCompetitions);
     setOpenModal(false);
   };
@@ -102,13 +100,10 @@ const ActiveCompetitions = (props) => {
   };
 
   const submitNewComp = async () => {
-    console.log("1", newComp);
     newComp.pictures = newComp.pictures.filter((item) => item !== "");
-    console.log("2", newComp);
     if (newComp.pictures.length === 0) {
       return false;
     }
-    console.log("3", newComp);
     try {
       let res = await axios.post(`${URL}/competitions/create`, {
         competition: newComp,
@@ -305,7 +300,6 @@ const ActiveCompetitions = (props) => {
                         }}
                         className="pointer"
                         onClick={() => {
-                          console.log("lemon1");
                           setRemove("image");
                           setIndex(idx);
                           setOpenModal(true);
@@ -319,7 +313,6 @@ const ActiveCompetitions = (props) => {
                         <img
                           src={image}
                           css={imgStyle}
-                          style={{ width: "200px", height: "200px" }}
                         />
                       </div>
                     </div>
@@ -478,8 +471,8 @@ const ActiveCompetitions = (props) => {
                         style={{
                           alignSelf: "flex-end",
                           position: "relative",
-                          top: "27px",
-                          right: "30px",
+                          top: "62px",
+                          right: "25px",
                           borderRadius: "100px",
                         }}
                         className="pointer"
@@ -497,7 +490,6 @@ const ActiveCompetitions = (props) => {
                         <img
                           src={image}
                           css={imgStyle}
-                          style={{ width: "200px", height: "200px" }}
                         />
                       </div>
                     </div>
@@ -706,7 +698,7 @@ const secondSidebarStyle = {
   },
   imgStyle = {
     width: "200px",
-    height: "200px",
+    height: "133px",
     boxShadow: "5px 5px 10px #111",
     borderRadius: "0 0 5px 5px",
   },
