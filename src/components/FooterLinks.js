@@ -2,6 +2,12 @@ import React from "react";
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import { useLocation } from "react-router-dom";
+import facepaint from 'facepaint';
+
+const breakpoints = [576, 1000, 1199, 1600]
+
+const mq = facepaint(
+  breakpoints.map(bp => `@media (min-width: ${bp}px)`));
 
 const footerWrapper = {
   display: "flex",
@@ -17,28 +23,28 @@ const footerWrapper = {
   },
 };
 
-const card = {
+const card = mq({
   boxShadow: "0px 2px 4px 0px rgba(0,0,0,16%)",
   display: "flex",
   alignItems: "center",
-  width: "26%",
+  width: ["100%","100%","100%","26%"],
   margin: "1rem 2rem",
   padding: "0 1rem",
   borderRadius: "6px",
   span: {
     fontSize: "80px",
     borderRadius: "4%",
-  },
-};
+}});
 
-const triangle = {
+
+const triangle = mq({
   width: "0",
   height: "0",
   borderTop: "1rem solid transparent",
   borderBottom: "1rem solid transparent",
-
+   transform:["rotate(90deg)","rotate(90deg)","rotate(90deg)","rotate(0deg)"],
   borderLeft: "1rem solid white",
-};
+});
 
 const hiddentriangle = {
   visibility: "hidden",

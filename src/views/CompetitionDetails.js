@@ -25,7 +25,7 @@ const imageColumn = {
 
   margin: "0 3rem",
   minWidth: "600px",
-  maxWidth: "800px",
+  maxWidth: "700px",
 
 }
 
@@ -146,9 +146,9 @@ function CompetitionDetails(props) {
 
   return (
 
-    <div css={{ display: "flex", flexDirection: "column" }}>
+    <div css={{ display: "flex", flexDirection: "column",}}>
       <div css={mq
-        ({
+        ({flexWrap:"wrap" ,
           flexDirection: ["column", "column", "row", "row"],
           display: "flex",
           marginTop: "3rem",

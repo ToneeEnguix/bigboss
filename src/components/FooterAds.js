@@ -7,10 +7,10 @@ import googlepng from "../resources/googlepng.png";
 import { useLocation } from "react-router-dom";
 
 const footerWrapper = {
-  display: "flex",
-  alignItems: "center",
+  display: "grid",
+
   margin: "0 5%",
-  justifyContent: "space-between",
+  gridTemplateColumns: "1fr 1fr 1fr",
   marginTop: "4rem",
   borderTop: "2px solid grey",
 
@@ -33,14 +33,19 @@ function FooterAds() {
         display: location.pathname.includes("admin") && "none",
       }}
     >
-      <BigBossLogo height={"100px"} />
-      <img
-        css={{ height: "100px", alignSelf: "center" }}
-        src={googlepng}
-        alt="Google logo"
-      />
-
-      <GambleAware x={"100px"} height={"100px"} />
+      <div css={{display:"flex", justifyContent:"flex-start", alignItems:"center"}}>
+        <BigBossLogo height={"100px"} />
+      </div>
+      <div css={{display:"flex", justifyContent:"center",alignItems:"center"}}>
+        <img
+          css={{ height: "100px", alignSelf: "center" }}
+          src={googlepng}
+          alt="Google logo"
+        />
+      </div>
+      <div css={{display:"flex", justifyContent:"flex-end",alignItems:"center"}}>
+        <GambleAware x={"50px"} height={"50px"} />
+      </div>
     </div>
   );
 }
