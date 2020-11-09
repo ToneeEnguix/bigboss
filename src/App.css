@@ -360,3 +360,8 @@ p {
 .carousel-button-group > * {
   margin: 1rem 0;
 }
+
+.react-multi-carousel-item{
+
+  min-width:0px !important;
+}

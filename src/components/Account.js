@@ -3,16 +3,22 @@ import React, { useState, useContext } from 'react';
 import { jsx } from "@emotion/core/";
 import { post } from "../api/fetch";
 import UserContext from "../context/UserContext";
-import { useInputChange } from '../utils/useInputChange'
+import { useInputChange } from '../utils/useInputChange';
+import facepaint from 'facepaint';
+
+const breakpoints = [650, 950, 992, 1200]
+const mq = facepaint(
+  breakpoints.map(bp => `@media (min-width: ${bp}px)`));
 
 
-const accountInput = {
+const accountInput = mq({
   border: "none",
   borderBottom: "1px dashed white !important",
   boxShadow: "none",
   outline: "none",
   padding: "0.75rem 0.75rem 0.5rem 0",
-};
+  width:["100%","100%","auto","auto"]
+});
 
 const inputWrapper = {
 
@@ -28,11 +34,11 @@ const inputWrapper = {
   },
 };
 
-const columns = {
-  marginLeft: "3rem",
+const columns = mq({
+  marginLeft: ["0rem","0rem","3rem","3rem"],
   display: "grid",
-  gridTemplateRows: "repeat(3, 1fr)",
-  gridTemplateColumns: "repeat(3,1fr)",
+  gridTemplateRows: ["repeat(9,1fr)","repeat(3,1fr)","repeat(3,1fr)","repeat(3,1fr)"],
+  gridTemplateColumns:["repeat(1,1fr)","repeat(3,1fr)","repeat(3, 1fr)","repeat(3, 1fr)"],
   gridAutoFlow: "column",
   width: "100%",
   marginBottom: "3rem",
@@ -42,7 +48,8 @@ const columns = {
     fontSize: "0.7rem",
     letterSpacing: "0.1rem",
   },
-};
+});
+
 function Account() {
 
   const context = useContext(UserContext);
@@ -100,7 +107,7 @@ function Account() {
 
   return (
     <React.Fragment>
-      <form onSubmit={submit} css={{ height: "50vh", display: "flex", flexDirection: "column", alignItems: "center", width: "70%" }}>
+      <form onSubmit={submit} css={mq({ height: ["auto","auto","50vh","50vh"], display: "flex", flexDirection: "column", alignItems: "center", width:["100%","100%","70%","70%"]})}>
         <div css={columns}>
 
           {inputNames.map(name => {

@@ -4,6 +4,12 @@ import { jsx } from '@emotion/core/';
 import { post } from "../api/fetch";
 import { verifyMatch, verifyPass } from "../utils/verifyFormData"
 import StyledInput from "./StyledInput";
+import facepaint from 'facepaint';
+
+const breakpoints = [576, 950, 992, 1200]
+const mq = facepaint(
+  breakpoints.map(bp => `@media (min-width: ${bp}px)`));
+
 
 
 const Password = () => {
@@ -23,13 +29,12 @@ const Password = () => {
     if (passwordsMatch.ok && passwordValid.ok) {
 
       const result = await post("/users/newpassword", { oldpassword, newpassword, })
-      if (result.status!==200)
-      {
+      if (result.status !== 200) {
         setMessage({ visibility: "visible", message: "WRONG PASSWORD", color: "red" });
         setTimeout(() => setMessage({ color: "green", visibility: "hidden", message: "hidden" }), 1000);
-  
+
       }
-      else{
+      else {
         setMessage({ visibility: "visible", message: "PASSWORD CHANGED!", color: "green" });
         setTimeout(() => setMessage({ color: "green", visibility: "hidden", message: "hidden" }), 1000);
       }
@@ -48,7 +53,14 @@ const Password = () => {
   }
   return (
     <form onSubmit={submit}
-      css={{ height:"50vh",marginLeft: "3rem", marginTop: "1rem", width: "25rem", display: "flex", flexDirection: "column" }}>
+      css={mq({
+        height: "50vh",
+        marginLeft: ["0rem","0rem","3rem","3rem"],
+        marginTop: "1rem",
+        width: "25rem",
+        display: "flex",
+        flexDirection: "column"
+      })}>
       <StyledInput
         innerName={"currentPass"}
         type={"password"}

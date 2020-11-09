@@ -6,6 +6,11 @@ import { jsx } from "@emotion/core";
 import { get } from "../api/fetch";
 import { Redirect } from "react-router-dom";
 import CarouselWinnerCard from "./CarouselWinnerCard";
+import facepaint from "facepaint";
+
+const breakpoints = [1299, 1300,];
+
+const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
 
 const recentWinnersWrapper = {
   display: "flex",
@@ -38,7 +43,7 @@ function RecentWinners() {
 
   return (
     <div css={recentWinnersWrapper}>
-      <h1> RECENT WINNERS</h1>
+      <h1 css={mq({textAlign:["center","center","left","left"]})}> RECENT WINNERS</h1>
       <Carousel css={{
         marginTop: "4rem", width: "100%",
         ".carousel .slider-wrapper": {

@@ -37,6 +37,7 @@ import AdminLogin from "./views/AdminLogin";
 import { jsx } from "@emotion/core";
 import "./App.css";
 import facepaint from "facepaint";
+import BurgerNav from "./components/BurgerNav";
 
 const customHistory = createBrowserHistory();
 const breakpoints = [576, 950, 992, 1200];
@@ -49,8 +50,8 @@ class App extends React.Component {
 
     this.state = {
       user: {
-        _id: undefined,
-        name: undefined,
+        _id: 9999,
+        name: "Test",
         cart: [],
       },
 
@@ -149,6 +150,10 @@ class App extends React.Component {
           >
             <NextDraw />
             <NavBar />
+          </header>
+          <header css={mq({ display: ["inline", "inline", "none", "none"], })}>
+            <NextDraw />
+            <BurgerNav/>
           </header>
           <section css={{ marginTop: "10rem" }}>
             <Switch>

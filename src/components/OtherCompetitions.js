@@ -7,6 +7,12 @@ import OtherCompCard from "./OtherCompCard";
 import { get } from "../api/fetch";
 import { Redirect } from "react-router-dom";
 import arrowCarousel from "../resources/arrowCarousel.png";
+import facepaint from "facepaint";
+
+const breakpoints = [1299, 1300,];
+
+const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
+
 const otherCompetitionsWrapper = {
 
   display: "flex",
@@ -51,7 +57,7 @@ export default function OtherCompetitions() {
 
   return (
     <div css={otherCompetitionsWrapper}>
-      <h1 css={{ marginBottom: "4rem" }}> OTHER COMPETITIONS</h1>
+      <h1 css={mq({ textAlign: ["center", "center", "left", "left"] })}> OTHER COMPETITIONS</h1>
       < Carousel
         additionalTransfrom={0}
         centerMode={true}
@@ -59,6 +65,7 @@ export default function OtherCompetitions() {
         containerClass="container-with-dots"
         dotListClass=""
         draggable
+        infinite
         focusOnSelect={false}
         arrows={false}
         customButtonGroup={<ButtonGroup />}
@@ -67,7 +74,6 @@ export default function OtherCompetitions() {
         minimumTouchDrag={80}
         renderButtonGroupOutside={false}
         renderDotsOutside={false}
-        infinite
         responsive={{
 
 
@@ -84,7 +90,7 @@ export default function OtherCompetitions() {
           mobile: {
             breakpoint: { max: 464, min: 0 },
             items: 1,
-            partialVisibilityGutter: 30
+            partialVisibilityGutter: 0
           }
 
         }}
@@ -98,8 +104,8 @@ export default function OtherCompetitions() {
         {competitions.map((competition, index) => {
 
           return (
-            <React.Fragment>
-              <OtherCompCard key={index} competition={competition} />
+            <React.Fragment key={index}>
+              <OtherCompCard  competition={competition} />
             </React.Fragment>
           )
 
@@ -117,19 +123,19 @@ const ButtonGroup = ({ next, previous, goToSlide, ...rest }) => {
     <div className="carousel-button-group">
 
 
-      <div css={{ display:"flex",alignItems:"center",cursor: "pointer", padding: "1rem" }} onClick={() => previous()}>
+      <div css={{ display: "flex", alignItems: "center", cursor: "pointer", padding: "1rem" }} onClick={() => previous()}>
 
-      <img css={{transform:"rotate(180deg)",width:"1.6rem",marginRight:"1.5rem"}} src={arrowCarousel}/>
-<span css={{fontSize:"0.9rem", letterSpacing:"0.1rem"}}>
-        PREV
+        <img css={{ transform: "rotate(180deg)", width: "1.6rem", marginRight: "1.5rem" }} src={arrowCarousel} />
+        <span css={{ fontSize: "0.9rem", letterSpacing: "0.1rem" }}>
+          PREV
         </span>
-        </div>
+      </div>
       <div css={{ display: "flex", cursor: "pointer", padding: "1rem", alignItems: "center" }} onClick={() => next()}>
 
-      <span css={{fontSize:"0.9rem", letterSpacing:"0.1rem"}}>
+        <span css={{ fontSize: "0.9rem", letterSpacing: "0.1rem" }}>
           NEXT
         </span>
-       <img css={{width:"1.6rem",marginLeft:"1.5rem"}} src={arrowCarousel}/>
+        <img css={{ width: "1.6rem", marginLeft: "1.5rem" }} src={arrowCarousel} />
       </div>
     </div>
   );

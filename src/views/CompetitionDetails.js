@@ -196,11 +196,11 @@ function CompetitionDetails(props) {
               letterSpacing: "0.1rem",
               marginBottom: "1rem"
             }}>DESCRIPTION</h4>
-            {data.description.map(line => {
+            {data.description.map((line,index) => {
 
               return (
 
-                <p key={line} css={{ padding: "0.5rem 0", textTransform: "uppercase" }}>{line}</p>
+                <p key={index} css={{ padding: "0.5rem 0", textTransform: "uppercase" }}>{line}</p>
               )
             })}
             <h4 css={{

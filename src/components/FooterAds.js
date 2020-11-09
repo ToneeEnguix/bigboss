@@ -5,10 +5,16 @@ import { ReactComponent as BigBossLogo } from "../resources/BigBossLogo.svg";
 import { ReactComponent as GambleAware } from "../resources/GambleAware.svg";
 import googlepng from "../resources/googlepng.png";
 import { useLocation } from "react-router-dom";
+import facepaint from "facepaint";
 
-const footerWrapper = {
-  display: "grid",
+const breakpoints = [838, 950, ];
 
+const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
+
+const footerWrapper = mq({
+  display: ["flex","grid"],
+ flexDirection:"column",
+ alignItems:"center",
   margin: "0 5%",
   gridTemplateColumns: "1fr 1fr 1fr",
   marginTop: "4rem",
@@ -21,7 +27,7 @@ const footerWrapper = {
   ">*": {
     paddingTop: "2rem",
   },
-};
+});
 
 function FooterAds() {
   const location = useLocation();

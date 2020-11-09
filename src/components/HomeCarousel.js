@@ -50,7 +50,7 @@ function HomeCarousel() {
           }} showStatus={false} showThumbs={false} showArrows={false}>
 
         {competitions.map((competition, index) => {
-          return <CarouselCard competition={competition} />;
+          return <CarouselCard key={index} competition={competition} />;
         })}
       </Carousel>
     </div>

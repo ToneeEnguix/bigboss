@@ -3,9 +3,14 @@ import React from 'react';
 import { jsx } from '@emotion/core';
 import { Link } from "react-router-dom";
 import Counter from "../utils/Counter";
+import facepaint from "facepaint";
+
+const breakpoints = [576, 950, 992, 1200];
+
+const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
 
 
-const card = {
+const card = mq({
 
 
     display: "flex",
@@ -18,7 +23,7 @@ const card = {
     maxWidth:"600px",
     margin: "4rem 0",
 
-}
+});
 
 const textWrapper = {
 

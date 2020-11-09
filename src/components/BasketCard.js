@@ -5,23 +5,8 @@ import { Link } from "react-router-dom";
 import Counter from "../utils/Counter";
 import UserContext from "../context/UserContext";
 
-const card = {
 
 
-    padding: "2rem 2rem 2rem 2rem",
-    width: "100%",
-    display: "flex",
-    margin: "0rem 1.5rem 1.5rem 0",
-    boxShadow: "-1px 4px 22px 0px black",
-    justifyContent: "center",
-    flexDirection: "column",
-    borderRadius: "4%",
-    overflow: "hidden",
-    minWidth: "450px"
-    
-
-
-}
 
 const textWrapper = {
 
@@ -44,7 +29,30 @@ function BasketCard(props) {
 
     const [amount, setAmount] = useState(props.competition.amount);
     const [message,setMessage]=useState({visible:"hidden",message:"hidden"});
-    const context = useContext(UserContext)
+    const context = useContext(UserContext);
+    const [animation,setAnimation]=useState("translate3d(0, 0, 0)");
+
+    const card = {
+
+
+        padding: "2rem 2rem 2rem 2rem",
+        width: "100%",
+        display: "flex",
+        margin: "0rem 1.5rem 1.5rem 0",
+        boxShadow: "-1px 4px 22px 0px black",
+        justifyContent: "center",
+        flexDirection: "column",
+        borderRadius: "4%",
+        overflow: "hidden",
+        minWidth: "450px",
+        transform:animation ,
+        transition:"transform 2s",
+        
+    
+    
+    }
+
+
 
     const setValue = (amount) => {
         let value = String(amount);
@@ -79,7 +87,8 @@ function BasketCard(props) {
 
     const remove=()=>{
 
-        context.remove(props.competition.competition);
+        setAnimation("translate3d(-100vw, 0, 0)");
+        setTimeout(()=>{context.remove(props.competition.competition)},2001);
     }
     return (
         <div css={card}>

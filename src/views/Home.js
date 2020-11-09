@@ -25,14 +25,18 @@ function Home() {
 const AnnoyingBanner = () => {
 
   const [hide, setHide] = useState("inline");
+  const [animation,setAnimation]=useState("translate3d(0, 0, 0)")
 
   return (
 
     <div
 
-      onClick={() => { setHide("none") }}
+      onClick={() => { setAnimation("translate3d(-100vw, 0, 0)");}}
       css={{
 
+
+        transform:animation ,
+        transition:"transform 2s",
         borderTopRightRadius: "12px",
         borderBottomRightRadius: "12px",
         cursor:"pointer",

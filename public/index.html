@@ -34,6 +34,20 @@
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
+
+    
     <div id="root"></div>
+    <script src="https://webservices.securetrading.net/js/v2/st.js"></script>
+    <script>
+    (function() {
+      console.log("ESTA DENTRO")
+      var st = SecureTrading({  
+       jwt: 'TEST'
+       });  
+      st.Components(); 
+     })(); 
+    </script>
   </body>
 </html>
+
+

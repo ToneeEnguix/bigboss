@@ -7,7 +7,7 @@ import {
 import facepaint from 'facepaint';
 
 
-const breakpoints = [576, 768, 1225, 1400];
+const breakpoints = [576, 950, 1225, 1400];
 const mq = facepaint(
   breakpoints.map(bp => `@media (min-width: ${bp}px)`));
 
@@ -61,7 +61,7 @@ export default class UserDashboardNav extends React.Component {
     render() {
 
         return (
-            <div  css={{borderRight:"1px solid #868686", width:"20%", height:"50vh"}}>  
+            <div  css={mq({display:["none","none","inline","inline"],borderRight:"1px solid #868686", width:"20%", height:"50vh"})}>  
                 <nav css={style}>
                     <ul>
                         <li>
