@@ -107,7 +107,7 @@ function Account() {
 
   return (
     <React.Fragment>
-      <form onSubmit={submit} css={mq({ height: ["auto","auto","50vh","50vh"], display: "flex", flexDirection: "column", alignItems: "center", width:["100%","100%","70%","70%"]})}>
+      <form onSubmit={submit} css={mq({ height: ["auto","auto","auto","auto"], display: "flex", flexDirection: "column", alignItems: "center", width:["100%","100%","70%","70%"]})}>
         <div css={columns}>
 
           {inputNames.map(name => {
