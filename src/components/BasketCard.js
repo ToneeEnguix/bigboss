@@ -88,7 +88,7 @@ function BasketCard(props) {
     const remove=()=>{
 
         setAnimation("translate3d(-100vw, 0, 0)");
-        setTimeout(()=>{context.remove(props.competition.competition)},2001);
+        setTimeout(()=>{context.remove(props.competition.competition)},2000);
     }
     return (
         <div css={card}>
@@ -103,7 +103,7 @@ function BasketCard(props) {
                     <button onClick={substract} className="roundButtonSmall">-</button>
                     <p css={{ fontWeight: "500" }}>MORE</p>
                     <button onClick={add} className="roundButtonSmall">+</button>
-                    <input readOnly={true} value={setValue(amount)} className="inputAmountSmall" />
+                    <input readOnly={true} value={setValue(amount)} className="inputAmountSmallRect" />
                 </div>
                 <button onClick={saveUpdate} css={{ marginTop: "2rem" }} className="button02">SAVE YOUR UPDATE</button>
                 <p css={{marginTop:"0.3rem", fotWeight:"500",textAlign:"center",visibility:message.visible}}>{message.message}</p>

@@ -50,8 +50,8 @@ class App extends React.Component {
 
     this.state = {
       user: {
-        _id: 9999,
-        name: "Test",
+        _id: undefined,
+        name: undefined,
         cart: [],
       },
 

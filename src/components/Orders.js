@@ -25,7 +25,7 @@ const tr = {
 function Orders() {
   const [orders, setOrders] = useState([]);
   const [error, setError] = useState(false);
-  const [render,setRender]=useState(false)
+  const [render, setRender] = useState(false)
 
 
   const context = useContext(UserContext);
@@ -45,7 +45,7 @@ function Orders() {
       setOrders(result.data);
       console.log(result)
       setRender(!render);
-     
+
 
     } else {
       setError(true);
@@ -100,7 +100,7 @@ function Orders() {
           </tbody>
         </table> : null}
 
-      <Pages changePage={getOrders} />
+      <Pages pages={orders.pages} changePage={getOrders} />
     </div>
   );
 }
@@ -113,9 +113,7 @@ const Pages = (props) => {
 
   const next = () => {
 
-
-console.log(page)
-    props.changePage((page)* 5);
+    props.changePage((page) * 5);
     setPage(page + 1);
 
 
@@ -123,14 +121,14 @@ console.log(page)
 
   const prev = () => {
 
-    if (page >2) {
+    if (page > 2) {
 
 
-      props.changePage((page-2)* 5);
+      props.changePage((page - 2) * 5);
       setPage(page - 1);
 
     }
-    else if (page===2){
+    else if (page === 2) {
 
       props.changePage(0);
       setPage(page - 1);
@@ -155,8 +153,10 @@ console.log(page)
         cursor: "pointer"
       }}>{page}</span>
 
-      <img onClick={() => { next() }}
-        css={{ cursor: "pointer", width: "1.6rem", marginLeft: "1.5rem" }} src={arrowCarousel} />
+      {props.pages !== page ?
+        <img onClick={() => { next() }}
+          css={{ cursor: "pointer", width: "1.6rem", marginLeft: "1.5rem" }} src={arrowCarousel} />
+        : null}
     </div>
 
   )

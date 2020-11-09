@@ -41,7 +41,6 @@ class OrdersController {
     const userId = req.params.id;
     const skip = Number(req.params.skip);
 
-    console.log(skip)
 
     try {
       let number = await orders.countDocuments({ user: userId });
