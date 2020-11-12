@@ -8,6 +8,9 @@ import { get } from "../api/fetch";
 import bigbossblue from "../resources/bigbossblue.png";
 import ReactDOM from 'react-dom';
 import useModal from "../utils/useModals";
+const jwt = require("jsonwebtoken");
+const config = require("../api/jwtConfig.js");
+
 
 const contentWrapper = {
 
@@ -129,6 +132,7 @@ function Basket() {
 
   }
 
+
   const redeem = async () => {
 
     const result = await get(`/coupons/read/${couponValue}`);
@@ -151,6 +155,11 @@ function Basket() {
     setDiscountAmount(discountAmount.toFixed(2))
   }
 
+  const openCheckout = () => {
+
+
+    toggle();
+  }
 
 
   if (redirect) {
@@ -207,7 +216,7 @@ function Basket() {
                   <h5 css={{ fontWeight: "600", fontSize: "0.7rem" }}>TOTAL</h5>
                   <p css={{ fontWeight: "500" }}>£{(partialAmount - discountAmount).toFixed(2)}</p>
                 </div>
-                <button onClick={toggle} className="button03">PAY NOW</button>
+                <button onClick={() => { openCheckout() }} className="button03">PAY NOW</button>
               </div>
             </div>
             <div css={logo}>
@@ -219,16 +228,21 @@ function Basket() {
           </div>
         </div>
       </div>
-      <Modal
+      <Modal key={"Modal"}
+  amount={(Number(partialAmount) - Number(discountAmount)) * 100}
         isShowing={isShowing}
         hide={toggle} />
     </React.Fragment>
   );
 }
 
+
 export default Basket;
 
-const Modal = ({ isShowing, hide }) => {
+
+
+const Modal = ({ isShowing, hide, amount }) => {
+
 
   const modal = {
 
@@ -244,7 +258,7 @@ const Modal = ({ isShowing, hide }) => {
     position: "fixed",
     background: "white",
     width: "80%",
-    height: "auto",
+    height: "70vh",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -252,49 +266,47 @@ const Modal = ({ isShowing, hide }) => {
     top: "50%",
     left: "50%",
     transform: "translate(-50%,-50%)",
-    width: "70%"
+
   }
 
-  const editable = {
+  useEffect(() => {
 
-    background: "white",
-    border: "2px solid black",
-    margin: "1rem 0",
-    color: "black",
-    width: "70%"
-  }
+    const payload = {
+      payload:
+      {
+        accounttypedescription: "ECOM",
+        baseamount: amount,
+        currencyiso3a: "GBP",
+        sitereference: "test_site12345"
+      }
+      ,
+      iat: Date.now(),
+      iss: "carlagusojwt@gmail.com"
+    }
 
-return (
-  isShowing === true ?
-    ReactDOM.createPortal(
-      <div css={modal}>
-        <div css={window}>
-          <div id="st-notification-frame"></div>
-          <form css={{
-            background: "white",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center"
+   
 
-          }} id="st-form" action="https://www.example.com" method="POST">
-            <div css={{ width: "100%" }}>CARD NUMBER</div>
-            <div css={editable} contenteditable="true" id="st-card-number" className=" st-card-number"></div>
-            <div css={{ width: "100%" }}>EXPIRATION DATE</div>
-            <div css={editable} contenteditable="true" id="st-expiration-date" className="st-expiration-date"></div>
-            <div css={{ width: "100%" }}>SECURITY CODE</div>
-            <div css={editable} contenteditable="true" id="st-security-code" className="st-security-code"></div>
+    const token =  jwt.sign(payload, config.key,
+      { algorithm: 'HS256', header: {typ:"HS256", typ:"JWT" }});
 
-            <div css={{ marginTop: "1rem", display: "flex", background: "white", justifyContent: "space-around" }}>
-              <button onClick={hide} className="button01">Cancel</button>
-              <button
-                type="submit" id="st-form__submit" className="st-form__submit"
-                className="button01">Confirm</button>
-            </div>
-          </form>
+    sessionStorage.setItem("tp", token)
+  }, [amount])
 
-        </div>
-      </div>, document.body) : null
-)
+
+
+
+  return (
+    isShowing === true ?
+      ReactDOM.createPortal(
+        <div css={modal}>
+          <div css={window}>
+            <iframe css={{ width: "100%", height: "100%", backgroundColor: "white" }} src="./paymentpopup.html" />
+            <button onClick={() => { hide() }}>CANCEL</button>
+          </div>
+
+        </div>, document.body) : null
+
+  )
 }
 
 

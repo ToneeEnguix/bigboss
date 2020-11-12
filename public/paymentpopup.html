@@ -1,0 +1,28 @@
+<html>
+<head>
+</head>
+<body>
+  <div id="st-notification-frame"></div>
+  <form id="st-form" action="http://localhost:4000/payments/checkanswer" method="POST">
+    <div id="st-card-number" class="st-card-number"></div>
+    <div id="st-expiration-date" class="st-expiration-date"></div>
+    <div id="st-security-code" class="st-security-code"></div>
+    <button type="submit" id="st-form__submit" class="st-form__submit">
+      Pay securely
+    </button>
+  </form>
+ <script src="https://webservices.securetrading.net/js/v2/st.js"></script>
+ <script> 
+  (function() {
+
+    jwt =sessionStorage.getItem("tp");
+    console.log(jwt)
+   var st = SecureTrading({  
+    jwt: jwt
+
+    });  
+   st.Components(); 
+  })(); 
+ </script>
+</body>
+</html>

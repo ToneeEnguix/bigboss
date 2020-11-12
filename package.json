@@ -12,6 +12,8 @@
     "cloudinary-react": "^1.6.7",
     "dotenv": "^8.2.0",
     "facepaint": "^1.2.1",
+    "jsonwebtoken": "^8.5.1",
+    "jsrsasign": "^10.0.5",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-dropzone": "^11.2.1",
@@ -20,6 +22,7 @@
     "react-player": "^2.6.2",
     "react-responsive-carousel": "^3.2.10",
     "react-router-dom": "^5.2.0",
+    "react-script-tag": "^1.1.2",
     "react-scripts": "3.4.3"
   },
   "scripts": {
