@@ -37,6 +37,22 @@ class OrdersController {
     }
   }
 
+  async receive (req,res){
+
+    try{
+
+      console.log(req.body.jwt)
+      res.redirect('http://localhost:3000/home')
+  
+    }
+    catch(error){
+      console.log(error)
+      res.status(500).send()
+    }
+
+  }
+
+
   async getUserOrders(req, res) {
     const userId = req.params.id;
     const skip = Number(req.params.skip);

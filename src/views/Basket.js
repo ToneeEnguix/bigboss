@@ -4,10 +4,12 @@ import { jsx } from '@emotion/core';
 import { Redirect } from "react-router-dom"
 import UserContext from "../context/UserContext";
 import BasketCard from "../components/BasketCard";
-import { get } from "../api/fetch";
+import { get, post } from "../api/fetch";
 import bigbossblue from "../resources/bigbossblue.png";
 import ReactDOM from 'react-dom';
 import useModal from "../utils/useModals";
+
+
 const jwt = require("jsonwebtoken");
 const config = require("../api/jwtConfig.js");
 
@@ -58,6 +60,27 @@ const invisible = {
     color: "#FFFFFF"
   }
 }
+
+const card = {
+
+
+  padding: "2rem 2rem 2rem 2rem",
+  width: "100%",
+  display: "flex",
+  margin: "0rem 1.5rem 1.5rem 0",
+  boxShadow: "-1px 4px 22px 0px black",
+  justifyContent: "center",
+  flexDirection: "column",
+  borderRadius: "4%",
+  overflow: "hidden",
+  minWidth: "450px",
+  textAlign:"center"
+
+
+
+}
+
+
 const inputButton = {
 
   display: "flex",
@@ -103,16 +126,10 @@ function Basket() {
 
   useEffect(() => {
 
-    if (context.user.cart.length === 0) {
-
-      setRedirect(true);
-    }
-    else {
-
       calculatePartialAmount();
-    }
+    
 
-  })
+  },[])
 
   const calculatePartialAmount = () => {
     let total = 0;
@@ -155,19 +172,25 @@ function Basket() {
     setDiscountAmount(discountAmount.toFixed(2))
   }
 
-  const openCheckout = () => {
 
+  const checkoutProcess = async () => {
 
-    toggle();
+    const cart = context.user.cart;
+
+    const result = await post(`/competitions/checkstock`, cart)
+
+    if (result.ok && result.data.modified === false) {
+
+      toggle();
+
+    }
+    else if (result.ok && result.data.modified === true) {
+
+      setMessage({ visibility: "visible", message: "YOUR CART WAS MODIFIED. CHECK AND PROCEED" });
+      context.switchCart(result.data.cart)
+    }
   }
 
-
-  if (redirect) {
-
-    return (
-      <Redirect to="/home" />
-    )
-  }
 
 
   return (
@@ -178,10 +201,11 @@ function Basket() {
         <div css={{ display: "flex", flexWrap: "wrap", justifyContent: "space-evenly", marginTop: "3.5rem" }}>
           <div css={compsColumn}>
             {
+              context.user.cart.length>0?
               context.user.cart.map((competition, index) => {
-                return (<BasketCard key={index} competition={competition} />)
+                return (<BasketCard key={competition._id+competition.amount} competition={competition} />)
               })
-            }
+           :<div css={card}>BASKET IS CURRENTLY EMPTY</div> }
           </div>
           <div css={dataColumn}>
             <div css={summary}>
@@ -216,7 +240,7 @@ function Basket() {
                   <h5 css={{ fontWeight: "600", fontSize: "0.7rem" }}>TOTAL</h5>
                   <p css={{ fontWeight: "500" }}>£{(partialAmount - discountAmount).toFixed(2)}</p>
                 </div>
-                <button onClick={() => { openCheckout() }} className="button03">PAY NOW</button>
+                {context.user.cart.length>0?<button onClick={() => { checkoutProcess() }} className="button03">PAY NOW</button>:null}
               </div>
             </div>
             <div css={logo}>
@@ -229,18 +253,12 @@ function Basket() {
         </div>
       </div>
       <Modal key={"Modal"}
-  amount={(Number(partialAmount) - Number(discountAmount)) * 100}
+        amount={(Number(partialAmount) - Number(discountAmount)) * 100}
         isShowing={isShowing}
         hide={toggle} />
     </React.Fragment>
   );
 }
-
-
-export default Basket;
-
-
-
 const Modal = ({ isShowing, hide, amount }) => {
 
 
@@ -284,10 +302,10 @@ const Modal = ({ isShowing, hide, amount }) => {
       iss: "carlagusojwt@gmail.com"
     }
 
-   
 
-    const token =  jwt.sign(payload, config.key,
-      { algorithm: 'HS256', header: {typ:"HS256", typ:"JWT" }});
+
+    const token = jwt.sign(payload, config.key,
+      { algorithm: 'HS256', header: { typ: "HS256", typ: "JWT" } });
 
     sessionStorage.setItem("tp", token)
   }, [amount])
@@ -311,4 +329,5 @@ const Modal = ({ isShowing, hide, amount }) => {
 
 
 
+export default Basket;
 

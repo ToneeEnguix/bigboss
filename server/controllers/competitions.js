@@ -7,6 +7,44 @@ cloudinary.config({
 });
 
 class CompetitionController {
+
+  async checkStock(req, res) {
+
+    try {
+
+      let cart = JSON.parse(req.body.data);
+      let modified = false;
+
+
+      await Promise.all(cart.map(async (element, index) => {
+
+        const updatedElement = await competitions.findById(element.competition._id);
+        const availableTickets = (updatedElement.maxTickets - updatedElement.ticketsSold);
+
+        if (Date.now() > updatedElement.dateFinishes ||
+          updatedElement.ticketsSold >= updatedElement.maxTickets) {
+
+          cart.splice(index, 1);
+          modified = true;
+        }
+        else if (availableTickets - element.amount < 0) {
+
+          cart[index] = {
+            competition: updatedElement,
+            amount: element.amount + (availableTickets - element.amount)
+          }
+          modified = true;
+
+        }
+      }))
+
+      res.status(200).send({ cart, modified })
+    }
+    catch (error) {
+
+      res.status(500).send(error)
+    }
+  }
   async create(req, res) {
     let { competition } = req.body;
     try {
@@ -149,7 +187,7 @@ class CompetitionController {
       const allCompetitions = await competitions.find();
       res.status(200).send(allCompetitions);
     } catch (error) {
- 
+
       res.status(500).send(error);
     }
   }
@@ -158,10 +196,10 @@ class CompetitionController {
     try {
       const allCompetitions = await competitions.find({
         dateFinishes: { $gte: Date.now() }
-      }).sort({'dateFinishes': 1});
+      }).sort({ 'dateFinishes': 1 });
       res.status(200).send(allCompetitions);
     } catch (error) {
- 
+
       res.status(500).send(error);
     }
   }
@@ -275,5 +313,7 @@ class CompetitionController {
       res.status(500).send(err);
     }
   }
+
+
 }
 module.exports = new CompetitionController();

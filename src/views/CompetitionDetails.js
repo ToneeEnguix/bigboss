@@ -7,7 +7,6 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import Counter from "../utils/Counter";
 import GenerateSecurityQuestion from "../utils/GenerateSecurityQuestion";
 import ShowCorrectButton from "../utils/ShowCorrectButton";
-import { ReactComponent as BigBossLogo } from "../resources/BigBossLogo.svg";
 import { get } from "../api/fetch";
 import UserContext from "../context/UserContext";
 import bigbossblue from "../resources/bigbossblue.png";

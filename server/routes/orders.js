@@ -10,6 +10,8 @@ router.post("/update", controller.update);
 
 router.post("/delete", controller.delete);
 
+router.post ("/receive", controller.receive);
+
 router.get("/all", controller.all);
 
 router.get("/user/:id/:skip", controller.getUserOrders);

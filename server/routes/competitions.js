@@ -29,4 +29,6 @@ router.get("/entries", controller.withEntries);
 
 router.get("/nextdraw", controller.nextDraw);
 
+router.post("/checkstock",controller.checkStock)
+
 module.exports = router;

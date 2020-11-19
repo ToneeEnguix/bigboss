@@ -1,4 +1,4 @@
-import { React, useState, useContext } from 'react';
+import { React, useState, useContext, useEffect } from 'react';
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { Link } from "react-router-dom";
@@ -27,11 +27,19 @@ const textWrapper = {
 
 function BasketCard(props) {
 
+
+
     const [amount, setAmount] = useState(props.competition.amount);
     const [message,setMessage]=useState({visible:"hidden",message:"hidden"});
     const context = useContext(UserContext);
     const [animation,setAnimation]=useState("translate3d(0, 0, 0)");
 
+
+    useEffect(()=>{
+
+        setAmount(props.competition.amount)
+
+    },[props.competition.amount])
     const card = {
 
 

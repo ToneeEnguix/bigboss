@@ -50,8 +50,8 @@ class App extends React.Component {
 
     this.state = {
       user: {
-        _id: undefined,
-        name: undefined,
+        _id: 1234,
+        name: "Pepito",
         cart: [],
       },
 
@@ -97,6 +97,13 @@ class App extends React.Component {
           this.setState({ showPurchaseAlert: { status: false } });
         }, 7000);
       },
+
+      switchCart:(cart)=>{
+
+        this.setState({user:{...this.state.user,cart:cart}})
+      }
+      
+          ,
 
       updateCart: (competition, newAmount) => {
         const onCartIndex = this.state.user.cart.findIndex(
