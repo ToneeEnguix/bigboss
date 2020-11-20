@@ -1,4 +1,6 @@
 const orders = require("../schemas/orders.js");
+const jwt = require("jsonwebtoken");
+const config = require("../token/trustPaymentsConfig.js");
 
 class OrdersController {
   async create(req, res) {
@@ -22,8 +24,8 @@ class OrdersController {
     }
   }
 
-  async update(req, res) {}
-  async delete(req, res) {}
+  async update(req, res) { }
+  async delete(req, res) { }
 
   async all(req, res) {
     try {
@@ -37,16 +39,26 @@ class OrdersController {
     }
   }
 
-  async receive (req,res){
+  async receive(req, res) {
 
-    try{
 
-      console.log(req.body.jwt)
-      res.redirect('http://localhost:3000/home')
-  
+
+    try {
+
+      const options = {
+        complete: true
+      }
+      jwt.verify(req.body.jwt, config.key, options, async (err, decoded) => {
+
+        console.log(decoded,"!!!!")
+
+        res.redirect('http://localhost:3000/bye')
+
+      });
+
     }
-    catch(error){
-      console.log(error)
+    catch (error) {
+
       res.status(500).send()
     }
 

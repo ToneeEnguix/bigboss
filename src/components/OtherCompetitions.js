@@ -13,15 +13,15 @@ const breakpoints = [1299, 1300,];
 
 const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
 
-const otherCompetitionsWrapper = {
+const otherCompetitionsWrapper = mq({
 
-  display: "flex",
+  display: ["none","flex","flex","flex"],
   justifyContent: "center",
   flexDirection: "column",
   alignItems: "center",
   width: "100%",
   marginTop: "4rem"
-}
+})
 export default function OtherCompetitions() {
 
 

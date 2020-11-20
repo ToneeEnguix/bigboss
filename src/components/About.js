@@ -12,12 +12,12 @@ const mq = facepaint(
 
 function About() {
   return (
-    <div css={mq({ marginLeft: ["0","0","4rem","4rem"], width:["100%","100%","70%","70%"] })}>
+    <div  css={mq({ marginLeft: ["0","0","4rem","4rem"], width:["100%","100%","70%","70%"] })}>
       <h1 css={{ marginBottom: "2rem" }}>ABOUT US</h1>
 
       <p css={{
         textAlign: "justify",
-        paddingRight: "2rem",
+        paddingRight: ["0rem","2rem","2rem","2rem"],
         lineHeight: "2",
         fontWeight: "100",
         fontSize: "0.8rem",

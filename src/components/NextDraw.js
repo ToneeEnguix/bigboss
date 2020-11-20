@@ -5,6 +5,11 @@ import LiveLogo from "../resources/facebook.png";
 import CounterSmall from "../utils/CounterSmall";
 import { get } from "../api/fetch";
 import { Redirect, useLocation } from "react-router-dom";
+import facepaint from "facepaint";
+const breakpoints = [576, 950, 992, 1200];
+
+
+const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
 
 const flexContainer = {
   display: "flex",
@@ -51,7 +56,8 @@ function NextDraw() {
           display: location.pathname.includes("admin") && "none",
         }}
       >
-        <div css={{ visibility: "hidden" }}>Hidden</div>
+        <div css={mq({ visibility: "hidden",display:["none","inline","inline","inline"] })}
+        >Hidden</div>
         <div>
           <CounterSmall
             key={nextDraw}
@@ -59,7 +65,7 @@ function NextDraw() {
             date={nextDraw}
           />
         </div>
-        <div css={{ marginRight: "1rem" }}>
+        <div css={mq({ marginRight: "1rem", display:["none","inline","inline","inline"]})}>
           <img src={LiveLogo} css={{ width: "3.5rem" }} />
         </div>
       </div>

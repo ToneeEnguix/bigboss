@@ -2,12 +2,18 @@ import React, { useEffect, useState } from 'react';
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { formatDate } from "../utils/formatDate.js";
+import facepaint from 'facepaint';
 
-const card = {
+const breakpoints = [576, 950, 1200, 1300]
+
+const mq = facepaint(
+  breakpoints.map(bp => `@media (min-width: ${bp}px)`));
+
+const card = mq({
 
 
     display: "flex",
-    margin: "1.5rem 0",
+    margin: ["3rem 1rem","4rem 0rem","4rem 1rem","4rem 1rem"],
     boxShadow: "0px 2px 4px 0px rgba(0,0,0,16%)",
     flexDirection: "column",
     textTransform: "uppercase",
@@ -16,7 +22,7 @@ const card = {
     maxWidth:"600px",
     margin: "4rem 0",
 
-}
+})
 
 
 const text = {

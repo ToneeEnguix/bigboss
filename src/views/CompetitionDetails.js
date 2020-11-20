@@ -14,39 +14,39 @@ import facepaint from 'facepaint';
 import OtherCompetitions from "../components/OtherCompetitions";
 
 
-const breakpoints = [576, 768, 992, 1200]
+const breakpoints = [576, 768,1150, 1200,1350,1450, 1560,1660,1800]
 
 const mq = facepaint(
   breakpoints.map(bp => `@media (min-width: ${bp}px)`));
 
-const imageColumn = {
+const imageColumn = mq({
 
 
   margin: "0 3rem",
-  minWidth: "600px",
-  maxWidth: "700px",
+  minWidth: ["80%","80%","200px","300px"],
+  maxWidth: ["80%","80%","450px","500px","550px","700px","800px","900px","1000px"]
 
-}
+});
 
-const detailsColumn = {
+const detailsColumn = mq({
 
 
-  padding: "0 4rem",
-  marginRight: "3rem",
+  padding: ["0 1rem","0 4rem"],
+  marginRight: ["0","3rem"],
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
   boxShadow: "0px 2px 4px 0px rgba(0,0,0,16%)"
-}
+})
 
 
-const image = {
+const image = mq({
 
   width: "100%",
   borderRadius: "2%",
   margin: "2.5rem 0",
-  maxHeight: "450px"
-}
+  maxHeight: ["auto","auto","450px","500px","700px","800px"]
+})
 
 function CompetitionDetails(props) {
 
@@ -186,7 +186,7 @@ function CompetitionDetails(props) {
 
           <ShowCorrectButton disabled={disabled} regenerateQuestion={regenerateQuestion} resetAnswer={resetAnswer} correctAnswer={correctAnswer} amount={Number(amount)} data={data} ticketsAvailable={data.maxTickets - data.ticketsSold} />
 
-          <div css={{ width: "100%" }}>
+          <div css={mq({ width: ["100%"] })}>
 
             <h4 css={{
               marginTop: "2rem",

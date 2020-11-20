@@ -6,7 +6,7 @@ import { Redirect, useParams } from "react-router-dom";
 import { get, post } from "../api/fetch";
 import { setToken } from "../api/token";
 import { verifyPass, verifyMatch } from "../utils/verifyFormData";
-import { findAllInRenderedTree } from 'react-dom/test-utils';
+
 
 
 const wrapper = {

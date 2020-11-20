@@ -6,19 +6,20 @@ import UserContext from "../context/UserContext";
 import { NavLink, Link, useHistory, useLocation } from "react-router-dom";
 import facepaint from "facepaint";
 
-const breakpoints = [576, 768, 1225, 1400];
+const breakpoints = [576, 950, 1225, 1400];
 const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
 
-const flexContainer = {
-  display: "flex",
+const flexContainer =mq( {
+ 
   alignItems: "center",
   justifyContent: "space-between",
   width: "100%",
+  display: ["none", "none", "flex", "flex"],
 
   a: {
     textDecoration: "none",
   },
-};
+});
 
 const menu = mq({
   position: "relative",

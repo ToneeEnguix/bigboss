@@ -23,7 +23,7 @@ const UserDashboard = ({ match }) => {
           <Route path={`${match.path}/orders`} component={Orders} />
           <Route path={`${match.path}/password`} component={Password} />
 
-          <Route path={match.path} exact>
+          <Route path={`${match.path}/`} exact>
             <Redirect to="/home" />
           </Route>
         </div>

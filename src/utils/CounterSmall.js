@@ -2,6 +2,11 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
+import facepaint from "facepaint";
+const breakpoints = [576, 950, 992, 1200];
+
+
+const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
 
 /**
  * Note :
@@ -97,13 +102,15 @@ class Countdown extends Component {
     const countDown = this.state;
 
     return (
-      <div css={{ display: "flex", justifyContent: "center" }}>
+      <div css={{ display: "flex", justifyContent: "center",width:"100%" }}>
         <h5
-          css={{
+          css={mq({
+            width:["90%","100%","100%","100%"],
+            textAlign:["center","left","left","left"],
             letterSpacing: "0.2rem",
             fontWeight: "600",
             fontSize: "0.5rem",
-          }}
+          })}
         >
           NEXT DRAW LIVE ON FACEBOOK IN {this.addLeadingZeros(countDown.days)}{" "}
           DAYS / {this.addLeadingZeros(countDown.hours)} HRS /{" "}

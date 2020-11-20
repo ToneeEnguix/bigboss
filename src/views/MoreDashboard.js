@@ -11,6 +11,13 @@ import FAQ from "../components/FAQ";
 import Privacy from "../components/Privacy";
 import Terms from "../components/Terms";
 import Careers from "../components/Careers";
+import facepaint from 'facepaint';
+
+
+const breakpoints = [576, 950, 992, 1200]
+
+const mq = facepaint(
+    breakpoints.map(bp => `@media (min-width: ${bp}px)`));
 
 
 
@@ -22,7 +29,7 @@ const MoreDashboard = ({ match }) => {
     return (
 
         <div css={{ marginTop: "4rem" }}>
-            <div css={{ marginLeft: "4rem" }}>
+            <div css={mq({ marginLeft:["1rem","2rem","4rem","4rem"]})}>
                 <div css={{ display: "flex", marginTop: "1rem", width:"95%" }}>
                     <MoreDashboardNav />
                     <Route path={`${match.path}/about`} component={About} />

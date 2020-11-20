@@ -1,24 +1,29 @@
 import React, { useState, useEffect } from 'react';
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
+import facepaint from 'facepaint';
+
+const breakpoints = [576, 950, 1200, 1300]
+
+const mq = facepaint(
+    breakpoints.map(bp => `@media (min-width: ${bp}px)`));
 
 
 
-const card = {
+const card = mq({
 
 
     display: "flex",
-    margin: "1.5rem 0",
-    boxShadow: "0px 2px 4px 0px rgba(0,0,0,16%)" ,
+    boxShadow: "0px 2px 4px 0px rgba(0,0,0,16%)",
     justifyContent: "center",
-    maxWidth:"600px",
-    margin: "4rem 0",
+    maxWidth: "600px",
+    margin: ["3rem 1rem","4rem 0rem","4rem 1rem","4rem 1rem"],
     flexDirection: "column",
-    textTransform:"uppercase",
+    textTransform: "uppercase",
     borderRadius: "4%",
-    overflow:"hidden"
+    overflow: "hidden"
 
-}
+})
 
 const image = {
 
@@ -31,11 +36,11 @@ const text = {
     display: "flex",
     alignItems: "center",
     flexDirection: "column",
-    padding:"2rem 0",
+    padding: "2rem 0",
 
-    "p":{
+    "p": {
 
-        margin:"1.25rem 0 0 0"
+        margin: "1.25rem 0 0 0"
     }
 }
 
@@ -49,7 +54,7 @@ function WinnerCard({ winner }) {
             <div css={text}>
 
                 <p>{winner.prize}</p>
-    <p css={{color:"#666666"}}> WON BY {winner.winner.name} {winner.winner.lastName}</p>
+                <p css={{ color: "#666666" }}> WON BY {winner.winner.name} {winner.winner.lastName}</p>
             </div>
 
         </div>

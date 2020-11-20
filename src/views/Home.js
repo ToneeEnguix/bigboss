@@ -7,6 +7,12 @@ import HowToPlay from "../components/HowToPlay";
 import { jsx } from '@emotion/core';
 import filmed from "../resources/googlepng.png"
 import {ReactComponent as liveLogo} from "../resources/LiveLogo.svg"
+import facepaint from 'facepaint';
+
+const breakpoints = [576, 950, 992, 1200]
+
+const mq = facepaint(
+    breakpoints.map(bp => `@media (min-width: ${bp}px)`));
 
 function Home() {
   return (
@@ -32,21 +38,22 @@ const AnnoyingBanner = () => {
     <div
 
       onClick={() => { setAnimation("translate3d(-100vw, 0, 0)");}}
-      css={{
+      css={mq({
 
 
+        display:["none","none",hide,hide],
         transform:animation ,
         transition:"transform 2s",
         borderTopRightRadius: "12px",
         borderBottomRightRadius: "12px",
         cursor:"pointer",
-        display: hide,
+       
         position: "fixed",
         boxShadow: "0px 2px 4px 0px rgba(0,0,0,16%)",
         top: "50vh",
         zIndex: "50",
         padding: "0.5rem 0rem 0.5rem 1rem"
-      }}>
+      })}>
       <span css={{float:"right", fontSize:"12px", marginRight:"0.5rem"}} className="material-icons">
         highlight_off
 </span>

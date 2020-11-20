@@ -21,7 +21,7 @@ const card = mq({
     borderRadius: "4%",
     overflow:"hidden",
     maxWidth:"600px",
-    margin: "4rem 0",
+    margin: ["3rem 1rem","4rem 0rem","4rem 1rem","4rem 1rem"],
 
 });
 

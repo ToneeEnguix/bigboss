@@ -11,6 +11,7 @@ import ScrollToTop from "./utils/ScrollToTop";
 import { createBrowserHistory } from "history";
 import PrivateRoute from "./routeUtils/PrivateRoute";
 import PublicRoute from "./routeUtils/PublicRoute";
+import Bye from "./views/Bye";
 import AdminRoute from "./routeUtils/AdminRoute";
 import UserContext from "./context/UserContext";
 import AdminDashboard from "./views/AdminDashboard";
@@ -45,13 +46,15 @@ const breakpoints = [576, 950, 992, 1200];
 const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
 
 class App extends React.Component {
+
+
   constructor(props) {
     super(props);
 
     this.state = {
       user: {
-        _id: 1234,
-        name: "Pepito",
+        _id: undefined,
+        name: undefined,
         cart: [],
       },
 
@@ -98,12 +101,12 @@ class App extends React.Component {
         }, 7000);
       },
 
-      switchCart:(cart)=>{
+      switchCart: (cart) => {
 
-        this.setState({user:{...this.state.user,cart:cart}})
+        this.setState({ user: { ...this.state.user, cart: cart } })
       }
-      
-          ,
+
+      ,
 
       updateCart: (competition, newAmount) => {
         const onCartIndex = this.state.user.cart.findIndex(
@@ -145,9 +148,9 @@ class App extends React.Component {
         <Router>
           <ScrollToTop />
           <header
+
             css={mq({
               maxWidth: "1800px",
-              display: ["none", "none", "inline", "inline"],
               position: "fixed",
               top: "0",
               width: "100%",
@@ -157,10 +160,8 @@ class App extends React.Component {
           >
             <NextDraw />
             <NavBar />
-          </header>
-          <header css={mq({ display: ["inline", "inline", "none", "none"], })}>
-            <NextDraw />
-            <BurgerNav/>
+
+            <BurgerNav />
           </header>
           <section css={{ marginTop: "10rem" }}>
             <Switch>
@@ -171,6 +172,7 @@ class App extends React.Component {
                 path="/competitions/:id"
               />
               <PublicRoute restricted={false} component={Home} path="/home" />
+              <PublicRoute restricted={false} component={ResetPass} path="/resetpass/:token" />
               <PublicRoute
                 restricted={false}
                 component={Competitions}
@@ -228,7 +230,7 @@ class App extends React.Component {
                 component={AdminDashboard}
                 path="/admindashboard"
               />
-
+              <PublicRoute restricted={false} component={Bye} path="/bye" />
               <Route path="/">
                 <Redirect to="/home" />
               </Route>
@@ -239,6 +241,7 @@ class App extends React.Component {
             <FooterAds />
           </footer>
         </Router>
+
       </UserContext.Provider>
     );
   }

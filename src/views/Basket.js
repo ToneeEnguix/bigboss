@@ -252,10 +252,10 @@ function Basket() {
           </div>
         </div>
       </div>
-      <Modal key={"Modal"}
+      {isShowing===true? <Modal key={"Modal"}
         amount={(Number(partialAmount) - Number(discountAmount)) * 100}
         isShowing={isShowing}
-        hide={toggle} />
+        hide={toggle} />:null}
     </React.Fragment>
   );
 }
@@ -286,8 +286,15 @@ const Modal = ({ isShowing, hide, amount }) => {
     transform: "translate(-50%,-50%)",
 
   }
+  const context = useContext(UserContext);
 
   useEffect(() => {
+
+    const cart=context.user.cart
+
+    const carttoken = jwt.sign({cart},config.key);
+
+    sessionStorage.setItem("cart", carttoken);
 
     const payload = {
       payload:
@@ -295,21 +302,18 @@ const Modal = ({ isShowing, hide, amount }) => {
         accounttypedescription: "ECOM",
         baseamount: amount,
         currencyiso3a: "GBP",
-        sitereference: "test_site12345"
+        sitereference: "test_carlasoler83736"
       }
       ,
-      iat: Date.now(),
+      iat: Date.now()/1000,
       iss: "carlagusojwt@gmail.com"
     }
-
-
 
     const token = jwt.sign(payload, config.key,
       { algorithm: 'HS256', header: { typ: "HS256", typ: "JWT" } });
 
     sessionStorage.setItem("tp", token)
-  }, [amount])
-
+  }, [amount]);
 
 
 
