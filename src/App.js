@@ -66,7 +66,7 @@ class App extends React.Component {
 
       logout: () => {
         this.setState({
-          user: { _id: undefined, bame: undefined, cart: [], admin: false },
+          user: { _id: undefined, name: undefined, cart: [], admin: false },
         });
         localStorage.clear();
       },
@@ -142,6 +142,25 @@ class App extends React.Component {
     };
   }
 
+
+  componentDidMount(){
+
+    const token=getToken();
+    if (token){
+
+     this.setUserData();
+    }
+  }
+
+  setUserData =async ()=>{
+
+    const result =await  get("/token/verifyToken")
+
+    if (result.ok){
+
+      this.setState({user:result.data.userData});
+    }
+  }
   render() {
     return (
       <UserContext.Provider value={this.state}>

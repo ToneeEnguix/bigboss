@@ -22,9 +22,9 @@ const mq = facepaint(
 const imageColumn = mq({
 
 
-  margin: "0 3rem",
+  margin: ["0","0","0 3rem"],
   minWidth: ["80%","80%","200px","300px"],
-  maxWidth: ["80%","80%","450px","500px","550px","700px","800px","900px","1000px"]
+  maxWidth: ["auto","auto","450px","500px","550px","700px","800px","900px","1000px"]
 
 });
 

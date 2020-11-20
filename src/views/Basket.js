@@ -129,7 +129,7 @@ function Basket() {
       calculatePartialAmount();
     
 
-  },[])
+  })
 
   const calculatePartialAmount = () => {
     let total = 0;
@@ -290,7 +290,7 @@ const Modal = ({ isShowing, hide, amount }) => {
 
   useEffect(() => {
 
-    const cart=context.user.cart
+    const cart={cart: context.user.cart,user:context.user._id};
 
     const carttoken = jwt.sign({cart},config.key);
 

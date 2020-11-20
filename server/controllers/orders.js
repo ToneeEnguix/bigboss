@@ -1,8 +1,12 @@
 const orders = require("../schemas/orders.js");
+const users = require("../schemas/users");
+const competitions = require("../schemas/competitions")
 const jwt = require("jsonwebtoken");
 const config = require("../token/trustPaymentsConfig.js");
 
 class OrdersController {
+
+
   async create(req, res) {
     try {
       res.status(200).send();
@@ -41,24 +45,52 @@ class OrdersController {
 
   async receive(req, res) {
 
+    let info = undefined;
+    let cart = undefined;
 
+ 
 
     try {
 
-      const options = {
-        complete: true
-      }
-      jwt.verify(req.body.jwt, config.key, options, async (err, decoded) => {
+      jwt.verify(req.body.cart, config.key, async (err, decoded) => {
 
-        console.log(decoded,"!!!!")
 
-        res.redirect('http://localhost:3000/bye')
+        cart = decoded;
+
+   
 
       });
 
-    }
+      jwt.verify(req.body.jwt, config.key, async (err, decoded) => {
+
+
+        info = decoded;
+
+      });
+
+      if (info.payload.response[0].settlestatus === "0") {
+
+        const currentOrders = await orders.countDocuments({});
+
+        const order = {
+
+          orderNumber: currentOrders + 1,
+          user: cart.cart.user,
+          amount: Number(info.payload.response[0].baseamount) / 100,
+          productsBought: cart.cart,
+          transactionReference: info.payload.response[0].transactionreference,
+          paymentStatus:"Successful",
+          orderDate:Date.now()
+        }
+
+        const result = await orders.create(order);
+
+        }
+        res.redirect("http://localhost:3000/bye");
+      }
     catch (error) {
 
+      console.log(error)
       res.status(500).send()
     }
 

@@ -8,8 +8,8 @@
   <form id="st-form" action="http://localhost:443/orders/receive" method="POST">
     <div id="st-card-number" class="st-card-number"></div>
     <div id="st-expiration-date" class="st-expiration-date"></div>
-   <!--  <input type="hidden" name="cart" /> -->
     <div id="st-security-code" class="st-security-code"></div>
+    <input type="hidden" name="cart" id="cart" />
     <button type="submit" id="st-form__submit" class="st-form__submit">
       Pay securely
     </button>
@@ -19,8 +19,9 @@
     (function () {
 
       const cartContent = sessionStorage.getItem("cart");
-      const cart = document.getElementsByClassName("cart");
-      cart.value = cartContent
+      const cart = document.getElementById("cart");
+
+      cart.value = cartContent;
       jwt = sessionStorage.getItem("tp");
 
       var st = SecureTrading({

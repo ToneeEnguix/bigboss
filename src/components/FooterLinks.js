@@ -3,6 +3,7 @@ import React from "react";
 import { jsx } from "@emotion/core";
 import { useLocation } from "react-router-dom";
 import facepaint from 'facepaint';
+import {Link} from "react-router-dom";
 
 const breakpoints = [576, 1000, 1199, 1600]
 
@@ -191,7 +192,9 @@ function FooterLinks() {
           </div>
         </div>
         <div css={hiddentriangle}></div>
+      
         <div css={card}>
+        <Link css={{display:"flex",alignItems:"center"}}to="/more/faq">
           <span
             css={{ fontSize: "50px !important" }}
             className="material-icons"
@@ -204,7 +207,9 @@ function FooterLinks() {
 These are the popular queries
 regarding  the prizes.</p>
           </div>
+          </Link>
         </div>
+     
       </div>
       <div
         css={{
@@ -216,6 +221,7 @@ regarding  the prizes.</p>
         }}
       >
         <div css={card}>
+        <Link css={{display:"flex",alignItems:"center"}}to="/more/about">
           <span
             css={{ fontSize: "50px !important" }}
             className="material-icons"
@@ -228,9 +234,11 @@ regarding  the prizes.</p>
 More about us! Please
 Check out this section.</p>
           </div>
+          </Link>
         </div>
         <div css={hiddentriangle}></div>
         <div css={card}>
+        <Link css={{display:"flex",alignItems:"center"}}to="/more/faq">
         <span css={{fontSize:"50px !important"}} className="material-icons">
 card_giftcard
 </span>
@@ -240,6 +248,7 @@ card_giftcard
 Our policy and your rights
 regarding buying tickets</p>
           </div>
+          </Link>
         </div>
         <div css={hiddentriangle}></div>
         <div css={card}>

@@ -11,6 +11,7 @@ const orderSchema = new Schema({
       amount: Number,
     },
   ],
+  transactionReference:{type:String, required:true},
   paymentStatus: { type: String, required: true },
   orderDate: { type: Date, default: Date.now(), required: true },
 });
