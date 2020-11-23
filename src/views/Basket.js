@@ -74,7 +74,7 @@ const card = {
   borderRadius: "4%",
   overflow: "hidden",
   minWidth: "450px",
-  textAlign:"center"
+  textAlign: "center"
 
 
 
@@ -126,8 +126,7 @@ function Basket() {
 
   useEffect(() => {
 
-      calculatePartialAmount();
-    
+    calculatePartialAmount();
 
   })
 
@@ -201,11 +200,11 @@ function Basket() {
         <div css={{ display: "flex", flexWrap: "wrap", justifyContent: "space-evenly", marginTop: "3.5rem" }}>
           <div css={compsColumn}>
             {
-              context.user.cart.length>0?
-              context.user.cart.map((competition, index) => {
-                return (<BasketCard key={competition._id+competition.amount} competition={competition} />)
-              })
-           :<div css={card}>BASKET IS CURRENTLY EMPTY</div> }
+              context.user.cart.length > 0 ?
+                context.user.cart.map((competition, index) => {
+                  return (<BasketCard key={competition._id + competition.amount} competition={competition} />)
+                })
+                : <div css={card}>BASKET IS CURRENTLY EMPTY</div>}
           </div>
           <div css={dataColumn}>
             <div css={summary}>
@@ -240,7 +239,7 @@ function Basket() {
                   <h5 css={{ fontWeight: "600", fontSize: "0.7rem" }}>TOTAL</h5>
                   <p css={{ fontWeight: "500" }}>£{(partialAmount - discountAmount).toFixed(2)}</p>
                 </div>
-                {context.user.cart.length>0?<button onClick={() => { checkoutProcess() }} className="button03">PAY NOW</button>:null}
+                {context.user.cart.length > 0 ? <button onClick={() => { checkoutProcess() }} className="button03">PAY NOW</button> : null}
               </div>
             </div>
             <div css={logo}>
@@ -252,16 +251,17 @@ function Basket() {
           </div>
         </div>
       </div>
-      {isShowing===true? <Modal key={"Modal"}
+      {isShowing === true ? <Modal key={"Modal"}
         amount={(Number(partialAmount) - Number(discountAmount)) * 100}
         isShowing={isShowing}
-        hide={toggle} />:null}
+        hide={toggle} /> : null}
     </React.Fragment>
   );
 }
 const Modal = ({ isShowing, hide, amount }) => {
 
 
+  const [redirect, setRedirect] = useState(false)
   const modal = {
 
     position: "fixed",
@@ -269,14 +269,16 @@ const Modal = ({ isShowing, hide, amount }) => {
     left: "0",
     width: "100%",
     height: "100%",
-    background: "rgba(0, 0, 0, 0.6)"
+    backgroundColor: "rgb(37 37 37)"
   }
 
   const window = {
+    backgroundColor: "rgb(37 37 37)",
+    marginTop: "3rem",
     position: "fixed",
-    background: "white",
     width: "80%",
-    height: "70vh",
+    zIndex: "999999",
+    height: "80vh",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -290,9 +292,9 @@ const Modal = ({ isShowing, hide, amount }) => {
 
   useEffect(() => {
 
-    const cart={cart: context.user.cart,user:context.user._id};
+    const cart = { cart: context.user.cart, user: context.user._id };
 
-    const carttoken = jwt.sign({cart},config.key);
+    const carttoken = jwt.sign({ cart }, config.key);
 
     sessionStorage.setItem("cart", carttoken);
 
@@ -305,7 +307,7 @@ const Modal = ({ isShowing, hide, amount }) => {
         sitereference: "test_carlasoler83736"
       }
       ,
-      iat: Date.now()/1000,
+      iat: Date.now() / 1000,
       iss: "carlagusojwt@gmail.com"
     }
 
@@ -316,14 +318,40 @@ const Modal = ({ isShowing, hide, amount }) => {
   }, [amount]);
 
 
+  const closeModal = () => {
+
+    const bye = sessionStorage.getItem("bye");
+
+    if (bye === "true") {
+
+      sessionStorage.removeItem("cart");
+      sessionStorage.removeItem("bye");
+      context.switchCart([]);
+      setRedirect(true)
+
+    }
+
+    else {
+      hide()
+    }
+
+
+  }
+
+  if (redirect) {
+
+    return (
+      <Redirect to="/home" />
+    )
+  }
 
   return (
     isShowing === true ?
       ReactDOM.createPortal(
-        <div css={modal}>
+        <div key={"modal"} css={modal}>
           <div css={window}>
-            <iframe css={{ width: "100%", height: "100%", backgroundColor: "white" }} src="./paymentpopup.html" />
-            <button onClick={() => { hide() }}>CANCEL</button>
+            <iframe frameBorder="0" css={{ width: "100%", height: "100%" }} src="./paymentpopup.html" />
+            <button css={{ marginTop: "1rem" }} className="button01" onClick={() => { closeModal() }}>CLOSE WINDOW</button>
           </div>
 
         </div>, document.body) : null

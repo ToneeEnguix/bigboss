@@ -29,8 +29,6 @@ import MoreDashboard from "./views/MoreDashboard.js";
 import ErrorPage from "./views/Error.js";
 import ForgotPass from "./views/ForgotPass.js";
 import ResetPass from "./views/ResetPass";
-import NavBar from "./components/NavBar";
-import NextDraw from "./components/NextDraw";
 import FooterAds from "./components/FooterAds";
 import FooterLinks from "./components/FooterLinks";
 import AdminLogin from "./views/AdminLogin";
@@ -38,7 +36,8 @@ import AdminLogin from "./views/AdminLogin";
 import { jsx } from "@emotion/core";
 import "./App.css";
 import facepaint from "facepaint";
-import BurgerNav from "./components/BurgerNav";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 const customHistory = createBrowserHistory();
 const breakpoints = [576, 950, 992, 1200];
@@ -108,6 +107,8 @@ class App extends React.Component {
 
       ,
 
+ 
+
       updateCart: (competition, newAmount) => {
         const onCartIndex = this.state.user.cart.findIndex(
           (cartItem) => cartItem.competition._id === competition._id
@@ -143,22 +144,22 @@ class App extends React.Component {
   }
 
 
-  componentDidMount(){
+  componentDidMount() {
 
-    const token=getToken();
-    if (token){
+    const token = getToken();
+    if (token) {
 
-     this.setUserData();
+      this.setUserData();
     }
   }
 
-  setUserData =async ()=>{
+  setUserData = async () => {
 
-    const result =await  get("/token/verifyToken")
+    const result = await get("/token/verifyToken")
 
-    if (result.ok){
+    if (result.ok) {
 
-      this.setState({user:result.data.userData});
+      this.setState({ user: result.data.userData });
     }
   }
   render() {
@@ -166,22 +167,7 @@ class App extends React.Component {
       <UserContext.Provider value={this.state}>
         <Router>
           <ScrollToTop />
-          <header
-
-            css={mq({
-              maxWidth: "1800px",
-              position: "fixed",
-              top: "0",
-              width: "100%",
-              zIndex: "40",
-              boxShadow: "0px 2px 4px 0px rgba(0,0,0,16%)",
-            })}
-          >
-            <NextDraw />
-            <NavBar />
-
-            <BurgerNav />
-          </header>
+          <Header />
           <section css={{ marginTop: "10rem" }}>
             <Switch>
               <PublicRoute
@@ -255,10 +241,7 @@ class App extends React.Component {
               </Route>
             </Switch>
           </section>
-          <footer css={{ flexDirection: "column" }}>
-            <FooterLinks />
-            <FooterAds />
-          </footer>
+        <Footer/>
         </Router>
 
       </UserContext.Provider>
