@@ -9,20 +9,31 @@ app.use(bodyParser.json());
 require("dotenv").config();
 
 mongoose.set("useCreateIndex", true);
-async function connecting() {
-  try {
-    await mongoose.connect("mongodb://127.0.0.1/bigBoss", {
-      useUnifiedTopology: true,
-      useNewUrlParser: true,
-    });
-    console.log("Connected to the DB");
-  } catch (error) {
-    console.log(error);
-    console.log(
-      "ERROR: Seems like your DB is not running, please start it up !!!"
-    );
-  }
+// async function connecting() {
+//   try {
+//     await mongoose.connect("mongodb://127.0.0.1/bigBoss", {
+//       useUnifiedTopology: true,
+//       useNewUrlParser: true,
+//     });
+//     console.log("Connected to the DB");
+//   } catch (error) {
+//     console.log(error);
+//     console.log(
+//       "ERROR: Seems like your DB is not running, please start it up !!!"
+//     );
+//   }
+// } 
+
+async function connecting(){
+try {
+    await mongoose.connect('mongodb+srv://Christopher29:Bauervapor8@cluster0.nruby.gcp.mongodb.net/<dbname>?retryWrites=true&w=majority',
+ { useUnifiedTopology: true , useNewUrlParser: true }) 
+   console.log('Connected to the DB')
+} catch ( error ) {
+    console.log('ERROR: Seems like your DB is not running, please start it up !!!');
 }
+}
+
 connecting();
 mongoose.set("useCreateIndex", true);
 
@@ -42,5 +53,12 @@ app.use("/coupons", coupons);
 app.use("/orders", orders);
 app.use("/admin", admin);
 app.use("/faq", faq);
+
+const path = require('path');
+app.use(express.static(__dirname));
+app.use(express.static(path.join(__dirname, '../build')));
+app.get('/*', function (req, res) {
+  res.sendFile(path.join(__dirname, '../build', 'index.html'));
+});
 
 app.listen(port, () => console.log(`listening on port ${port}`));
