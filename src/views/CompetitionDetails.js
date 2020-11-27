@@ -168,7 +168,7 @@ function CompetitionDetails(props) {
           <img css={image} src={data.pictures[data.pictures.length-1]} />
         </div>
         <div css={detailsColumn}>
-          <h1 css={{ marginTop: "2rem", fontSize: "2rem", textAlign: "center" }}>{data.title}</h1>
+          <h1 css={{ marginTop: "2rem", fontSize: "1.5rem", textAlign: "center" }}>{data.title}</h1>
           <h3 css={{ margin: "1rem 0 2rem 0", color: "#00FFFF" }}>ONLY £{data.ticketPrice} PER ENTRY</h3>
           <Counter setDisabled={setDisabled} date={data.dateFinishes} />
           <div css={{ display: "flex", alignItems: "center" }}>

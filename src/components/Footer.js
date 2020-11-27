@@ -10,8 +10,12 @@ const Footer = () => {
     let location = useLocation();
 
     return (
-        <footer css={{ display:location.pathname==="/bye"?"none":"inline",
-             flexDirection: "column" }}>
+        <footer css={{
+            display: location.pathname === "/bye" ||
+                location.pathname === "/basket"
+                ? "none" : "inline",
+            flexDirection: "column"
+        }}>
             <FooterLinks />
             <FooterAds />
         </footer>

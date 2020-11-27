@@ -18,7 +18,12 @@ const Header = (props =>{
 
         css={mq({
 
-            display:location.pathname==="/bye"?"none":"inline",
+            display:location.pathname==="/bye" 
+                    || location.pathname==="/adminlogin"
+                    || location.pathname.includes("/admindashboard") 
+                    || location.pathname==="/basket"             
+                    ?"none"
+                    :"inline",
             maxWidth: "1800px",
             position: "fixed",
             top: "0",

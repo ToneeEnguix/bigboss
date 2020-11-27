@@ -73,7 +73,7 @@ function Draws() {
           }) : 
           <div css={{ padding: "4rem", display: "flex", flexDirection: "column", alignItems: "center" }}>
             <h1 >NOTHING TO SEE HERE YET!!</h1>
-            <p>Soon this section will have something for you!</p>
+            <p css={{textAlign:"center"}} >Soon this section will have something for you!</p>
           </div>
         }
       </div>

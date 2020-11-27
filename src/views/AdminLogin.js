@@ -48,7 +48,8 @@ function AdminLogin() {
       />
     );
   }
-  if (window.screen.width < 900 && window.screen.height < 768) {
+  if (window.screen.width < 500 && window.screen.height < 768) {
+
     return (
       <Redirect
         to={{

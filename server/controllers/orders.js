@@ -48,7 +48,7 @@ class OrdersController {
     let info = undefined;
     let cart = undefined;
 
- 
+
 
     try {
 
@@ -57,7 +57,6 @@ class OrdersController {
 
         cart = decoded;
 
-   
 
       });
 
@@ -70,6 +69,14 @@ class OrdersController {
 
       if (info.payload.response[0].settlestatus === "0") {
 
+        let cleanCart = []
+        cart.cart.cart.forEach(cartElement => {
+
+          const product = cartElement.competition._id;
+          const amount = cartElement.amount;
+          cleanCart.push({ product, amount });
+        })
+
         const currentOrders = await orders.countDocuments({});
 
         const order = {
@@ -77,20 +84,19 @@ class OrdersController {
           orderNumber: currentOrders + 1,
           user: cart.cart.user,
           amount: Number(info.payload.response[0].baseamount) / 100,
-          productsBought: cart.cart,
+          productsBought: cleanCart,
           transactionReference: info.payload.response[0].transactionreference,
-          paymentStatus:"Successful",
-          orderDate:Date.now()
+          paymentStatus: "Successful",
+          orderDate: Date.now()
         }
 
         const result = await orders.create(order);
 
-        }
-        res.redirect("http://localhost:3000/bye");
       }
+      res.redirect("http://localhost:3000/bye");
+    }
     catch (error) {
 
-      console.log(error)
       res.status(500).send()
     }
 
@@ -115,16 +121,40 @@ class OrdersController {
 
   async getCompetitionOrders(req, res) {
     const competitionId = req.params.competitionId;
+
+
     try {
       let competitionDetails = await orders
         .find({
           "productsBought.product": competitionId,
         })
         .populate("user")
-        .populate("productsBought.product");
-      res.status(200).send(competitionDetails);
+
+      let entriesForCompetition = []
+      competitionDetails.forEach(competition => {
+
+        const userName = competition.user.name;
+        const email = competition.user.email;
+        const id = competition.user._id;
+        let ticketsBought=0;
+       
+        competition.productsBought.forEach(boughtProduct => {
+
+          if (boughtProduct.product.toString() === competitionId) {
+
+
+            ticketsBought =ticketsBought+ boughtProduct.amount;
+          }
+        }
+        )
+
+        entriesForCompetition.push({ userName, email, id, ticketsBought })
+      })
+
+      res.status(200).send(entriesForCompetition);
     } catch (err) {
 
+      console.log(err)
       res.status(500).send(err);
     }
   }

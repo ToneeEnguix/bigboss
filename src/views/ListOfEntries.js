@@ -26,7 +26,11 @@ const ListOfEntries = () => {
     getCompsAndEntries();
   }, [i]);
 
+
+
   return (
+
+   
     <>
       {allCompetitions.length !== 0 ? (
         <div className="adminPage" css={sectionStyle}>
@@ -55,33 +59,24 @@ const ListOfEntries = () => {
           <div css={entriesStyle}>
             <h3>Entries</h3>
             {listOfEntries.map((item, idx) => {
-              return <p key={idx}>{item.user.name}</p>;
+              return <p key={idx}>{item.userName}</p>;
             })}
           </div>
           <div css={entriesStyle}>
             <h3>Email</h3>
             {listOfEntries.map((item, idx) => {
-              return <p key={idx}>{item.user.email}</p>;
+              return <p key={idx}>{item.email}</p>;
             })}
           </div>
           <div css={entriesStyle}>
-            <h3>Bought</h3>
+            <h3> Tickets Bought</h3>
             {listOfEntries.map((item, idx) => {
-              return item.productsBought.map((item) => {
-                return <p key={idx}>{item.amount}</p>;
-              });
-            })}
+ 
+                return <p key={idx}>{item.ticketsBought}</p>;
+              })
+            }
           </div>
-          <div css={entriesStyle}>
-            <h3>Spent</h3>
-            {listOfEntries.map((item, idx) => {
-              return item.productsBought.map((item) => {
-                return (
-                  <p key={idx}>{item.amount * item.product.ticketPrice}</p>
-                );
-              });
-            })}
-          </div>
+
         </div>
       ) : (
         <div className="adminPage adminPage2 bg">

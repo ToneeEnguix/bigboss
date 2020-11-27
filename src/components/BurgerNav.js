@@ -17,10 +17,6 @@ export default function BurgerNav() {
     const [show, setShow] = useState("translate3d(-100vw, 0, 0)");
 
 
-
-
-
-
     return (
         <div css={mq({ display: ["flex", "flex", "none", "none"], alignItems: "center", justifyContent: "space-between" })}>
 
@@ -45,6 +41,8 @@ const Menu = (props) => {
 
     const context = useContext(UserContext);
 
+    const [animation,setAnimation]=useState()
+
     const menu = {
 
         position: "absolute",
@@ -58,6 +56,13 @@ const Menu = (props) => {
         transition: "transform 1s",
         display: "flex",
         flexDirection: "column"
+    }
+
+
+    const closeAndGo=(path)=>{
+
+        props.setAnimation("translate3d(-100vw, 0, 0)");
+
     }
     return (
         <div css={menu}>
@@ -84,20 +89,20 @@ const Menu = (props) => {
                         letterSpacing:"0.1rem"
                     }
                 }}>
-                    <li><Link to="/home">HOME</Link></li>
-                    <li><Link to="/competitions">COMPETITIONS</Link></li>
-                    <li><Link to="/winners">WINNERS</Link></li>
-                    <li><Link to="/draws">DRAWS</Link></li>
-                    <li><Link to="/entries">ENTRIES</Link></li>
+                    <li><Link onClick={()=>{closeAndGo()}} to="/home">HOME</Link></li>
+                    <li><Link  onClick={()=>{closeAndGo()}} to="/competitions">COMPETITIONS</Link></li>
+                    <li><Link onClick={()=>{closeAndGo()}}  to="/winners">WINNERS</Link></li>
+                    <li><Link onClick={()=>{closeAndGo()}}  to="/draws">DRAWS</Link></li>
+                    <li><Link onClick={()=>{closeAndGo()}} to="/entries">ENTRIES</Link></li>
                     <li>{context.user._id!==undefined? 
-                    <Link to="/userdashboard/details">MY ACCOUNT</Link>:
-                    <Link to="/log">SIGN</Link>}
+                    <Link onClick={()=>{closeAndGo()}} to="/userdashboard/details">ACCOUNT</Link>:
+                    <Link onClick={()=>{closeAndGo()}} to="/log">ACCOUNT</Link>}
                     </li>
-                    <li><Link to="/basket">BASKET</Link></li>
-                    <li><Link to="/more/about">ABOUT US</Link></li>
-                    <li><Link to="/more/faq">FAQ</Link></li>
-                    <li><Link to="/more/terms">TERMS</Link></li>
-                    <li><Link to="/more/privacy">PRIVACY</Link></li>
+                    <li><Link onClick={()=>{closeAndGo()}} to="/basket">BASKET</Link></li>
+                    <li><Link onClick={()=>{closeAndGo()}} to="/more/about">ABOUT US</Link></li>
+                    <li><Link onClick={()=>{closeAndGo()}} to="/more/faq">FAQ</Link></li>
+                    <li><Link onClick={()=>{closeAndGo()}} to="/more/terms">TERMS</Link></li>
+                    <li><Link onClick={()=>{closeAndGo()}} to="/more/privacy">PRIVACY</Link></li>
                    
                 </ul>
                 </div>

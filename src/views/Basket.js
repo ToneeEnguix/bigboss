@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { Redirect } from "react-router-dom"
+import { Redirect,Link } from "react-router-dom"
 import UserContext from "../context/UserContext";
 import BasketCard from "../components/BasketCard";
 import { get, post } from "../api/fetch";
@@ -10,13 +10,14 @@ import ReactDOM from 'react-dom';
 import useModal from "../utils/useModals";
 
 
+
 const jwt = require("jsonwebtoken");
 const config = require("../api/jwtConfig.js");
 
 
 const contentWrapper = {
 
-  margin: "4rem 0rem",
+  margin: "-6rem 0rem",
 
   "h1": {
 
@@ -197,6 +198,8 @@ function Basket() {
     <React.Fragment>
       <div css={contentWrapper}>
         <h1>BASKET</h1>
+
+        <Link to="/home"><h1>GO BACK</h1></Link>
         <div css={{ display: "flex", flexWrap: "wrap", justifyContent: "space-evenly", marginTop: "3.5rem" }}>
           <div css={compsColumn}>
             {
