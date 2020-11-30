@@ -93,9 +93,10 @@ class OrdersController {
         const result = await orders.create(order);
 
       }
-      res.redirect("http://localhost:3000/bye");
+      res.redirect("https://bigboscompetitions.com/bye");
     }
     catch (error) {
+
 
       res.status(500).send()
     }
