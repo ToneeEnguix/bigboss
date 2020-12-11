@@ -23,9 +23,8 @@ function About() {
         fontSize: "0.8rem",
 
         letterSpacing: "0rem !important"
-      }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus nisl ex, tempus vel lorem in, vestibulum egestas elit. Donec venenatis fringilla pellentesque. Sed ac rhoncus erat. Suspendisse hendrerit vestibulum ligula, quis laoreet ligula mattis sed. Fusce ullamcorper dui in justo ultrices, at rutrum libero posuere. Integer vitae nisl commodo, viverra ipsum ac, vehicula metus. In purus sapien, volutpat a elit ornare, volutpat efficitur risus.
-
-Aliquam pretium nec felis nec efficitur. Suspendisse sed semper elit. Vestibulum vel felis suscipit, placerat elit quis, maximus neque. Aliquam dolor odio, dapibus et cursus nec, aliquet at sem. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Curabitur laoreet malesuada elit vel auctor. Ut mollis rutrum leo, et tincidunt arcu ullamcorper non.</p>
+      }}>We are a brand new company designed to bring you the latest and greatest in awesome prizes. All draws are recorded in real time using Google random number generator and streamed on Facebook ensuring you can judge for yourself the authenticity of our giveaways. 100% totally transparent giveaways and prizes. Please, please gamble responsibly and when the fun stops, stop! So have fun. That's what we want you to do but be responsible aswell! Thanks guys. Enjoy the website!
+      </p>
     </div>
   );
 }

@@ -187,7 +187,7 @@ function FooterLinks() {
           <div css={{ display: "flex", flexDirection: "column", padding: "0 0.5rem", margin: "1.5rem 0" }}>
             <p css={{ fontSize: "0.7rem" }}>CONTACT US</p>
             <p css={descriptions}>02890 836 783
-612 Antrim Road BT36 4RF 
+612 Antrim Road BT36 4RF &nbsp;
 <a href="mailto:bigbosscompetitions@gmail.com">bigbosscompetitions@gmail.com</a></p>
           </div>
         </div>

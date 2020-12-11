@@ -1,10 +1,10 @@
-import React, { useState,useContext } from 'react';
+import React, { useState,useContext, useEffect } from 'react';
 import UserContext from "../context/UserContext";
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import facepaint from 'facepaint';
 import { ReactComponent as BigBossLogo } from "../resources/BigBossLogo.svg";
-import {Link} from "react-router-dom"
+import {Link,useHistory} from "react-router-dom"
 
 const breakpoints = [576, 950, 992, 1200]
 
@@ -102,11 +102,11 @@ const Menu = (props) => {
                     <li><Link onClick={()=>{closeAndGo()}} to="/more/about">ABOUT US</Link></li>
                     <li><Link onClick={()=>{closeAndGo()}} to="/more/faq">FAQ</Link></li>
                     <li><Link onClick={()=>{closeAndGo()}} to="/more/terms">TERMS</Link></li>
-                    <li><Link onClick={()=>{closeAndGo()}} to="/more/privacy">PRIVACY</Link></li>
-                   
+                    <li><Link onClick={()=>{closeAndGo()}} to="/more/privacy">PRIVACY</Link></li>   
                 </ul>
                 </div>
             </div>
+       
         </div >
 
     )

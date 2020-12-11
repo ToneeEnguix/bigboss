@@ -238,10 +238,17 @@ const Modal = (props) => {
         top: "0",
         left: "0",
         backgroundColor: "rgba(51, 51, 51, 0.5)",
-
         width: "100%",
         height: "100vh"
       }}>
+        <h1 css={mq({
+          
+          marginTop:"10rem",
+          backgroundColor:"#373737",
+          padding:"5rem",
+          display:["flex","flex","none","none"]})}>
+          Item Added SucessFully.
+        </h1>
 
       </div>
 

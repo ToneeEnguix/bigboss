@@ -23,9 +23,7 @@ function Privacy() {
        fontSize: "0.8rem", 
 
        letterSpacing:"0rem !important"
-      })}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus nisl ex, tempus vel lorem in, vestibulum egestas elit. Donec venenatis fringilla pellentesque. Sed ac rhoncus erat. Suspendisse hendrerit vestibulum ligula, quis laoreet ligula mattis sed. Fusce ullamcorper dui in justo ultrices, at rutrum libero posuere. Integer vitae nisl commodo, viverra ipsum ac, vehicula metus. In purus sapien, volutpat a elit ornare, volutpat efficitur risus.
-
-Aliquam pretium nec felis nec efficitur. Suspendisse sed semper elit. Vestibulum vel felis suscipit, placerat elit quis, maximus neque. Aliquam dolor odio, dapibus et cursus nec, aliquet at sem. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Curabitur laoreet malesuada elit vel auctor. Ut mollis rutrum leo, et tincidunt arcu ullamcorper non.</p>
+      })}>You are not bound by this website in any way and are free to use it however you please. This website does not collect information. This website does not retain any personal data. This website has been created in accordance with the laws surrounding GDPR and works in accordance with them. In the instance you choose to create an account, your name and email is retained by us. This facility is used to alert you in the instance that you are a winner. This information is purged from databases within 30 days in accordance with the laws surrounding GDPR as governed by the United Kingdom of Great Britain and Northern Ireland. Titantic Solutions Ltd Trading As Big Boss Competitions. Company Number NI655510. All Rights Reserved. 2020.</p>
     </div>
   );
 

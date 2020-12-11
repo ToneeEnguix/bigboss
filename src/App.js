@@ -95,9 +95,9 @@ class App extends React.Component {
           user: { ...this.state.user, cart: cartCopy },
         });
 
-        setTimeout(() => {
+       /*  setTimeout(() => {
           this.setState({ showPurchaseAlert: { status: false } });
-        }, 7000);
+        }, 7000); */
       },
 
       switchCart: (cart) => {

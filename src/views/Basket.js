@@ -191,6 +191,20 @@ function Basket() {
     }
   }
 
+  const cleanSession=()=>{
+
+    const bye = sessionStorage.getItem("bye");
+
+    if (bye === "true") {
+
+      sessionStorage.removeItem("cart");
+      sessionStorage.removeItem("bye");
+      context.switchCart([]);
+
+    }
+
+
+  }
 
 
   return (
@@ -199,7 +213,7 @@ function Basket() {
       <div css={contentWrapper}>
         <h1>BASKET</h1>
 
-        <Link to="/home"><h1>GO BACK</h1></Link>
+        <Link to="/home" onClick={()=>{cleanSession()}}><h1>GO BACK</h1></Link>
         <div css={{ display: "flex", flexWrap: "wrap", justifyContent: "space-evenly", marginTop: "3.5rem" }}>
           <div css={compsColumn}>
             {
