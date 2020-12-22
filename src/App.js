@@ -5,7 +5,7 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
-import { getToken } from "./api/token";
+import { getToken,clearToken } from "./api/token";
 import { get } from "./api/fetch";
 import ScrollToTop from "./utils/ScrollToTop";
 import { createBrowserHistory } from "history";
@@ -29,8 +29,7 @@ import MoreDashboard from "./views/MoreDashboard.js";
 import ErrorPage from "./views/Error.js";
 import ForgotPass from "./views/ForgotPass.js";
 import ResetPass from "./views/ResetPass";
-import FooterAds from "./components/FooterAds";
-import FooterLinks from "./components/FooterLinks";
+import EntryDetails from "./views/EntryDetails.js";
 import AdminLogin from "./views/AdminLogin";
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
@@ -95,9 +94,9 @@ class App extends React.Component {
           user: { ...this.state.user, cart: cartCopy },
         });
 
-       /*  setTimeout(() => {
+         setTimeout(() => {
           this.setState({ showPurchaseAlert: { status: false } });
-        }, 7000); */
+        }, 7000); 
       },
 
       switchCart: (cart) => {
@@ -161,6 +160,10 @@ class App extends React.Component {
 
       this.setState({ user: result.data.userData });
     }
+    else{
+
+      localStorage.clear();
+    }
   }
   render() {
     return (
@@ -175,6 +178,12 @@ class App extends React.Component {
                 history={customHistory}
                 component={CompetitionDetails}
                 path="/competitions/:id"
+              />
+                <PublicRoute
+                restricted={false}
+                history={customHistory}
+                component={EntryDetails}
+                path="/entries/:id"
               />
               <PublicRoute restricted={false} component={Home} path="/home" />
               <PublicRoute restricted={false} component={ResetPass} path="/resetpass/:token" />

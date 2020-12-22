@@ -32,7 +32,6 @@ const detailsColumn = mq({
 
 
   padding: ["0 1rem","0 4rem"],
-  marginRight: ["0","3rem"],
   display: "flex",
   flexDirection: "column",
   alignItems: "center",

@@ -37,7 +37,7 @@ function Entries() {
 
 
   async function getAllEntries() {
-    const entries = await get("/competitions/entries");
+    const entries = await get("/competitions/past");
 
     if (entries.ok) {
 
@@ -67,7 +67,7 @@ function Entries() {
 
       <div css={drawWrap}>
 
-        {entries.length < 0 ?
+        {entries.length > 0 ?
           entries.map((winner, index) => {
             return (<EntryCard key={index} winner={winner} />)
           }) :

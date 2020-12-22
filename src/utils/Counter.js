@@ -136,8 +136,8 @@ class Countdown extends Component {
         if (countDown.disabled) {
 
             return (
-                <div css={{diplay:"flex",justifyContent:"center"}}>
-                    <h3> TIME IS UP!</h3>
+                <div css={{display:"flex",justifyContent:"center", marginBottom:"1rem"}}>
+                    <h3 css={{fontSize:"0.7rem"}}> TIME IS UP FOR THIS COMPETITION.</h3>
                 </div>
             )
         }

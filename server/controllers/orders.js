@@ -137,6 +137,7 @@ class OrdersController {
         const userName = competition.user.name;
         const email = competition.user.email;
         const id = competition.user._id;
+        const dateofPurchase=competition.orderDate;
         let ticketsBought=0;
        
         competition.productsBought.forEach(boughtProduct => {
@@ -149,13 +150,12 @@ class OrdersController {
         }
         )
 
-        entriesForCompetition.push({ userName, email, id, ticketsBought })
+        entriesForCompetition.push({ userName, email, id, ticketsBought,dateofPurchase })
       })
 
       res.status(200).send(entriesForCompetition);
     } catch (err) {
 
-      console.log(err)
       res.status(500).send(err);
     }
   }
