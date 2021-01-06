@@ -325,7 +325,7 @@ const Modal = ({ isShowing, hide, amount }) => {
       }
       ,
       iat: Date.now() / 1000,
-      iss: " jwt@365cac"
+      iss: "jwt@365cac"
     }
 
     const token = jwt.sign(payload, config.key,
