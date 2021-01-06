@@ -27,7 +27,8 @@
       jwt = sessionStorage.getItem("tp");
 
       var st = SecureTrading({
-        jwt: jwt
+        jwt: jwt,
+        livestatus:1
 
       });
       st.Components();
