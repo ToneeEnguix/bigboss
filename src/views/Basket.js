@@ -321,11 +321,11 @@ const Modal = ({ isShowing, hide, amount }) => {
         accounttypedescription: "ECOM",
         baseamount: amount,
         currencyiso3a: "GBP",
-        sitereference: "test_carlasoler83736"
+        sitereference: "bigbosscompetitions83613"
       }
       ,
       iat: Date.now() / 1000,
-      iss: "carlagusojwt@gmail.com"
+      iss: " jwt@365cac"
     }
 
     const token = jwt.sign(payload, config.key,
