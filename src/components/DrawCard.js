@@ -58,7 +58,7 @@ function DrawCard(props) {
 
     useEffect(() => {
 
-        const array= formatDate(props.winner.entriesDate)
+        const array= formatDate(props.winner.dateFinishes);
         setDateFormat(array);
     }, [props])
 
