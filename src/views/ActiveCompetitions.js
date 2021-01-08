@@ -246,6 +246,7 @@ const ActiveCompetitions = (props) => {
                 name="maxTickets"
                 className="styledInput"
                 type="number"
+                min="0"
               />
               <hr css={hrStyle} />
             </div>
@@ -310,10 +311,7 @@ const ActiveCompetitions = (props) => {
                         className="flexCenter"
                         style={{ justifyContent: "flex-start" }}
                       >
-                        <img
-                          src={image}
-                          css={imgStyle}
-                        />
+                        <img src={image} css={imgStyle} />
                       </div>
                     </div>
                   </div>
@@ -388,6 +386,8 @@ const ActiveCompetitions = (props) => {
                 onChange={(e) => handleChange(e, i)}
                 name="ticketPrice"
                 className="styledInput"
+                type="number"
+                min="0"
               />
               <h3 css={titleStyle}>Description</h3>
               <input
@@ -441,6 +441,8 @@ const ActiveCompetitions = (props) => {
                 onChange={(e) => handleChange(e, i)}
                 name="maxTickets"
                 className="styledInput"
+                type="number"
+                min="0"
               />
             </div>
             <div style={{ paddingLeft: "2.5rem" }}>
@@ -487,10 +489,7 @@ const ActiveCompetitions = (props) => {
                         className="flexCenter"
                         style={{ justifyContent: "flex-start" }}
                       >
-                        <img
-                          src={image}
-                          css={imgStyle}
-                        />
+                        <img src={image} css={imgStyle} />
                       </div>
                     </div>
                   </div>

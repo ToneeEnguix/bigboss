@@ -48,7 +48,7 @@ const PastCompetitions = (props) => {
       let resPast = await axios.get(`${URL}/competitions/past`);
       resPast.data.map((item) => {
         item.dateFinishes = item.dateFinishes.slice(0, -14);
-        item.entriesDate = item.entriesDate.slice(0, -8);
+        // item.entriesDate = item.entriesDate.slice(0, -8);
       });
       setPastCompetitions(resPast.data);
     } catch (err) {
@@ -67,9 +67,10 @@ const PastCompetitions = (props) => {
       };
       tempPastCompetitions[i].winner[e.target.name] = e.target.value;
       pastCompetitions[i].winner.email !== "" && findWinner();
-    } else if (e.target.name === "entriesDate") {
-      e.target.value = new Date(e.target.value).toISOString().slice(0, -8);
     }
+    // else if (e.target.name === "entriesDate") {
+    //   e.target.value = new Date(e.target.value).toISOString().slice(0, -8);
+    // }
     tempPastCompetitions[i][e.target.name] = e.target.value;
     setPastCompetitions(tempPastCompetitions);
   };
@@ -98,7 +99,7 @@ const PastCompetitions = (props) => {
       !pastCompetitions[i].winnerPic ||
       !pastCompetitions[i].winner ||
       !pastCompetitions[i].facebookURL ||
-      !pastCompetitions[i].entriesDate ||
+      // !pastCompetitions[i].entriesDate ||
       !pastCompetitions[i].facebookURL.includes("facebook.com/")
     ) {
       return false;
@@ -273,14 +274,14 @@ const PastCompetitions = (props) => {
                 name="facebookURL"
                 className="styledInput"
               />
-              <input
+              {/* <input
                 type="datetime-local"
                 name="entriesDate"
                 min={today}
                 value={pastCompetitions[i].entriesDate}
                 onChange={(e) => handleChange(e)}
                 className="styledInput"
-              />
+              /> */}
               <h3 className="default" css={titleStyle}>
                 Price
               </h3>
@@ -288,6 +289,8 @@ const PastCompetitions = (props) => {
                 readOnly
                 defaultValue={pastCompetitions[i].ticketPrice}
                 className="styledInput default gray"
+                type="number"
+                min="0"
               />
               <h3 className="default" css={titleStyle}>
                 Prize
