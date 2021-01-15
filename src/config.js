@@ -1,7 +1,7 @@
 const URL =
   window.location.hostname === `localhost`
     ? `http://localhost:4000`
-    : `http://46.101.80.18`;
+    : `46.101.80.18`;
 
 const NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME = "big-boss-competitions";
 const NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET = "bbt00kul";
