@@ -36,20 +36,21 @@ function HomeCarousel() {
   }
 
   return (
-    <div css={carouselWrapper} >
-      <Carousel css={{ 
-         width: "100%",
-         maxWidth:"1200px",
-         ".carousel .slider-wrapper": {
-
-          borderRadius:"0 !important"
-      
-      }
-        
-    
-          }} showStatus={false} showThumbs={false} showArrows={false}>
-
+    <div css={carouselWrapper}>
+      <Carousel
+        css={{
+          width: "100%",
+          maxWidth: "1200px",
+          ".carousel .slider-wrapper": {
+            borderRadius: "0 !important",
+          },
+        }}
+        showStatus={false}
+        showThumbs={false}
+        showArrows={false}
+      >
         {competitions.map((competition, index) => {
+          console.log(competition);
           return <CarouselCard key={index} competition={competition} />;
         })}
       </Carousel>

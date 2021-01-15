@@ -93,7 +93,7 @@ class OrdersController {
         const result = await orders.create(order);
 
       }
-      res.redirect("http://bigboscompetitions.com/bye");
+      res.redirect("46.101.80.18/bye");
     }
     catch (error) {
 
