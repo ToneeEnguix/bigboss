@@ -171,9 +171,6 @@ class UserController {
       const user = JSON.parse(req.body.data);
       const userID = req.params._id;
       const receivedNewPassword = user.newpassword;
-
-      console.log(user.newpassword);
-
       const hashedPassword = await bcrypt.hash(receivedNewPassword, saltRounds);
       const updatedUser = await users.findByIdAndUpdate(userID, {
         password: hashedPassword,
@@ -188,7 +185,6 @@ class UserController {
 
   async findByEmail(req, res) {
     const { userMail } = req.params;
-    console.log(userMail);
     try {
       const user = await users.findOne({ email: userMail });
       user

@@ -50,7 +50,6 @@ function HomeCarousel() {
         showArrows={false}
       >
         {competitions.map((competition, index) => {
-          console.log(competition);
           return <CarouselCard key={index} competition={competition} />;
         })}
       </Carousel>

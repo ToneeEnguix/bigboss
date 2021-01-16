@@ -562,7 +562,6 @@ const ActiveCompetitions = (props) => {
           <button
             className="raleway dm_modalBtn dm_modalBtn2 pointer"
             onClick={() => {
-              console.log("lemon2");
               if (remove === "image") {
                 removePicture();
               } else if (remove === "competition") {

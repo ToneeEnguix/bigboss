@@ -155,7 +155,6 @@ function Basket() {
     const result = await get(`/coupons/read/${couponValue}`);
 
     if (result.ok) {
-      console.log(result)
       calculateDiscount(result.data[0].discount)
 
     }

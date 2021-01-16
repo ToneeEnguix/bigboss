@@ -43,7 +43,7 @@ function Orders() {
 
     if (result.ok) {
       setOrders(result.data);
-      console.log(result)
+
       setRender(!render);
 
 
