@@ -1,7 +1,4 @@
-const URL =
-  window.location.hostname === `localhost`
-    ? `http://localhost:4000`
-    : `https://bigbosscompetitions.com`;
+const URL = `https://bigbosscompetitions.com`;
 
 const NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME = "big-boss-competitions";
 const NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET = "bbt00kul";
