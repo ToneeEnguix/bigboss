@@ -1,4 +1,4 @@
-const URL = `https://46.101.25.102`;
+const URL = `https://bigbosscompetitions.com`;
 
 const NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME = "big-boss-competitions";
 const NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET = "bbt00kul";

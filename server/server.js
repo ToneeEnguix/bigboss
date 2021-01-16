@@ -6,7 +6,6 @@ mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-require("dotenv").config();
 
  async function connecting(){
 try {
