@@ -30,14 +30,13 @@ function Entries() {
 
   async function getAllEntries() {
     const entries = await get("/competitions/past");
-
+    console.log(entries.data)
     if (entries.ok) {
       setEntries(entries.data);
     } else {
       setError(true);
     }
   }
-
   useEffect(() => {
     getAllEntries();
   }, []);

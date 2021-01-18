@@ -17,10 +17,12 @@ const ListOfEntries = () => {
   useEffect(() => {
     const getCompsAndEntries = async () => {
       let resAll = await axios.get(`${URL}/competitions/all`);
+      console.log(resAll.data)
       setAllCompetitions(resAll.data);
       if (resAll.data.length !== 0) {
         let resEntries = await axios.get(`${URL}/orders/${resAll.data[i]._id}`);
         setListOfEntries(resEntries.data);
+        console.log(resEntries.data)
       }
     };
     getCompsAndEntries();

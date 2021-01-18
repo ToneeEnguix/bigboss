@@ -14,7 +14,7 @@ router.post("/newpassword", protectedRoute, controller.newPassword);
 
 router.get("/:userMail", controller.findByEmail);
 
-// router.get ("/:email/askpasswordreset", controller.askPasswordReset);
+router.get ("/:email/askpasswordreset", controller.askPasswordReset);
 
 // router.post("/:_id/resetpassword",protectedEmailReset,controller.passwordReset)
 

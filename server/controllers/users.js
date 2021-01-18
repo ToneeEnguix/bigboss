@@ -5,7 +5,7 @@ const express = require("express");
 const app = express();
 const bcrypt = require("bcryptjs");
 const saltRounds = 10;
-const sendResetPasswordEmail = require("../emailSetup/emailScripts.js");
+const resetPasswordEmail = require("../emailSetup/emailScripts.js");
 const welcomeEmail = require("../emailSetup/emailScripts.js");
 
 app.set("key", config.key);
@@ -139,7 +139,6 @@ class UserController {
 
   async askPasswordReset(req, res) {
     const userEmail = req.params.email;
-
     try {
       const userToSendEmail = await users.findOne({ email: userEmail });
 
@@ -154,9 +153,8 @@ class UserController {
         const token = jwt.sign(payload, app.get("personalkey"), {
           expiresIn: Math.floor(Date.now() / 1000) + 60 * 60,
         });
-
         const emailData = { _id: userToSendEmail._id, token: token };
-        sendResetPasswordEmail(emailData, userEmail);
+        resetPasswordEmail(emailData, userEmail);
         res.status(200).send(emailData);
       } else {
         res.status(404).send();
