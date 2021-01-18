@@ -140,9 +140,7 @@ function Basket() {
 
   const checkoutProcess = async () => {
     const cart = context.user.cart;
-
     const result = await post(`/competitions/checkstock`, cart);
-
     if (result.ok && result.data.modified === false) {
       toggle();
     } else if (result.ok && result.data.modified === true) {
@@ -342,11 +340,8 @@ const Modal = ({ isShowing, hide, amount }) => {
 
   useEffect(() => {
     const cart = { cart: context.user.cart, user: context.user._id };
-
     const carttoken = jwt.sign({ cart }, config.key);
-
     sessionStorage.setItem("cart", carttoken);
-
     const payload = {
       payload: {
         accounttypedescription: "ECOM",

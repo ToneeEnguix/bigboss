@@ -1,39 +1,42 @@
 <html>
+  <head>
+    <link rel="stylesheet" href="tsStyles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-<head>
-  <link rel="stylesheet" href="tsStyles.css">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;600;700&display=swap" rel="stylesheet" />
-</head>
+  <body>
+    <div id="st-notification-frame"></div>
+    <form
+      id="st-form"
+      action="https://bigbosscompetitions.com/orders/receive"
+      method="POST"
+    >
+      <div id="st-card-number" class="st-card-number"></div>
+      <div id="st-expiration-date" class="st-expiration-date"></div>
+      <div id="st-security-code" class="st-security-code"></div>
+      <input type="hidden" name="cart" id="cart" />
+      <button type="submit" id="st-form__submit" class="st-form__submit">
+        Pay securely
+      </button>
+    </form>
+    <script src="https://webservices.securetrading.net/js/v2/st.js"></script>
+    <script>
+      (function () {
+        const cartContent = sessionStorage.getItem("cart");
+        const cart = document.getElementById("cart");
 
-<body>
-  <div id="st-notification-frame"></div>
-  <form id="st-form" action="https://bigbosscompetitions.com/orders/receive" method="POST">
-    <div id="st-card-number" class="st-card-number"></div>
-    <div id="st-expiration-date" class="st-expiration-date"></div>
-    <div id="st-security-code" class="st-security-code"></div>
-    <input type="hidden" name="cart" id="cart" />
-    <button type="submit" id="st-form__submit" class="st-form__submit">
-      Pay securely
-    </button>
-  </form>
-  <script src="https://webservices.securetrading.net/js/v2/st.js"></script>
-  <script>
-    (function () {
+        cart.value = cartContent;
+        jwt = sessionStorage.getItem("tp");
 
-      const cartContent = sessionStorage.getItem("cart");
-      const cart = document.getElementById("cart");
-
-      cart.value = cartContent;
-      jwt = sessionStorage.getItem("tp");
-
-      var st = SecureTrading({
-        jwt: jwt,
-        livestatus:1
-
-      });
-      st.Components();
-    })(); 
-  </script>
-</body>
-
+        var st = SecureTrading({
+          jwt: jwt,
+          livestatus: 1,
+        });
+        st.Components();
+      })();
+    </script>
+  </body>
 </html>
