@@ -9,8 +9,7 @@ import facepaint from "facepaint";
 const breakpoints = [576, 950, 1225, 1400];
 const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
 
-const flexContainer =mq( {
- 
+const flexContainer = mq({
   alignItems: "center",
   justifyContent: "space-between",
   width: "100%",
@@ -111,7 +110,7 @@ const icons = {
 function NavBar() {
   const [userMenu, setUserMenu] = useState(false);
   const [emptyCart, setEmptyCart] = useState(false);
-  const [more, setMore] = useState(false);
+  // const [more, setMore] = useState(false);
   const context = useContext(UserContext);
   const location = useLocation();
 
@@ -138,11 +137,11 @@ function NavBar() {
     setEmptyCart(false);
   };
 
-  const showMore = () => {
-    setMore(true);
-  };
+  // const showMore = () => {
+  //   setMore(true);
+  // };
 
-  const hideMore = () => {};
+  // const hideMore = () => {};
 
   return (
     <div
@@ -187,7 +186,9 @@ function NavBar() {
             ENTRIES
           </NavLink>
         </li>
-        <li onMouseEnter={showMore}>
+        <li
+        // onMouseEnter={showMore}
+        >
           <NavLink
             to="/more/about"
             isActive={(match, location) => {

@@ -17,22 +17,16 @@ const ListOfEntries = () => {
   useEffect(() => {
     const getCompsAndEntries = async () => {
       let resAll = await axios.get(`${URL}/competitions/all`);
-      console.log(resAll.data)
       setAllCompetitions(resAll.data);
       if (resAll.data.length !== 0) {
         let resEntries = await axios.get(`${URL}/orders/${resAll.data[i]._id}`);
         setListOfEntries(resEntries.data);
-        console.log(resEntries.data)
       }
     };
     getCompsAndEntries();
   }, [i]);
 
-
-
   return (
-
-   
     <>
       {allCompetitions.length !== 0 ? (
         <div className="adminPage" css={sectionStyle}>
@@ -71,14 +65,31 @@ const ListOfEntries = () => {
             })}
           </div>
           <div css={entriesStyle}>
-            <h3> Tickets Bought</h3>
+            <h3 css={tickets_p}>Tickets</h3>
             {listOfEntries.map((item, idx) => {
- 
-                return <p key={idx}>{item.ticketsBought}</p>;
-              })
-            }
+              return (
+                <p css={tickets_p} key={idx}>
+                  {item.ticketsBought}
+                </p>
+              );
+            })}
           </div>
-
+          <div css={entriesStyle}>
+            <h3 css={tickets_p}>Purchase Date</h3>
+            {listOfEntries.map((item, idx) => {
+              return (
+                <p css={tickets_p} key={idx}>
+                  {`${item.dateofPurchase.slice(
+                    8,
+                    10
+                  )}/${item.dateofPurchase.slice(
+                    5,
+                    7
+                  )}/${item.dateofPurchase.slice(0, 4)}`}
+                </p>
+              );
+            })}
+          </div>
         </div>
       ) : (
         <div className="adminPage adminPage2 bg">
@@ -116,6 +127,7 @@ const ListOfEntries = () => {
         }}
       >
         <img
+          alt="close"
           src={close}
           className="bgtransparent pointer"
           style={{ margin: "-5rem -26.8rem 3rem 10rem" }}
@@ -150,8 +162,8 @@ const ListOfEntries = () => {
 
 const sectionStyle = {
     display: "grid",
-    gridTemplateColumns: "repeat(4, 1fr)",
-    paddingRight: "0",
+    gridTemplateColumns: "0.5fr 1fr 0.4fr 0.6fr",
+    paddingRight: "5rem",
     h3: {
       fontFamily: "Raleway",
       letterSpacing: "0.02rem",
@@ -177,7 +189,7 @@ const secondSidebarStyle = {
     top: "90px",
     left: "237.75px",
     height: "86.5vh",
-    width: "360px",
+    width: "350px",
     backgroundColor: "#262626",
     boxShadow: "0px 3px 6px #00000029",
     fontFamily: "Raleway",
@@ -199,7 +211,6 @@ const secondSidebarStyle = {
   contentStyle = {
     alignItems: "flex-start",
     lineHeight: "1.7rem",
-    width: "60%",
     backgroundColor: "#262626",
     width: "100%",
     padding: "0 3rem",
@@ -226,7 +237,6 @@ const secondSidebarStyle = {
     cursor: "pointer",
     div: {
       backgroundColor: "#333333",
-      height: "100%",
       borderRadius: "100px",
       height: "32px",
       width: "32px",
@@ -243,6 +253,9 @@ const secondSidebarStyle = {
   },
   noCompTitleStyle = {
     lineHeight: "2rem",
+  },
+  tickets_p = {
+    textAlign: "center",
   };
 
 export default ListOfEntries;

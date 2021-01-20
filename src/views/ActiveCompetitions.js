@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 /** @jsxFrag React.Fragment */
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
@@ -46,7 +46,7 @@ const ActiveCompetitions = (props) => {
 
   const getActiveCompetitions = async () => {
     let resAll = await axios.get(`${URL}/competitions/active`);
-    resAll.data.map((item) => {
+    resAll.data.forEach((item) => {
       item.dateFinishes = item.dateFinishes.slice(0, -8);
       item.pictures.push("");
     });
@@ -66,6 +66,7 @@ const ActiveCompetitions = (props) => {
       }
     };
     props.update && updateActiveCompetitions();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.update]);
 
   const handleChange = (e, i, idx) => {
@@ -291,6 +292,7 @@ const ActiveCompetitions = (props) => {
                       className="flexColumn bgtransparent"
                     >
                       <img
+                        alt="close"
                         src={close}
                         style={{
                           alignSelf: "flex-end",
@@ -311,7 +313,7 @@ const ActiveCompetitions = (props) => {
                         className="flexCenter"
                         style={{ justifyContent: "flex-start" }}
                       >
-                        <img src={image} css={imgStyle} />
+                        <img alt="description" src={image} css={imgStyle} />
                       </div>
                     </div>
                   </div>
@@ -348,6 +350,7 @@ const ActiveCompetitions = (props) => {
                         style={{ height: "32px", width: "32px" }}
                       >
                         <img
+                          alt="close"
                           src={close}
                           onClick={() => {
                             setRemove("competition");
@@ -469,6 +472,7 @@ const ActiveCompetitions = (props) => {
                       className="flexColumn bgtransparent"
                     >
                       <img
+                        alt="close"
                         src={close}
                         style={{
                           alignSelf: "flex-end",
@@ -489,7 +493,7 @@ const ActiveCompetitions = (props) => {
                         className="flexCenter"
                         style={{ justifyContent: "flex-start" }}
                       >
-                        <img src={image} css={imgStyle} />
+                        <img alt="description" src={image} css={imgStyle} />
                       </div>
                     </div>
                   </div>
@@ -536,6 +540,7 @@ const ActiveCompetitions = (props) => {
         }}
       >
         <img
+          alt="close"
           src={close}
           className="bgtransparent pointer"
           style={{ margin: "-5rem -26.8rem 3rem 10rem" }}
@@ -630,7 +635,7 @@ const secondSidebarStyle = {
     top: "90px",
     left: "237.75px",
     height: "86.5vh",
-    width: "360px",
+    width: "350px",
     backgroundColor: "#262626",
     boxShadow: "0px 3px 6px #00000029",
     fontFamily: "Raleway",
@@ -653,7 +658,7 @@ const secondSidebarStyle = {
     boxSizing: "content-box",
     alignItems: "flex-start",
     lineHeight: "1.7rem",
-    width: "360px",
+    width: "350px",
     backgroundColor: "#262626",
     "div:hover": {
       borderColor: "#2680eb !important",
@@ -679,7 +684,6 @@ const secondSidebarStyle = {
     cursor: "pointer",
     div: {
       backgroundColor: "#333333",
-      height: "100%",
       borderRadius: "100px",
       height: "32px",
       width: "32px",

@@ -99,7 +99,7 @@ class UserController {
         userData: newUser,
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
       res.status(500).send(error);
     }
   }
@@ -132,7 +132,7 @@ class UserController {
         res.status(401).json({ message: "Wrong password" });
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
       res.status(500).send(error);
     }
   }
@@ -176,7 +176,7 @@ class UserController {
 
       res.status(200).send({ message: "passwordUpdated" });
     } catch (error) {
-      console.log(error);
+      console.error(error);
       res.status(500).send();
     }
   }

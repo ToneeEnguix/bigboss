@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import StyledInput from "../components/StyledInput";
-import { Redirect, useParams } from "react-router-dom";
 import { get } from "../api/fetch";
 import facepaint from "facepaint";
 

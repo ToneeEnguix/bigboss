@@ -6,38 +6,33 @@ import EntryCard from "../components/EntryCard";
 import { Redirect } from "react-router-dom";
 import facepaint from "facepaint";
 
-const breakpoints = [576, 950, 992, 1200];
-
-const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
-
-const contentWrapper = mq({
-  margin: "4rem 0rem",
-
-  h1: {
-    marginLeft: ["0rem", "0rem", "4rem", "4rem"],
-    textAlign: ["center", "center", "left", "left"],
-  },
-});
-const drawWrap = {
-  marginTop: "2rem",
-  display: "flex",
-  justifyContent: "space-evenly",
-  flexWrap: "wrap",
-};
 function Entries() {
-  const [entries, setEntries] = useState([]);
+  const [allEntries, setAllEntries] = useState([]);
+  const [pastEntries, setPastEntries] = useState([]);
+  const [activeEntries, setActiveEntries] = useState([]);
   const [error, setError] = useState(false);
+  const [showEntries, setShowEntries] = useState("all");
 
-  async function getAllEntries() {
-    const entries = await get("/competitions/past");
-    console.log(entries.data)
-    if (entries.ok) {
-      setEntries(entries.data);
-    } else {
-      setError(true);
-    }
-  }
   useEffect(() => {
+    async function getAllEntries() {
+      const entries = await get("/competitions/all");
+      if (entries.ok) {
+        setAllEntries(entries.data);
+        let tempActive = [];
+        let tempPast = [];
+        entries.data.forEach((entry) => {
+          if (entry.dateFinishes > Date.now()) {
+            tempPast.push(entry);
+          } else {
+            tempActive.push(entry);
+          }
+        });
+        setActiveEntries(tempActive);
+        setPastEntries(tempPast);
+      } else {
+        setError(true);
+      }
+    }
     getAllEntries();
   }, []);
 
@@ -48,10 +43,37 @@ function Entries() {
   return (
     <div css={contentWrapper}>
       <h1>ENTRIES</h1>
-
+      <div css={buttonsCont}>
+        <button
+          className={`pointer ${showEntries === "all" && "selectedEntry"}`}
+          onClick={() => setShowEntries("all")}
+        >
+          All Entries
+        </button>
+        <button
+          className={`pointer ${showEntries === "active" && "selectedEntry"}`}
+          onClick={() => setShowEntries("active")}
+        >
+          Active Entries
+        </button>
+        <button
+          className={`pointer ${showEntries === "past" && "selectedEntry"}`}
+          onClick={() => setShowEntries("past")}
+        >
+          Past Entries
+        </button>
+      </div>
       <div css={drawWrap}>
-        {entries.length > 0 ? (
-          entries.map((winner, index) => {
+        {allEntries.length > 0 && showEntries === "all" ? (
+          allEntries.map((winner, index) => {
+            return <EntryCard key={index} winner={winner} />;
+          })
+        ) : activeEntries.length > 0 && showEntries === "active" ? (
+          activeEntries.map((winner, index) => {
+            return <EntryCard key={index} winner={winner} />;
+          })
+        ) : pastEntries.length > 0 && showEntries === "past" ? (
+          pastEntries.map((winner, index) => {
             return <EntryCard key={index} winner={winner} />;
           })
         ) : (
@@ -73,5 +95,39 @@ function Entries() {
     </div>
   );
 }
+
+const breakpoints = [576, 950, 992, 1200];
+
+const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
+
+const contentWrapper = mq({
+    margin: "4rem 0rem",
+
+    h1: {
+      marginLeft: ["0rem", "0rem", "4rem", "4rem"],
+      textAlign: ["center", "center", "left", "left"],
+    },
+  }),
+  drawWrap = {
+    marginTop: "2rem",
+    display: "flex",
+    justifyContent: "space-evenly",
+    flexWrap: "wrap",
+  },
+  buttonsCont = {
+    margin: "1rem 0 0 4rem",
+    button: {
+      marginRight: "1rem",
+      padding: "0.4rem 0.6rem",
+      outline: "none",
+      border: "none",
+      borderRadius: "12px",
+      backgroundColor: "#212121",
+      color: "rgba(255, 255, 255, 0.605);",
+    },
+    "button:hover": {
+      backgroundColor: "#1a1a1a",
+    },
+  };
 
 export default Entries;

@@ -215,7 +215,7 @@ const secondSidebarStyle = {
   top: "90px",
   left: "237.75px",
   height: "86.5vh",
-  width: "360px",
+  width: "350px",
   backgroundColor: "#262626",
   boxShadow: "0px 3px 6px #00000029",
   fontFamily: "Raleway",

@@ -13,17 +13,14 @@ import { URL } from "../config";
 import axios from "axios";
 
 const AdminDashboard = (props) => {
-
   const [activeCompetitions, setActiveCompetitions] = useState([]);
   const [pastCompetitions, setPastCompetitions] = useState([]);
   const [allCompetitions, setAllCompetitions] = useState([]);
-  const [listOfEntries, setListOfEntries] = useState([]);
   const [discounts, setDiscounts] = useState([]);
   const [selected, setSelected] = useState("");
   const [update, setUpdate] = useState(false);
   const [create, setCreate] = useState(false);
   const [refresh, setRefresh] = useState(false);
-
 
   useEffect(() => {
     getInfo();
@@ -36,8 +33,6 @@ const AdminDashboard = (props) => {
     setPastCompetitions(resPast.data);
     let resAll = await axios.get(`${URL}/competitions/all`);
     setAllCompetitions(resAll.data);
-    let resEntries = await axios.get(`${URL}/competitions/all`);
-    setListOfEntries(resEntries.data);
     let resDiscounts = await axios.get(`${URL}/coupons/all`);
     setDiscounts(resDiscounts.data);
   };
@@ -55,9 +50,9 @@ const AdminDashboard = (props) => {
     } else if (url.includes("faq")) {
       setSelected("faq");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [window.location.href]);
 
-  
   return (
     <div>
       <AdminHeader

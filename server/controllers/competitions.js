@@ -49,7 +49,7 @@ class CompetitionController {
       await competitions.create(competition);
       res.status(200).send({ ok: true });
     } catch (err) {
-      console.log(err);
+      console.error(err);
       res.status(500).send(err);
     }
   }
@@ -208,7 +208,7 @@ class CompetitionController {
         .populate("winner");
       res.status(200).send(allCompetitions);
     } catch (error) {
-      console.log(error);
+      console.error(error);
       res.status(500).send(error);
     }
   }

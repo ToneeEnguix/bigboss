@@ -1,8 +1,6 @@
 import { React, useState, useContext, useEffect } from "react";
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
-import { Link } from "react-router-dom";
-import Counter from "../utils/Counter";
 import UserContext from "../context/UserContext";
 
 const textWrapper = {

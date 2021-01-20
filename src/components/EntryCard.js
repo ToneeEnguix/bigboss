@@ -18,7 +18,6 @@ const card = mq({
   borderRadius: "4%",
   overflow: "hidden",
   maxWidth: "600px",
-  margin: "4rem 0",
 });
 
 const text = {
@@ -48,18 +47,22 @@ function EntryCard(props) {
       <div css={text}>
         <p css={{ color: "grey" }}>{props.winner.title} ENTRY</p>
         <p>{props.winner.prize}</p>
-        <p css={{ color: "#00FFFF", marginBottom: "1rem !important" }}>
+        <p>
           PUBLISHED ON {dateFormat[1]} {dateFormat[2]} {dateFormat[0]}
         </p>
+        {Date.parse(props.winner.dateFinishes) > Date.now() ? (
+          <p css={{ color: "#00FFFF", marginBottom: "1rem" }}>Active</p>
+        ) : (
+          <p css={{ color: "#00FFFF", marginBottom: "1rem" }}>Finished</p>
+        )}
       </div>
-      <a
+      <div
         css={{
           width: "100%",
           display: "flex",
           justifyContent: "center",
           paddingBottom: "3rem",
         }}
-        href={props.winner.entriesURL}
       >
         <Link
           to={{
@@ -72,7 +75,7 @@ function EntryCard(props) {
         >
           <p>VIEW ENTRIES</p>
         </Link>
-      </a>
+      </div>
     </div>
   );
 }

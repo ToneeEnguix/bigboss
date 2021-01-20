@@ -25,13 +25,12 @@ const PastCompetitions = (props) => {
         email: "",
       },
       facebookURL: "",
-      entriesDate: "",
     },
   ]);
   const [i, setI] = useState(0);
   const [openModal, setOpenModal] = useState(false);
   const [remove, setRemove] = useState("");
-  const [today, setToday] = useState("");
+  // const [today, setToday] = useState("");
   const [unsaved, setUnsaved] = useState(false);
   const [saved, setSaved] = useState(false);
 
@@ -41,12 +40,13 @@ const PastCompetitions = (props) => {
 
   useEffect(() => {
     props.update && updateWinner();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.update]);
 
   const getPastCompetitions = async () => {
     try {
       let resPast = await axios.get(`${URL}/competitions/past`);
-      resPast.data.map((item) => {
+      resPast.data.forEach((item) => {
         item.dateFinishes = item.dateFinishes.slice(0, -14);
         // item.entriesDate = item.entriesDate.slice(0, -8);
       });
@@ -120,10 +120,10 @@ const PastCompetitions = (props) => {
     }
   };
 
-  useEffect(() => {
-    let today = new Date(Date.now()).toISOString().slice(0, -8);
-    setToday(today);
-  }, []);
+  // useEffect(() => {
+  //   let today = new Date(Date.now()).toISOString().slice(0, -8);
+  //   setToday(today);
+  // }, []);
 
   useEffect(() => {
     if (saved) {
@@ -166,10 +166,9 @@ const PastCompetitions = (props) => {
                 Title
               </h3>
               <input
-                className="default"
                 readOnly
                 defaultValue={pastCompetitions[i].title}
-                className="styledInput gray"
+                className="default styledInput gray"
               />
               <h3 css={titleStyle}>Photo of the Winner</h3>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
@@ -198,6 +197,7 @@ const PastCompetitions = (props) => {
                   >
                     <img
                       src={close}
+                      alt="close"
                       style={{
                         alignSelf: "flex-end",
                         position: "relative",
@@ -214,6 +214,7 @@ const PastCompetitions = (props) => {
                     />
                     <div css={photoContStyle} className="flexCenter">
                       <img
+                        alt="winner"
                         src={pastCompetitions[i].winnerPic}
                         css={imgStyle}
                         style={{
@@ -356,7 +357,7 @@ const PastCompetitions = (props) => {
                     >
                       Image {idx + 1}
                     </h4>
-                    <img src={item} css={imgStyle} />
+                    <img src={item} css={imgStyle} alt="item" />
                   </div>
                 );
               })}
@@ -402,6 +403,7 @@ const PastCompetitions = (props) => {
         }}
       >
         <img
+          alt="close"
           src={close}
           className="bgtransparent pointer"
           style={{ margin: "-5rem -26.8rem 3rem 10rem" }}
@@ -458,15 +460,6 @@ const mainTitleStyle = {
     fontSize: "1.15rem",
     margin: "1.7rem auto 0",
   },
-  hrStyle = {
-    display: "block",
-    height: "1px",
-    border: "0",
-    borderTop: "1px dashed #ccc",
-    margin: "2rem 0 1rem",
-    width: "40%",
-    padding: "0",
-  },
   photoContStyle = {
     width: "200px",
     height: "200px",
@@ -479,7 +472,7 @@ const secondSidebarStyle = {
     top: "90px",
     left: "237.75px",
     height: "86.5vh",
-    width: "360px",
+    width: "350px",
     backgroundColor: "#262626",
     boxShadow: "0px 3px 6px #00000029",
     fontFamily: "Raleway",
@@ -501,7 +494,6 @@ const secondSidebarStyle = {
   contentStyle = {
     alignItems: "flex-start",
     lineHeight: "1.7rem",
-    width: "60%",
     backgroundColor: "#262626",
     width: "100%",
     padding: "0 3rem",
@@ -528,7 +520,6 @@ const secondSidebarStyle = {
     cursor: "pointer",
     div: {
       backgroundColor: "#333333",
-      height: "100%",
       borderRadius: "100px",
       height: "32px",
       width: "32px",

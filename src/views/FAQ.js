@@ -38,6 +38,7 @@ const FAQ = (props) => {
       }
     };
     props.update && updateFaq();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.update]);
 
   useEffect(() => {
@@ -47,6 +48,7 @@ const FAQ = (props) => {
       getFaq();
     };
     props.create && createFaq();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.create]);
 
   const deleteFaq = async () => {
@@ -150,6 +152,7 @@ const FAQ = (props) => {
         }}
       >
         <img
+          alt="close"
           src={close}
           className="bgtransparent pointer"
           style={{ margin: "-5rem -26.8rem 3rem 10rem" }}

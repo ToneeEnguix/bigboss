@@ -25,7 +25,7 @@ const Discounts = (props) => {
 
   const getDiscounts = async () => {
     let resDiscounts = await axios.get(`${URL}/coupons/all`);
-    resDiscounts.data.map((item) => {
+    resDiscounts.data.forEach((item) => {
       item.expires = item.expires.slice(0, -8);
       item.created = item.created.slice(0, -8);
     });
@@ -44,6 +44,7 @@ const Discounts = (props) => {
       }
     };
     props.update && updateDiscounts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.update]);
 
   useEffect(() => {
@@ -53,6 +54,7 @@ const Discounts = (props) => {
       getDiscounts();
     };
     props.create && createDiscount();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.create]);
 
   const deleteDiscount = async () => {
@@ -112,7 +114,11 @@ const Discounts = (props) => {
                       } flexCenter`}
                       onClick={() => setOpenModal(true)}
                     >
-                      <img src={close} onClick={() => setOpenModal(true)} />
+                      <img
+                        alt="close"
+                        src={close}
+                        onClick={() => setOpenModal(true)}
+                      />
                     </div>
                   </div>
                 );
@@ -196,6 +202,7 @@ const Discounts = (props) => {
         }}
       >
         <img
+          alt="close"
           src={close}
           className="bgtransparent pointer"
           style={{ margin: "-5rem -26.8rem 3rem 10rem" }}
@@ -252,7 +259,7 @@ const secondSidebarStyle = {
   top: "90px",
   left: "237.75px",
   height: "86.5vh",
-  width: "360px",
+  width: "350px",
   backgroundColor: "#262626",
   boxShadow: "0px 3px 6px #00000029",
   fontFamily: "Raleway",
@@ -274,7 +281,6 @@ const titleStyle2 = {
   contentStyle = {
     alignItems: "flex-start",
     lineHeight: "1.7rem",
-    width: "60%",
     backgroundColor: "#262626",
     width: "100%",
     padding: "0 3rem",
@@ -301,7 +307,6 @@ const titleStyle2 = {
     cursor: "pointer",
     div: {
       backgroundColor: "#333333",
-      height: "100%",
       borderRadius: "100px",
       height: "32px",
       width: "32px",

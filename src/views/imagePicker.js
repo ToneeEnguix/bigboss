@@ -13,6 +13,7 @@ const ImagePicker = (props) => {
 
   useEffect(() => {
     uploadedFile !== "" && props.setState(uploadedFile);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uploadedFile]);
 
   const onDrop = useCallback((acceptedFiles) => {
@@ -45,7 +46,7 @@ const ImagePicker = (props) => {
         css={photoContStyle}
       >
         <input {...getInputProps()} />
-        <img src={insert} css={noImgStyle} />
+        <img alt="insert" src={insert} css={noImgStyle} />
         <p
           className="gray"
           style={{ fontWeight: "300", letterSpacing: ".01rem" }}
@@ -74,9 +75,6 @@ const photoContStyle = {
     width: "100px",
     backgroundColor: "transparent",
     filter: "invert(70%)",
-  },
-  pStyle = {
-    marginTop: "1rem",
   };
 
 export default ImagePicker;

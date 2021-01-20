@@ -3,7 +3,6 @@ const users = require("../schemas/users");
 const competitions = require("../schemas/competitions");
 const jwt = require("jsonwebtoken");
 const config = require("../token/trustPaymentsConfig.js");
-const { default: Axios } = require("axios");
 
 class OrdersController {
   async create(req, res) {
@@ -22,7 +21,7 @@ class OrdersController {
 
       res.status(200).send(userOrders);
     } catch (error) {
-      console.log(error);
+      console.error(error);
       res.status(500).send(error);
     }
   }
@@ -100,14 +99,13 @@ class OrdersController {
 
   async getCompetitionOrders(req, res) {
     const competitionId = req.params.competitionId;
-    console.log(competitionId);
     try {
-      // let competitionDetails = await orders.find({
-      //   "productsBought.product": competitionId,
-      // });
-      // .populate("user");
-      const orders_with_users = await orders.find({}).populate("user");
-      console.log(orders_with_users);
+      let competitionDetails = await orders
+        .find({
+          "productsBought.product": competitionId,
+        })
+        .populate("user");
+
       let entriesForCompetition = [];
       competitionDetails.forEach((competition) => {
         const userName = competition.user.name;
@@ -130,7 +128,6 @@ class OrdersController {
           dateofPurchase,
         });
       });
-
       res.status(200).send(entriesForCompetition);
     } catch (err) {
       res.status(500).send(err);

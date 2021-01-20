@@ -6,7 +6,6 @@ import HowToPlay from "../components/HowToPlay";
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import filmed from "../resources/googlepng.png";
-import { ReactComponent as liveLogo } from "../resources/LiveLogo.svg";
 import facepaint from "facepaint";
 
 const breakpoints = [576, 950, 992, 1200];
@@ -26,7 +25,6 @@ function Home() {
 }
 
 const AnnoyingBanner = () => {
-  const [hide, setHide] = useState("inline");
   const [animation, setAnimation] = useState("translate3d(0, 0, 0)");
 
   return (
@@ -35,7 +33,7 @@ const AnnoyingBanner = () => {
         setAnimation("translate3d(-100vw, 0, 0)");
       }}
       css={mq({
-        display: ["none", "none", hide, hide],
+        display: ["none", "none", "inline", "inline"],
         transform: animation,
         transition: "transform 2s",
         borderTopRightRadius: "12px",
@@ -55,7 +53,7 @@ const AnnoyingBanner = () => {
       >
         highlight_off
       </span>
-      <img css={{ width: "250px" }} src={filmed} />
+      <img alt="filmed" css={{ width: "250px" }} src={filmed} />
     </div>
   );
 };

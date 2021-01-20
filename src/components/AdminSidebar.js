@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import "./adminheader.css";
@@ -48,7 +48,9 @@ const Sidebar = (props) => {
             Discounts
           </Link>
           <Link
-            className={`${props.selected === "faq" && "thisblue"} bgtransparent`}
+            className={`${
+              props.selected === "faq" && "thisblue"
+            } bgtransparent`}
             css={contentLinks}
             to="/admindashboard/faq"
           >
@@ -58,6 +60,7 @@ const Sidebar = (props) => {
       </div>
       <Link to="/" className="bgtransparent">
         <img
+          alt="power"
           src={power}
           className="bgtransparent pointer"
           onClick={() => {

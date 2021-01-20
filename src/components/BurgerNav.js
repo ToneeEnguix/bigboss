@@ -1,10 +1,10 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import UserContext from "../context/UserContext";
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import facepaint from "facepaint";
 import { ReactComponent as BigBossLogo } from "../resources/BigBossLogo.svg";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const breakpoints = [576, 950, 992, 1200];
 
@@ -42,8 +42,6 @@ export default function BurgerNav() {
 
 const Menu = (props) => {
   const context = useContext(UserContext);
-
-  const [animation, setAnimation] = useState();
 
   const menu = {
     position: "absolute",

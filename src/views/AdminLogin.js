@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
-import StyledInput from "../components/StyledInput";
 import { post } from "../api/fetch";
 import { Redirect } from "react-router-dom";
 import UserContext from "../context/UserContext";
@@ -49,7 +48,6 @@ function AdminLogin() {
     );
   }
   if (window.screen.width < 500 && window.screen.height < 768) {
-
     return (
       <Redirect
         to={{
@@ -126,14 +124,6 @@ function AdminLogin() {
     </div>
   );
 }
-
-const contentWrapper = {
-  margin: "4rem 0rem",
-
-  h1: {
-    marginLeft: "4rem",
-  },
-};
 
 const formStyles = {
   width: "627.75px",

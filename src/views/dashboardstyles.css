@@ -83,6 +83,10 @@ textarea {
   overflow: auto;
   justify-content: start;
 }
+.selectedEntry {
+  background-color: #1a1a1a !important;
+  color: white !important;
+}
 /* .scrollbar ::-webkit-scrollbar {
   -webkit-appearance: none;
   width: 7px;

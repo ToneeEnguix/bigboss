@@ -32,12 +32,11 @@ const welcomeEmail = (userEmail) => {
       })
       .then(() => console.log("email has been sent!"));
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 
 const resetPasswordEmail = (data, userEmail) => {
-  console.log("lemon");
   const resetLink = `localhost:3000/resetpass/${data._id}/${data.token}`;
   const email = new Email({
     transport: smtpTrans,
@@ -59,7 +58,7 @@ const resetPasswordEmail = (data, userEmail) => {
       })
       .then(() => console.log("Email has been sent!"));
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 

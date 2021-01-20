@@ -31,6 +31,7 @@ const AdminHeader = (props) => {
           }}
         >
           <img
+            alt="plus"
             src={plus}
             css={css`
               width: 30px;
