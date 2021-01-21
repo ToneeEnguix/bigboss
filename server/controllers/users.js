@@ -66,7 +66,6 @@ class UserController {
 
   async signUp(req, res) {
     const userToSave = JSON.parse(req.body.data);
-
     const receivedPassword = userToSave.password;
     const receivedEmail = userToSave.email;
     const receivedName = userToSave.name;

@@ -5,19 +5,6 @@ import StyledInput from "../components/StyledInput";
 import { get } from "../api/fetch";
 import facepaint from "facepaint";
 
-const breakpoints = [576, 950, 992, 1200];
-
-const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
-
-const wrapper = {
-  margin: "0 auto",
-  padding: "2rem",
-  display: "flex",
-  justifyContent: "center",
-  flexDirection: "column",
-  alignItems: "center",
-};
-
 function ForgotPass(props) {
   const [message, setMessage] = useState({
     visibility: "hidden",
@@ -82,5 +69,16 @@ function ForgotPass(props) {
     </React.Fragment>
   );
 }
+
+const breakpoints = [576, 950, 992, 1200];
+const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
+const wrapper = {
+  margin: "0 auto",
+  padding: "2rem",
+  display: "flex",
+  justifyContent: "center",
+  flexDirection: "column",
+  alignItems: "center",
+};
 
 export default ForgotPass;

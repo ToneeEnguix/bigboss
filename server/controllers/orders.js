@@ -72,10 +72,10 @@ class OrdersController {
           paymentStatus: "Successful",
           orderDate: Date.now(),
         };
-
         const result = await orders.create(order);
+        console.log(result);
       }
-      res.redirect("46.101.80.18/bye");
+      res.redirect("46.101.56.244/bye");
     } catch (error) {
       res.status(500).send();
     }
@@ -119,7 +119,7 @@ class OrdersController {
             ticketsBought = ticketsBought + boughtProduct.amount;
           }
         });
-        
+
         entriesForCompetition.push({
           userName,
           email,
