@@ -8,7 +8,7 @@ app.set("key", config.key);
 
 class TokenController {
   async verifyToken(req, res) {
-    const token = req.headers["access-token"];
+    const token = req.params.token;
 
     try {
       if (token) {
@@ -54,7 +54,7 @@ class TokenController {
           activeUser.password + "-" + activeUser.dateCreated
         );
 
-        const token = req.headers["access-token"];
+        const token = req.params.token;
         console.log("Token: ", stoken);
         if (token) {
           jwt.verify(token, app.get("personalkey"), (err, decoded) => {
