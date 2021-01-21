@@ -29,8 +29,9 @@ function ForgotPass() {
   }, []);
 
   const verifyToken = async () => {
+    console.log(params);
+    return false;
     const result = await get(`/token/verifytokenemail/${params.id}`);
-    debugger;
     if (!result.ok) {
       setRedirect(true);
     }
