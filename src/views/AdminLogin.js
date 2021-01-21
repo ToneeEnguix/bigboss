@@ -1,10 +1,13 @@
-import React, { useState, useContext } from "react";
+import { useState, useContext } from "react";
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import { post } from "../api/fetch";
 import { Redirect } from "react-router-dom";
 import UserContext from "../context/UserContext";
 import facepaint from "facepaint";
+/* eslint-disable no-unused-vars */
+var React = require("react");
+/* eslint-enable no-unused-vars */
 
 function AdminLogin() {
   const [message, setMessage] = useState({

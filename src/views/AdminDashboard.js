@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import AdminHeader from "../components/AdminHeader.js";
@@ -11,6 +11,9 @@ import FAQ from "./FAQ";
 import { Route, Redirect, Switch } from "react-router-dom";
 import { URL } from "../config";
 import axios from "axios";
+/* eslint-disable no-unused-vars */
+var React = require("react");
+/* eslint-enable no-unused-vars */
 
 const AdminDashboard = (props) => {
   const [activeCompetitions, setActiveCompetitions] = useState([]);

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 /** @jsxFrag React.Fragment */
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
@@ -7,6 +7,9 @@ import { URL } from "../config";
 import "../components/domain.css";
 import ReactModal from "react-modal";
 import close from "../resources/close.svg";
+/* eslint-disable no-unused-vars */
+var React = require("react");
+/* eslint-enable no-unused-vars */
 
 const FAQ = (props) => {
   const [faq, setFaq] = useState([

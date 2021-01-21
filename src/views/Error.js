@@ -1,6 +1,8 @@
-import React from "react";
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
+/* eslint-disable no-unused-vars */
+var React = require("react");
+/* eslint-enable no-unused-vars */
 
 function Error() {
   return (

@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import { get } from "../api/fetch";
 import EntryCard from "../components/EntryCard";
 import { Redirect } from "react-router-dom";
 import facepaint from "facepaint";
+/* eslint-disable no-unused-vars */
+var React = require("react");
+/* eslint-enable no-unused-vars */
 
 function Entries() {
   const [allEntries, setAllEntries] = useState([]);

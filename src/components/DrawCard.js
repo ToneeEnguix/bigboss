@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import ReactPlayer from "react-player/facebook";
 import { formatDate } from "../utils/formatDate.js";
 import facepaint from "facepaint";
+/* eslint-disable no-unused-vars */
+var React = require("react");
+/* eslint-enable no-unused-vars */
 
 function DrawCard(props) {
   const [dateFormat, setDateFormat] = useState([0, 0, 0, 0]);

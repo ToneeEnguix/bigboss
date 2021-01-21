@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import { get } from "../api/fetch";
 import { Redirect, useParams } from "react-router-dom";
 import facepaint from "facepaint";
 import back from "../resources/arrow.svg";
+/* eslint-disable no-unused-vars */
+var React = require("react");
+/* eslint-enable no-unused-vars */
 
 function EntryDetails(props) {
   const [data, setData] = useState([]);

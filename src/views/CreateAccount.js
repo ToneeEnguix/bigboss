@@ -1,20 +1,21 @@
-import React from 'react';
 import CreateAccountForm from "../components/CreateAccountForm";
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { jsx } from "@emotion/core";
+/* eslint-disable no-unused-vars */
+var React = require("react");
+/* eslint-enable no-unused-vars */
 
-
-const createAccountWrapper={
-  display:"flex",
-  justifyContent:"center"
-}
 function CreateAccount() {
   return (
     <div css={createAccountWrapper}>
-    <CreateAccountForm/>
-
+      <CreateAccountForm />
     </div>
   );
 }
+
+const createAccountWrapper = {
+  display: "flex",
+  justifyContent: "center",
+};
 
 export default CreateAccount;

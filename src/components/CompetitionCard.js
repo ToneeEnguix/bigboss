@@ -1,9 +1,11 @@
-import React from "react";
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import { Link } from "react-router-dom";
 import Counter from "../utils/Counter";
 import facepaint from "facepaint";
+/* eslint-disable no-unused-vars */
+var React = require("react");
+/* eslint-enable no-unused-vars */
 
 function CompetitionCard({ competition }) {
   return (

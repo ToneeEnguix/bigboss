@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import HomeCarousel from "../components/HomeCarousel";
 import OtherCompetitions from "../components/OtherCompetitions";
 import RecentWinners from "../components/RecentWinners";
@@ -7,10 +7,9 @@ import HowToPlay from "../components/HowToPlay";
 import { jsx } from "@emotion/core";
 import filmed from "../resources/googlepng.png";
 import facepaint from "facepaint";
-
-const breakpoints = [576, 950, 992, 1200];
-
-const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
+/* eslint-disable no-unused-vars */
+var React = require("react");
+/* eslint-enable no-unused-vars */
 
 function Home() {
   return (
@@ -57,4 +56,8 @@ const AnnoyingBanner = () => {
     </div>
   );
 };
+
+const breakpoints = [576, 950, 992, 1200];
+const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
+
 export default Home;

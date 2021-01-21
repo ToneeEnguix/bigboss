@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 /** @jsxFrag React.Fragment */
@@ -7,6 +7,9 @@ import close from "../resources/close.svg";
 import axios from "axios";
 import { URL } from "../config";
 import "../components/domain.css";
+/* eslint-disable no-unused-vars */
+var React = require("react");
+/* eslint-enable no-unused-vars */
 
 const Discounts = (props) => {
   const [discounts, setDiscounts] = useState([

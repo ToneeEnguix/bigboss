@@ -1,84 +1,77 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { jsx } from "@emotion/core";
 import { get } from "../api/fetch";
 import DrawCard from "../components/DrawCard";
 import { Redirect } from "react-router-dom";
-import facepaint from 'facepaint';
-const breakpoints = [576, 950, 992, 1200]
+import facepaint from "facepaint";
+/* eslint-disable no-unused-vars */
+var React = require("react");
+/* eslint-enable no-unused-vars */
 
-const mq = facepaint(
-  breakpoints.map(bp => `@media (min-width: ${bp}px)`));
-
-
-const contentWrapper=mq({
-
-  margin:"4rem 0rem",
-
-  "h1":{
-
-    marginLeft:["0rem","0rem","4rem","4rem"],
-    textAlign:["center","center","left","left"]
-  }
-
-})
-const drawWrap = {
-
-  marginTop: "2rem",
-  display: "flex",
-  justifyContent: "space-evenly",
-  flexWrap: "wrap"
-}
 function Draws() {
-
   const [winners, setWinners] = useState([]);
-  const [error, setError] = useState(false)
-
-
-  async function getAllWinners() {
-    const winners = await get("/competitions/winners");
-
-    if (winners.ok) {
-
-      setWinners(winners.data);
-    }
-    else {
-      setError(true);
-    }
-  }
-
+  const [error, setError] = useState(false);
 
   useEffect(() => {
-
+    async function getAllWinners() {
+      const winners = await get("/competitions/winners");
+      if (winners.ok) {
+        setWinners(winners.data);
+      } else {
+        setError(true);
+      }
+    }
     getAllWinners();
-
-  }, [])
+  }, []);
 
   if (error) {
-    return (
-      <Redirect to={"/error"} />
-    )
+    return <Redirect to={"/error"} />;
   }
 
   return (
     <div css={contentWrapper}>
-
       <h1>DRAWS</h1>
 
       <div css={drawWrap}>
-
-        {winners.length > 0 ?
+        {winners.length > 0 ? (
           winners.map((winner, index) => {
-            return (<DrawCard key={index} winner={winner} />)
-          }) : 
-          <div css={{ padding: "4rem", display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <h1 >NOTHING TO SEE HERE YET!!</h1>
-            <p css={{textAlign:"center"}} >Soon this section will have something for you!</p>
+            return <DrawCard key={index} winner={winner} />;
+          })
+        ) : (
+          <div
+            css={{
+              padding: "4rem",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <h1>NOTHING TO SEE HERE YET!!</h1>
+            <p css={{ textAlign: "center" }}>
+              Soon this section will have something for you!
+            </p>
           </div>
-        }
+        )}
       </div>
     </div>
   );
 }
+
+const breakpoints = [576, 950, 992, 1200];
+const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
+const contentWrapper = mq({
+    margin: "4rem 0rem",
+    h1: {
+      marginLeft: ["0rem", "0rem", "4rem", "4rem"],
+      textAlign: ["center", "center", "left", "left"],
+    },
+  }),
+  drawWrap = {
+    marginTop: "2rem",
+    display: "flex",
+    justifyContent: "space-evenly",
+    flexWrap: "wrap",
+  };
 
 export default Draws;

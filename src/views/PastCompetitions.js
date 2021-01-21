@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 /** @jsx jsx */
 /** @jsxFrag React.Fragment */
 import { jsx } from "@emotion/core";
@@ -9,6 +9,9 @@ import axios from "axios";
 import { URL } from "../config";
 import "../components/domain.css";
 import ImagePicker from "./imagePicker";
+/* eslint-disable no-unused-vars */
+var React = require("react");
+/* eslint-enable no-unused-vars */
 
 const PastCompetitions = (props) => {
   const [pastCompetitions, setPastCompetitions] = useState([

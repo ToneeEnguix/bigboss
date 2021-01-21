@@ -1,9 +1,11 @@
-import React from "react";
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import "./adminheader.css";
 import { Link } from "react-router-dom";
 import power from "../resources/power.svg";
+/* eslint-disable no-unused-vars */
+var React = require("react");
+/* eslint-enable no-unused-vars */
 
 const Sidebar = (props) => {
   return (

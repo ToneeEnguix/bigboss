@@ -1,7 +1,10 @@
-import { React, useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect } from "react";
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import UserContext from "../context/UserContext";
+/* eslint-disable no-unused-vars */
+var React = require("react");
+/* eslint-enable no-unused-vars */
 
 const textWrapper = {
   display: "flex",

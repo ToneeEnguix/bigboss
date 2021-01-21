@@ -1,9 +1,11 @@
-import React from "react";
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 import "./adminheader.css";
 import save from "../resources/save.svg";
 import plus from "../resources/plus.svg";
+/* eslint-disable no-unused-vars */
+var React = require("react");
+/* eslint-enable no-unused-vars */
 
 const AdminHeader = (props) => {
   return (
