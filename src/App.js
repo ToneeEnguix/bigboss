@@ -5,7 +5,7 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
-import { getToken,clearToken } from "./api/token";
+import { getToken, clearToken } from "./api/token";
 import { get } from "./api/fetch";
 import ScrollToTop from "./utils/ScrollToTop";
 import { createBrowserHistory } from "history";
@@ -44,8 +44,6 @@ const breakpoints = [576, 950, 992, 1200];
 const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
 
 class App extends React.Component {
-
-
   constructor(props) {
     super(props);
 
@@ -94,19 +92,14 @@ class App extends React.Component {
           user: { ...this.state.user, cart: cartCopy },
         });
 
-         setTimeout(() => {
+        setTimeout(() => {
           this.setState({ showPurchaseAlert: { status: false } });
-        }, 7000); 
+        }, 7000);
       },
 
       switchCart: (cart) => {
-
-        this.setState({ user: { ...this.state.user, cart: cart } })
-      }
-
-      ,
-
- 
+        this.setState({ user: { ...this.state.user, cart: cart } });
+      },
 
       updateCart: (competition, newAmount) => {
         const onCartIndex = this.state.user.cart.findIndex(
@@ -142,29 +135,22 @@ class App extends React.Component {
     };
   }
 
-
   componentDidMount() {
-
     const token = getToken();
     if (token) {
-
       this.setUserData();
     }
   }
 
   setUserData = async () => {
-
-    const result = await get("/token/verifyToken")
+    const result = await get("/token/verifyToken");
 
     if (result.ok) {
-
       this.setState({ user: result.data.userData });
-    }
-    else{
-
+    } else {
       localStorage.clear();
     }
-  }
+  };
   render() {
     return (
       <UserContext.Provider value={this.state}>
@@ -179,14 +165,18 @@ class App extends React.Component {
                 component={CompetitionDetails}
                 path="/competitions/:id"
               />
-                <PublicRoute
+              <PublicRoute
                 restricted={false}
                 history={customHistory}
                 component={EntryDetails}
                 path="/entries/:id"
               />
               <PublicRoute restricted={false} component={Home} path="/home" />
-              <PublicRoute restricted={false} component={ResetPass} path="/resetpass/:token" />
+              <PublicRoute
+                restricted={false}
+                component={ResetPass}
+                path="/resetpass/:token/:id"
+              />
               <PublicRoute
                 restricted={false}
                 component={Competitions}
@@ -250,9 +240,8 @@ class App extends React.Component {
               </Route>
             </Switch>
           </section>
-        <Footer/>
+          <Footer />
         </Router>
-
       </UserContext.Provider>
     );
   }
