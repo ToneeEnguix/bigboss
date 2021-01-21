@@ -18,7 +18,6 @@ class OrdersController {
 
     try {
       const userOrders = await orders.find({ user: user });
-
       res.status(200).send(userOrders);
     } catch (error) {
       console.error(error);
@@ -99,6 +98,7 @@ class OrdersController {
 
   async getCompetitionOrders(req, res) {
     const competitionId = req.params.competitionId;
+
     try {
       let competitionDetails = await orders
         .find({
@@ -119,7 +119,7 @@ class OrdersController {
             ticketsBought = ticketsBought + boughtProduct.amount;
           }
         });
-
+        
         entriesForCompetition.push({
           userName,
           email,

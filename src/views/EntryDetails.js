@@ -36,6 +36,7 @@ function EntryDetails(props) {
 
   const getData = async () => {
     const result = await get(`/orders/${id}`);
+    console.log(result)
     if (result.ok) {
       setData(result.data);
     } else {
