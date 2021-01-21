@@ -175,7 +175,7 @@ class App extends React.Component {
               <PublicRoute
                 restricted={false}
                 component={ResetPass}
-                path="/resetpass/:token/:id"
+                path="/resetpass/:id/:token"
               />
               <PublicRoute
                 restricted={false}
