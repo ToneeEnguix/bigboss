@@ -6,6 +6,8 @@ import { Redirect, useParams } from "react-router-dom";
 import { get, post } from "../api/fetch";
 import { setToken } from "../api/token";
 import { verifyPass, verifyMatch } from "../utils/verifyFormData";
+import axios from "axios";
+import { URL } from "../config";
 
 function ForgotPass() {
   const params = useParams();
@@ -29,8 +31,8 @@ function ForgotPass() {
   }, []);
 
   const verifyToken = async () => {
-    const result = await get(
-      `/token/verifytokenemail/${params.id}/${params.token}`
+    const result = await axios.get(
+      `${URL}/token/verifytokenemail/${params.id}/${params.token}`
     );
     if (!result.ok) {
       setRedirect(true);
@@ -47,7 +49,7 @@ function ForgotPass() {
     const matchStatus = verifyMatch(newpassword, passMatch);
     setValidPass(passStatus);
     setValidMatch(matchStatus);
-
+    console.log("melon", passMatch, matchStatus);
     if (passStatus.ok && matchStatus.ok) {
       // and this ❗️
       const result = await post(`/users/${params.id}/resetpassword`, {
