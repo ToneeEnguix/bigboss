@@ -15,7 +15,6 @@ function ForgotPass(props) {
     e.preventDefault();
     const email = e.target.email.value;
     const result = await get(`/users/${email}/askpasswordreset`);
-
     if (result.ok) {
       setMessage({
         visibility: "visible",

@@ -1,3 +1,7 @@
+const Email = require("email-templates");
+const nodemailer = require("nodemailer");
+const mailConfig = require("../emailSetup/emailConfig.js");
+
 const users = require("../schemas/users.js");
 const jwt = require("jsonwebtoken");
 const config = require("../token/jwtConfig.js");
@@ -153,7 +157,35 @@ class UserController {
           expiresIn: Math.floor(Date.now() / 1000) + 60 * 60,
         });
         const emailData = { _id: userToSendEmail._id, token: token };
-        resetPasswordEmail(emailData, userEmail);
+        // resetPasswordEmail(emailData, userEmail);
+        const resetLink = `46.101.56.244/resetpass/${emailData._id}/${emailData.token}`;
+        const email = new Email({
+          transport: nodemailer.createTransport({
+            service: "gmail",
+            auth: {
+              user: mailConfig.user,
+              pass: mailConfig.password,
+            },
+          }),
+          send: true,
+          preview: false,
+        });
+        try {
+          email
+            .send({
+              template: "resetPassword",
+              message: {
+                from: "Big Boss Password Reset",
+                to: userEmail,
+              },
+              locals: {
+                link: resetLink,
+              },
+            })
+            .then(() => console.log("Email has been sent!"));
+        } catch (error) {
+          console.error(error);
+        }
         res.status(200).send(emailData);
       } else {
         res.status(404).send();

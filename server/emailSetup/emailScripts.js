@@ -1,7 +1,6 @@
 const nodemailer = require("nodemailer");
 const config = require("./emailConfig.js");
 const Email = require("email-templates");
-const { URL } = "../../src/config.js";
 
 const smtpTrans = nodemailer.createTransport({
   service: "gmail",
@@ -36,38 +35,31 @@ const welcomeEmail = (userEmail) => {
   }
 };
 
-const resetPasswordEmail = () => {
-  console.log("lemon");
+const resetPasswordEmail = (data, userEmail) => {
+  const resetLink = `46.101.56.244/resetpass/${data._id}/${data.token}`;
+  const email = new Email({
+    transport: smtpTrans,
+    send: true,
+    preview: false,
+  });
+  // Attempt to send the email
+  try {
+    email
+      .send({
+        template: "resetPassword",
+        message: {
+          from: "Big Boss Password Reset",
+          to: userEmail,
+        },
+        locals: {
+          link: resetLink,
+        },
+      })
+      .then(() => console.log("Email has been sent!"));
+  } catch (error) {
+    console.error(error);
+  }
 };
-
-// const resetPasswordEmail = (data, userEmail) => {
-//   console.log("lemon");
-//   return false;
-//   const resetLink = `${URL}/resetpass/${data._id}/${data.token}`;
-//   const email = new Email({
-//     transport: smtpTrans,
-//     send: true,
-//     preview: false,
-//   });
-
-//   // Attempt to send the email
-//   try {
-//     email
-//       .send({
-//         template: "resetPassword",
-//         message: {
-//           from: "Big Boss Password Reset",
-//           to: userEmail,
-//         },
-//         locals: {
-//           link: resetLink,
-//         },
-//       })
-//       .then(() => console.log("Email has been sent!"));
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };
 
 module.exports = resetPasswordEmail;
 module.exports = welcomeEmail;
