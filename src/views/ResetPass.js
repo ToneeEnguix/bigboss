@@ -29,8 +29,6 @@ function ForgotPass() {
   }, []);
 
   const verifyToken = async () => {
-    console.log(params);
-    return false;
     const result = await get(`/token/verifytokenemail/${params.id}`);
     if (!result.ok) {
       setRedirect(true);
@@ -39,19 +37,17 @@ function ForgotPass() {
 
   const submit = async (e) => {
     e.preventDefault();
-
     const newpassword = e.target.password.value;
     const passMatch = e.target.passconfirm.value;
-
     newpassword.trim();
     passMatch.trim();
-
     const passStatus = verifyPass(newpassword);
     const matchStatus = verifyMatch(newpassword, passMatch);
     setValidPass(passStatus);
     setValidMatch(matchStatus);
 
     if (passStatus.ok && matchStatus.ok) {
+      // and this ❗️
       const result = await post(`/users/${params.id}/resetpassword`, {
         newpassword,
       });

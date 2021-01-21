@@ -16,6 +16,6 @@ router.get("/:userMail", controller.findByEmail);
 
 router.get ("/:email/askpasswordreset", controller.askPasswordReset);
 
-// router.post("/:_id/resetpassword",protectedEmailReset,controller.passwordReset)
+router.post("/:_id/resetpassword",protectedEmailReset,controller.passwordReset)
 
 module.exports = router;
