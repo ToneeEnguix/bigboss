@@ -158,7 +158,7 @@ class UserController {
         });
         const emailData = { _id: userToSendEmail._id, token: token };
         // resetPasswordEmail(emailData, userEmail);
-        const resetLink = `46.101.56.244/resetpass/${emailData._id}/${emailData.token}`;
+        const resetLink = `https://bigbosscompetitions.com/resetpass/${emailData._id}/${emailData.token}`;
         const email = new Email({
           transport: nodemailer.createTransport({
             service: "gmail",

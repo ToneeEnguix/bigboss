@@ -36,7 +36,7 @@ const welcomeEmail = (userEmail) => {
 };
 
 const resetPasswordEmail = (data, userEmail) => {
-  const resetLink = `46.101.56.244/resetpass/${data._id}/${data.token}`;
+  const resetLink = `https://bigbosscompetitions.com/resetpass/${data._id}/${data.token}`;
   const email = new Email({
     transport: smtpTrans,
     send: true,

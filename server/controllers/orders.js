@@ -75,7 +75,7 @@ class OrdersController {
         const result = await orders.create(order);
         console.log(result);
       }
-      res.redirect("46.101.56.244/bye");
+      res.redirect("https://bigbosscompetitions.com/bye");
     } catch (error) {
       res.status(500).send();
     }
