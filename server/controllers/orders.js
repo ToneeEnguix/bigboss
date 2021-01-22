@@ -52,15 +52,23 @@ class OrdersController {
       config.key
     );
     try {
-      jwt.verify(req.body.cart, config.key, async (err, decoded) => {
-        console.log("1: ", err, decoded);
-        cart = decoded;
-      });
+      jwt.verify(
+        req.body.cart,
+        "56-b5292269cd92d7d9b635a622ddd89402b21aa9845d1dec1cab0a8bc0efcbb4b3",
+        async (err, decoded) => {
+          console.log("1: ", err, decoded);
+          cart = decoded;
+        }
+      );
 
-      jwt.verify(req.body.jwt, config.key, async (err, decoded) => {
-        console.log("2: ", err, decoded);
-        info = decoded;
-      });
+      jwt.verify(
+        req.body.jwt,
+        "56-b5292269cd92d7d9b635a622ddd89402b21aa9845d1dec1cab0a8bc0efcbb4b3",
+        async (err, decoded) => {
+          console.log("2: ", err, decoded);
+          info = decoded;
+        }
+      );
       console.log("Cart: ", cart, "jwt: ", info);
       if (info.payload.response[0].settlestatus === "0") {
         let cleanCart = [];
