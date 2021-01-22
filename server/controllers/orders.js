@@ -43,7 +43,14 @@ class OrdersController {
   async receive(req, res) {
     let info = undefined;
     let cart = undefined;
-    console.log(req.body);
+    console.log(
+      "Cart: ",
+      req.body.cart,
+      "jwt: ",
+      req.body.jwt,
+      "Config key: ",
+      config.key
+    );
     try {
       jwt.verify(req.body.cart, config.key, async (err, decoded) => {
         cart = decoded;
@@ -52,8 +59,6 @@ class OrdersController {
       jwt.verify(req.body.jwt, config.key, async (err, decoded) => {
         info = decoded;
       });
-
-      console.log("Cart: ", cart, "Info: ", info);
 
       if (info.payload.response[0].settlestatus === "0") {
         let cleanCart = [];
