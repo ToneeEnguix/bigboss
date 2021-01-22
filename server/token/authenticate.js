@@ -8,7 +8,7 @@ app.set("key", config.key);
 
 class TokenController {
   async verifyToken(req, res) {
-    const token = req.params.token;
+    const token = req.headers["access-token"];
 
     try {
       if (token) {
@@ -42,18 +42,26 @@ class TokenController {
     try {
       const activeUserid = req.params.id;
       const activeUser = await users.findOne({ _id: activeUserid });
+      console.log(
+        "Active User ID: ",
+        activeUserid,
+        "Active User: ",
+        activeUser
+      );
       if (activeUser) {
         app.set(
           "personalkey",
           activeUser.password + "-" + activeUser.dateCreated
         );
 
-        const token = req.params.token;
+        const token = req.headers["access-token"];
+        console.log("Token: ", stoken);
         if (token) {
           jwt.verify(token, app.get("personalkey"), (err, decoded) => {
             if (err) {
               return res.status(401).json({ mensaje: "Invalid Token" });
             } else {
+              console.log("apple");
               res.status(200).send({ message: "Access Granted" });
             }
           });
