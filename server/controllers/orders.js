@@ -59,7 +59,7 @@ class OrdersController {
       jwt.verify(req.body.jwt, config.key, async (err, decoded) => {
         info = decoded;
       });
-
+      console.log("Cart: ", cart, "jwt: ", info);
       if (info.payload.response[0].settlestatus === "0") {
         let cleanCart = [];
         cart.cart.cart.forEach((cartElement) => {
