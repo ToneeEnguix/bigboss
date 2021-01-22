@@ -55,7 +55,7 @@ class OrdersController {
       jwt.verify(
         req.body.cart,
         config.key,
-        { algorithm: ["HS256"] },
+        { algorithms: ["HS256"] },
         async (err, decoded) => {
           if (err) {
             console.log(err);
@@ -68,7 +68,7 @@ class OrdersController {
       jwt.verify(
         req.body.jwt,
         config.key,
-        { algorithm: ["HS256"] },
+        { algorithms: ["HS256"] },
         async (err, decoded) => {
           if (err) {
             console.log(err);
