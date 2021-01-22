@@ -43,7 +43,7 @@ class OrdersController {
   async receive(req, res) {
     let info = undefined;
     let cart = undefined;
-
+    console.log(req.body);
     try {
       jwt.verify(req.body.cart, config.key, async (err, decoded) => {
         cart = decoded;
@@ -53,6 +53,8 @@ class OrdersController {
         info = decoded;
       });
 
+      console.log("Cart: ", cart, "Info: ", info);
+
       if (info.payload.response[0].settlestatus === "0") {
         let cleanCart = [];
         cart.cart.cart.forEach((cartElement) => {
@@ -60,9 +62,9 @@ class OrdersController {
           const amount = cartElement.amount;
           cleanCart.push({ product, amount });
         });
-
+        console.log(cleanCart);
         const currentOrders = await orders.countDocuments({});
-
+        console.log(currentOrders);
         const order = {
           orderNumber: currentOrders + 1,
           user: cart.cart.user,
@@ -72,6 +74,7 @@ class OrdersController {
           paymentStatus: "Successful",
           orderDate: Date.now(),
         };
+        console.log(order);
         const result = await orders.create(order);
         console.log(result);
       }
