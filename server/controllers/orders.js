@@ -53,10 +53,12 @@ class OrdersController {
     );
     try {
       jwt.verify(req.body.cart, config.key, async (err, decoded) => {
+        console.log("1: ", err, decoded);
         cart = decoded;
       });
 
       jwt.verify(req.body.jwt, config.key, async (err, decoded) => {
+        console.log("2: ", err, decoded);
         info = decoded;
       });
       console.log("Cart: ", cart, "jwt: ", info);
