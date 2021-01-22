@@ -52,23 +52,9 @@ class OrdersController {
       config.key
     );
     try {
-      jwt.verify(
-        req.body.cart,
-        Buffer.from(config.key, "base64"),
-        async (err, decoded) => {
-          console.log("1: ", err, decoded);
-          cart = decoded;
-        }
-      );
+      jwt.verify(req.body.cart, config.key, { algorithm: "HS256" });
 
-      jwt.verify(
-        req.body.jwt,
-        Buffer.from(config.key, "base64"),
-        async (err, decoded) => {
-          console.log("2: ", err, decoded);
-          info = decoded;
-        }
-      );
+      jwt.verify(req.body.jwt, config.key, { algorithm: "HS256" });
       console.log("Cart: ", cart, "jwt: ", info);
       if (info.payload.response[0].settlestatus === "0") {
         let cleanCart = [];
