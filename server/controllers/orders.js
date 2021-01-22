@@ -54,7 +54,7 @@ class OrdersController {
     try {
       jwt.verify(
         req.body.cart,
-        new Buffer(config.key, "base64"),
+        Buffer.from(config.key, "base64"),
         async (err, decoded) => {
           console.log("1: ", err, decoded);
           cart = decoded;
@@ -63,7 +63,7 @@ class OrdersController {
 
       jwt.verify(
         req.body.jwt,
-        new Buffer(config.key, "base64"),
+        Buffer.from(config.key, "base64"),
         async (err, decoded) => {
           console.log("2: ", err, decoded);
           info = decoded;
