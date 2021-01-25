@@ -7,7 +7,6 @@ import { ReactComponent as BigBossLogo } from "../resources/BigBossLogo.svg";
 import { Link } from "react-router-dom";
 
 const breakpoints = [576, 950, 992, 1200];
-
 const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
 
 export default function BurgerNav() {
@@ -21,14 +20,14 @@ export default function BurgerNav() {
         justifyContent: "space-between",
       })}
     >
-      <div css={{ width: "75px" }}>
+      <div css={{ width: "75px", paddingLeft: "1.5rem" }}>
         <span
           onClick={() => setShow("translate3d(0, 0, 0)")}
           css={{ fontSize: "3rem" }}
           className="material-icons"
         >
           menu
-        </span>{" "}
+        </span>
       </div>
 
       <BigBossLogo height={"75px"} />
