@@ -1,33 +1,30 @@
-*{
-
-    background-color:white;
-    font-family: "Montserrat", sans-serif;
-    
+* {
+  background-color: white;
+  font-family: "Montserrat", sans-serif;
+  margin: 0;
 }
 
-form{
-    display:flex;
-    justify-content:center;
-    color:white;
-    align-items: center;
-    flex-direction: column;
+form {
+  display: flex;
+  justify-content: center;
+  color: white;
+  align-items: center;
+  flex-direction: column;
+  padding: 1rem;
 }
 
-form>label{
-
-    color:white;
-    font-family: "Montserrat", sans-serif;
+form > label {
+  color: white;
+  font-family: "Montserrat", sans-serif;
 }
 
 button {
-    background-color: #00ffff;
-    color: rgb(37, 37, 37);
-    border: none;
-    outline: none;
-    padding: 1rem 4rem;
-    font-weight: 600;
-    box-shadow: -1px 4px 22px 0px rgba(0, 0, 0, 16%);
-    cursor: pointer;
-  }
-
-  
+  background-color: #00ffff;
+  color: rgb(37, 37, 37);
+  border: none;
+  outline: none;
+  padding: 1rem 4rem;
+  font-weight: 600;
+  box-shadow: -1px 4px 22px 0px rgba(0, 0, 0, 16%);
+  cursor: pointer;
+}
