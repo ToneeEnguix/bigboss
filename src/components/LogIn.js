@@ -4,22 +4,11 @@ import { ReactComponent as BigBossLogo } from "../resources/BigBossLogo.svg";
 import { jsx } from "@emotion/core";
 import StyledInput from "./StyledInput";
 import { post } from "../api/fetch";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import UserContext from "../context/UserContext";
 
-const createAccountWrapper = {
-  display: "flex",
-  justifyContent: "center",
-  flexDirection: "column",
-  alignItems: "center",
-  padding: "3rem 6rem",
-  margin: "1rem 0.5rem",
-  minWidth: "525px",
-  boxShadow: "0px 2px 4px 0px rgba(0,0,0,16%)",
-  height: "27rem",
-};
-
 function CreateAccountAccess() {
+  const [redirect, setRedirect] = useState(false);
   const [message, setMessage] = useState({
     color: "green",
     visibility: "hidden",
@@ -32,7 +21,6 @@ function CreateAccountAccess() {
     const email = e.target.email.value;
     const password = e.target.password.value;
     const result = await post("/users/signin", { email, password });
-
     if (!result.ok) {
       setMessage({
         color: "red",
@@ -51,8 +39,13 @@ function CreateAccountAccess() {
     } else {
       context.activateUser(result.data.userData);
       localStorage.setItem("@auth_token", result.data.token);
+      setRedirect(true);
     }
   };
+
+  if (redirect) {
+    return <Redirect to="/home" />;
+  }
 
   return (
     <div css={createAccountWrapper}>
@@ -126,5 +119,17 @@ function CreateAccountAccess() {
     </div>
   );
 }
+
+const createAccountWrapper = {
+  display: "flex",
+  justifyContent: "center",
+  flexDirection: "column",
+  alignItems: "center",
+  padding: "3rem 6rem",
+  margin: "1rem 0.5rem",
+  minWidth: "525px",
+  boxShadow: "0px 2px 4px 0px rgba(0,0,0,16%)",
+  height: "27rem",
+};
 
 export default CreateAccountAccess;
