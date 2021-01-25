@@ -1,6 +1,6 @@
 const URL =
   window.location.hostname === `localhost`
-    ? `http://localhost:4001`
+    ? `http://localhost:4002`
     : `https://bigbosscompetitions.com`;
 
 const NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME = "big-boss-competitions";
