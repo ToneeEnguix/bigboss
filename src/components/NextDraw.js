@@ -6,25 +6,18 @@ import CounterSmall from "../utils/CounterSmall";
 import { get } from "../api/fetch";
 import { Redirect, useLocation } from "react-router-dom";
 import facepaint from "facepaint";
-const breakpoints = [576, 950, 992, 1200];
-
-
-const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
-
-const flexContainer = {
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "space-between",
-  width: "100%",
-  backgroundColor: "#222222",
-  height: "3rem",
-  overflow: "hidden",
-};
 
 function NextDraw() {
   const [nextDraw, setNextDraw] = useState(undefined);
   const [error, setError] = useState(false);
   const location = useLocation();
+
+  function openInNewTab(e, url) {
+    e.preventDefault();
+    console.log("apple");
+    var win = window.open(url, "_blank");
+    win.focus();
+  }
 
   useEffect(() => {
     getNextDraw();
@@ -56,8 +49,14 @@ function NextDraw() {
           display: location.pathname.includes("admin") && "none",
         }}
       >
-        <div css={mq({ visibility: "hidden",display:["none","inline","inline","inline"] })}
-        >Hidden</div>
+        <div
+          css={mq({
+            visibility: "hidden",
+            display: ["none", "inline", "inline", "inline"],
+          })}
+        >
+          Hidden
+        </div>
         <div>
           <CounterSmall
             key={nextDraw}
@@ -65,8 +64,18 @@ function NextDraw() {
             date={nextDraw}
           />
         </div>
-        <div css={mq({ marginRight: "1rem", display:["none","inline","inline","inline"]})}>
-          <img src={LiveLogo} css={{ width: "3.5rem" }} />
+        <div
+          css={mq({
+            marginRight: "1rem",
+            display: ["none", "inline", "inline", "inline"],
+          })}
+        >
+          <img
+            src={LiveLogo}
+            css={{ width: "3.5rem" }}
+            onClick={(e) => openInNewTab(e, "http://facebook.com/bigbosscomps")}
+            className="pointer"
+          />
         </div>
       </div>
     );
@@ -78,11 +87,28 @@ function NextDraw() {
           <p>NO NEXT DRAWS AVAILABLE!</p>
         </div>
         <div css={{ marginRight: "1rem" }}>
-          <img src={LiveLogo} css={{ width: "3.5rem" }} />
+          <img
+            src={LiveLogo}
+            css={{ width: "3.5rem" }}
+            onClick={(e) => openInNewTab(e, "http://facebook.com/bigbosscomps")}
+            className="pointer"
+          />
         </div>
       </div>
     );
   }
 }
+
+const breakpoints = [576, 950, 992, 1200];
+const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
+const flexContainer = {
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  width: "100%",
+  backgroundColor: "#222222",
+  height: "3rem",
+  overflow: "hidden",
+};
 
 export default NextDraw;
