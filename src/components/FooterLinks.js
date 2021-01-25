@@ -250,27 +250,32 @@ function FooterLinks() {
           </Link>
         </div>
         <div css={hiddentriangle}></div>
-        <div css={card}>
-          <span
-            css={{ fontSize: "50px !important" }}
-            className="material-icons"
+        <div css={card} className="pointer">
+          <Link
+            css={{ display: "flex", alignItems: "center" }}
+            to="/more/privacy"
           >
-            verified_user
-          </span>
-          <div
-            css={{
-              display: "flex",
-              flexDirection: "column",
-              padding: "0 0.5rem",
-              margin: "1.5rem 0",
-            }}
-          >
-            <p css={{ fontSize: "0.7rem" }}>PRIVACY</p>
-            <p css={descriptions}>
-              We ensure your safety and fun. We encrypt all data keeping your
-              protected.
-            </p>
-          </div>
+            <span
+              css={{ fontSize: "50px !important" }}
+              className="material-icons"
+            >
+              verified_user
+            </span>
+            <div
+              css={{
+                display: "flex",
+                flexDirection: "column",
+                padding: "0 0.5rem",
+                margin: "1.5rem 0",
+              }}
+            >
+              <p css={{ fontSize: "0.7rem" }}>PRIVACY</p>
+              <p css={descriptions}>
+                We ensure your safety and fun. We encrypt all data keeping your
+                protected.
+              </p>
+            </div>
+          </Link>
         </div>
       </div>
     </div>

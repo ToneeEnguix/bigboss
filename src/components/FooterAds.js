@@ -7,28 +7,6 @@ import googlepng from "../resources/googlepng.png";
 import { useLocation } from "react-router-dom";
 import facepaint from "facepaint";
 
-const breakpoints = [838, 950, ];
-
-const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
-
-const footerWrapper = mq({
-  display: ["flex","grid"],
- flexDirection:"column",
- alignItems:"center",
-  margin: "0 5%",
-  gridTemplateColumns: "1fr 1fr 1fr",
-  marginTop: "4rem",
-  borderTop: "2px solid grey",
-
-  h1: {
-    marginBottom: "2rem",
-  },
-
-  ">*": {
-    paddingTop: "2rem",
-  },
-});
-
 function FooterAds() {
   const location = useLocation();
 
@@ -39,21 +17,57 @@ function FooterAds() {
         display: location.pathname.includes("admin") && "none",
       }}
     >
-      <div css={{display:"flex", justifyContent:"flex-start", alignItems:"center"}}>
+      <div
+        css={{
+          display: "flex",
+          justifyContent: "flex-start",
+          alignItems: "center",
+        }}
+      >
         <BigBossLogo height={"100px"} />
       </div>
-      <div css={{display:"flex", justifyContent:"center",alignItems:"center"}}>
+      <div
+        css={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         <img
           css={{ height: "100px", alignSelf: "center" }}
           src={googlepng}
           alt="Google logo"
         />
       </div>
-      <div css={{display:"flex", justifyContent:"flex-end",alignItems:"center"}}>
+      <div
+        css={{
+          display: "flex",
+          justifyContent: "flex-end",
+          alignItems: "center",
+        }}
+      >
         <GambleAware x={"50px"} height={"50px"} />
       </div>
     </div>
   );
 }
+
+const breakpoints = [838, 950];
+const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
+const footerWrapper = mq({
+  display: ["flex", "grid"],
+  flexDirection: "column",
+  alignItems: "center",
+  margin: "0 5% 40px",
+  gridTemplateColumns: "1fr 1fr 1fr",
+  marginTop: "4rem",
+  borderTop: "2px solid grey",
+  h1: {
+    marginBottom: "2rem",
+  },
+  ">*": {
+    paddingTop: "2rem",
+  },
+});
 
 export default FooterAds;
