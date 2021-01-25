@@ -10,6 +10,12 @@ import facepaint from "facepaint";
 function FooterAds() {
   const location = useLocation();
 
+  function openInNewTab(e, url) {
+    e.preventDefault();
+    var win = window.open(url, "_blank");
+    win.focus();
+  }
+
   return (
     <div
       css={footerWrapper}
@@ -45,6 +51,8 @@ function FooterAds() {
           justifyContent: "flex-end",
           alignItems: "center",
         }}
+        onClick={(e) => openInNewTab(e, "https://www.begambleaware.org/")}
+        className="pointer"
       >
         <GambleAware x={"50px"} height={"50px"} />
       </div>
