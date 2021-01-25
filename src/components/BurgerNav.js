@@ -18,6 +18,7 @@ export default function BurgerNav() {
         display: ["flex", "flex", "none", "none"],
         alignItems: "center",
         justifyContent: "space-between",
+        height: "75px",
       })}
     >
       <div css={{ width: "75px", paddingLeft: "1.5rem" }}>
@@ -30,8 +31,8 @@ export default function BurgerNav() {
         </span>
       </div>
 
-      <BigBossLogo height={"75px"} />
-      <div css={{ width: "75px", visibility: "hidden" }}>
+      <BigBossLogo height={"60px"} />
+      <div css={{ width: "60px", visibility: "hidden" }}>
         <span>hidden</span>
       </div>
       <Menu animation={show} setAnimation={setShow} />

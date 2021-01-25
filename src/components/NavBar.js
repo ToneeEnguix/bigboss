@@ -6,107 +6,6 @@ import UserContext from "../context/UserContext";
 import { NavLink, Link, useHistory, useLocation } from "react-router-dom";
 import facepaint from "facepaint";
 
-const breakpoints = [576, 950, 1225, 1400];
-const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
-
-const flexContainer = mq({
-  alignItems: "center",
-  justifyContent: "space-between",
-  width: "100%",
-  display: ["none", "none", "flex", "flex"],
-
-  a: {
-    textDecoration: "none",
-  },
-});
-
-const menu = mq({
-  position: "relative",
-  display: "flex",
-  listStyle: "none",
-  width: "60%",
-  left: ["0", "0", "-4rem", "-7rem"],
-  marginLeft: ["1rem", "1rem", "1rem", "0"],
-  justifyContent: "space-between",
-
-  "a, strong": {
-    fontWeight: "600",
-    fontSize: "0.7rem",
-    letterSpacing: "0.3rem",
-  },
-
-  a: {
-    cursor: "pointer",
-  },
-  strong: {
-    cursor: "context-menu",
-  },
-
-  "& a:after,strong:after": {
-    display: "block",
-    content: '""',
-    position: "relative",
-    top: "1.2rem",
-    borderBottom: "solid 3px #00FFFF",
-    transform: "scaleX(0)",
-    transition: "transform 100ms ease-in-out",
-  },
-
-  "a:hover:after,strong:hover:after": {
-    transform: "scaleX(1)",
-  },
-
-  ".active:after": {
-    display: "block",
-    content: '""',
-    position: "relative",
-    top: "1.2rem",
-    borderBottom: "solid 3px #00FFFF",
-    transform: "scaleX(1)",
-    transition: "transform 100ms ease-in-out",
-  },
-});
-
-const icons = {
-  display: "flex",
-  marginRight: "2rem",
-  cursor: "context-menu",
-
-  div: {
-    cursor: "pointer",
-  },
-  "a,span": {
-    fontWeight: "300",
-    fontSize: "0.7rem",
-    letterSpacing: "0rem",
-  },
-
-  ".icon:after": {
-    display: "block",
-    content: '""',
-    position: "relative",
-    top: "1.1rem",
-    borderBottom: "solid 3px #00FFFF",
-    transform: "scaleX(0)",
-    transition: "transform 100ms ease-in-out",
-    cursor: "context-menu",
-  },
-
-  ".icon:hover:after": {
-    transform: "scaleX(1)",
-  },
-
-  ".active:after": {
-    display: "block",
-    content: '""',
-    position: "relative",
-    top: "1.1rem",
-    borderBottom: "solid 3px #00FFFF",
-    transform: "scaleX(1)",
-    transition: "transform 100ms ease-in-out",
-  },
-};
-
 function NavBar() {
   const [userMenu, setUserMenu] = useState(false);
   const [emptyCart, setEmptyCart] = useState(false);
@@ -156,8 +55,8 @@ function NavBar() {
 
           marginLeft: ["1.0rem", "1.0rem", "2rem", "2rem"],
         })}
-        height={"60px"}
-        width={"60px"}
+        height={"50px"}
+        width={"50px"}
       />
 
       <ul css={menu}>
@@ -297,6 +196,95 @@ function NavBar() {
     </div>
   );
 }
+
+const breakpoints = [576, 950, 1225, 1400];
+const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
+const flexContainer = mq({
+    alignItems: "center",
+    justifyContent: "space-between",
+    width: "100%",
+    display: ["none", "none", "flex", "flex"],
+    a: {
+      textDecoration: "none",
+    },
+    height: "70px",
+  }),
+  menu = mq({
+    position: "relative",
+    display: "flex",
+    listStyle: "none",
+    width: "60%",
+    left: ["0", "0", "-4rem", "-7rem"],
+    marginLeft: ["1rem", "1rem", "1rem", "0"],
+    justifyContent: "space-between",
+    "a, strong": {
+      fontWeight: "600",
+      fontSize: "0.7rem",
+      letterSpacing: "0.3rem",
+    },
+    a: {
+      cursor: "pointer",
+    },
+    strong: {
+      cursor: "context-menu",
+    },
+    "& a:after,strong:after": {
+      display: "block",
+      content: '""',
+      position: "relative",
+      top: "1.2rem",
+      borderBottom: "solid 3px #00FFFF",
+      transform: "scaleX(0)",
+      transition: "transform 100ms ease-in-out",
+    },
+    "a:hover:after,strong:hover:after": {
+      transform: "scaleX(1)",
+    },
+    ".active:after": {
+      display: "block",
+      content: '""',
+      position: "relative",
+      top: "1.2rem",
+      borderBottom: "solid 3px #00FFFF",
+      transform: "scaleX(1)",
+      transition: "transform 100ms ease-in-out",
+    },
+  }),
+  icons = {
+    display: "flex",
+    marginRight: "2rem",
+    cursor: "context-menu",
+    div: {
+      cursor: "pointer",
+    },
+    "a,span": {
+      fontWeight: "300",
+      fontSize: "0.7rem",
+      letterSpacing: "0rem",
+    },
+    ".icon:after": {
+      display: "block",
+      content: '""',
+      position: "relative",
+      top: "1.1rem",
+      borderBottom: "solid 3px #00FFFF",
+      transform: "scaleX(0)",
+      transition: "transform 100ms ease-in-out",
+      cursor: "context-menu",
+    },
+    ".icon:hover:after": {
+      transform: "scaleX(1)",
+    },
+    ".active:after": {
+      display: "block",
+      content: '""',
+      position: "relative",
+      top: "1.1rem",
+      borderBottom: "solid 3px #00FFFF",
+      transform: "scaleX(1)",
+      transition: "transform 100ms ease-in-out",
+    },
+  };
 
 export default NavBar;
 

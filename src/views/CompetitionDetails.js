@@ -123,14 +123,14 @@ function CompetitionDetails(props) {
     <div css={{ display: "flex", flexDirection: "column" }}>
       <div
         css={mq({
-          flexWrap: "wrap",
-          flexDirection: ["column", "column", "row", "row"],
+          flexWrap: "wrap-reverse",
+          flexDirection: ["column-reverse", "column-reverse", "row", "row"],
           display: "flex",
           marginTop: "3rem",
           justifyContent: [
             "center",
             "center",
-            "space-between",
+            "center",
             "space-between",
           ],
         })}
