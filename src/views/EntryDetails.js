@@ -66,7 +66,9 @@ function EntryDetails(props) {
       </div>
       <div css={{ width: "100%", display: "flex", justifyContent: "flex-end" }}>
         <div css={{ marginRight: "4rem" }}>
-          <p>{data.length} Entries</p>
+          <p>
+            {data.length} Entr{data.length === 1 ? "y" : "ies"}
+          </p>
         </div>
       </div>
       {data.length > 0 ? (

@@ -58,7 +58,7 @@ const breakpoints = [576, 950, 1200, 1300];
 const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
 const card = mq({
     display: "flex",
-    margin: ["3rem 1rem", "4rem 0rem", "4rem 1rem", "4rem 1rem"],
+    margin: ["3rem 1rem", "4rem 0rem", "0 1rem 4rem 0", "0 1rem 4rem 0"],
     boxShadow: "0px 2px 4px 0px rgba(0,0,0,16%)",
     flexDirection: "column",
     textTransform: "uppercase",

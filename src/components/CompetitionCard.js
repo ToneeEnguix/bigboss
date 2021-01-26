@@ -62,7 +62,7 @@ const card = mq({
     borderRadius: "4%",
     overflow: "hidden",
     maxWidth: "600px",
-    margin: ["3rem 1rem", "4rem 0rem", "4rem 1rem", "4rem 1rem"],
+    margin: ["3rem 1rem", "4rem 0rem", "0 1rem 4rem 0", "0 1rem 4rem 0"],
   }),
   textWrapper = {
     display: "flex",

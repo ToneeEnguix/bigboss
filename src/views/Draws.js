@@ -10,19 +10,40 @@ var React = require("react");
 /* eslint-enable no-unused-vars */
 
 function Draws() {
-  const [winners, setWinners] = useState([]);
   const [error, setError] = useState(false);
+  const [showDraws, setShowDraws] = useState("all");
+  const [pastComps, setPastComps] = useState([]);
+  const [activeComps, setActiveComps] = useState([]);
+  const [allComps, setAllComps] = useState([
+    {
+      _id: "",
+      dateFinishes: "1-1-1",
+      pictures: [""],
+    },
+  ]);
 
   useEffect(() => {
-    async function getAllWinners() {
-      const winners = await get("/competitions/winners");
-      if (winners.ok) {
-        setWinners(winners.data);
+    async function getAllComps() {
+      const allComps = await get("/competitions/all");
+      if (allComps.ok) {
+        console.log(allComps);
+        setAllComps(allComps.data);
+        let tempActive = [];
+        let tempPast = [];
+        allComps.data.forEach((comp) => {
+          if (comp.dateFinishes > Date.now()) {
+            tempPast.push(comp);
+          } else {
+            tempActive.push(comp);
+          }
+        });
+        setActiveComps(tempActive);
+        setPastComps(tempPast);
       } else {
         setError(true);
       }
     }
-    getAllWinners();
+    getAllComps();
   }, []);
 
   if (error) {
@@ -32,10 +53,37 @@ function Draws() {
   return (
     <div css={contentWrapper}>
       <h1>DRAWS</h1>
-
+      <div css={buttonsCont}>
+        <button
+          className={`pointer ${showDraws === "all" && "selectedEntry"}`}
+          onClick={() => setShowDraws("all")}
+        >
+          All
+        </button>
+        <button
+          className={`pointer ${showDraws === "active" && "selectedEntry"}`}
+          onClick={() => setShowDraws("active")}
+        >
+          Active
+        </button>
+        <button
+          className={`pointer ${showDraws === "past" && "selectedEntry"}`}
+          onClick={() => setShowDraws("past")}
+        >
+          Drawn
+        </button>
+      </div>
       <div css={drawWrap}>
-        {winners.length > 0 ? (
-          winners.map((winner, index) => {
+        {allComps.length > 0 && showDraws === "all" ? (
+          allComps.map((winner, index) => {
+            return <DrawCard key={index} winner={winner} />;
+          })
+        ) : activeComps.length > 0 && showDraws === "active" ? (
+          activeComps.map((winner, index) => {
+            return <DrawCard key={index} winner={winner} />;
+          })
+        ) : pastComps.length > 0 && showDraws === "past" ? (
+          pastComps.map((winner, index) => {
             return <DrawCard key={index} winner={winner} />;
           })
         ) : (
@@ -72,6 +120,21 @@ const contentWrapper = mq({
     display: "flex",
     justifyContent: "space-evenly",
     flexWrap: "wrap",
+  },
+  buttonsCont = {
+    margin: "1rem 0 0 4rem",
+    button: {
+      marginRight: "1rem",
+      padding: "0.4rem 0.6rem",
+      outline: "none",
+      border: "none",
+      borderRadius: "12px",
+      backgroundColor: "#212121",
+      color: "rgba(255, 255, 255, 0.605);",
+    },
+    "button:hover": {
+      backgroundColor: "#1a1a1a",
+    },
   };
 
 export default Draws;

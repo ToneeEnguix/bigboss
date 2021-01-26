@@ -51,19 +51,19 @@ function Entries() {
           className={`pointer ${showEntries === "all" && "selectedEntry"}`}
           onClick={() => setShowEntries("all")}
         >
-          All Entries
+          All
         </button>
         <button
           className={`pointer ${showEntries === "active" && "selectedEntry"}`}
           onClick={() => setShowEntries("active")}
         >
-          Active Entries
+          Active
         </button>
         <button
           className={`pointer ${showEntries === "past" && "selectedEntry"}`}
           onClick={() => setShowEntries("past")}
         >
-          Past Entries
+          Past
         </button>
       </div>
       <div css={drawWrap}>
