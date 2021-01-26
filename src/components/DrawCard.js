@@ -18,7 +18,7 @@ function DrawCard(props) {
   }, [props]);
 
   if (props.winner.winner) {
-    console.log(props.winner)
+    console.log(props.winner);
     return (
       <div css={card}>
         <div css={text}>
@@ -71,7 +71,6 @@ const card = mq({
   text = {
     display: "flex",
     flexDirection: "column",
-    padding: "1rem",
     p: {
       margin: "1rem 0 0 0",
     },
@@ -82,7 +81,7 @@ const card = mq({
   card2 = mq({
     display: "flex",
     minWidth: "450px",
-    padding: "1.5rem",
+    padding: "0 0 0 1rem",
     // minWidth: ["550px", "550px", "600px", "650px"],
     // maxHeight: ["450px", "400px", "550px", "550px"],
     margin: "0 1rem 4rem 0",

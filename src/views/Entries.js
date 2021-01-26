@@ -112,7 +112,7 @@ const contentWrapper = mq({
     },
   }),
   drawWrap = {
-    marginTop: "2rem",
+    marginTop: "1rem",
     display: "flex",
     justifyContent: "space-evenly",
     flexWrap: "wrap",

@@ -313,29 +313,33 @@ function Basket() {
 const Modal = ({ isShowing, hide, amount }) => {
   const [redirect, setRedirect] = useState(false);
   const modal = {
-    position: "fixed",
-    top: "0",
-    left: "0",
-    width: "100%",
-    height: "100%",
-    backgroundColor: "rgb(37 37 37)",
-  };
+      position: "fixed",
+      top: "0",
+      left: "0",
+      width: "100%",
+      height: "100%",
+      backgroundColor: "white !important",
+    },
+    window = {
+      backgroundColor: "white !important",
+      position: "fixed",
+      width: "80%",
+      zIndex: "999999",
+      height: "80vh",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%,-50%)",
+    },
+    title = {
+      color: "black",
+      fontSize: "1.4rem",
+      margin: "1rem auto 2rem",
+      letterSpacing: "0.4rem"
 
-  const window = {
-    backgroundColor: "rgb(37 37 37)",
-    marginTop: "3rem",
-    position: "fixed",
-    width: "80%",
-    zIndex: "999999",
-    height: "80vh",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    padding: "2rem 0 ",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%,-50%)",
-  };
+    };
   const context = useContext(UserContext);
 
   useEffect(() => {
@@ -382,9 +386,10 @@ const Modal = ({ isShowing, hide, amount }) => {
     ? ReactDOM.createPortal(
         <div key={"modal"} css={modal}>
           <div css={window}>
+            <h1 css={title}>MAKE YOUR PAYMENT</h1>
             <iframe
               frameBorder="0"
-              css={{ width: "100%", height: "100%" }}
+              css={{ width: "100%", height: "100%", backgroundColor: "white" }}
               src="./paymentpopup.html"
             />
             <button

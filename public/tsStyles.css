@@ -19,12 +19,15 @@ form > label {
 }
 
 button {
-  background-color: #00ffff;
-  color: rgb(37, 37, 37);
+  background-color: #ed4242;
+  color: white;
   border: none;
   outline: none;
-  padding: 1rem 4rem;
-  font-weight: 600;
+  padding: 0.8rem 4rem;
+  font-weight: 300;
+  font-size: 1rem;
+  width: 290px;
+  border-radius: 100px;
   box-shadow: -1px 4px 22px 0px rgba(0, 0, 0, 16%);
   cursor: pointer;
 }
