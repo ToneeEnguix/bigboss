@@ -17,6 +17,7 @@ const welcomeEmail = (userEmail) => {
     preview: false,
   });
 
+  console.log(email);
   // Attempt to send the email
   try {
     email

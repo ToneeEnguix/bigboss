@@ -80,7 +80,6 @@ class UserController {
       if (activeUser) {
         return res.status(400).json({ message: "Email adress already taken" });
       }
-
       const hashedPassword = await bcrypt.hash(receivedPassword, saltRounds);
       const newUser = await users.create({
         name: receivedName,
@@ -94,7 +93,6 @@ class UserController {
       const token = jwt.sign(payload, app.get("key"), {
         expiresIn: Math.floor(Date.now() / 1000) + 60 * 60,
       });
-
       welcomeEmail(newUser.email);
       res.status(200).json({
         message: "Correct authentication",
