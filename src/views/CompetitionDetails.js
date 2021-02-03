@@ -131,7 +131,7 @@ function CompetitionDetails(props) {
           display: "flex",
           marginTop: "3rem",
           justifyContent: ["center", "center", "center", "space-between"],
-          padding: ["0 0 0 2rem", "0"]
+          padding: ["0 0 0 2rem", "0"],
         })}
       >
         <div css={imageColumn}>
@@ -248,8 +248,13 @@ function CompetitionDetails(props) {
             <strong css={{ fontSize: "0.8rem" }}>{data.maxTickets}</strong>
           </div>
           <img
-            alt="description"
-            css={{ width: "9rem", padding: "2rem", marginBottom: "1rem" }}
+            alt="bigboss"
+            css={{
+              width: "9rem",
+              padding: "2rem",
+              marginBottom: "1rem",
+              height: "9rem",
+            }}
             src={bigbossblue}
           />
         </div>
