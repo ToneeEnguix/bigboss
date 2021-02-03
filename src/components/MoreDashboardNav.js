@@ -1,8 +1,10 @@
-import React from "react";
-/* @jsx jsx */
-import { jsx } from "@emotion/core/";
+/** @jsx jsx */
+import { jsx } from "@emotion/core";
 import { NavLink } from "react-router-dom";
 import facepaint from "facepaint";
+/* eslint-disable no-unused-vars */
+var React = require("react");
+/* eslint-enable no-unused-vars */
 
 const breakpoints = [576, 950, 992, 1200];
 const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
@@ -10,24 +12,20 @@ const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
 const style = {
   display: "flex",
   justifyContent: "space-between",
-
   width: "100%",
   marginTop: "2rem",
   alignItems: "center",
   color: "black",
   paddingBottom: "10rem",
-
   ul: {
     width: "100%",
     display: "flex",
     flexDirection: "column",
     listStyle: "none",
   },
-
   "ul:first-of-type": {
     marginTop: "1rem",
   },
-
   li: {
     padding: "0.5rem 0",
     width: "100%",
@@ -39,7 +37,6 @@ const style = {
     fontSize: "0.8rem",
     letterSpacing: "0.1rem",
   },
-
   ".active": {
     color: "#00C6D6",
   },

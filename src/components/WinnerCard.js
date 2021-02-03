@@ -1,7 +1,9 @@
-import React from "react";
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import facepaint from "facepaint";
+/* eslint-disable no-unused-vars */
+var React = require("react");
+/* eslint-enable no-unused-vars */
 
 function WinnerCard({ winner }) {
   return (

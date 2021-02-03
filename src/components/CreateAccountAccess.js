@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import { ReactComponent as BigBossLogo } from "../resources/BigBossLogo.svg";
 import { Link, useHistory } from "react-router-dom";
+/* eslint-disable no-unused-vars */
+var React = require("react");
+/* eslint-enable no-unused-vars */
 
 function CreateAccountAccess() {
   const history = useHistory();

@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
-import { Redirect, useParams, useLocation } from "react-router-dom";
+import { Redirect, useParams } from "react-router-dom";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import Counter from "../utils/Counter";
@@ -12,6 +12,9 @@ import UserContext from "../context/UserContext";
 import bigbossblue from "../resources/bigbossblue.png";
 import facepaint from "facepaint";
 import OtherCompetitions from "../components/OtherCompetitions";
+/* eslint-disable no-unused-vars */
+var React = require("react");
+/* eslint-enable no-unused-vars */
 
 const breakpoints = [576, 768, 1150, 1200, 1350, 1450, 1560, 1660, 1800];
 
@@ -34,19 +37,18 @@ const imageColumn = mq({
 });
 
 const detailsColumn = mq({
-  padding: ["0 1rem", "0 4rem"],
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  boxShadow: "0px 2px 4px 0px rgba(0,0,0,16%)",
-});
-
-const image = mq({
-  width: "100%",
-  borderRadius: "2%",
-  margin: "2.5rem 0",
-  maxHeight: ["auto", "auto", "450px", "500px", "700px", "800px"],
-});
+    padding: ["0", "0 4rem"],
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    boxShadow: "0px 2px 4px 0px rgba(0,0,0,16%)",
+  }),
+  image = mq({
+    width: "100%",
+    borderRadius: "2%",
+    margin: "2.5rem 0",
+    maxHeight: ["auto", "auto", "450px", "500px", "700px", "800px"],
+  });
 
 function CompetitionDetails(props) {
   const [error, setError] = useState(false);
@@ -68,6 +70,7 @@ function CompetitionDetails(props) {
     } else {
       setData(props.location.state.competition);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getData = async () => {
@@ -127,12 +130,8 @@ function CompetitionDetails(props) {
           flexDirection: ["column-reverse", "column-reverse", "row", "row"],
           display: "flex",
           marginTop: "3rem",
-          justifyContent: [
-            "center",
-            "center",
-            "center",
-            "space-between",
-          ],
+          justifyContent: ["center", "center", "center", "space-between"],
+          padding: ["0 0 0 2rem", "0"]
         })}
       >
         <div css={imageColumn}>
@@ -140,16 +139,29 @@ function CompetitionDetails(props) {
             {data.pictures.map((picture, index) => {
               return (
                 <div key={index} css={{ width: "100%" }}>
-                  <img css={image} key={index} src={picture} />
+                  <img
+                    css={image}
+                    key={index}
+                    src={picture}
+                    alt="description"
+                  />
                 </div>
               );
             })}
           </Carousel>
-          <img css={image} src={data.pictures[data.pictures.length - 1]} />
+          <img
+            alt="description"
+            css={image}
+            src={data.pictures[data.pictures.length - 1]}
+          />
         </div>
         <div css={detailsColumn}>
           <h1
-            css={{ marginTop: "2rem", fontSize: "1.5rem", textAlign: "center" }}
+            css={mq({
+              marginTop: "2rem",
+              fontSize: ["1.2rem", "1.5rem"],
+              textAlign: "center",
+            })}
           >
             {data.title}
           </h1>
@@ -201,15 +213,14 @@ function CompetitionDetails(props) {
             ticketsAvailable={data.maxTickets - data.ticketsSold}
           />
 
-          <div css={mq({ width: ["100%"] })}>
+          <div css={mq({ width: ["100%"], padding: ["0 0 0 2rem", "0"] })}>
             <h4
-              css={{
-                marginTop: "2rem",
+              css={mq({
+                margin: ["2rem 0 1rem"],
                 color: "#00FFFF",
                 fontSize: "0.9rem",
                 letterSpacing: "0.1rem",
-                marginBottom: "1rem",
-              }}
+              })}
             >
               DESCRIPTION
             </h4>
@@ -237,6 +248,7 @@ function CompetitionDetails(props) {
             <strong css={{ fontSize: "0.8rem" }}>{data.maxTickets}</strong>
           </div>
           <img
+            alt="description"
             css={{ width: "9rem", padding: "2rem", marginBottom: "1rem" }}
             src={bigbossblue}
           />

@@ -5,7 +5,7 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
-import { getToken, clearToken } from "./api/token";
+import { getToken } from "./api/token";
 import { get } from "./api/fetch";
 import ScrollToTop from "./utils/ScrollToTop";
 import { createBrowserHistory } from "history";
@@ -34,14 +34,14 @@ import AdminLogin from "./views/AdminLogin";
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import "./App.css";
-import facepaint from "facepaint";
+// import facepaint from "facepaint";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
 const customHistory = createBrowserHistory();
-const breakpoints = [576, 950, 992, 1200];
+// const breakpoints = [576, 950, 992, 1200];
 
-const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
+// const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
 
 class App extends React.Component {
   constructor(props) {

@@ -18,7 +18,6 @@ function DrawCard(props) {
   }, [props]);
 
   if (props.winner.winner) {
-    console.log(props.winner);
     return (
       <div css={card}>
         <div css={text}>
@@ -48,7 +47,7 @@ function DrawCard(props) {
               {dateFormat[1]} {dateFormat[2]} {dateFormat[0]}
             </p>
           </div>
-          <img src={props.winner.pictures[0]} />
+          <img alt="description" src={props.winner.pictures[0]} />
         </div>
       </Link>
     );
@@ -80,7 +79,7 @@ const card = mq({
   },
   card2 = mq({
     display: "flex",
-    minWidth: "450px",
+    width: "450px",
     padding: "0 0 0 1rem",
     // minWidth: ["550px", "550px", "600px", "650px"],
     // maxHeight: ["450px", "400px", "550px", "550px"],
@@ -103,7 +102,7 @@ const card = mq({
     flexDirection: "column",
     padding: "1rem",
     p: {
-      margin: "1rem 2rem 0 0",
+      margin: "1rem 0.5rem 0 0",
     },
     div: {
       display: "flex",

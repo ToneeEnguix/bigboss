@@ -26,7 +26,6 @@ function Draws() {
     async function getAllComps() {
       const allComps = await get("/competitions/all");
       if (allComps.ok) {
-        console.log(allComps);
         setAllComps(allComps.data);
         let tempActive = [];
         let tempPast = [];

@@ -1,6 +1,5 @@
-import React from "react";
-/* @jsx jsx */
-import { jsx } from "@emotion/core/";
+/** @jsx jsx */
+import { jsx } from "@emotion/core";
 import MoreDashboardNav from "../components/MoreDashboardNav";
 import { Route } from "react-router-dom";
 import About from "../components/About";
@@ -9,6 +8,9 @@ import Privacy from "../components/Privacy";
 import Terms from "../components/Terms";
 import Careers from "../components/Careers";
 import facepaint from "facepaint";
+/* eslint-disable no-unused-vars */
+var React = require("react");
+/* eslint-enable no-unused-vars */
 
 const breakpoints = [576, 950, 992, 1200];
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback } from "react";
 import {
   NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
   NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET,
@@ -7,6 +7,9 @@ import {
 import { jsx } from "@emotion/core";
 import { useDropzone } from "react-dropzone";
 import insert from "../resources/insert.svg";
+/* eslint-disable no-unused-vars */
+var React = require("react");
+/* eslint-enable no-unused-vars */
 
 const ImagePicker = (props) => {
   const [uploadedFile, setUploadedFile] = useState("");

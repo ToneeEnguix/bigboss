@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { jsx } from "@emotion/core";
 import StyledInput from "../components/StyledInput";
 import { Redirect, useParams } from "react-router-dom";
-import { get, post } from "../api/fetch";
+import { post } from "../api/fetch";
 import { setToken } from "../api/token";
 import { verifyPass, verifyMatch } from "../utils/verifyFormData";
 import axios from "axios";
@@ -28,6 +28,7 @@ function ForgotPass() {
   useEffect(() => {
     setToken(params.token);
     verifyToken();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const verifyToken = async () => {

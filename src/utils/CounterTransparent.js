@@ -1,7 +1,10 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import PropTypes from "prop-types";
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
+/* eslint-disable no-unused-vars */
+var React = require("react");
+/* eslint-enable no-unused-vars */
 
 /**
  * Note :
@@ -11,30 +14,28 @@ import { jsx } from "@emotion/core";
  */
 
 const number = {
-  margin: "0.5rem",
-  backgroundColor: "rgb(37,37,37)",
-  boxShadow: "-1px 4px 22px 0px rgba(0,0,0,16%)",
-  width: "55px",
-  height: "55px",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  fontSize: "1.2rem",
-};
-
-const description = {
-  fontSize: "0.4rem",
-  fontWeight: "500",
-  color: "white",
-  letterSpacing: "0.1rem",
-};
-
-const countBox = {
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  backgroundColor: "transparent",
-};
+    margin: "0.5rem",
+    backgroundColor: "rgb(37,37,37)",
+    boxShadow: "-1px 4px 22px 0px rgba(0,0,0,16%)",
+    width: "55px",
+    height: "55px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: "1.2rem",
+  },
+  description = {
+    fontSize: "0.4rem",
+    fontWeight: "500",
+    color: "white",
+    letterSpacing: "0.1rem",
+  },
+  countBox = {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    backgroundColor: "transparent",
+  };
 
 class Countdown extends Component {
   constructor(props) {

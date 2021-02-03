@@ -1,10 +1,12 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import { Component } from "react";
+// import PropTypes from "prop-types";
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import facepaint from "facepaint";
 const breakpoints = [576, 950, 992, 1200];
-
+/* eslint-disable no-unused-vars */
+var React = require("react");
+/* eslint-enable no-unused-vars */
 
 const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
 
@@ -102,11 +104,11 @@ class Countdown extends Component {
     const countDown = this.state;
 
     return (
-      <div css={{ display: "flex", justifyContent: "center",width:"100%" }}>
+      <div css={{ display: "flex", justifyContent: "center", width: "100%" }}>
         <h5
           css={mq({
-            width:["90%","100%","100%","100%"],
-            textAlign:["center","left","left","left"],
+            width: ["90%", "100%", "100%", "100%"],
+            textAlign: ["center", "left", "left", "left"],
             letterSpacing: "0.2rem",
             fontWeight: "600",
             fontSize: "0.5rem",

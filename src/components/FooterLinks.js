@@ -1,10 +1,12 @@
-import React from "react";
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import { useLocation } from "react-router-dom";
 import facepaint from "facepaint";
 import { Link } from "react-router-dom";
 import fb from "../resources/fb.svg";
+/* eslint-disable no-unused-vars */
+var React = require("react");
+/* eslint-enable no-unused-vars */
 
 function FooterLinks() {
   const location = useLocation();
@@ -118,6 +120,7 @@ function FooterLinks() {
         >
           <img
             src={fb}
+            alt="facebook"
             css={{
               height: "50px",
               width: "50px",

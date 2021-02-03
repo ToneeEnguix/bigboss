@@ -1,10 +1,13 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
-import React, { useState, useContext } from "react";
+import { useState, useContext } from "react";
 import { ReactComponent as BigBossLogo } from "../resources/BigBossLogo.svg";
 import UserContext from "../context/UserContext";
 import { NavLink, Link, useHistory, useLocation } from "react-router-dom";
 import facepaint from "facepaint";
+/* eslint-disable no-unused-vars */
+var React = require("react");
+/* eslint-enable no-unused-vars */
 
 function NavBar() {
   const [userMenu, setUserMenu] = useState(false);
@@ -427,6 +430,7 @@ const ShowPurchaseAlert = (props) => {
                 <img
                   css={{ maxWidth: "100%" }}
                   src={props.active.competition.pictures[0]}
+                  alt="description"
                 />
               </div>
               <div

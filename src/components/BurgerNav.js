@@ -1,10 +1,13 @@
-import React, { useState, useContext } from "react";
+import { useState, useContext } from "react";
 import UserContext from "../context/UserContext";
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import facepaint from "facepaint";
 import { ReactComponent as BigBossLogo } from "../resources/BigBossLogo.svg";
 import { Link } from "react-router-dom";
+/* eslint-disable no-unused-vars */
+var React = require("react");
+/* eslint-enable no-unused-vars */
 
 const breakpoints = [576, 950, 992, 1200];
 const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import { useState, useContext } from "react";
 import { ReactComponent as BigBossLogo } from "../resources/BigBossLogo.svg";
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
@@ -6,6 +6,9 @@ import StyledInput from "./StyledInput";
 import { post } from "../api/fetch";
 import { Link, Redirect } from "react-router-dom";
 import UserContext from "../context/UserContext";
+/* eslint-disable no-unused-vars */
+var React = require("react");
+/* eslint-enable no-unused-vars */
 
 function CreateAccountAccess() {
   const [redirect, setRedirect] = useState(false);

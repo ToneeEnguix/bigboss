@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import LiveLogo from "../resources/facebook.png";
 import CounterSmall from "../utils/CounterSmall";
 import { get } from "../api/fetch";
@@ -14,7 +14,6 @@ function NextDraw() {
 
   function openInNewTab(e, url) {
     e.preventDefault();
-    console.log("apple");
     var win = window.open(url, "_blank");
     win.focus();
   }
@@ -75,6 +74,7 @@ function NextDraw() {
             css={{ width: "3.5rem" }}
             onClick={(e) => openInNewTab(e, "http://facebook.com/bigbosscomps")}
             className="pointer"
+            alt="facebook"
           />
         </div>
       </div>
@@ -92,6 +92,7 @@ function NextDraw() {
             css={{ width: "3.5rem" }}
             onClick={(e) => openInNewTab(e, "http://facebook.com/bigbosscomps")}
             className="pointer"
+            alt="facebook"
           />
         </div>
       </div>

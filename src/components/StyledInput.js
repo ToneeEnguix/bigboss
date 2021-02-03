@@ -1,14 +1,12 @@
-import React from "react";
 /* @jsx jsx */
 import { jsx } from "@emotion/core/";
-import facepaint from 'facepaint';
+import facepaint from "facepaint";
+/* eslint-disable no-unused-vars */
+var React = require("react");
+/* eslint-enable no-unused-vars */
 
-
-const breakpoints = [576, 950, 992, 1200]
-
-const mq = facepaint(
-  breakpoints.map(bp => `@media (min-width: ${bp}px)`));
-
+const breakpoints = [576, 950, 992, 1200];
+const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
 
 const eyeposition = {
   position: "relative",
@@ -18,11 +16,11 @@ const eyeposition = {
   zIndex: "2",
   width: "fit-content",
 };
+
 export default class StyledInput extends React.Component {
   constructor(props) {
     super(props);
     this.state = { value: "", type: this.props.type };
-
     this.handleChange = this.handleChange.bind(this);
     this.showPass = this.showPass.bind(this);
     this.hidePass = this.hidePass.bind(this);
@@ -41,16 +39,13 @@ export default class StyledInput extends React.Component {
   }
 
   render() {
-
-   
     return (
       <div
         css={mq({
           display: "flex",
           flexDirection: "column",
-          width: ["100%","100%",this.props.width,this.props.width],
-          minWidth:"150px",
-
+          width: ["100%", "100%", this.props.width, this.props.width],
+          minWidth: "150px",
           label: {
             display: "block",
             position: "relative",
@@ -64,18 +59,15 @@ export default class StyledInput extends React.Component {
             transition: "all 0.3s ease-out",
             outline: "none",
           },
-
           "input:-webkit-autofill,input:-webkit-autofill:hover,input:-webkit-autofill:focus,input:-webkit-autofill:active": {
             boxShadow: "0 0 0 30px #252525 inset !important;",
             WebkitTextFillColor: "white !important",
           },
-
           "label span": {
             fontWeight: "600",
             padding: "0 3px",
             width: "100%",
           },
-
           input: {
             width: "100%",
             display: "block",
@@ -87,15 +79,12 @@ export default class StyledInput extends React.Component {
             zIndex: "2",
             margin: "0.25rem 0",
           },
-
           "input:focus, input:valid,": {
             outline: "none",
           },
-
           "input:disabled": {
             backgroundColor: "grey",
           },
-
           "input:focus + label,input:valid + label": {
             top: "-3.9rem",
             left: "0.7rem",

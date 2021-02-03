@@ -1,10 +1,12 @@
-import React, { useContext } from "react";
-import { Route, Redirect } from "react-router-dom";
-import { isAdminLogin } from "../utils/login";
-import UserContext from "../context/UserContext";
+import { Route } from "react-router-dom";
+// import { isAdminLogin } from "../utils/login";
+// import UserContext from "../context/UserContext";
+/* eslint-disable no-unused-vars */
+var React = require("react");
+/* eslint-enable no-unused-vars */
 
 const AdminRoute = ({ component: Component, ...rest }) => {
-  const context = useContext(UserContext);
+  // const context = useContext(UserContext);
 
   return (
     <Route
@@ -13,7 +15,8 @@ const AdminRoute = ({ component: Component, ...rest }) => {
         // isAdminLogin(context.admin) ?
         <Component {...props} />
         // :   <Redirect to="/home"/>
-       /*:   <Redirect to="/home"/>*/)}
+        /*:   <Redirect to="/home"/>*/
+      )}
     />
   );
 };

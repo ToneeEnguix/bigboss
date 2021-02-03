@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import { get } from "../api/fetch";
 import { Redirect } from "react-router-dom";
-
 import facepaint from 'facepaint';
-
+/* eslint-disable no-unused-vars */
+var React = require("react");
+/* eslint-enable no-unused-vars */
 
 const breakpoints = [576, 950, 992, 1200]
 

@@ -89,7 +89,6 @@ const logo = {
 };
 function Basket() {
   const context = useContext(UserContext);
-  const [redirect, setRedirect] = useState(false);
   const [couponValue, setCouponValue] = useState("");
   const [discountAmount, setDiscountAmount] = useState(0);
   const [partialAmount, setPartialAmount] = useState(0);
@@ -290,7 +289,7 @@ function Basket() {
                   flexDirection: "column",
                 }}
               >
-                <img src={bigbossblue} />
+                <img alt="bigboss" src={bigbossblue} />
                 <p css={{ marginTop: "2rem", fontSize: "0.7rem" }}>
                   ALL RIGHTS RESERVED. 2020
                 </p>
@@ -337,8 +336,7 @@ const Modal = ({ isShowing, hide, amount }) => {
       color: "black",
       fontSize: "1.4rem",
       margin: "1rem auto 2rem",
-      letterSpacing: "0.4rem"
-
+      letterSpacing: "0.4rem",
     };
   const context = useContext(UserContext);
 
@@ -359,15 +357,15 @@ const Modal = ({ isShowing, hide, amount }) => {
 
     const token = jwt.sign(payload, config.key, {
       algorithm: "HS256",
-      header: { typ: "HS256", typ: "JWT" },
+      // header: { typ: "HS256", typ: "JWT" },
+      header: { typ: "HS256" },
     });
-
     sessionStorage.setItem("tp", token);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [amount]);
 
   const closeModal = () => {
     const bye = sessionStorage.getItem("bye");
-
     if (bye === "true") {
       sessionStorage.removeItem("cart");
       sessionStorage.removeItem("bye");
@@ -388,6 +386,7 @@ const Modal = ({ isShowing, hide, amount }) => {
           <div css={window}>
             <h1 css={title}>MAKE YOUR PAYMENT</h1>
             <iframe
+              title="payment popup"
               frameBorder="0"
               css={{ width: "100%", height: "100%", backgroundColor: "white" }}
               src="./paymentpopup.html"

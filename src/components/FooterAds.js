@@ -1,4 +1,3 @@
-import React from "react";
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import { ReactComponent as BigBossLogo } from "../resources/BigBossLogo.svg";
@@ -6,6 +5,9 @@ import { ReactComponent as GambleAware } from "../resources/GambleAware.svg";
 import googlepng from "../resources/googlepng.png";
 import { useLocation } from "react-router-dom";
 import facepaint from "facepaint";
+/* eslint-disable no-unused-vars */
+var React = require("react");
+/* eslint-enable no-unused-vars */
 
 function FooterAds() {
   const location = useLocation();
