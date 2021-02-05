@@ -87,7 +87,7 @@ class OrdersController {
         })
       );
       purchaseEmail(cart.cart.userEmail, purchases);
-      res.redirect("http://localhost:3001/bye");
+      res.redirect("https://bigbosscompetitions.com/bye");
     } catch (error) {
       res.status(500).send();
     }
