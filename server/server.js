@@ -9,9 +9,9 @@ app.use(bodyParser.json());
 
 async function connecting() {
   try {
-    // await mongoose.connect("mongodb+srv://Christopher29:Bauervapor8@cluster0.nruby.gcp.mongodb.net/<dbname>?retryWrites=true&w=majority",
-    await mongoose.connect(
-      "mongodb+srv://webdevtoni:devnoob182@hyperconnect.iclbz.gcp.mongodb.net/bigboss?retryWrites=true&w=majority",
+    await mongoose.connect("mongodb+srv://Christopher29:Bauervapor8@cluster0.nruby.gcp.mongodb.net/<dbname>?retryWrites=true&w=majority",
+    // await mongoose.connect(
+    //   "mongodb+srv://webdevtoni:devnoob182@hyperconnect.iclbz.gcp.mongodb.net/bigboss?retryWrites=true&w=majority",
       { useUnifiedTopology: true, useNewUrlParser: true }
     );
     console.log("Connected to the DB");
