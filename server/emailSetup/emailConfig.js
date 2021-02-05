@@ -1,4 +1,4 @@
 module.exports = {
-  user: "nebulaautomaticemails@gmail.com",
-  password: "nebula2020bcn",
+  user: "bigbossautoresponse@gmail.com",
+  password: "Bauervapor8",
 };

@@ -9,8 +9,8 @@ const express = require("express");
 const app = express();
 const bcrypt = require("bcryptjs");
 const saltRounds = 10;
-const resetPasswordEmail = require("../emailSetup/emailScripts.js");
-const welcomeEmail = require("../emailSetup/emailScripts.js");
+const resetPasswordEmail = require("../emailSetup/resetPasswordEmail.js");
+const welcomeEmail = require("../emailSetup/welcomeEmail.js");
 
 app.set("key", config.key);
 
@@ -23,7 +23,7 @@ class UserController {
     userToSave._id = _id;
 
     try {
-      let user = await users.findOneAndUpdate({ _id: _id }, userToSave);
+      await users.findOneAndUpdate({ _id: _id }, userToSave);
       res.status(200).send({ userData: userToSave });
     } catch (error) {
       res.status(500).send(error);
@@ -73,7 +73,6 @@ class UserController {
     const receivedPassword = userToSave.password;
     const receivedEmail = userToSave.email;
     const receivedName = userToSave.name;
-
     try {
       const activeUser = await users.findOne({ email: receivedEmail });
 
@@ -93,6 +92,7 @@ class UserController {
       const token = jwt.sign(payload, app.get("key"), {
         expiresIn: Math.floor(Date.now() / 1000) + 60 * 60,
       });
+      console.log(newUser.email);
       welcomeEmail(newUser.email);
       res.status(200).json({
         message: "Correct authentication",

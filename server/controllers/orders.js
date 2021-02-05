@@ -3,7 +3,7 @@ const users = require("../schemas/users");
 const competitions = require("../schemas/competitions");
 const jwt = require("jsonwebtoken");
 const config = require("../token/trustPaymentsConfig.js");
-const purchaseEmail = require("../emailSetup/emailScripts.js");
+const purchaseEmail = require("../emailSetup/purchaseEmail.js");
 
 class OrdersController {
   async create(req, res) {
@@ -58,7 +58,6 @@ class OrdersController {
           throw err;
         }
       });
-      console.log("cart1: ", cart);
       if (info.payload.response[0].settlestatus === "0") {
         let cleanCart = [];
         cart.cart.cart.forEach((cartElement) => {
@@ -78,7 +77,6 @@ class OrdersController {
         };
         await orders.create(order);
       }
-      console.log("cart2: ", cart);
       // .find({_id: cart[0]})
       let purchases = [];
       cart.cart.cart.map((item) =>
@@ -89,7 +87,7 @@ class OrdersController {
         })
       );
       purchaseEmail(cart.cart.userEmail, purchases);
-      res.redirect("https://bigbosscompetitions.com/bye");
+      res.redirect("http://localhost:3001/bye");
     } catch (error) {
       res.status(500).send();
     }

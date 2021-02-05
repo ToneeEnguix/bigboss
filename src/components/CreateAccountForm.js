@@ -111,7 +111,7 @@ function CreateAccountForm() {
   }
   return (
     <div css={createAccountWrapper}>
-      <BigBossLogo b height={"50px"} width={"50px"} />
+      <BigBossLogo height={"50px"} width={"50px"} />
       <h3 css={{ margin: "1rem 0" }}>CREATE ACCOUNT</h3>
       <form onSubmit={submit} css={{ width: "85%" }}>
         <div
