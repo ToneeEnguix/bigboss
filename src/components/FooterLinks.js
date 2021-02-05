@@ -13,7 +13,6 @@ function FooterLinks() {
 
   function openInNewTab(e, url) {
     e.preventDefault();
-    console.log("apple");
     var win = window.open(url, "_blank");
     win.focus();
   }

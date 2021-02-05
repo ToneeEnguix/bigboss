@@ -16,9 +16,6 @@ const welcomeEmail = (userEmail) => {
     send: true,
     preview: false,
   });
-
-  console.log(email);
-  // Attempt to send the email
   try {
     email
       .send({
@@ -28,6 +25,34 @@ const welcomeEmail = (userEmail) => {
           to: userEmail,
           text:
             "This Email is here to Confirm your account has been sucessfully created at Big Boss Competitions.",
+        },
+      })
+      .then(() => console.log("Email has been sent!"));
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const purchaseEmail = (userEmail, purchases) => {
+  const email = new Email({
+    transport: smtpTrans,
+    send: true,
+    preview: false,
+  });
+  let insertText = purchases.map(
+    (purchase) =>
+      `- Purchased ${purchase.amount} ${purchase.title} for ${purchase.price} `
+  );
+  try {
+    email
+      .send({
+        message: {
+          from: "donotreply@dont.com",
+          subject: "Big Boss Purchase Confirmation",
+          to: userEmail,
+          text: `This Email is here to confirm the following purchase in Big Boss Competitions:
+            ${insertText}
+            `,
         },
       })
       .then(() => console.log("Email has been sent!"));
@@ -64,3 +89,4 @@ const resetPasswordEmail = (data, userEmail) => {
 
 module.exports = resetPasswordEmail;
 module.exports = welcomeEmail;
+module.exports = purchaseEmail;

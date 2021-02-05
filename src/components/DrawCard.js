@@ -19,22 +19,42 @@ function DrawCard(props) {
 
   if (props.winner.winner) {
     return (
-      <div css={card}>
+      // <div css={card}>
+      //   <h3 css={title}>{props.winner.title}</h3>
+      //   <div css={text}>
+      //     <p css={{ color: "#00FFFF" }}>DRAWN ON</p>
+      //     <p>
+      //       {dateFormat[1]} {dateFormat[2]} {dateFormat[0]}
+      //     </p>
+      //   </div>
+      //   <div css={video}>
+      //     <ReactPlayer
+      //       width="auto"
+      //       height="auto"
+      //       url={props.winner.facebookURL}
+      //       controls
+      //     />
+      //   </div>
+      // </div>
+      <Link css={card} to={`/competitions/${props.winner._id}`}>
         <div css={text}>
-          <p css={{ color: "#00FFFF" }}>DRAWN ON</p>
-          <p>
-            {dateFormat[1]} {dateFormat[2]} {dateFormat[0]}
-          </p>
+          <h3 css={title}>{props.winner.title}</h3>
+          <div>
+            <p css={{ color: "#00FFFF" }}>DRAWN ON</p>
+            <p>
+              {dateFormat[1]} {dateFormat[2]} {dateFormat[0]}
+            </p>
+          </div>
+          <div css={video}>
+            <ReactPlayer
+              width="auto"
+              height="auto"
+              url={props.winner.facebookURL}
+              controls
+            />
+          </div>
         </div>
-        <div css={video}>
-          <ReactPlayer
-            width="auto"
-            height="auto"
-            url={props.winner.facebookURL}
-            controls
-          />
-        </div>
-      </div>
+      </Link>
     );
   } else {
     return (
@@ -58,37 +78,41 @@ const breakpoints = [576, 950, 1200, 1300];
 const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
 const card = mq({
     display: "flex",
-    minWidth: ["550px", "550px", "600px", "650px"],
-    maxHeight: ["450px", "400px", "550px", "550px"],
-    margin: "4rem 0",
+    width: ["450px", "450px", "fit-content", "fit-content"],
+    padding: "1.5rem",
+    height: "446px",
     boxShadow: "0px 2px 4px 0px rgba(0,0,0,16%)",
     flexDirection: "column",
     textTransform: "uppercase",
     borderRadius: "4%",
     overflow: "hidden",
+    margin: "0 auto 2rem",
   }),
   text = {
     display: "flex",
     flexDirection: "column",
     p: {
-      margin: "1rem 0 0 0",
+      margin: "1rem 0.5rem 0 0",
+    },
+    div: {
+      display: "flex",
     },
   },
   video = {
-    padding: "0 2rem",
+    margin: "2rem 0 0",
   },
   card2 = mq({
     display: "flex",
     width: "450px",
-    padding: "0 0 0 1rem",
-    // minWidth: ["550px", "550px", "600px", "650px"],
-    // maxHeight: ["450px", "400px", "550px", "550px"],
+    padding: "1.5rem",
+    height: "446px",
     margin: "0 1rem 4rem 0",
     boxShadow: "0px 2px 4px 0px rgba(0,0,0,16%)",
     flexDirection: "column",
     textTransform: "uppercase",
     borderRadius: "4%",
     overflow: "hidden",
+    boxSizing: "border-box",
     img: {
       margin: "2rem 0 0",
       maxHeight: "300px",
@@ -100,7 +124,6 @@ const card = mq({
   text2 = {
     display: "flex",
     flexDirection: "column",
-    padding: "1rem",
     p: {
       margin: "1rem 0.5rem 0 0",
     },

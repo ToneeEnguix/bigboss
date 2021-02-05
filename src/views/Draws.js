@@ -30,7 +30,7 @@ function Draws() {
         let tempActive = [];
         let tempPast = [];
         allComps.data.forEach((comp) => {
-          if (comp.dateFinishes > Date.now()) {
+          if (new Date(comp.dateFinishes).getTime() < Date.now()) {
             tempPast.push(comp);
           } else {
             tempActive.push(comp);
@@ -110,8 +110,8 @@ const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
 const contentWrapper = mq({
     margin: "4rem 0rem",
     h1: {
-      marginLeft: ["0rem", "0rem", "4rem", "4rem"],
-      textAlign: ["center", "center", "left", "left"],
+      marginLeft: "4rem",
+      textAlign: "left",
     },
   }),
   drawWrap = {

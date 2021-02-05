@@ -24,7 +24,7 @@ function Entries() {
         let tempActive = [];
         let tempPast = [];
         entries.data.forEach((entry) => {
-          if (entry.dateFinishes > Date.now()) {
+          if (new Date(entry.dateFinishes).getTime() < Date.now()) {
             tempPast.push(entry);
           } else {
             tempActive.push(entry);
@@ -105,10 +105,9 @@ const mq = facepaint(breakpoints.map((bp) => `@media (min-width: ${bp}px)`));
 
 const contentWrapper = mq({
     margin: "4rem 0rem",
-
     h1: {
-      marginLeft: ["0rem", "0rem", "4rem", "4rem"],
-      textAlign: ["center", "center", "left", "left"],
+      marginLeft: "4rem",
+      textAlign: "left",
     },
   }),
   drawWrap = {

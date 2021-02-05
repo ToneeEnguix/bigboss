@@ -1,4 +1,3 @@
 module.exports = {
-
-    key: "BigBossCompetitionJWTtokenis2020"
-}
+  key: "BigBossCompetitionJWTtokenis2020",
+};

@@ -341,7 +341,11 @@ const Modal = ({ isShowing, hide, amount }) => {
   const context = useContext(UserContext);
 
   useEffect(() => {
-    const cart = { cart: context.user.cart, user: context.user._id };
+    const cart = {
+      cart: context.user.cart,
+      user: context.user._id,
+      userEmail: context.user.email,
+    };
     const carttoken = jwt.sign({ cart }, config.key);
     sessionStorage.setItem("cart", carttoken);
     const payload = {
@@ -357,7 +361,6 @@ const Modal = ({ isShowing, hide, amount }) => {
 
     const token = jwt.sign(payload, config.key, {
       algorithm: "HS256",
-      // header: { typ: "HS256", typ: "JWT" },
       header: { typ: "HS256" },
     });
     sessionStorage.setItem("tp", token);

@@ -3,6 +3,7 @@ const users = require("../schemas/users");
 const competitions = require("../schemas/competitions");
 const jwt = require("jsonwebtoken");
 const config = require("../token/trustPaymentsConfig.js");
+const purchaseEmail = require("../emailSetup/emailScripts.js");
 
 class OrdersController {
   async create(req, res) {
@@ -43,31 +44,21 @@ class OrdersController {
   async receive(req, res) {
     let info = undefined;
     let cart = undefined;
-    console.log(
-      "Cart: ",
-      req.body.cart,
-      "jwt: ",
-      req.body.jwt,
-      "Config key: ",
-      config.key
-    );
     try {
-      jwt.verify(
-        req.body.cart,
-        "56-b5292269cd92d7d9b635a622ddd89402b21aa9845d1dec1cab0a8bc0efcbb4b3",
-        async (err, decoded) => {
-          cart = decoded;
+      jwt.verify(req.body.cart, config.key2, async (err, decoded) => {
+        cart = decoded;
+        if (err) {
+          throw err;
         }
-      );
+      });
 
-      jwt.verify(
-        req.body.jwt,
-        "56-b5292269cd92d7d9b635a622ddd89402b21aa9845d1dec1cab0a8bc0efcbb4b3",
-        async (err, decoded) => {
-          info = decoded;
+      jwt.verify(req.body.jwt, config.key2, async (err, decoded) => {
+        info = decoded;
+        if (err) {
+          throw err;
         }
-      );
-      console.log("Cart: ", cart, "jwt: ", info);
+      });
+      console.log("cart1: ", cart);
       if (info.payload.response[0].settlestatus === "0") {
         let cleanCart = [];
         cart.cart.cart.forEach((cartElement) => {
@@ -75,9 +66,7 @@ class OrdersController {
           const amount = cartElement.amount;
           cleanCart.push({ product, amount });
         });
-        console.log(cleanCart);
         const currentOrders = await orders.countDocuments({});
-        console.log(currentOrders);
         const order = {
           orderNumber: currentOrders + 1,
           user: cart.cart.user,
@@ -87,10 +76,19 @@ class OrdersController {
           paymentStatus: "Successful",
           orderDate: Date.now(),
         };
-        console.log(order);
-        const result = await orders.create(order);
-        console.log(result);
+        await orders.create(order);
       }
+      console.log("cart2: ", cart);
+      // .find({_id: cart[0]})
+      let purchases = [];
+      cart.cart.cart.map((item) =>
+        purchases.push({
+          amount: item.amount,
+          title: item.competition.title,
+          price: item.competition.ticketPrice,
+        })
+      );
+      purchaseEmail(cart.cart.userEmail, purchases);
       res.redirect("https://bigbosscompetitions.com/bye");
     } catch (error) {
       res.status(500).send();

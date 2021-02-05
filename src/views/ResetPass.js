@@ -50,7 +50,6 @@ function ForgotPass() {
     const matchStatus = verifyMatch(newpassword, passMatch);
     setValidPass(passStatus);
     setValidMatch(matchStatus);
-    console.log("melon", passMatch, matchStatus);
     if (passStatus.ok && matchStatus.ok) {
       // and this ❗️
       const result = await post(`/users/${params.id}/resetpassword`, {
